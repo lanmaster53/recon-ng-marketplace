@@ -1,6 +1,8 @@
-recon/hosts-hosts/resolve.py:
-    name: Hostname Resolver
-    author: Tim Tomes (@LaNMaSteR53)
-    version: v1.0
-    last-updated: 2019-03-20 12:30:00
-    summary: Resolves the IP address for a host. Updates the \'hosts\' table with the results.
+- path: recon/hosts-hosts/resolve
+  name: Hostname Resolver
+  author: Tim Tomes (@LaNMaSteR53)
+  version: 1.0
+  last-updated: 2019-03-20
+  description: Resolves the IP address for a host. Updates the 'hosts' table with the results.
+  key-required: false
+  dependencies: 
