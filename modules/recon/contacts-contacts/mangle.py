@@ -6,6 +6,7 @@ class Module(BaseModule):
     meta = {
         'name': 'Contact Name Mangler',
         'author': 'Tim Tomes (@LaNMaSteR53)',
+        'version': '1.0',
         'description': 'Applies a mangle pattern to all of the contacts stored in the database, creating email addresses or usernames for each harvested contact. Updates the \'contacts\' table with the results.',
         'comments': (
             'Pattern options: <fi>,<fn>,<mi>,<mn>,<li>,<ln>',

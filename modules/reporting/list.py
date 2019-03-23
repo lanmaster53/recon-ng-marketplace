@@ -7,6 +7,7 @@ class Module(BaseModule):
     meta = {
         'name': 'List Creator',
         'author': 'Tim Tomes (@LaNMaSteR53)',
+        'version': '1.0',
         'description': 'Creates a file containing a list of records from the database.',
         'options': (
             ('table', 'hosts', True, 'source table of data for the list'),

@@ -5,6 +5,7 @@ class Module(BaseModule):
     meta = {
         'name': 'Github Profile Harvester',
         'author': 'Tim Tomes (@LaNMaSteR53)',
+        'version': '1.0',
         'description': 'Uses the Github API to gather user info from harvested profiles. Updates the \'contacts\' table with the results.',
         'required_keys': ['github_api'],
         'query': "SELECT DISTINCT username FROM profiles WHERE username IS NOT NULL AND resource LIKE 'Github'",

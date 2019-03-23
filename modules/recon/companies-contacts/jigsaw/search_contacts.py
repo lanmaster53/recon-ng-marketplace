@@ -8,6 +8,7 @@ class Module(BaseModule):
     meta = {
         'name': 'Jigsaw Contact Enumerator',
         'author': 'Tim Tomes (@LaNMaSteR53)',
+        'version': '1.0',
         'description': 'Harvests contacts from the Jigsaw.com API. Updates the \'contacts\' table with the results.',
         'required_keys': ['jigsaw_api'],
         'query': 'SELECT DISTINCT company FROM companies WHERE company IS NOT NULL',

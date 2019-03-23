@@ -8,6 +8,7 @@ class Module(BaseModule):
     meta = {
         'name': 'Interesting File Finder',
         'author': 'Tim Tomes (@LaNMaSteR53), thrapt (thrapt@gmail.com), Jay Turla (@shipcod3), and Mark Jeffery',
+        'version': '1.0',
         'description': 'Checks hosts for interesting files in predictable locations.',
         'comments': (
             'Files: robots.txt, sitemap.xml, sitemap.xml.gz, crossdomain.xml, phpinfo.php, test.php, elmah.axd, server-status, jmx-console/, admin-console/, web-console/',

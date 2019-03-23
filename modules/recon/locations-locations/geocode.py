@@ -5,6 +5,7 @@ class Module(BaseModule):
     meta = {
         'name': 'Address Geocoder',
         'author': 'Quentin Kaiser (contact@quentinkaiser.be)',
+        'version': '1.0',
         'description': 'Queries the Google Maps API to obtain coordinates for an address. Updates the \'locations\' table with the results.',
         'required_keys': ['google_api'],
         'query': 'SELECT DISTINCT street_address FROM locations WHERE street_address IS NOT NULL',

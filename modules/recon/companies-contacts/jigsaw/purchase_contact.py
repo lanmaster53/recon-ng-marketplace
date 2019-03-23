@@ -6,6 +6,7 @@ class Module(BaseModule):
     meta = {
         'name': 'Jigsaw - Single Contact Retriever',
         'author': 'Tim Tomes (@LaNMaSteR53)',
+        'version': '1.0',
         'description': 'Retrieves a single complete contact from the Jigsaw.com API using points from the given account.',
         'required_keys': ['jigsaw_username', 'jigsaw_password', 'jigsaw_api'],
         'comments': (

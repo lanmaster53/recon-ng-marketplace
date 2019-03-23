@@ -5,6 +5,7 @@ class Module(BaseModule):
     meta = {
         'name': 'ThreatMiner DNS lookup',
         'author': 'Pedro Rodrigues',
+        'version': '1.0',
         'description': 'Use ThreatMiner API to discover subdomains.',
         'query': 'SELECT DISTINCT domain FROM domains WHERE domain IS NOT NULL',
     }

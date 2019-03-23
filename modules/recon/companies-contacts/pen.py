@@ -6,6 +6,7 @@ class Module(BaseModule):
     meta = {
         'name': 'IANA Private Enterprise Number Contact Getter',
         'author': 'Jonathan M. Wilbur <jonathan@wilbur.space>',
+        'version': '1.0',
         'description': 'Given a company name, gathers the registered IANA Private Enterprise Number (PEN) contact from the PEN registry. The contacts\'s full name and email address are then added to the \'contacts\' table.',
         'required_keys': [],
         'comments': (),

@@ -6,7 +6,7 @@
   name: PushPin Report Generator
   path: reporting/pushpin
   required_keys: []
-  version: null
+  version: '1.0'
 - author: Eric Humphries (@e2fsck) and Tim Tomes (@LaNMaSteR53)
   dependencies: []
   description: Creates a XML report.
@@ -14,7 +14,7 @@
   name: XML Report Generator
   path: reporting/xml
   required_keys: []
-  version: v0.0.2
+  version: '1.1'
 - author: thrapt (thrapt@gmail.com)
   dependencies: []
   description: Harvests hosts from Netcraft.com. Updates the 'hosts' table with the
@@ -23,7 +23,7 @@
   name: Netcraft Hostname Enumerator
   path: recon/domains-hosts/netcraft
   required_keys: []
-  version: null
+  version: '1.0'
 - author: Tim Tomes (@LaNMaSteR53)
   dependencies: []
   description: Retrieves a single complete contact from the Jigsaw.com API using points
@@ -35,7 +35,7 @@
   - jigsaw_username
   - jigsaw_password
   - jigsaw_api
-  version: null
+  version: '1.0'
 - author: Tim Tomes (@LaNMaSteR53)
   dependencies: []
   description: Searches for files associated with the provided domain(s) and extracts
@@ -44,7 +44,7 @@
   name: Meta Data Extractor
   path: recon/domains-contacts/metacrawler
   required_keys: []
-  version: null
+  version: '1.0'
 - author: Tim Tomes (@LaNMaSteR53)
   dependencies: []
   description: Harvests contacts from the Jigsaw.com API. Updates the 'contacts' table
@@ -54,7 +54,7 @@
   path: recon/companies-contacts/jigsaw/search_contacts
   required_keys:
   - jigsaw_api
-  version: null
+  version: '1.0'
 - author: Ethan Robish (@EthanRobish) and Tim Tomes (@LaNMaSteR53)
   dependencies: []
   description: Decrypts hashes leaked from the 2013 Adobe breach. First, the module
@@ -68,7 +68,7 @@
   name: Adobe Hash Cracker
   path: recon/credentials-credentials/adobe
   required_keys: []
-  version: null
+  version: '1.0'
 - author: Tim Tomes (@LaNMaSteR53)
   dependencies: []
   description: Brute forces host names using DNS. Updates the 'hosts' table with the
@@ -77,7 +77,7 @@
   name: DNS Hostname Brute Forcer
   path: recon/domains-hosts/brute_hosts
   required_keys: []
-  version: null
+  version: '1.0'
 - author: Rich Warren (richard.warren@nccgroup.trust)
   dependencies: []
   description: Searches certificate transparency data from crt.sh, adding newly identified
@@ -86,7 +86,7 @@
   name: Certificiate Transparency Search
   path: recon/domains-hosts/certificate_transparency
   required_keys: []
-  version: null
+  version: '1.0'
 - author: Pedro Rodrigues (@Pedro_SEC_R)
   dependencies: []
   description: Queries the FindSubDomain page for sub-domain information in a domain.
@@ -94,7 +94,7 @@
   name: FindSubDomains DNS search
   path: recon/domains-hosts/findsubdomains
   required_keys: []
-  version: null
+  version: '1.0'
 - author: Robert Frost (@frosty_1313, frosty[at]unluckyfrosty.net)
   dependencies: []
   description: Leverages the Twitter API to enumerate users that were mentioned by
@@ -105,7 +105,7 @@
   required_keys:
   - twitter_api
   - twitter_secret
-  version: null
+  version: '1.0'
 - author: Tim Maletic (borrowing from the ssl_san module by Zach Graces)
   dependencies: []
   description: Uses the ssltools.com site to obtain host names from a site's SSL certificate
@@ -115,7 +115,7 @@
   name: SSLTools.com Host Name Lookups
   path: recon/hosts-hosts/ssltools
   required_keys: []
-  version: null
+  version: '1.0'
 - author: Tim Tomes (@LaNMaSteR53)
   dependencies: []
   description: Queries the PwnedList API for credentials associated with the given
@@ -127,7 +127,7 @@
   - pwnedlist_api
   - pwnedlist_secret
   - pwnedlist_iv
-  version: null
+  version: '1.0'
 - author: John Askew (https://bitbucket.org/skew)
   dependencies: []
   description: Queries the censys.io API to enumerate information about netblocks.
@@ -137,7 +137,7 @@
   required_keys:
   - censysio_id
   - censysio_secret
-  version: null
+  version: '1.0'
 - author: Tim Tomes (@LaNMaSteR53)
   dependencies: []
   description: Resolves the IP address for a host. Updates the 'hosts' table with
@@ -146,7 +146,7 @@
   name: Hostname Resolver
   path: recon/hosts-hosts/resolve
   required_keys: []
-  version: null
+  version: '1.0'
 - author: Michael Henriksen (@michenriksen)
   dependencies: []
   description: Uses the HackerTarget.com API to find host names. Updates the 'hosts'
@@ -155,7 +155,7 @@
   name: HackerTarget Lookup
   path: recon/domains-hosts/hackertarget
   required_keys: []
-  version: null
+  version: '1.0'
 - author: Marcus Watson (@BranMacMuffin)
   dependencies: []
   description: Brute forces TLDs and SLDs using DNS. Updates the 'domains' table with
@@ -164,7 +164,7 @@
   name: DNS Public Suffix Brute Forcer
   path: recon/domains-domains/brute_suffix
   required_keys: []
-  version: null
+  version: '1.0'
 - author: Tim Tomes (@LaNMaSteR53) and thrapt (thrapt@gmail.com)
   dependencies: []
   description: Leverages NameChk.com to validate the existance of usernames on specific
@@ -173,7 +173,7 @@
   name: NameChk.com Username Validator
   path: recon/profiles-profiles/namechk
   required_keys: []
-  version: null
+  version: '1.0'
 - author: Michael Henriksen (@michenriksen)
   dependencies: []
   description: Uses the Github API to gather user profiles from repository commits.
@@ -183,7 +183,7 @@
   path: recon/repositories-profiles/github_commits
   required_keys:
   - github_api
-  version: null
+  version: '1.0'
 - author: Marcus Watson (@BranMacMuffin)
   dependencies: []
   description: Leverages the Bing API and "domain:" advanced search operator to harvest
@@ -193,7 +193,7 @@
   path: recon/domains-hosts/bing_domain_api
   required_keys:
   - bing_api
-  version: null
+  version: '1.0'
 - author: USSC (thanks @jevalenciap)
   dependencies: []
   description: Harvests domains from the Virustotal by using the report API. Updates
@@ -203,7 +203,7 @@
   path: recon/hosts-hosts/virustotal
   required_keys:
   - virustotal_api
-  version: null
+  version: '1.0'
 - author: Tim Tomes (@LaNMaSteR53)
   dependencies: []
   description: Queries the PwnedList API for account usage statistics.
@@ -213,7 +213,7 @@
   required_keys:
   - pwnedlist_api
   - pwnedlist_secret
-  version: null
+  version: '1.0'
 - author: Jonathan M. Wilbur <jonathan@wilbur.space>
   dependencies: []
   description: Given a company name, gathers the registered IANA Private Enterprise
@@ -223,7 +223,7 @@
   name: IANA Private Enterprise Number Contact Getter
   path: recon/companies-contacts/pen
   required_keys: []
-  version: null
+  version: '1.0'
 - author: Tim Tomes (@LaNMaSteR53)
   dependencies: []
   description: Queries the local database for information associated with a leak ID.
@@ -233,7 +233,7 @@
   name: PwnedList - Leak Details Fetcher
   path: recon/domains-credentials/pwnedlist/leak_lookup
   required_keys: []
-  version: null
+  version: '1.0'
 - author: Joe Black (@MyChickenNinja), @fullmetalcache, and Brian King
   dependencies: []
   description: Harvests profiles from LinkedIn by querying the Bing API cache for
@@ -247,7 +247,7 @@
   path: recon/companies-contacts/bing_linkedin_cache
   required_keys:
   - bing_api
-  version: null
+  version: '1.0'
 - author: Tim Tomes (@LaNMaSteR53)
   dependencies: []
   description: Creates a CSV file containing the specified harvested data.
@@ -255,7 +255,7 @@
   name: CSV File Creator
   path: reporting/csv
   required_keys: []
-  version: null
+  version: '1.0'
 - author: Tim Tomes (@LaNMaSteR53)
   dependencies: []
   description: Uses the Github API to download and search Gists for possible information
@@ -264,7 +264,7 @@
   name: Github Gist Searcher
   path: recon/repositories-vulnerabilities/gists_search
   required_keys: []
-  version: null
+  version: '1.0'
 - author: Zach Grace (@ztgrace) zgrace@403labs.com and Bryan Onel (@BryanOnel86) onel@oneleet.com
   dependencies: []
   description: Uses the ssltools.com API to obtain the Subject Alternative Names for
@@ -273,7 +273,7 @@
   name: SSL SAN Lookup
   path: recon/domains-hosts/ssl_san
   required_keys: []
-  version: null
+  version: '1.0'
 - author: Tim Tomes (@LaNMaSteR53)
   dependencies: []
   description: Provides a shell interface for remote command injection flaws in web
@@ -282,7 +282,7 @@
   name: Remote Command Injection Shell Interface
   path: exploitation/injection/command_injector
   required_keys: []
-  version: null
+  version: '1.0'
 - author: Tim Tomes (@LaNMaSteR53)
   dependencies: []
   description: Creates a file containing a list of records from the database.
@@ -290,7 +290,7 @@
   name: List Creator
   path: reporting/list
   required_keys: []
-  version: null
+  version: '1.0'
 - author: Tim Tomes (@LaNMaSteR53)
   dependencies: []
   description: Searches Flickr for media in the specified proximity to a location.
@@ -299,7 +299,7 @@
   path: recon/locations-pushpins/flickr
   required_keys:
   - flickr_api
-  version: null
+  version: '1.0'
 - author: Tim Tomes (@LaNMaSteR53)
   dependencies: []
   description: Uses the ARIN Whois RWS to harvest companies, locations, netblocks,
@@ -309,7 +309,7 @@
   name: Whois Data Miner
   path: recon/companies-multi/whois_miner
   required_keys: []
-  version: null
+  version: '1.0'
 - author: Tim Tomes (@LaNMaSteR53)
   dependencies: []
   description: Adds a new location for all the locations stored in the 'hosts' table.
@@ -317,7 +317,7 @@
   name: Hosts to Locations Data Migrator
   path: recon/hosts-locations/migrate_hosts
   required_keys: []
-  version: null
+  version: '1.0'
 - author: Tim Tomes (@LaNMaSteR53)
   dependencies: []
   description: Uses the ARIN Whois RWS to harvest POC data from whois queries for
@@ -326,7 +326,7 @@
   name: Whois POC Harvester
   path: recon/domains-contacts/whois_pocs
   required_keys: []
-  version: null
+  version: '1.0'
 - author: Tim Tomes (@LaNMaSteR53) and thrapt (thrapt@gmail.com)
   dependencies: []
   description: Leverages the PunkSPIDER API to search for previosuly discovered vulnerabltiies
@@ -335,7 +335,7 @@
   name: PunkSPIDER Vulnerabilty Finder
   path: recon/domains-vulnerabilities/punkspider
   required_keys: []
-  version: null
+  version: '1.0'
 - author: Tim Tomes (@LaNMaSteR53) and Matt Puckett (@t3lc0)
   dependencies: []
   description: Harvests port information from the Shodan API by using the 'ip' search
@@ -345,7 +345,7 @@
   path: recon/hosts-ports/shodan_ip
   required_keys:
   - shodan_api
-  version: null
+  version: '1.0'
 - author: Tim Tomes (@LaNMaSteR53)
   dependencies: []
   description: Adds a new domain for all the hostnames stored in the 'hosts' table.
@@ -353,7 +353,7 @@
   name: Hosts to Domains Data Migrator
   path: recon/hosts-domains/migrate_hosts
   required_keys: []
-  version: null
+  version: '1.0'
 - author: Tim Tomes (@LaNMaSteR53)
   dependencies: []
   description: Leverages MailTester.com to validate email addresses.
@@ -361,7 +361,7 @@
   name: MailTester Email Validator
   path: recon/contacts-contacts/mailtester
   required_keys: []
-  version: null
+  version: '1.0'
 - author: Tim Tomes (@LaNMaSteR53)
   dependencies: []
   description: Searches Shodan for media in the specified proximity to a location.
@@ -370,7 +370,7 @@
   path: recon/locations-pushpins/shodan
   required_keys:
   - shodan_api
-  version: null
+  version: '1.0'
 - author: Quentin Kaiser (contact@quentinkaiser.be)
   dependencies: []
   description: Queries the Google Maps API to obtain coordinates for an address. Updates
@@ -380,7 +380,7 @@
   path: recon/locations-locations/geocode
   required_keys:
   - google_api
-  version: null
+  version: '1.0'
 - author: Tim Tomes (@LaNMaSteR53)
   dependencies: []
   description: Uses the Github API to gather user info from harvested profiles. Updates
@@ -390,7 +390,7 @@
   path: recon/profiles-contacts/github_users
   required_keys:
   - github_api
-  version: null
+  version: '1.0'
 - author: Tim Tomes (@LaNMaSteR53)
   dependencies: []
   description: Harvests hosts from the Shodan API by using the 'hostname' search operator.
@@ -400,7 +400,7 @@
   path: recon/domains-hosts/shodan_hostname
   required_keys:
   - shodan_api
-  version: null
+  version: '1.0'
 - author: Tim Tomes (@LaNMaSteR53)
   dependencies: []
   description: Uses the Github API to enumerate repositories and member profiles associated
@@ -410,7 +410,7 @@
   path: recon/companies-multi/github_miner
   required_keys:
   - github_api
-  version: null
+  version: '1.0'
 - author: Siarhei Harbachou (Tech.Insiders), Gerrit Helm (G) and Tim Tomes (@LaNMaSteR53)
   dependencies: []
   description: Leverages the ipstack.com API to geolocate a host by IP address. Updates
@@ -420,7 +420,7 @@
   path: recon/hosts-hosts/ipstack
   required_keys:
   - ipstack_api
-  version: null
+  version: '1.0'
 - author: Jonathan M. Wilbur <jonathan@wilbur.space>
   dependencies: []
   description: Given a company name, gathers a domain from the email address of the
@@ -430,7 +430,7 @@
   name: IANA Private Enterprise Number Domain Getter
   path: recon/companies-domains/pen
   required_keys: []
-  version: null
+  version: '1.0'
 - author: Tim Tomes (@LaNMaSteR53)
   dependencies: []
   description: Checks XSSposed.com for XSS records associated with a domain.
@@ -438,7 +438,7 @@
   name: XSSposed Domain Lookup
   path: recon/domains-vulnerabilities/xssposed
   required_keys: []
-  version: null
+  version: '1.0'
 - author: Tim Tomes (@LaNMaSteR53)
   dependencies: []
   description: Queries the Jigsaw API for the point usage statistics of the given
@@ -450,7 +450,7 @@
   - jigsaw_username
   - jigsaw_password
   - jigsaw_api
-  version: null
+  version: '1.0'
 - author: thrapt (thrapt@gmail.com)
   dependencies: []
   description: Uses the DNS cache snooping technique to check for visited domains
@@ -458,7 +458,7 @@
   name: DNS Cache Snooper
   path: discovery/info_disclosure/cache_snoop
   required_keys: []
-  version: null
+  version: '1.0'
 - author: Tim Tomes (@LaNMaSteR53)
   dependencies: []
   description: Creates a HTML report.
@@ -466,7 +466,7 @@
   name: HTML Report Generator
   path: reporting/html
   required_keys: []
-  version: null
+  version: '1.0'
 - author: Tim Tomes (@LaNMaSteR53) & Tyler Halfpop (@tylerhalfpop)
   dependencies: []
   description: Leverages the haveibeenpwned.com API to determine if email addresses
@@ -476,7 +476,7 @@
   name: Have I been pwned? Breach Search
   path: recon/contacts-credentials/hibp_breach
   required_keys: []
-  version: null
+  version: '1.0'
 - author: Tim Tomes (@LaNMaSteR53)
   dependencies: []
   description: Uses the ARIN Whois RWS to harvest Companies data from whois queries
@@ -485,7 +485,7 @@
   name: Whois Company Harvester
   path: recon/netblocks-companies/whois_orgs
   required_keys: []
-  version: null
+  version: '1.0'
 - author: Tim Tomes (@LaNMaSteR53)
   dependencies: []
   description: Queries the PwnedList API for a domain to determine if any associated
@@ -497,7 +497,7 @@
   required_keys:
   - pwnedlist_api
   - pwnedlist_secret
-  version: null
+  version: '1.0'
 - author: Tim Tomes (@LaNMaSteR53)
   dependencies: []
   description: Queries the PwnedList API to fetch all credentials for a domain. Updates
@@ -509,7 +509,7 @@
   - pwnedlist_api
   - pwnedlist_secret
   - pwnedlist_iv
-  version: null
+  version: '1.0'
 - author: John Babio (@3vi1john), @vulp1n3, and Tim Tomes (@LaNMaSteR53)
   dependencies: []
   description: Conducts a reverse lookup for each IP address to resolve the hostname.
@@ -518,7 +518,7 @@
   name: Reverse Resolver
   path: recon/hosts-hosts/reverse_resolve
   required_keys: []
-  version: null
+  version: '1.0'
 - author: Robert Frost (@frosty_1313, frosty[at]unluckyfrosty.net)
   dependencies: []
   description: Leverages the Twitter API to enumerate users that mentioned the given
@@ -529,7 +529,7 @@
   required_keys:
   - twitter_api
   - twitter_secret
-  version: null
+  version: '1.0'
 - author: Tim Tomes (@LaNMaSteR53)
   dependencies: []
   description: Imports values from a list file into a database table and column.
@@ -537,7 +537,7 @@
   name: List File Importer
   path: import/list
   required_keys: []
-  version: null
+  version: '1.0'
 - author: mike2dot0
   dependencies: []
   description: Leverages the ThreatCrowd passive DNS API to discover hosts/subdomains.
@@ -545,7 +545,7 @@
   name: ThreatCrowd DNS lookup
   path: recon/domains-hosts/threatcrowd
   required_keys: []
-  version: null
+  version: '1.0'
 - author: Jim Becher (@jimbecher, jbecher@korelogic.com)
   dependencies: []
   description: Retrieves the MX and SPF IPv4 records for a domain. Updates the 'hosts'
@@ -554,7 +554,7 @@
   name: Mail eXchange (MX) and Sender Policy Framework (SPF) Record Retriever
   path: recon/domains-hosts/mx_spf_ip
   required_keys: []
-  version: null
+  version: '1.0'
 - author: Tim Tomes (@LaNMaSteR53)
   dependencies: []
   description: Harvests contact information and profiles from the fullcontact.com
@@ -565,7 +565,7 @@
   path: recon/contacts-profiles/fullcontact-new
   required_keys:
   - fullcontact_api
-  version: null
+  version: '1.0'
 - author: AverageSecurityGuy (@averagesecguy)
   dependencies: []
   description: Requests URLs from the database for the purpose of populating an inline
@@ -574,7 +574,7 @@
   name: Proxifier
   path: reporting/proxifier
   required_keys: []
-  version: null
+  version: '1.0'
 - author: Ethan Robish (@EthanRobish)
   dependencies: []
   description: Applies a regex or unmangle pattern to all of the contacts stored in
@@ -584,7 +584,7 @@
   name: Contact Name Unmangler
   path: recon/contacts-contacts/unmangle
   required_keys: []
-  version: null
+  version: '1.0'
 - author: Mike Siegel and Tim Tomes (@LaNMaSteR53)
   dependencies: []
   description: Harvests hosts from the Shodan API by using the 'net' search operator.
@@ -594,7 +594,7 @@
   path: recon/netblocks-hosts/shodan_net
   required_keys:
   - shodan_api
-  version: null
+  version: '1.0'
 - author: Quentin Kaiser (contact@quentinkaiser.be)
   dependencies: []
   description: Queries the Google Maps API to obtain an address from coordinates.
@@ -603,7 +603,7 @@
   path: recon/locations-locations/reverse_geocode
   required_keys:
   - google_api
-  version: null
+  version: '1.0'
 - author: Tim Tomes (@LaNMaSteR53)
   dependencies: []
   description: Searches the YouTube API for media in the specified proximity to a
@@ -613,7 +613,7 @@
   path: recon/locations-pushpins/youtube
   required_keys:
   - google_api
-  version: null
+  version: '1.0'
 - author: Tim Tomes (@LaNMaSteR53)
   dependencies: []
   description: Adds a new host for all the hostnames stored in the 'ports' table.
@@ -621,7 +621,7 @@
   name: Ports to Hosts Data Migrator
   path: recon/ports-hosts/migrate_ports
   required_keys: []
-  version: null
+  version: '1.0'
 - author: Jonathan M. Wilbur <jonathan@wilbur.space>
   dependencies: []
   description: Given a domain, finds a contact in the IANA Private Enterprise Number
@@ -631,7 +631,7 @@
   name: IANA Private Enterprise Number Company-by-Domain Lookup
   path: recon/domains-companies/pen
   required_keys: []
-  version: null
+  version: '1.0'
 - author: Tim Tomes (@LaNMaSteR53)
   dependencies: []
   description: Leverages the Bing API and "ip:" advanced search operator to enumerate
@@ -642,7 +642,7 @@
   path: recon/hosts-hosts/bing_ip
   required_keys:
   - bing_api
-  version: null
+  version: '1.0'
 - author: Tim Tomes (@LaNMaSteR53)
   dependencies: []
   description: Adds a new domain for all the hostnames associated with email addresses
@@ -651,7 +651,7 @@
   name: Contacts to Domains Data Migrator
   path: recon/contacts-domains/migrate_contacts
   required_keys: []
-  version: null
+  version: '1.0'
 - author: Pedro Rodrigues
   dependencies: []
   description: Use ThreatMiner API to discover subdomains.
@@ -659,7 +659,7 @@
   name: ThreatMiner DNS lookup
   path: recon/domains-hosts/threatminer
   required_keys: []
-  version: null
+  version: '1.0'
 - author: Tim Tomes (@LaNMaSteR53)
   dependencies: []
   description: Queries the Internet Census 2012 data through Exfiltrated.com to enumerate
@@ -668,7 +668,7 @@
   name: Internet Census 2012 Lookup
   path: recon/netblocks-ports/census_2012
   required_keys: []
-  version: null
+  version: '1.0'
 - author: Tim Tomes (@LaNMaSteR53)
   dependencies: []
   description: Searches for possible vulnerabilites in a domain by leveraging the
@@ -678,7 +678,7 @@
   name: Google Hacking Database
   path: recon/domains-vulnerabilities/ghdb
   required_keys: []
-  version: null
+  version: '1.0'
 - author: Quentin Kaiser (@qkaiser, contact[at]quentinkaiser.be) and Tim Tomes (@LaNMaSteR53)
   dependencies: []
   description: Harvests contact information and profiles from the fullcontact.com
@@ -689,7 +689,7 @@
   path: recon/contacts-profiles/fullcontact
   required_keys:
   - fullcontact_api
-  version: null
+  version: '1.0'
 - author: Tim Tomes (@LaNMaSteR53)
   dependencies: []
   description: Uses the Github API to search for possible vulnerabilites in source
@@ -700,7 +700,7 @@
   path: recon/repositories-vulnerabilities/github_dorks
   required_keys:
   - github_api
-  version: null
+  version: '1.0'
 - author: Tim Tomes (@LaNMaSteR53)
   dependencies: []
   description: Harvests hosts from Bing.com by using the 'site' search operator. Updates
@@ -709,7 +709,7 @@
   name: Bing Hostname Enumerator
   path: recon/domains-hosts/bing_domain_web
   required_keys: []
-  version: null
+  version: '1.0'
 - author: Micah Hoffman (@WebBreacher)
   dependencies: []
   description: Takes each username from the profiles table and searches a variety
@@ -719,7 +719,7 @@
   name: OSINT HUMINT Profile Collector
   path: recon/profiles-profiles/profiler
   required_keys: []
-  version: null
+  version: '1.0'
 - author: Tim Tomes (@LaNMaSteR53)
   dependencies: []
   description: Searches Google for the value of a hash and tests for a match by hashing
@@ -729,7 +729,7 @@
   name: PyBozoCrack Hash Lookup
   path: recon/credentials-credentials/bozocrack
   required_keys: []
-  version: null
+  version: '1.0'
 - author: USSC (thanks @jevalenciap)
   dependencies: []
   description: Harvests domains from the Virustotal by using the report API. Updates
@@ -739,7 +739,7 @@
   path: recon/netblocks-hosts/virustotal
   required_keys:
   - virustotal_api
-  version: null
+  version: '1.0'
 - author: Tim Tomes (@LaNMaSteR53)
   dependencies: []
   description: Queries the PwnedList API for information associated with all known
@@ -750,7 +750,7 @@
   required_keys:
   - pwnedlist_api
   - pwnedlist_secret
-  version: null
+  version: '1.0'
 - author: Tim Tomes (@LaNMaSteR53)
   dependencies: []
   description: Leverages the haveibeenpwned.com API to determine if email addresses
@@ -760,7 +760,7 @@
   name: Have I been pwned? Paste Search
   path: recon/contacts-credentials/hibp_paste
   required_keys: []
-  version: null
+  version: '1.0'
 - author: Tim Tomes (@LaNMaSteR53)
   dependencies: []
   description: Searches Twitter for media in the specified proximity to a location.
@@ -770,7 +770,7 @@
   required_keys:
   - twitter_api
   - twitter_secret
-  version: null
+  version: '1.0'
 - author: Tim Tomes (@LaNMaSteR53)
   dependencies: []
   description: Applies a mangle pattern to all of the contacts stored in the database,
@@ -780,7 +780,7 @@
   name: Contact Name Mangler
   path: recon/contacts-contacts/mangle
   required_keys: []
-  version: null
+  version: '1.0'
 - author: Tim Tomes (@LaNMaSteR53) and Mike Lisi (@MikeCodesThings)
   dependencies: []
   description: Uses the Hashes.org API to perform a reverse hash lookup. Updates the
@@ -790,7 +790,7 @@
   path: recon/credentials-credentials/hashes_org
   required_keys:
   - hashes_api
-  version: null
+  version: '1.0'
 - author: Tim Tomes (@LaNMaSteR53)
   dependencies: []
   description: Leverages the ipinfodb.com API to geolocate a host by IP address. Updates
@@ -800,7 +800,7 @@
   path: recon/hosts-hosts/ipinfodb
   required_keys:
   - ipinfodb_api
-  version: null
+  version: '1.0'
 - author: Tim Tomes (@LaNMaSteR53), thrapt (thrapt@gmail.com), Jay Turla (@shipcod3),
     and Mark Jeffery
   dependencies: []
@@ -809,7 +809,7 @@
   name: Interesting File Finder
   path: discovery/info_disclosure/interesting_files
   required_keys: []
-  version: null
+  version: '1.0'
 - author: Micah Hoffman (@WebBreacher)
   dependencies: []
   description: Checks XSSed.com for XSS records associated with a domain and displays
@@ -818,7 +818,7 @@
   name: XSSed Domain Lookup
   path: recon/domains-vulnerabilities/xssed
   required_keys: []
-  version: null
+  version: '1.0'
 - author: Tim Tomes (@LaNMaSteR53)
   dependencies: []
   description: Harvests hosts from Google.com by using the 'site' search operator.
@@ -827,7 +827,7 @@
   name: Google Hostname Enumerator
   path: recon/domains-hosts/google_site_web
   required_keys: []
-  version: null
+  version: '1.0'
 - author: Tim Tomes (@LaNMaSteR53)
   dependencies: []
   description: Creates an Excel compatible XLSX file containing the entire data set.
@@ -835,7 +835,7 @@
   name: XLSX File Creator
   path: reporting/xlsx
   required_keys: []
-  version: null
+  version: '1.0'
 - author: Ethan Robish (@EthanRobish)
   dependencies: []
   description: Imports values from a CSV file into a database table.
@@ -843,7 +843,7 @@
   name: Advanced CSV File Importer
   path: import/csv_file
   required_keys: []
-  version: null
+  version: '1.0'
 - author: Paul (@PaulWebSec)
   dependencies: []
   description: Creates a JSON report.
@@ -851,7 +851,7 @@
   name: JSON Report Generator
   path: reporting/json
   required_keys: []
-  version: v0.0.1
+  version: '1.0'
 - author: Tim Tomes (@LaNMaSteR53)
   dependencies: []
   description: Exploits XPath injection flaws to enumerate the contents of serverside
@@ -860,7 +860,7 @@
   name: Xpath Injection Brute Forcer
   path: exploitation/injection/xpath_bruter
   required_keys: []
-  version: null
+  version: '1.0'
 - author: Tim Tomes (@LaNMaSteR53)
   dependencies: []
   description: Leverages the BuiltWith API to identify hosts, technologies, and contacts
@@ -870,7 +870,7 @@
   path: recon/domains-hosts/builtwith
   required_keys:
   - builtwith_api
-  version: null
+  version: '1.0'
 - author: Micah Hoffman (@WebBreacher)
   dependencies: []
   description: Searches public code repositories for information about a given username.
@@ -878,7 +878,7 @@
   name: Dev Diver Repository Activity Examiner
   path: recon/profiles-contacts/dev_diver
   required_keys: []
-  version: null
+  version: '1.0'
 - author: Jonathan M. Wilbur <jonathan@wilbur.space>
   dependencies: []
   description: Given a domain, finds a contact in the IANA Private Enterprise Number
@@ -888,7 +888,7 @@
   name: IANA Private Enterprise Number Company-by-Domain Lookup
   path: recon/domains-contacts/pen
   required_keys: []
-  version: null
+  version: '1.0'
 - author: Tim Tomes (@LaNMaSteR53)
   dependencies: []
   description: Uses the Github API to enumerate repositories and gists owned by a
@@ -898,7 +898,7 @@
   path: recon/profiles-repositories/github_repos
   required_keys:
   - github_api
-  version: null
+  version: '1.0'
 - author: John Babio (@3vi1john)
   dependencies: []
   description: Conducts a reverse lookup for each of a netblock's IP addresses to
@@ -907,4 +907,4 @@
   name: Reverse Resolver
   path: recon/netblocks-hosts/reverse_resolve
   required_keys: []
-  version: null
+  version: '1.0'

@@ -7,6 +7,7 @@ class Module(BaseModule):
     meta = {
         'name': 'PunkSPIDER Vulnerabilty Finder',
         'author': 'Tim Tomes (@LaNMaSteR53) and thrapt (thrapt@gmail.com)',
+        'version': '1.0',
         'description': 'Leverages the PunkSPIDER API to search for previosuly discovered vulnerabltiies on hosts within a domain.',
         'query': 'SELECT DISTINCT domain FROM domains WHERE domain IS NOT NULL',
     }

@@ -9,6 +9,7 @@ class Module(BaseModule):
     meta = {
         'name': 'Dev Diver Repository Activity Examiner',
         'author': 'Micah Hoffman (@WebBreacher)',
+        'version': '1.0',
         'description': 'Searches public code repositories for information about a given username.',
         'query': 'SELECT DISTINCT username FROM profiles WHERE username IS NOT NULL',
     }

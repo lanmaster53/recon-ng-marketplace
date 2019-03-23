@@ -6,6 +6,7 @@ class Module(BaseModule):
     meta = {
         'name': 'Shodan Hostname Enumerator',
         'author': 'Tim Tomes (@LaNMaSteR53)',
+        'version': '1.0',
         'description': 'Harvests hosts from the Shodan API by using the \'hostname\' search operator. Updates the \'hosts\' table with the results.',
         'required_keys': ['shodan_api'],
         'query': 'SELECT DISTINCT domain FROM domains WHERE domain IS NOT NULL',

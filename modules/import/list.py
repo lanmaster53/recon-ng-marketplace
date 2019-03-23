@@ -5,6 +5,7 @@ class Module(BaseModule):
     meta = {
         'name': 'List File Importer',
         'author': 'Tim Tomes (@LaNMaSteR53)',
+        'version': '1.0',
         'description': 'Imports values from a list file into a database table and column.',
         'options': (
             ('filename', None, True, 'path and filename for list input'),

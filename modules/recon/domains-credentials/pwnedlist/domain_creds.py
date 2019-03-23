@@ -6,6 +6,7 @@ class Module(BaseModule):
     meta = {
         'name': 'PwnedList - Pwned Domain Credentials Fetcher',
         'author': 'Tim Tomes (@LaNMaSteR53)',
+        'version': '1.0',
         'description': 'Queries the PwnedList API to fetch all credentials for a domain. Updates the \'credentials\' table with the results.',
         'required_keys': ['pwnedlist_api', 'pwnedlist_secret', 'pwnedlist_iv'],
         'comments': (

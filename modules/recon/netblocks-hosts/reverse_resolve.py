@@ -8,6 +8,7 @@ class Module(BaseModule, ResolverMixin):
     meta = {
         'name': 'Reverse Resolver',
         'author': 'John Babio (@3vi1john)',
+        'version': '1.0',
         'description': 'Conducts a reverse lookup for each of a netblock\'s IP addresses to resolve the hostname. Updates the \'hosts\' table with the results.',
         'query': 'SELECT DISTINCT netblock FROM netblocks WHERE netblock IS NOT NULL',
     }

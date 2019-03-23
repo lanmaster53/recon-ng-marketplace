@@ -5,6 +5,7 @@ class Module(BaseModule):
     meta = {
         'name': 'Jigsaw - Point Usage Statistics Fetcher',
         'author': 'Tim Tomes (@LaNMaSteR53)',
+        'version': '1.0',
         'description': 'Queries the Jigsaw API for the point usage statistics of the given account.',
         'required_keys': ['jigsaw_username', 'jigsaw_password', 'jigsaw_api'],
     }

@@ -8,6 +8,7 @@ class Module(BaseModule):
     meta = {
         'name': 'Hashes.org Hash Lookup',
         'author': 'Tim Tomes (@LaNMaSteR53) and Mike Lisi (@MikeCodesThings)',
+        'version': '1.0',
         'description': 'Uses the Hashes.org API to perform a reverse hash lookup. Updates the \'credentials\' table with the positive results.',
         'required_keys': ['hashes_api'],
         'comments': (

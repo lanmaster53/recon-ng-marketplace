@@ -6,6 +6,7 @@ class Module(BaseModule):
     meta = {
         'name': 'FullContact Contact Enumerator',
         'author': 'Quentin Kaiser (@qkaiser, contact[at]quentinkaiser.be) and Tim Tomes (@LaNMaSteR53)',
+        'version': '1.0',
         'description': 'Harvests contact information and profiles from the fullcontact.com API using email addresses as input. Updates the \'contacts\' and \'profiles\' tables with the results.',
         'required_keys': ['fullcontact_api'],
         'query': 'SELECT DISTINCT email FROM contacts WHERE email IS NOT NULL',

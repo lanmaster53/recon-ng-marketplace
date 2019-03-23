@@ -5,6 +5,7 @@ class Module(BaseModule):
     meta = {
         'name': 'Reverse Geocoder',
         'author': 'Quentin Kaiser (contact@quentinkaiser.be)',
+        'version': '1.0',
         'description': 'Queries the Google Maps API to obtain an address from coordinates.',
         'required_keys': ['google_api'],
         'query': 'SELECT DISTINCT latitude || \',\' || longitude FROM locations WHERE latitude IS NOT NULL AND longitude IS NOT NULL',

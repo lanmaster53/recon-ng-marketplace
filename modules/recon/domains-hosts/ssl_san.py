@@ -6,6 +6,7 @@ class Module(BaseModule):
     meta = {
         'name': 'SSL SAN Lookup',
         'author': 'Zach Grace (@ztgrace) zgrace@403labs.com and Bryan Onel (@BryanOnel86) onel@oneleet.com',
+        'version': '1.0',
         'description': 'Uses the ssltools.com API to obtain the Subject Alternative Names for a domain. Updates the \'hosts\' table with the results.',
         'query': 'SELECT DISTINCT domain FROM domains WHERE domain IS NOT NULL',
     }

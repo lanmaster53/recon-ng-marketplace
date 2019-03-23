@@ -5,6 +5,7 @@ class Module(BaseModule):
     meta = {
         'name': 'PwnedList - Leak Details Fetcher',
         'author': 'Tim Tomes (@LaNMaSteR53)',
+        'version': '1.0',
         'description': 'Queries the local database for information associated with a leak ID. The \'leaks_dump\' module must be used to populate the local database before this module will execute successfully.',
         'query': 'SELECT DISTINCT leak FROM credentials WHERE leak IS NOT NULL',
     }

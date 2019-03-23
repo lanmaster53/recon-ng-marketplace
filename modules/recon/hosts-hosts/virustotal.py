@@ -6,6 +6,7 @@ class Module(BaseModule):
     meta = {
         'name': 'Virustotal domains extractor',
         'author': 'USSC (thanks @jevalenciap)',
+        'version': '1.0',
         'description': 'Harvests domains from the Virustotal by using the report API. Updates the \'hosts\' table with the results.',
         'required_keys': ['virustotal_api'],
         'query': 'SELECT DISTINCT ip_address FROM hosts WHERE ip_address IS NOT NULL',

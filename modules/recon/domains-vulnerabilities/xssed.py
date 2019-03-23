@@ -8,6 +8,7 @@ class Module(BaseModule):
     meta = {
         'name': 'XSSed Domain Lookup',
         'author': 'Micah Hoffman (@WebBreacher)',
+        'version': '1.0',
         'description': 'Checks XSSed.com for XSS records associated with a domain and displays the first 20 results.',
         'query': 'SELECT DISTINCT domain FROM domains WHERE domain IS NOT NULL',
     }

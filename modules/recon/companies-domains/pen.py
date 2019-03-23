@@ -6,6 +6,7 @@ class Module(BaseModule):
     meta = {
         'name': 'IANA Private Enterprise Number Domain Getter',
         'author': 'Jonathan M. Wilbur <jonathan@wilbur.space>',
+        'version': '1.0',
         'description': 'Given a company name, gathers a domain from the email address of the registered IANA Private Enterprise Number (PEN) contact from the PEN registry. The domain is added to the \'domains\' table.',
         'required_keys': [],
         'comments': (),

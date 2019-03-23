@@ -6,6 +6,7 @@ class Module(BaseModule):
     meta = {
         'name': 'BuiltWith Enumerator',
         'author': 'Tim Tomes (@LaNMaSteR53)',
+        'version': '1.0',
         'description': 'Leverages the BuiltWith API to identify hosts, technologies, and contacts associated with a domain.',
         'required_keys': ['builtwith_api'],
         'query': 'SELECT DISTINCT domain FROM domains WHERE domain IS NOT NULL',

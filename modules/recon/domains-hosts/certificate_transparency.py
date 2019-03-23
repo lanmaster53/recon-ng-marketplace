@@ -6,6 +6,7 @@ class Module(BaseModule):
     meta = {
         'name': 'Certificiate Transparency Search',
         'author': 'Rich Warren (richard.warren@nccgroup.trust)',
+        'version': '1.0',
         'description': 'Searches certificate transparency data from crt.sh, adding newly identified hosts to the hosts table.',
         'query': 'SELECT DISTINCT domain FROM domains WHERE domain IS NOT NULL',
     }

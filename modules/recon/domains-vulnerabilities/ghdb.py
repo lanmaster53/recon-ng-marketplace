@@ -22,6 +22,7 @@ class Module(BaseModule, GoogleWebMixin):
     meta = {
         'name': 'Google Hacking Database',
         'author': 'Tim Tomes (@LaNMaSteR53)',
+        'version': '1.0',
         'description': 'Searches for possible vulnerabilites in a domain by leveraging the Google Hacking Database (GHDB) and the \'site\' search operator. Updates the \'vulnerabilities\' table with the results.',
         'comments': (
             'Offensive Security no longer provides access to the GHDB for Recon-ng. The included list was last updated on 8/1/2016.',

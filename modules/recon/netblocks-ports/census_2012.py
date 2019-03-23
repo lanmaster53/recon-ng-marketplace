@@ -6,6 +6,7 @@ class Module(BaseModule):
     meta = {
         'name': 'Internet Census 2012 Lookup',
         'author': 'Tim Tomes (@LaNMaSteR53)',
+        'version': '1.0',
         'description': 'Queries the Internet Census 2012 data through Exfiltrated.com to enumerate open ports for a netblock.',
         'comments': (
             'http://exfiltrated.com/querystart.php',

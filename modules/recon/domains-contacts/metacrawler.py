@@ -12,6 +12,7 @@ class Module(BaseModule, GoogleWebMixin):
     meta = {
         'name': 'Meta Data Extractor',
         'author': 'Tim Tomes (@LaNMaSteR53)',
+        'version': '1.0',
         'description': 'Searches for files associated with the provided domain(s) and extracts any contact related metadata.',
         'comments': (
             'Currently supports doc, docx, xls, xlsx, ppt, pptx, and pdf file types.',

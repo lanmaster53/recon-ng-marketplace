@@ -6,6 +6,7 @@ class Module(BaseModule):
     meta = {
         'name': 'Twitter Mentions',
         'author': 'Robert Frost (@frosty_1313, frosty[at]unluckyfrosty.net)',
+        'version': '1.0',
         'description': 'Leverages the Twitter API to enumerate users that were mentioned by the given handle. Updates the \'profiles\' table with the results.',
         'required_keys': ['twitter_api', 'twitter_secret'],
         'comments': (

@@ -7,6 +7,7 @@ class Module(BaseModule):
     meta = {
         'name': 'XLSX File Creator',
         'author': 'Tim Tomes (@LaNMaSteR53)',
+        'version': '1.0',
         'description': 'Creates an Excel compatible XLSX file containing the entire data set.',
         'options': (
             ('filename', os.path.join(BaseModule.workspace, 'results.xlsx'), True, 'path and filename for output'),

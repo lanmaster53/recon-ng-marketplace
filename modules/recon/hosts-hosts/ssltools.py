@@ -7,6 +7,7 @@ class Module(BaseModule):
     meta = {
         'name': 'SSLTools.com Host Name Lookups',
         'author': 'Tim Maletic (borrowing from the ssl_san module by Zach Graces)',
+        'version': '1.0',
         'description': 'Uses the ssltools.com site to obtain host names from a site\'s SSL certificate metadata to update the \'hosts\' table.  Security issues with the certificate trust are pushed to the \'vulnerabilities\' table.',
         'comments': (
             'This module only stores hosts whose domain matches an entry in the domains table.',

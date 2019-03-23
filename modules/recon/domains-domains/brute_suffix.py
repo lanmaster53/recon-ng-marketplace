@@ -8,6 +8,7 @@ class Module(BaseModule, ResolverMixin):
     meta = {
         'name': 'DNS Public Suffix Brute Forcer',
         'author': 'Marcus Watson (@BranMacMuffin)',
+        'version': '1.0',
         'description': 'Brute forces TLDs and SLDs using DNS. Updates the \'domains\' table with the results.',
         'comments': (
             'TLDs: https://data.iana.org/TLD/tlds-alpha-by-domain.txt',

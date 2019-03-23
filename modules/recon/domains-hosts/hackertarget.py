@@ -4,6 +4,7 @@ class Module(BaseModule):
     meta = {
         'name': 'HackerTarget Lookup',
         'author': 'Michael Henriksen (@michenriksen)',
+        'version': '1.0',
         'description': 'Uses the HackerTarget.com API to find host names. Updates the \'hosts\' table with the results.',
         'query': 'SELECT DISTINCT domain FROM domains WHERE domain IS NOT NULL',
     }

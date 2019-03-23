@@ -8,6 +8,7 @@ class Module(BaseModule, GoogleWebMixin):
     meta = {
         'name': 'Google Hostname Enumerator',
         'author': 'Tim Tomes (@LaNMaSteR53)',
+        'version': '1.0',
         'description': 'Harvests hosts from Google.com by using the \'site\' search operator. Updates the \'hosts\' table with the results.',
         'query': 'SELECT DISTINCT domain FROM domains WHERE domain IS NOT NULL',
     }

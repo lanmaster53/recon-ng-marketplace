@@ -5,6 +5,7 @@ class Module(BaseModule):
     meta = {
         'name': 'Github Commit Searcher',
         'author': 'Michael Henriksen (@michenriksen)',
+        'version': '1.0',
         'description': 'Uses the Github API to gather user profiles from repository commits. Updates the \'profiles\' table with the results.',
         'required_keys': ['github_api'],
         'query': "SELECT DISTINCT owner, name FROM repositories WHERE resource LIKE 'Github' AND category LIKE 'repo'",

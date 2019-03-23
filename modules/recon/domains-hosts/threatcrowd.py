@@ -5,6 +5,7 @@ class Module(BaseModule):
     meta = {
         'name': 'ThreatCrowd DNS lookup',
         'author': 'mike2dot0',
+        'version': '1.0',
         'description': 'Leverages the ThreatCrowd passive DNS API to discover hosts/subdomains.',
         'query': 'SELECT DISTINCT domain FROM domains WHERE domain IS NOT NULL',
     }

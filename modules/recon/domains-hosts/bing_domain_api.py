@@ -8,6 +8,7 @@ class Module(BaseModule):
     meta = {
         'name': 'Bing API Hostname Enumerator',
         'author': 'Marcus Watson (@BranMacMuffin)',
+        'version': '1.0',
         'description': 'Leverages the Bing API and "domain:" advanced search operator to harvest hosts. Updates the \'hosts\' table with the results.',
         'required_keys': ['bing_api'],
         'query': 'SELECT DISTINCT domain FROM domains WHERE domain IS NOT NULL',

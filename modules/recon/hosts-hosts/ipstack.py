@@ -6,6 +6,7 @@ class Module(BaseModule):
     meta = {
         'name': 'ipstack',
         'author': 'Siarhei Harbachou (Tech.Insiders), Gerrit Helm (G) and Tim Tomes (@LaNMaSteR53)',
+        'version': '1.0',
         'description': 'Leverages the ipstack.com API to geolocate a host by IP address. Updates the \'hosts\' table with the results.',
         'required_keys': ['ipstack_api'],
         'query': 'SELECT DISTINCT ip_address FROM hosts WHERE ip_address IS NOT NULL',

@@ -6,6 +6,7 @@ class Module(BaseModule):
     meta = {
         'name': 'MailTester Email Validator',
         'author': 'Tim Tomes (@LaNMaSteR53)',
+        'version': '1.0',
         'description': 'Leverages MailTester.com to validate email addresses.',
         'query': 'SELECT DISTINCT email FROM contacts WHERE email IS NOT NULL',
         'options': (

@@ -6,6 +6,7 @@ class Module(BaseModule):
     meta = {
         'name': 'Censys.io Netblock Enumerator',
         'author': 'John Askew (https://bitbucket.org/skew)',
+        'version': '1.0',
         'description': 'Queries the censys.io API to enumerate information about netblocks.',
         'required_keys': ['censysio_id', 'censysio_secret'],
         'comments': (

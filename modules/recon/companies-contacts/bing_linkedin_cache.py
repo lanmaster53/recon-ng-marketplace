@@ -5,7 +5,8 @@ class Module(BaseModule):
 
     meta = {
         'name': 'Bing Cache Linkedin Profile and Contact Harvester',
-        'author':'Joe Black (@MyChickenNinja), @fullmetalcache, and Brian King',
+        'author': 'Joe Black (@MyChickenNinja), @fullmetalcache, and Brian King',
+        'version': '1.0',
         'description': 'Harvests profiles from LinkedIn by querying the Bing API cache for LinkedIn pages related to the given companies, and adds them to the \'profiles\' table. The module will then parse the resulting information to extract the user\'s full name and job title (title parsing recently improved). The user\'s full name and title are then added to the \'contacts\' table. This module does not access LinkedIn at any time.',
         'required_keys': ['bing_api'],
         'comments': (

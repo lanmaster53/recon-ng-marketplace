@@ -6,6 +6,7 @@ class Module(BaseModule, ThreadingMixin):
     meta = {
         'name': 'Proxifier',
         'author': 'AverageSecurityGuy (@averagesecguy)',
+        'version': '1.0',
         'description': 'Requests URLs from the database for the purpose of populating an inline proxy. Requires that the global proxy option be set prior to running the module.',
         'query': 'SELECT example FROM vulnerabilities WHERE category=\'Google Dork\'',
     }

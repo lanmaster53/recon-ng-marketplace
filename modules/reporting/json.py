@@ -8,7 +8,7 @@ class Module(BaseModule):
     meta = {
         'name': 'JSON Report Generator',
         'author': 'Paul (@PaulWebSec)',
-        'version': 'v0.0.1',
+        'version': '1.0',
         'description': 'Creates a JSON report.',
         'options': (
             ('tables', 'hosts, contacts, credentials', True, 'comma delineated list of tables'),

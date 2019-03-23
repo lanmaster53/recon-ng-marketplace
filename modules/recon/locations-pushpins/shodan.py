@@ -6,6 +6,7 @@ class Module(BaseModule):
     meta = {
         'name': 'Shodan Geolocation Search',
         'author': 'Tim Tomes (@LaNMaSteR53)',
+        'version': '1.0',
         'description': 'Searches Shodan for media in the specified proximity to a location.',
         'required_keys': ['shodan_api'],
         'comments': (

@@ -9,7 +9,7 @@ class Module(BaseModule):
     meta = {
         'name': 'XML Report Generator',
         'author': 'Eric Humphries (@e2fsck) and Tim Tomes (@LaNMaSteR53)',
-        'version': 'v0.0.2',
+        'version': '1.1',
         'description': 'Creates a XML report.',
         'options': (
             ('tables', 'hosts, contacts, credentials', True, 'comma delineated list of tables'),

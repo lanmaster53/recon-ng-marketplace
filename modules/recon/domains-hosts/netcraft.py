@@ -12,6 +12,7 @@ class Module(BaseModule):
     meta = {
         'name': 'Netcraft Hostname Enumerator',
         'author': 'thrapt (thrapt@gmail.com)',
+        'version': '1.0',
         'description': 'Harvests hosts from Netcraft.com. Updates the \'hosts\' table with the results.',
         'query': 'SELECT DISTINCT domain FROM domains WHERE domain IS NOT NULL',
     }

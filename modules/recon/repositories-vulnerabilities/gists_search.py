@@ -6,6 +6,7 @@ class Module(BaseModule):
     meta = {
         'name': 'Github Gist Searcher',
         'author': 'Tim Tomes (@LaNMaSteR53)',
+        'version': '1.0',
         'description': 'Uses the Github API to download and search Gists for possible information disclosures. Updates the \'vulnerabilities\' table with the results.',
         'comments': (
             'Gist searches are case sensitive. Include all desired permutations in the keyword list.',

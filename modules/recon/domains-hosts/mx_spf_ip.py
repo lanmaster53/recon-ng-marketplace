@@ -7,6 +7,7 @@ class Module(BaseModule, ResolverMixin):
     meta = {
         'name': 'Mail eXchange (MX) and Sender Policy Framework (SPF) Record Retriever',
         'author': 'Jim Becher (@jimbecher, jbecher@korelogic.com)',
+        'version': '1.0',
         'description': 'Retrieves the MX and SPF IPv4 records for a domain. Updates the \'hosts\' and/or \'netblocks\' tables with the results.',
         'comments': (
             'This module reads domains from the domains table and retrieves the hostnames of the MX records associated with each domain. The hostnames are then stored in the hosts table. It also retrieves the IP addresses and/or netblocks of the SPF records associated with each domain. The addresses are then stored in the hosts and/or netblocks table.',

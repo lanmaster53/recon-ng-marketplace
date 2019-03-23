@@ -5,6 +5,7 @@ class Module(BaseModule):
     meta = {
         'name': 'PwnedList - API Usage Statistics Fetcher',
         'author': 'Tim Tomes (@LaNMaSteR53)',
+        'version': '1.0',
         'description': 'Queries the PwnedList API for account usage statistics.',
         'required_keys': ['pwnedlist_api', 'pwnedlist_secret'],
     }

@@ -7,6 +7,7 @@ class Module(BaseModule):
     meta = {
         'name': 'Twitter Geolocation Search',
         'author': 'Tim Tomes (@LaNMaSteR53)',
+        'version': '1.0',
         'description': 'Searches Twitter for media in the specified proximity to a location.',
         'required_keys': ['twitter_api', 'twitter_secret'],
         'query': 'SELECT DISTINCT latitude || \',\' || longitude FROM locations WHERE latitude IS NOT NULL AND longitude IS NOT NULL',

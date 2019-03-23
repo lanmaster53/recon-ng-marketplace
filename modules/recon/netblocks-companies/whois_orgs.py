@@ -6,6 +6,7 @@ class Module(BaseModule):
     meta = {
         'name': 'Whois Company Harvester',
         'author': 'Tim Tomes (@LaNMaSteR53)',
+        'version': '1.0',
         'description': 'Uses the ARIN Whois RWS to harvest Companies data from whois queries for the given netblock. Updates the \'companies\' table with the results.',
         'query': 'SELECT DISTINCT netblock FROM netblocks WHERE netblock IS NOT NULL',
     }

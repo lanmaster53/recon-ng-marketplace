@@ -5,6 +5,7 @@ class Module(BaseModule):
     meta = {
         'name': 'FindSubDomains DNS search',
         'author': 'Pedro Rodrigues (@Pedro_SEC_R)',
+        'version': '1.0',
         'description': 'Queries the FindSubDomain page for sub-domain information in a domain.',
         'query': 'SELECT DISTINCT domain FROM domains WHERE domain IS NOT NULL',
     }

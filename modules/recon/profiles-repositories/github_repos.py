@@ -5,6 +5,7 @@ class Module(BaseModule):
     meta = {
         'name': 'Github Code Enumerator',
         'author': 'Tim Tomes (@LaNMaSteR53)',
+        'version': '1.0',
         'description': 'Uses the Github API to enumerate repositories and gists owned by a Github user. Updates the \'repositories\' table with the results.',
         'required_keys': ['github_api'],
         'query': "SELECT DISTINCT username FROM profiles WHERE username IS NOT NULL AND resource LIKE 'Github'",

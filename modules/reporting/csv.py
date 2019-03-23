@@ -7,6 +7,7 @@ class Module(BaseModule):
     meta = {
         'name': 'CSV File Creator',
         'author': 'Tim Tomes (@LaNMaSteR53)',
+        'version': '1.0',
         'description': 'Creates a CSV file containing the specified harvested data.',
         'options': (
             ('table', 'hosts', True, 'source table of data to export'),

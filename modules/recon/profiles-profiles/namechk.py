@@ -8,6 +8,7 @@ class Module(BaseModule, ThreadingMixin):
     meta = {
         'name': 'NameChk.com Username Validator',
         'author': 'Tim Tomes (@LaNMaSteR53) and thrapt (thrapt@gmail.com)',
+        'version': '1.0',
         'description': 'Leverages NameChk.com to validate the existance of usernames on specific web sites and updates the \'profiles\' table with the results.',
         'comments': (
             'Note: The global timeout option may need to be increased to support slower sites.',
