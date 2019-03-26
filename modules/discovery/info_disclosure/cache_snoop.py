@@ -18,6 +18,9 @@ class Module(BaseModule):
             ('nameserver', None, True, 'IP address of authoritative nameserver'),
             ('domains', os.path.join(BaseModule.data_path, 'av_domains.lst'), True, 'file containing the list of domains to snoop for'),
         ),
+        'files': (
+            'av_domains.lst',
+        ),
     }
 
     def module_run(self):

@@ -15,6 +15,9 @@ class Module(BaseModule, ResolverMixin, ThreadingMixin):
         'options': (
             ('wordlist', os.path.join(BaseModule.data_path, 'hostnames.txt'), True, 'path to hostname wordlist'),
         ),
+        'files': (
+            'hostnames.txt',
+        ),
     }
 
     def module_run(self, domains):

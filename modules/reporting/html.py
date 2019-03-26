@@ -16,6 +16,9 @@ class Module(BaseModule):
             ('creator', None, True, 'creator name for the report footer'),
             ('filename', os.path.join(BaseModule.workspace, 'results.html'), True, 'path and filename for report output'),
         ),
+        'files': (
+            'template_html.html',
+        ),
     }
 
     def build_table(self, table):

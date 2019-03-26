@@ -12,6 +12,9 @@ class Module(BaseModule):
         'options': (
             ('dorks', os.path.join(BaseModule.data_path, 'github_dorks.txt'), True, 'file containing a list of Github dorks'),
         ),
+        'files': (
+            'github_dorks.txt',
+        ),
     }
 
     def module_run(self, repos):
