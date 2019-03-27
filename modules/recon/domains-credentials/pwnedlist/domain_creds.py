@@ -1,5 +1,10 @@
 from recon.core.module import BaseModule
-from recon.utils.crypto import aes_decrypt
+import aes
+
+def aes_decrypt(ciphertext, key, iv):
+    decoded = ciphertext.decode('base64')
+    password = aes.decryptData(key, iv.encode('utf-8') + decoded)
+    return unicode(password, 'utf-8')
 
 class Module(BaseModule):
 
@@ -13,6 +18,9 @@ class Module(BaseModule):
             'API Query Cost: 10,000 queries per request, 1 query for each account returned, and 1 query per unique leak.',
         ),
         'query': 'SELECT DISTINCT domain FROM domains WHERE domain IS NOT NULL',
+        'dependencies': (
+            'slowaes',
+        ),
     }
 
     def module_run(self, domains):

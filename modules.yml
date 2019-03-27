@@ -133,7 +133,8 @@
   required_keys: []
   version: '1.0'
 - author: Tim Tomes (@LaNMaSteR53)
-  dependencies: []
+  dependencies:
+  - slowaes
   description: Queries the PwnedList API for credentials associated with the given
     usernames. Updates the 'credentials' table with the results.
   files: []
@@ -560,7 +561,8 @@
   - pwnedlist_secret
   version: '1.0'
 - author: Tim Tomes (@LaNMaSteR53)
-  dependencies: []
+  dependencies:
+  - slowaes
   description: Queries the PwnedList API to fetch all credentials for a domain. Updates
     the 'credentials' table with the results.
   files: []
