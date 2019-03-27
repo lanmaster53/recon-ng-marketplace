@@ -43,15 +43,18 @@
   - jigsaw_api
   version: '1.0'
 - author: Tim Tomes (@LaNMaSteR53)
-  dependencies: []
+  dependencies:
+  - olefile
+  - PyPDF2
+  - lxml
   description: Searches for files associated with the provided domain(s) and extracts
     any contact related metadata.
   files: []
-  last_updated: '2019-03-25'
+  last_updated: '2019-03-27'
   name: Meta Data Extractor
   path: recon/domains-contacts/metacrawler
   required_keys: []
-  version: '1.0'
+  version: '1.1'
 - author: Tim Tomes (@LaNMaSteR53)
   dependencies: []
   description: Harvests contacts from the Jigsaw.com API. Updates the 'contacts' table
