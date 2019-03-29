@@ -2,6 +2,7 @@ from recon.core.module import BaseModule
 import os
 import xlsxwriter
 
+
 class Module(BaseModule):
 
     meta = {
@@ -16,7 +17,7 @@ class Module(BaseModule):
 
     def module_run(self):
         filename = self.options['filename']
-        # create an new xlsx file
+        # create a new xlsx file
         with xlsxwriter.Workbook(filename, {'strings_to_urls': False}) as workbook:
             tables = self.get_tables()
             # loop through all tables in the database

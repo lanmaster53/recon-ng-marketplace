@@ -2,6 +2,7 @@ from recon.core.module import BaseModule
 import codecs
 import os
 
+
 class Module(BaseModule):
 
     meta = {
@@ -13,7 +14,7 @@ class Module(BaseModule):
             ('table', 'hosts', True, 'source table of data for the list'),
             ('column', 'ip_address', True, 'source column of data for the list'),
             ('unique', True, True, 'only return unique items from the dataset'),
-            ('nulls', False, True, 'include nulls in the dataset'),
+            ('nulls', False, True, 'include NULLs in the dataset'),
             ('filename', os.path.join(BaseModule.workspace, 'list.txt'), True, 'path and filename for output'),
         ),
     }

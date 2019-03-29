@@ -4,13 +4,14 @@ from xml.dom.minidom import parseString
 import codecs
 import os
 
+
 class Module(BaseModule):
 
     meta = {
         'name': 'XML Report Generator',
         'author': 'Eric Humphries (@e2fsck) and Tim Tomes (@LaNMaSteR53)',
         'version': '1.1',
-        'description': 'Creates a XML report.',
+        'description': 'Creates an XML report.',
         'options': (
             ('tables', 'hosts, contacts, credentials', True, 'comma delineated list of tables'),
             ('filename', os.path.join(BaseModule.workspace, 'results.xml'), True, 'path and filename for report output'),
@@ -30,7 +31,7 @@ class Module(BaseModule):
                 rows = self.query('SELECT "%s" FROM "%s" ORDER BY 1' % ('", "'.join(columns), table))
                 for row in rows:
                     row_dict = {}
-                    for i in range(0,len(columns)):
+                    for i in range(0, len(columns)):
                         row_dict[columns[i]] = row[i]
                     data_dict[table].append(row_dict)
                     cnt += 1
