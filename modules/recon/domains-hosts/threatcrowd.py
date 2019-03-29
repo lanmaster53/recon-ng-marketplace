@@ -16,4 +16,4 @@ class Module(BaseModule):
             resp = self.request(url = 'https://www.threatcrowd.org/searchApi/v2/domain/report/?domain=%s' % domain)
             if resp.json.get('response_code') == '1':
                 for subdomain in resp.json.get('subdomains'):
-                    self.add_hosts(host=subdomain)
+                    self.insert_hosts(host=subdomain)

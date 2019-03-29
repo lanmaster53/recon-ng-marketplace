@@ -73,4 +73,4 @@ class Module(BaseModule, GoogleWebMixin):
                 'example': result,
                 'category': 'Google Dork',
             }
-            self.add_vulnerabilities(**data)
+            self.insert_vulnerabilities(**data)

@@ -30,6 +30,6 @@ class Module(BaseModule):
                 address = elements[1]
                 port = elements[2]
                 hostname = elements[0]
-                self.add_ports(ip_address=address, host=hostname, port=port)
+                self.insert_ports(ip_address=address, host=hostname, port=port)
             if not hosts:
                 self.output('No scan data available.')

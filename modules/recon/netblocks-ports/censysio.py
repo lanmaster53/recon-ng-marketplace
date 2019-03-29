@@ -61,4 +61,4 @@ class Module(BaseModule):
             ip_address = result.get('ip')
             for service in result.get('protocols'):
                 port, protocol = service.split('/')
-                self.add_ports(ip_address=ip_address, port=port, protocol=protocol)
+                self.insert_ports(ip_address=ip_address, port=port, protocol=protocol)

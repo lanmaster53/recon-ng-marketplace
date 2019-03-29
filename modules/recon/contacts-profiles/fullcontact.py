@@ -46,7 +46,7 @@ class Module(BaseModule):
                     if 'demographics' in resp.json and 'locationGeneral' in resp.json['demographics']:
                         region = resp.json['demographics']['locationGeneral']
                         self.output(region)
-                    self.add_contacts(first_name=first_name, middle_name=middle_name, last_name=last_name, title=title, email=email, region=region)
+                    self.insert_contacts(first_name=first_name, middle_name=middle_name, last_name=last_name, title=title, email=email, region=region)
                 # parse profile information
                 if 'socialProfiles' in resp.json:
                     for profile in resp.json['socialProfiles']:
@@ -58,7 +58,7 @@ class Module(BaseModule):
                                 break
                         resource = profile['typeName']
                         url = profile['url']
-                        self.add_profiles(username=username, url=url, resource=resource, category='social')
+                        self.insert_profiles(username=username, url=url, resource=resource, category='social')
                 self.output('Confidence: %d%%' % (resp.json['likelihood']*100,))
             elif resp.status_code == 202:
                 # add emails queued by fullcontact back to the list

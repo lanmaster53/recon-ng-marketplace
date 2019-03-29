@@ -25,7 +25,7 @@ class Module(BaseModule):
             matchfound = False
             for match in re.finditer(regex, resp.text, re.IGNORECASE):
                 domain = match.groups()[2].split('&')[1]
-                self.add_domains(domain)
+                self.insert_domains(domain)
                 matchfound = True
             if not matchfound:
                 self.alert('No matches found for company \'' + company + '\'')

@@ -31,5 +31,5 @@ class Module(BaseModule):
                     lon = point.split(',')[1]
                     address = result['formatted_address']
                     # store the result
-                    self.add_locations(lat, lon, address)
+                    self.insert_locations(lat, lon, address)
             if found: self.query('DELETE FROM locations WHERE latitude=? AND longitude=? AND street_address IS NULL', (lat, lon))

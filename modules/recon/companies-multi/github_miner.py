@@ -24,7 +24,7 @@ class Module(BaseModule):
                     'resource': 'Github',
                     'category': 'coding',
                 }
-                self.add_profiles(**data)
+                self.insert_profiles(**data)
             # enumerate repositories
             repos = self.query_github_api('/orgs/%s/repos' % (quote_plus(company)))
             for repo in repos:
@@ -36,4 +36,4 @@ class Module(BaseModule):
                     'resource': 'Github',
                     'category': 'repo',
                 }
-                self.add_repositories(**data)
+                self.insert_repositories(**data)

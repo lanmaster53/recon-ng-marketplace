@@ -33,7 +33,7 @@ class Module(BaseModule):
                 data['category'] = details[6]
                 data['status'] = re.search('([UNFIXED]+)',details[3]).group(1).lower()
                 data['example'] = details[8]
-                self.add_vulnerabilities(**data)
+                self.insert_vulnerabilities(**data)
                 # results in 503 errors if not throttled
                 time.sleep(1)
             if not vulns:

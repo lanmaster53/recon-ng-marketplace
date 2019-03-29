@@ -27,6 +27,6 @@ class Module(BaseModule):
                 data['status'] = 'unfixed' if vuln.find('fixed').text == '0' else 'fixed'
                 resp_vuln = self.request(data['reference'])
                 data['example'] = re.search('href="([^"]*%s[^"]*)"' % (data['host']), resp_vuln.text).group(1)
-                self.add_vulnerabilities(**data)
+                self.insert_vulnerabilities(**data)
             if not vulns:
                 self.output('No vulnerabilites found.')

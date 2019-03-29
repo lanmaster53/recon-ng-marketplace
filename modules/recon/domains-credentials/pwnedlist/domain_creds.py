@@ -50,8 +50,8 @@ class Module(BaseModule):
                     username = cred['plain']
                     password = aes_decrypt(cred['password'], decrypt_key, iv)
                     leak = cred['leak_id']
-                    self.add_credentials(username=username, password=password, leak=leak)
-                    self.add_leaks(mute=True, **self.get_pwnedlist_leak(leak))
+                    self.insert_credentials(username=username, password=password, leak=leak)
+                    self.insert_leaks(mute=True, **self.get_pwnedlist_leak(leak))
                 # paginate
                 if jsonobj['token']:
                     payload['token'] = jsonobj['token']

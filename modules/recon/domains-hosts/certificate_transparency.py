@@ -19,4 +19,4 @@ class Module(BaseModule):
                 self.output('Invalid response for \'%s\'' % domain)
                 continue
             for cert in resp.json:
-                self.add_hosts(cert.get('name_value'))
+                self.insert_hosts(cert.get('name_value'))

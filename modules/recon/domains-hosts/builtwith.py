@@ -31,13 +31,13 @@ class Module(BaseModule):
                 emails = result['Meta']['Emails']
                 if emails is None: emails = []
                 for email in emails:
-                    self.add_contacts(first_name=None, last_name=None, title=title, email=email)
+                    self.insert_contacts(first_name=None, last_name=None, title=title, email=email)
                 # extract and add names to contacts
                 names = result['Meta']['Names']
                 if names is None: names = []
                 for name in names:
                     fname, mname, lname = self.parse_name(name['Name'])
-                    self.add_contacts(first_name=fname, middle_name=mname, last_name=lname, title=title)
+                    self.insert_contacts(first_name=fname, middle_name=mname, last_name=lname, title=title)
                 # extract and consolidate hosts and associated technology data
                 data = {}
                 for path in result['Result']['Paths']:
@@ -51,7 +51,7 @@ class Module(BaseModule):
                     # *** might domain integrity issues here ***
                     domain = '.'.join(host.split('.')[-2:])
                     if domain != host:
-                        self.add_hosts(host)
+                        self.insert_hosts(host)
                 # process hosts and technology data
                 if self.options['show_all']:
                     for host in data:

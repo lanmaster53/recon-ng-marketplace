@@ -27,7 +27,7 @@ class Module(BaseModule):
                 fullname = match.groups()[2]
                 fname, mname, lname = self.parse_name(fullname)
                 email = match.groups()[3] + '@' + domain
-                self.add_contacts(
+                self.insert_contacts(
                     first_name=fname,
                     middle_name=mname,
                     last_name=lname,

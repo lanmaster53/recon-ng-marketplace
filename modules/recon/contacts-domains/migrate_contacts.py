@@ -25,4 +25,4 @@ class Module(BaseModule):
             suffixes = [line.strip().lower() for line in f if len(line)>0 and line[0] is not '#']
         domains = self.hosts_to_domains(hosts, suffixes)
         for domain in domains:
-            self.add_domains(domain=domain)
+            self.insert_domains(domain=domain)

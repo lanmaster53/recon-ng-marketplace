@@ -30,5 +30,5 @@ class Module(BaseModule):
             else:
                 for breach in resp.json:
                     self.alert('%s => Breach found! Seen in the %s breach that occurred on %s.' % (account, breach['Title'], breach['BreachDate']))
-                self.add_credentials(account)
+                self.insert_credentials(account)
             time.sleep(1.6)

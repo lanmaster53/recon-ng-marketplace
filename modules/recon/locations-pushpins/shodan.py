@@ -40,4 +40,4 @@ class Module(BaseModule):
                 latitude = host['location']['latitude']
                 longitude = host['location']['longitude']
                 time = datetime.strptime(host['timestamp'], '%Y-%m-%dT%H:%M:%S.%f')
-                self.add_pushpins(source, screen_name, profile_name, profile_url, media_url, thumb_url, message, latitude, longitude, time)
+                self.insert_pushpins(source, screen_name, profile_name, profile_url, media_url, thumb_url, message, latitude, longitude, time)

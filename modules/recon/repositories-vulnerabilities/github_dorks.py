@@ -31,4 +31,4 @@ class Module(BaseModule):
                         'example': result['html_url'],
                         'category': 'Github Dork',
                     }
-                    self.add_vulnerabilities(**data)
+                    self.insert_vulnerabilities(**data)

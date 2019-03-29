@@ -28,9 +28,9 @@ class Module(BaseModule):
                     if self.options[key] and key in commit and commit[key]:
                         url = commit[key]['html_url']
                         login = commit[key]['login']
-                        self.add_profiles(username=login, url=url, resource='Github', category='coding')
+                        self.insert_profiles(username=login, url=url, resource='Github', category='coding')
                     if self.options[key] and key in commit['commit'] and commit['commit'][key]:
                         name = commit['commit'][key]['name']
                         email = commit['commit'][key]['email']
                         fname, mname, lname = self.parse_name(name)
-                        self.add_contacts(first_name=fname, middle_name=mname, last_name=lname, email=email, title='Github Contributor')
+                        self.insert_contacts(first_name=fname, middle_name=mname, last_name=lname, email=email, title='Github Contributor')

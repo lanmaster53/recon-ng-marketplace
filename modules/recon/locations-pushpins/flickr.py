@@ -57,7 +57,7 @@ class Module(BaseModule):
                         time = datetime.strptime(photo['datetaken'], '%Y-%m-%d %H:%M:%S')
                     except ValueError:
                         time = datetime(1970, 1, 1)
-                    self.add_pushpins(source, screen_name, profile_name, profile_url, media_url, thumb_url, message, latitude, longitude, time)
+                    self.insert_pushpins(source, screen_name, profile_name, profile_url, media_url, thumb_url, message, latitude, longitude, time)
                 processed += len(jsonobj['photos']['photo'])
                 self.verbose('%s photos processed.' % (processed))
                 if jsonobj['photos']['page'] >= jsonobj['photos']['pages']:

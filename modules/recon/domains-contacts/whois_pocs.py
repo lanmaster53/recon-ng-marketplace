@@ -39,4 +39,4 @@ class Module(BaseModule):
                     region = ', '.join([x for x in [city, state] if x])
                     country = poc['iso3166-1']['name']['$'].title()
                     if email.lower().endswith(domain.lower()):
-                        self.add_contacts(first_name=fname, last_name=lname, email=email, title=title, region=region, country=country)
+                        self.insert_contacts(first_name=fname, last_name=lname, email=email, title=title, region=region, country=country)

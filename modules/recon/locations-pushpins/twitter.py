@@ -37,5 +37,5 @@ class Module(BaseModule):
                 latitude = tweet['geo']['coordinates'][0]
                 longitude = tweet['geo']['coordinates'][1]
                 time = datetime.strptime(tweet['created_at'], '%a %b %d %H:%M:%S +0000 %Y')
-                self.add_pushpins(source, screen_name, profile_name, profile_url, media_url, thumb_url, message, latitude, longitude, time)
+                self.insert_pushpins(source, screen_name, profile_name, profile_url, media_url, thumb_url, message, latitude, longitude, time)
             self.verbose('%s tweets processed.' % (len(results)))

@@ -38,4 +38,4 @@ class Module(BaseModule):
                             'example': 'line %d: %s' % (lineno, line.strip()),
                             'category': 'Information Disclosure',
                         }
-                        self.add_vulnerabilities(**data)
+                        self.insert_vulnerabilities(**data)

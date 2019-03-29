@@ -48,7 +48,7 @@ class Module(BaseModule):
                 for site in sites:
                     if site not in subs:
                         subs.append(site)
-                        self.add_hosts(site)
+                        self.insert_hosts(site)
                 # verifies if there's more pages to look while grabbing the correct 
                 # values for our payload...
                 link = re.findall(r'(\blast\=\b|\bfrom\=\b)(.*?)&', content)

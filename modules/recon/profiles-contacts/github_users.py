@@ -25,4 +25,4 @@ class Module(BaseModule):
                 region = user['location']
                 # don't add if lacking meaningful data
                 if any((fname, lname, email)):
-                    self.add_contacts(first_name=fname, middle_name=mname, last_name=lname, email=email, title=title, region=region)
+                    self.insert_contacts(first_name=fname, middle_name=mname, last_name=lname, email=email, title=title, region=region)

@@ -93,7 +93,7 @@ class Module(BaseModule):
                     if item: region.append(item)
                 region = ', '.join(region)
                 country = self.html_unescape(contact['country']).title()
-                self.add_contacts(first_name=fname, middle_name=mname, last_name=lname, title=title, region=region, country=country)
+                self.insert_contacts(first_name=fname, middle_name=mname, last_name=lname, title=title, region=region, country=country)
             cnt += size
             if cnt > jsonobj['totalHits']: break
             # jigsaw rate limits requests per second to the api

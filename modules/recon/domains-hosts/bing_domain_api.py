@@ -47,7 +47,7 @@ class Module(BaseModule):
                     host = parse_hostname(result['displayUrl'])
                     if host.endswith('.'+domain) and host not in hosts:
                         hosts.append(host)
-                        self.add_hosts(host)
+                        self.insert_hosts(host)
                         flag = True
                 if not flag and last_len == len(results):
                     break

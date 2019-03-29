@@ -67,8 +67,8 @@ class Module(BaseModule):
         else:
             username = self.parse_username(url)
             jobtitle = self.parse_jobtitle(company, snippet)
-            self.add_contacts(first_name=fname, middle_name=mname, last_name=lname, title=jobtitle)
-            self.add_profiles(username=username, url=url, resource='LinkedIn', category='social')
+            self.insert_contacts(first_name=fname, middle_name=mname, last_name=lname, title=jobtitle)
+            self.insert_profiles(username=username, url=url, resource='LinkedIn', category='social')
 
     def parse_fullname(self, name):
         fullname = name.split(" -")[0]

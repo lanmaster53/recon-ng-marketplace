@@ -63,7 +63,7 @@ class Module(BaseModule):
                             self.verbose('Paste stored at \'%s\'.' % (filepath))
                         else:
                             self.alert('Paste could not be downloaded (%s).' % (fileurl))
-                self.add_credentials(account)
+                self.insert_credentials(account)
             time.sleep(1.6)
 
 def _safe_file_name(s):

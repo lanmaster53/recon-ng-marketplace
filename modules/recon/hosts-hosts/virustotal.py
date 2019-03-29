@@ -25,5 +25,5 @@ class Module(BaseModule):
                 for entry in resp.json['resolutions']:
                     hostname = entry.get('hostname')
                     if hostname:
-                        self.add_hosts(host=hostname, ip_address=ip)
+                        self.insert_hosts(host=hostname, ip_address=ip)
             sleep(self.options['interval'])

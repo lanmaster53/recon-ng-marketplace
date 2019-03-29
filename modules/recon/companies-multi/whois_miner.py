@@ -30,10 +30,10 @@ class Module(BaseModule):
                     url = entity['$']
                     resp = self.request(url, headers=headers)
                     # add company
-                    self.add_companies(company=entity['@name'], description=rtype)
+                    self.insert_companies(company=entity['@name'], description=rtype)
                     # add location
                     location = WhoisLocation(resp.json[rtype])
-                    self.add_locations(street_address=location.address)
+                    self.insert_locations(street_address=location.address)
                     # add netblocks
                     url = 'http://whois.arin.net/rest/%s/%s/nets' % (rtype, entity['@handle'])
                     nets = self._request(url, headers, 'nets', 'netRef')
@@ -48,7 +48,7 @@ class Module(BaseModule):
                         for block in blocks:
                             ip = netblock.iptostr(block[0])
                             cidr = '%s/%s' % (ip, str(block[1]))
-                            self.add_netblocks(netblock=cidr)
+                            self.insert_netblocks(netblock=cidr)
                     # add contacts
                     url = 'http://whois.arin.net/rest/%s/%s/pocs' % (rtype, entity['@handle'])
                     pocLinks = self._request(url, headers, 'pocs', 'pocLinkRef')
@@ -64,7 +64,7 @@ class Module(BaseModule):
                             email = email['$']
                             title = 'Whois contact (%s)' % (pocLink['@description'])
                             location = WhoisLocation(poc)
-                            self.add_contacts(first_name=fname, last_name=lname, email=email, title=title, region=location.region, country=location.country)
+                            self.insert_contacts(first_name=fname, last_name=lname, email=email, title=title, region=location.region, country=location.country)
 
     def _request(self, url, headers, grp, ref):
         self.verbose('URL: %s' % url)

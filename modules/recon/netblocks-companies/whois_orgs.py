@@ -29,4 +29,4 @@ class Module(BaseModule):
                     if ref in resp.json['net']:
                         company = resp.json['net'][ref]['@name']
                         handle = resp.json['net'][ref]['$']
-                        self.add_companies(company=company, description=handle)
+                        self.insert_companies(company=company, description=handle)

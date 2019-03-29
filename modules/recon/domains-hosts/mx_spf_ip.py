@@ -38,7 +38,7 @@ class Module(BaseModule, ResolverMixin):
                         host = rdata.exchange
                         host = str(host)
                         host = host[:-1]
-                        self.add_hosts(host)
+                        self.insert_hosts(host)
                 # break out of the loop
                 attempt = max_attempts
         # Now look for SPF records
@@ -66,12 +66,12 @@ class Module(BaseModule, ResolverMixin):
                                 if "ip4" in item:
                                     ipaddr = item.split(':', 1)[1]
                                     if "/" in ipaddr:
-                                        self.add_netblocks(ipaddr)
+                                        self.insert_netblocks(ipaddr)
                                     else:
-                                        self.add_hosts(ip_address=ipaddr)
+                                        self.insert_hosts(ip_address=ipaddr)
                                 elif "a:" in item:
                                     spfhost = item.split(':', 1)[1]
-                                    self.add_hosts(host=spfhost)
+                                    self.insert_hosts(host=spfhost)
                 # break out of the loop
                 attempt = max_attempts
 

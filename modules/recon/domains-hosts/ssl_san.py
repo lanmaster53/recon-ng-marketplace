@@ -24,4 +24,4 @@ class Module(BaseModule):
                 continue
             hosts = [x.strip() for x in resp.json['response']['san_entries'] if '*' not in x]
             for host in hosts:
-                self.add_hosts(host)
+                self.insert_hosts(host)

@@ -39,7 +39,7 @@ class Module(BaseModule):
                     message = video['snippet']['title']
                     latitude, longitude = self.get_video_geo(video['id']['videoId'])
                     time = datetime.strptime(video['snippet']['publishedAt'], '%Y-%m-%dT%H:%M:%S.%fZ')
-                    self.add_pushpins(source, screen_name, profile_name, profile_url, media_url, thumb_url, message, latitude, longitude, time)
+                    self.insert_pushpins(source, screen_name, profile_name, profile_url, media_url, thumb_url, message, latitude, longitude, time)
                 processed += len(resp.json['items'])
                 self.verbose('%s videos processed.' % (processed))
                 if 'nextPageToken' in resp.json:

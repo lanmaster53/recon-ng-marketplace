@@ -37,4 +37,4 @@ class Module(BaseModule):
                 if self.options['restrict'] and not re.search(regex, host):
                     continue
                 # add hosts to the database
-                self.add_hosts(host, address)
+                self.insert_hosts(host, address)

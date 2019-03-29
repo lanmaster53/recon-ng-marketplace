@@ -28,4 +28,4 @@ class Module(BaseModule):
                     handle = tweet['user']['screen_name']
                     name = tweet['user']['name']
                     time = tweet['created_at']
-                    self.add_profiles(username=handle, resource='Twitter', url='https://twitter.com/' + handle, category='social', notes=name)
+                    self.insert_profiles(username=handle, resource='Twitter', url='https://twitter.com/' + handle, category='social', notes=name)

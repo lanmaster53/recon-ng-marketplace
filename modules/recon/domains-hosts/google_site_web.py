@@ -46,7 +46,7 @@ class Module(BaseModule, GoogleWebMixin):
                     if site not in hosts:
                         hosts.append(site)
                         new = True
-                        self.add_hosts(site)
+                        self.insert_hosts(site)
                 if not new:
                     # exit if all subdomains have been found
                     if not results:

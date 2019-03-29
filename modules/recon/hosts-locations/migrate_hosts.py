@@ -14,4 +14,4 @@ class Module(BaseModule):
 
     def module_run(self, locations):
         for location in locations:
-            self.add_locations(latitude=location[0], longitude=location[1])
+            self.insert_locations(latitude=location[0], longitude=location[1])

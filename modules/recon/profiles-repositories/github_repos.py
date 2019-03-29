@@ -25,7 +25,7 @@ class Module(BaseModule):
                     'resource': 'Github',
                     'category': 'repo',
                 }
-                self.add_repositories(**data)
+                self.insert_repositories(**data)
             # enumerate gists
             gists = self.query_github_api('/users/%s/gists' % (quote_plus(user)))
             for gist in gists:
@@ -39,4 +39,4 @@ class Module(BaseModule):
                         'resource': 'Github',
                         'category': 'gist',
                     }
-                    self.add_repositories(**data)
+                    self.insert_repositories(**data)

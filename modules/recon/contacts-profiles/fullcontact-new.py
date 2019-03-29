@@ -58,7 +58,7 @@ class Module(BaseModule):
                 region = resp.json.get('location')
                 if region:
                     self.alert(region)
-                #self.add_contacts(first_name=first_name, middle_name=middle_name, last_name=last_name, title=title, email=email, region=region)
+                #self.insert_contacts(first_name=first_name, middle_name=middle_name, last_name=last_name, title=title, email=email, region=region)
 
                 # parse profiles
                 for resource in ['twitter', 'linkedin', 'facebook']:
@@ -66,7 +66,7 @@ class Module(BaseModule):
                     if url:
                         username = url.split('/')[-1]
                         self.alert(url)
-                        #self.add_profiles(username=username, url=url, resource=resource, category='social')
+                        #self.insert_profiles(username=username, url=url, resource=resource, category='social')
 
             elif resp.status_code == 202:
                 # add emails queued by fullcontact back to the list

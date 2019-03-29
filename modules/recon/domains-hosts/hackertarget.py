@@ -29,4 +29,4 @@ class Module(BaseModule):
                 if line == '':
                     continue
                 host, address = line.split(",")
-                self.add_hosts(host=host, ip_address=address)
+                self.insert_hosts(host=host, ip_address=address)

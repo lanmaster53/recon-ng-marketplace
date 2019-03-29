@@ -20,6 +20,6 @@ class Module(BaseModule):
                 el = doc.xpath("//a[contains(@class, 'aggregated-link mobile-hidden')]")
                 for elem in el:
                     hostname = u''.join(elem.text.strip())
-                    self.add_hosts(host=hostname)
+                    self.insert_hosts(host=hostname)
             else:
                 self.error("Error retrieving results")

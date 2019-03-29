@@ -18,7 +18,7 @@ class Module(BaseModule):
         cnt = 0
         with open(self.options['filename']) as fh:
             lines = fh.read().split()
-        method = 'add_'+self.options['table'].lower()
+        method = 'insert_'+self.options['table'].lower()
         if not hasattr(self, method):
             self.error('No such table: %s' % (options['table']))
             return

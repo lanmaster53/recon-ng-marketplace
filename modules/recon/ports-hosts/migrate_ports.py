@@ -16,4 +16,4 @@ class Module(BaseModule):
         # get a list of hosts that are not ip addresses
         hosts = [x[0] for x in self.query('SELECT DISTINCT host FROM ports WHERE host IS NOT NULL') if not re.match(regex, x[0])]
         for host in hosts:
-            self.add_hosts(host=host)
+            self.insert_hosts(host=host)

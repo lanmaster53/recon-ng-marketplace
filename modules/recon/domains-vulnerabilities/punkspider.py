@@ -38,7 +38,7 @@ class Module(BaseModule):
                         data['publish_date'] = datetime.strptime(result['timestamp'], '%Y-%m-%dT%H:%M:%SZ')
                         data['category'] = vuln['bugType'].upper()
                         data['status'] = None
-                        self.add_vulnerabilities(**data)
+                        self.insert_vulnerabilities(**data)
                 page += 1
             if not vulnerable:
                 self.output('No vulnerabilites found.')

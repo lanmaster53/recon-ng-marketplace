@@ -62,12 +62,12 @@ class Module(BaseModule, ResolverMixin, ThreadingMixin):
                                 if rdata.rdtype == 1:
                                     address = rdata.address
                                     self.alert('%s => (A) %s' % (host, address))
-                                    self.add_hosts(host, address)
+                                    self.insert_hosts(host, address)
                                 if rdata.rdtype == 5:
                                     cname = rdata.target.to_text()[:-1]
                                     self.alert('%s => (CNAME) %s' % (host, cname))
-                                    self.add_hosts(cname)
+                                    self.insert_hosts(cname)
                                     # add the host in case a CNAME exists without an A record
-                                    self.add_hosts(host)
+                                    self.insert_hosts(host)
             # break out of the loop
             attempt = max_attempts

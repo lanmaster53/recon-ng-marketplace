@@ -27,5 +27,5 @@ class Module(BaseModule):
                 lat = result['geometry']['location']['lat']
                 lon = result['geometry']['location']['lng']
                 # store the result
-                self.add_locations(lat, lon, address)
+                self.insert_locations(lat, lon, address)
             self.query('DELETE FROM locations WHERE street_address=? AND latitude IS NULL AND longitude IS NULL', (address,))

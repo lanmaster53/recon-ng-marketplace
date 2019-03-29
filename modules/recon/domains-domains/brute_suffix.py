@@ -50,6 +50,6 @@ class Module(BaseModule, ResolverMixin):
                                 soa = answer.name.to_text()[:-1]
                                 self.alert('%s => (SOA) %s' % (domain, soa))
                                 # use "host" rather than "soa" as sometimes the SOA record has a CNAME
-                                self.add_domains(domain)
+                                self.insert_domains(domain)
                     # break out of the loop
                     attempt = max_attempts

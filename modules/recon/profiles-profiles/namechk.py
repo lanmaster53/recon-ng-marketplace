@@ -65,6 +65,6 @@ class Module(BaseModule, ThreadingMixin):
                 profile = resp.json['callback_url']
                 if not available:
                     # update profiles table
-                    self.add_profiles(username=username, resource=label, url=profile, category='social')
+                    self.insert_profiles(username=username, resource=label, url=profile, category='social')
                     self.query('DELETE FROM profiles WHERE username = ? and url IS NULL', (username,))
             break
