@@ -1,20 +1,20 @@
+# backups
+ext:backup | ext:bak | ext:bkf | ext:bkp | ext:old
+
+# config files
+ext:cfg | ext:cnf | ext:conf | ext:inf | ext:ini | ext:ora | ext:rdp | ext:reg | ext:txt | ext:xml
+
+# db files
+ext:dbf | ext:mdb | ext:sql
+
 # directory indexing
 intitle:index.of
 
-# config files
-ext:xml | ext:conf | ext:cnf | ext:reg | ext:inf | ext:rdp | ext:cfg | ext:txt | ext:ora | ext:ini
-
-# db files
-ext:sql | ext:dbf | ext:mdb
+# docs
+ext:csv | ext:doc | ext:docx | ext:odt | ext:pdf | ext:pps | ext:ppt | ext:pptx | ext:psw | ext:rtf | ext:sxw | ext:xls | ext:xlsx
 
 # logs
 ext:log
 
-# backups
-ext:bkf | ext:bkp | ext:bak | ext:old | ext:backup
-
 # sql errors
-intext:"sql syntax near" | intext:"syntax error has occurred" | intext:"incorrect syntax near" | intext:"unexpected end of SQL command" | intext:"Warning: mysql_connect()" | intext:"Warning: mysql_query()" | intext:"Warning: pg_connect()"
-
-# docs
-ext:doc | ext:docx | ext:odt | ext:pdf | ext:rtf | ext:sxw | ext:psw | ext:ppt | ext:pptx | ext:pps | ext:csv
+intext:"incorrect syntax near" | intext:"sql syntax near" | intext:"syntax error has occurred" | intext:"unexpected end of SQL command" | intext:"Warning: mysql_connect()" | intext:"Warning: mysql_query()" | intext:"Warning: pg_connect()"

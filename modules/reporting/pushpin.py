@@ -5,6 +5,7 @@ import re
 import time
 import webbrowser
 
+
 class Module(BaseModule):
 
     meta = {
@@ -16,8 +17,8 @@ class Module(BaseModule):
             ('latitude', None, True, 'latitude of the epicenter'),
             ('longitude', None, True, 'longitude of the epicenter'),
             ('radius', None, True, 'radius from the epicenter in kilometers'),
-            ('map_filename', os.path.join(BaseModule.workspace, 'pushpin_map.html'), True, 'path and filename for pushpin map report'),
-            ('media_filename', os.path.join(BaseModule.workspace, 'pushpin_media.html'), True, 'path and filename for pushpin media report'),
+            ('map_filename', os.path.join(BaseModule.workspace, 'pushpin_map.html'), True, 'path and filename for PushPin map report'),
+            ('media_filename', os.path.join(BaseModule.workspace, 'pushpin_media.html'), True, 'path and filename for PushPin media report'),
         ),
         'files': (
             'template_media.html',
@@ -37,6 +38,7 @@ class Module(BaseModule):
             'twitter': 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png',
             'youtube': 'http://maps.google.com/mapfiles/ms/icons/red-dot.png',
         }
+
         media_content = ''
         map_content = ''
         map_arrays = ''
@@ -74,7 +76,7 @@ class Module(BaseModule):
         self.output('Media data written to \'%s\'' % (media_filename))
         # order the map_content tuple
         map_content = meta_content + map_content
-        order=[4,0,1,2,3,5]
+        order = [4, 0, 1, 2, 3, 5]
         map_content = tuple([map_content[i] for i in order])
         # create the map report
         map_filename = self.options['map_filename']

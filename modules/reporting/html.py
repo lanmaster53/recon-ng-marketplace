@@ -3,17 +3,18 @@ import codecs
 import datetime
 import os
 
+
 class Module(BaseModule):
 
     meta = {
         'name': 'HTML Report Generator',
         'author': 'Tim Tomes (@LaNMaSteR53)',
         'version': '1.0',
-        'description': 'Creates a HTML report.',
+        'description': 'Creates an HTML report.',
         'options': (
             ('sanitize', True, True, 'mask sensitive data in the report'),
-            ('customer', None, True, 'customer name for the report header'),
-            ('creator', None, True, 'creator name for the report footer'),
+            ('customer', None, True, 'use customer name in the report header'),
+            ('creator', None, True, 'use creator name in the report footer'),
             ('filename', os.path.join(BaseModule.workspace, 'results.html'), True, 'path and filename for report output'),
         ),
         'files': (
@@ -74,7 +75,7 @@ class Module(BaseModule):
                         row_content = ''
                         row = self.query('SELECT * FROM leaks WHERE leak_id=?', (leak,))[0]
                         values = [self.html_escape(x) if x != None else '' for x in row]
-                        for i in range(0,len(columns)):
+                        for i in range(0, len(columns)):
                             row_content += '<tr><td><strong>%s</strong></td><td>%s</td></tr>\n' % (columns[i], values[i])
                         table_content += '<hr>\n<table class="leak">\n%s</table>\n' % (row_content)
                     table_content += '</div>\n</div><br />'
