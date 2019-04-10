@@ -1,6 +1,7 @@
 from recon.core.module import BaseModule
 from datetime import datetime
 
+
 class Module(BaseModule):
 
     meta = {

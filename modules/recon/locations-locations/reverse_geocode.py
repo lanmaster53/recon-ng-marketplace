@@ -1,5 +1,6 @@
 from recon.core.module import BaseModule
 
+
 class Module(BaseModule):
 
     meta = {
@@ -32,4 +33,5 @@ class Module(BaseModule):
                     address = result['formatted_address']
                     # store the result
                     self.insert_locations(lat, lon, address)
-            if found: self.query('DELETE FROM locations WHERE latitude=? AND longitude=? AND street_address IS NULL', (lat, lon))
+            if found:
+                self.query('DELETE FROM locations WHERE latitude=? AND longitude=? AND street_address IS NULL', (lat, lon))

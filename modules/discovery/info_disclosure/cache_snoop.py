@@ -3,6 +3,7 @@ import os
 import dns
 import re
 
+
 class Module(BaseModule):
 
     meta = {
@@ -35,6 +36,6 @@ class Module(BaseModule):
             query.flags ^= dns.flags.RD
             response = dns.query.udp(query, nameserver)
             if len(response.answer) > 0:
-                self.alert('%s => Snooped!' % (domain))
+                self.alert(f'{domain} => Snooped!')
             else:
-                self.verbose('%s => Not Found.' % (domain))
+                self.verbose(f'{domain} => Not Found.')

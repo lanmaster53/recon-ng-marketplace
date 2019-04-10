@@ -1,5 +1,6 @@
 from recon.core.module import BaseModule
 
+
 class Module(BaseModule):
 
     meta = {
@@ -15,16 +16,16 @@ class Module(BaseModule):
     }
     
     def module_run(self):
-        cnt = 0
+        count = 0
         with open(self.options['filename']) as fh:
             lines = fh.read().split()
         method = 'insert_'+self.options['table'].lower()
         if not hasattr(self, method):
-            self.error('No such table: %s' % (options['table']))
+            self.error(f'No such table: {options["table"]}')
             return
         func = getattr(self, method)
         for line in lines:
             self.output(line)
             kwargs = {self.options['column']: line}
-            cnt += func(**kwargs)
-        self.output('%d new records added.' % cnt)
+            count += func(**kwargs)
+        self.output(f'{count} new records added.')

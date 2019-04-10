@@ -2,7 +2,10 @@ from recon.core.module import BaseModule
 import json
 import re
 import time
-import urllib
+import urllib.request
+import urllib.parse
+import urllib.error
+
 
 class Module(BaseModule):
 
@@ -20,15 +23,15 @@ class Module(BaseModule):
         url = 'https://api.github.com/users/%s' % (username)
         resp = self.request(url)
         data = resp.json
-        if data.has_key('login'):
+        if 'login' in data:
             self.alert('Github username found - (%s)' % url)
             # extract data from the optional fields
-            gitName    = data['name'] if data.has_key('name') else None
-            gitCompany = data['company'] if data.has_key('company') else None
-            gitBlog    = data['blog'] if data.has_key('blog') else None
-            gitLoc     = data['location'] if data.has_key('location') else None
-            gitEmail   = data['email'] if data.has_key('email') else None
-            gitBio     = data['bio'] if data.has_key('bio') else None
+            gitName    = data['name'] if 'name' in data else None
+            gitCompany = data['company'] if 'company' in data else None
+            gitBlog    = data['blog'] if 'blog' in data else None
+            gitLoc     = data['location'] if 'location' in data else None
+            gitEmail   = data['email'] if 'email' in data else None
+            gitBio     = data['bio'] if 'bio' in data else None
             gitJoin    = data['created_at'].split('T')
             gitUpdate  = data['updated_at'].split('T')
             # build and display a table of the results
@@ -60,7 +63,7 @@ class Module(BaseModule):
         url = 'https://bitbucket.org/api/2.0/users/%s' % (username)
         resp = self.request(url)
         data = resp.json
-        if data.has_key('username'):
+        if 'username' in data:
             self.alert('Bitbucket username found - (%s)' % url)
             # extract data from the optional fields
             bbName = data['display_name']
@@ -82,7 +85,6 @@ class Module(BaseModule):
             self.insert_contacts(first_name=fname, middle_name=mname, last_name=lname, title='Bitbucket Contributor')
         else:
             self.output('Bitbucket username not found.')
-
 
     def sourceforge(self, username):
         self.verbose('Checking SourceForge...')
@@ -163,7 +165,7 @@ class Module(BaseModule):
             gitoName = re.search('<strong>([^<]*)</strong>\s+</li>\s+<li class="email">', resp.text)
             # Gitorious URL encodes the user's email to obscure it...lulz. No problem.
             gitoEmailRaw = re.search("eval\(decodeURIComponent\('(.+)'", resp.text)
-            gitoEmail = re.search(r'mailto:([^\\]+)', urllib.unquote(gitoEmailRaw.group(1))) if gitoEmailRaw else None
+            gitoEmail = re.search(r'mailto:([^\\]+)', urllib.parse.unquote(gitoEmailRaw.group(1))) if gitoEmailRaw else None
             gitoJoin = re.search('Member for (.+)', resp.text)
             gitoPersonalUrl = re.search('rel="me" href="(.+)">', resp.text)
             gitoProjects = re.findall('<tr class="project">\s+<td>\s+<a href="/([^"]*)">([^<]*)</a>\s+</td>\s+</tr>', resp.text)

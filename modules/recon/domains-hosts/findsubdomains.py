@@ -19,7 +19,7 @@ class Module(BaseModule):
                 doc = lxml.html.document_fromstring(resp.text)
                 el = doc.xpath("//a[contains(@class, 'aggregated-link mobile-hidden')]")
                 for elem in el:
-                    hostname = u''.join(elem.text.strip())
+                    hostname = ''.join(elem.text.strip())
                     self.insert_hosts(host=hostname)
             else:
                 self.error("Error retrieving results")
