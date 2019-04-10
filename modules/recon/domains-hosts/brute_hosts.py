@@ -4,6 +4,7 @@ from recon.mixins.threads import ThreadingMixin
 import dns.resolver
 import os
 
+
 class Module(BaseModule, ResolverMixin, ThreadingMixin):
 
     meta = {

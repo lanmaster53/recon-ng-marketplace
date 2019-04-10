@@ -1,5 +1,6 @@
 from recon.core.module import BaseModule
-from urllib import quote_plus
+from urllib.parse import quote_plus
+
 
 class Module(BaseModule):
     meta = {

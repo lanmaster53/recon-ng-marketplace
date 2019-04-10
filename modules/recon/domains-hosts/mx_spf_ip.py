@@ -2,6 +2,7 @@ from recon.core.module import BaseModule
 from recon.mixins.resolver import ResolverMixin
 import dns.resolver
 
+
 class Module(BaseModule, ResolverMixin):
 
     meta = {
@@ -31,7 +32,7 @@ class Module(BaseModule, ResolverMixin):
                     self.verbose('%s => Request timed out.' % (domain))
                     attempt += 1
                     continue
-                except (dns.resolver.NoNameservers):
+                except dns.resolver.NoNameservers:
                     self.verbose('%s => Invalid nameserver.' % (domain))
                 else:
                     for rdata in answers:
@@ -54,7 +55,7 @@ class Module(BaseModule, ResolverMixin):
                     self.verbose('%s => Request timed out.' % (domain))
                     attempt += 1
                     continue
-                except (dns.resolver.NoNameservers):
+                except dns.resolver.NoNameservers:
                     self.verbose('%s => Invalid nameserver.' % (domain))
                 else:
                     for txtrecord in answers:

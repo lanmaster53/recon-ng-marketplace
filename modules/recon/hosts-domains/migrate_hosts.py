@@ -2,6 +2,7 @@ from recon.core.module import BaseModule
 import os
 import re
 
+
 class Module(BaseModule):
 
     meta = {
@@ -20,7 +21,7 @@ class Module(BaseModule):
 
     def module_run(self, hosts):
         # ip address regex
-        regex = '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}'
+        regex = r'[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}'
         # only migrate hosts that aren't ip addresses
         hosts = [x for x in hosts if not re.match(regex, x[0])]
         with open(os.path.join(self.data_path, 'suffixes.txt')) as f:

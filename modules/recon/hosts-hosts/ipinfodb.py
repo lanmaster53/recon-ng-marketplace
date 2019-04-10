@@ -2,6 +2,7 @@ from recon.core.module import BaseModule
 import json
 import time
 
+
 class Module(BaseModule):
 
     meta = {
