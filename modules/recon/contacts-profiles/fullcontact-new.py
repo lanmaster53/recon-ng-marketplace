@@ -1,8 +1,9 @@
 from recon.core.module import BaseModule
-import time
+from time import sleep
+
 
 def find(key, dictionary):
-    for k, v in dictionary.iteritems():
+    for k, v in list(dictionary.items()):
         if k == key:
             yield v
         elif isinstance(v, dict):
@@ -12,6 +13,7 @@ def find(key, dictionary):
             for d in v:
                 for result in find(key, d):
                     yield result
+
 
 class Module(BaseModule):
 
@@ -29,7 +31,7 @@ class Module(BaseModule):
         base_url = 'https://api.fullcontact.com/v3/person.enrich'
         while entities:
             entity = entities.pop(0)
-            payload = {'twitter':entity}
+            payload = {'twitter': entity}
             headers = {'Authorization': 'Bearer ' + api_key}
             resp = self.request(base_url, method='POST', payload=payload, headers=headers, content='JSON')
             if resp.status_code == 200:
@@ -75,4 +77,4 @@ class Module(BaseModule):
             else:
                 self.output('%s - %s' % (entity, resp.json['message']))
             # 600 requests per minute api rate limit
-            time.sleep(.1)
+            sleep(.1)

@@ -1,6 +1,7 @@
 from recon.core.module import BaseModule
 import textwrap
 
+
 class Module(BaseModule):
 
     meta = {

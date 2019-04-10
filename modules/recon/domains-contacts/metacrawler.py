@@ -2,7 +2,7 @@ from recon.core.module import BaseModule
 from recon.mixins.search import GoogleWebMixin
 from PyPDF2 import PdfFileReader
 from PyPDF2.utils import PdfReadError
-from StringIO import StringIO
+from io import StringIO
 import itertools
 import lxml.etree
 import olefile
@@ -48,7 +48,7 @@ def pdf_parser(s):
     meta = pdf.getDocumentInfo() or {}
     #print(str(meta))
     result = {}
-    for key in meta.keys():
+    for key in list(meta.keys()):
         result[key[1:]] = meta.get(key)
     return result
 
@@ -85,7 +85,7 @@ class Module(BaseModule, GoogleWebMixin):
             'ooxml': ['docx', 'xlsx', 'pptx'],
             'pdf': ['pdf'],
         }
-        search = 'site:%s ' + ' OR '.join(['filetype:%s' % (ext) for ext in list(itertools.chain.from_iterable(exts.values()))])
+        search = 'site:%s ' + ' OR '.join(['filetype:%s' % (ext) for ext in list(itertools.chain.from_iterable(list(exts.values())))])
         for domain in domains:
             self.heading(domain, level=0)
             results = self.search_google_web(search % domain)

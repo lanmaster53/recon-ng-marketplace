@@ -1,7 +1,8 @@
 from recon.core.module import BaseModule
 import warnings
 import gzip
-from StringIO import StringIO
+from io import StringIO
+
 
 class Module(BaseModule):
 
@@ -40,7 +41,7 @@ class Module(BaseModule):
         download = self.options['download']
         protocol = self.options['protocol']
         port = self.options['port']
-        # ignore unicode warnings when trying to ungzip text type 200 repsonses
+        # ignore unicode warnings when trying to un-gzip text type 200 repsonses
         warnings.simplefilter("ignore")
         # (filename, string to search for to prevent false positive)
         filetypes = [
@@ -52,14 +53,14 @@ class Module(BaseModule):
             ('test.php', 'phpinfo()'),
             ('elmah.axd', 'Error Log for'),
             ('server-status', '>Apache Status<'),
-            ('jmx-console/', 'JBoss'), #JBoss 5.1.0.GA
-            ('admin-console/', 'index.seam'), #JBoss 5.1.0.GA
-            ('web-console/', 'Administration'), #JBoss 5.1.0.GA
+            ('jmx-console/', 'JBoss'),  # JBoss 5.1.0.GA
+            ('admin-console/', 'index.seam'),  # JBoss 5.1.0.GA
+            ('web-console/', 'Administration'),  # JBoss 5.1.0.GA
             ]
-        cnt = 0
+        count = 0
         for host in hosts:
             for (filename, verify) in filetypes:
-                url = '%s://%s:%d/%s' % (protocol, host, port, filename)
+                url = f'{protocol}://{host}:{port}/{filename}'
                 try:
                     resp = self.request(url, timeout=2, redirect=False)
                     code = resp.status_code
@@ -72,17 +73,18 @@ class Module(BaseModule):
                     text = ('.gz' in filename and self.uncompress(resp.text)) or resp.text
                     # check for file type since many custom 404s are returned as 200s
                     if verify.lower() in text.lower():
-                        self.alert('%s => %s. \'%s\' found!' % (url, code, filename))
+                        self.alert(f'{url} => {code}. \'{filename}\' found!')
                         # urls that end with '/' are not necessary to download
                         if download and not filename.endswith("/"):
-                            filepath = '%s/%s_%s_%s' % (self.workspace, protocol, host, filename)
+                            filepath = f'{self.workspace}/{protocol}_{host}_{filename}'
                             dl = open(filepath, 'w')
                             dl.write(resp.text.encode(resp.encoding) if resp.encoding else resp.text)
                             dl.close()
-                        cnt += 1
+                        count += 1
                     else:
-                        self.output('%s => %s. \'%s\' found but unverified.' % (url, code, filename))
+                        self.output(f'{url} => {code}. \'{filename}\' found but unverified.')
                 else:
-                    self.verbose('%s => %s' % (url, code))
-        self.output('%d interesting files found.' % (cnt))
-        if download: self.output('...downloaded to \'%s/\'' % (self.workspace))
+                    self.verbose(f'{url} => {code}')
+        self.output(f'{count} interesting files found.')
+        if download:
+            self.output(f'...downloaded to \'{self.workspace}/\'')

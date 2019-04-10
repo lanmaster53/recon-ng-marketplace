@@ -1,6 +1,7 @@
 from recon.core.module import BaseModule
 import re
 
+
 class Module(BaseModule):
 
     meta = {
@@ -12,7 +13,7 @@ class Module(BaseModule):
 
     def module_run(self):
         # ip address regex
-        regex = '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}'
+        regex = r'[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}'
         # get a list of hosts that are not ip addresses
         hosts = [x[0] for x in self.query('SELECT DISTINCT host FROM ports WHERE host IS NOT NULL') if not re.match(regex, x[0])]
         for host in hosts:
