@@ -26,10 +26,10 @@ class Module(BaseModule):
         regex = '(?:%s)' % ('|'.join(['\.'+re.escape(x)+'$' for x in domains]))
         for address in addresses:
             self.heading(address, level=0)
-            query = 'ip:%s' % (address)
+            query = f"ip:{address}"
             results = self.search_bing_api(query)
             if not results:
-                self.verbose('No additional hosts discovered at \'%s\'.' % (address))
+                self.verbose(f"No additional hosts discovered at '{address}'.")
             for result in results:
                 host = parse_hostname(result['displayUrl'])
                 self.verbose(host)

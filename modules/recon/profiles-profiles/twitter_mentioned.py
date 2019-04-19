@@ -24,7 +24,7 @@ class Module(BaseModule):
             handle = handle if not handle.startswith('@') else handle[1:]
             self.heading(handle, level=0)
             for operand in ['to:', '@']:
-                results = self.search_twitter_api({'q':'%s%s' % (operand, handle)}, self.options['limit'])
+                results = self.search_twitter_api({'q': f"{operand}{handle}"}, self.options['limit'])
                 for tweet in results:
                     handle = tweet['user']['screen_name']
                     name = tweet['user']['name']

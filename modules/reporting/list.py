@@ -25,7 +25,7 @@ class Module(BaseModule):
             # handle the source of information for the report
             column = self.options['column']
             table = self.options['table']
-            nulls = ' WHERE "%s" IS NOT NULL' % (column) if not self.options['nulls'] else ''
+            nulls = f' WHERE "{column}" IS NOT NULL' if not self.options['nulls'] else ''
             unique = 'DISTINCT ' if self.options['unique'] else ''
             values = (unique, column, table, nulls)
             query = 'SELECT %s"%s" FROM "%s"%s ORDER BY 1' % values
@@ -34,4 +34,4 @@ class Module(BaseModule):
                 row = row if row else ''
                 outfile.write('%s\n' % (row))
                 print(row)
-        self.output('%d items added to \'%s\'.' % (len(rows), filename))
+        self.output(f"{len(rows)} items added to '{filename}'.")

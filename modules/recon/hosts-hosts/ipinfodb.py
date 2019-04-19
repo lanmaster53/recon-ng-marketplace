@@ -17,7 +17,7 @@ class Module(BaseModule):
     def module_run(self, hosts):
         api_key = self.keys.get('ipinfodb_api')
         for host in hosts:
-            url = 'http://api.ipinfodb.com/v3/ip-city/?key=%s&ip=%s&format=json' % (api_key, host)
+            url = (f"http://api.ipinfodb.com/v3/ip-city/?key={api_key}&ip={host}&format=json")
             resp = self.request(url)
             if resp.json:
                 jsonobj = resp.json
@@ -32,5 +32,5 @@ class Module(BaseModule):
             country = jsonobj['countryName'].title()
             latitude = str(jsonobj['latitude'])
             longitude = str(jsonobj['longitude'])
-            self.output('%s - %s,%s - %s' % (host, latitude, longitude, ', '.join([x for x in [region, country] if x])))
+            self.output(f"{host} - {latitude},{longitude} - {', '.join([x for x in [region, country] if x])}")
             self.query('UPDATE hosts SET region=?, country=?, latitude=?, longitude=? WHERE ip_address=?', (region, country, latitude, longitude, host))

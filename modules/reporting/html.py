@@ -24,9 +24,9 @@ class Module(BaseModule):
 
     def build_table(self, table):
         table_content = ''
-        table_show = '<a id="show-%s" href="javascript:showhide(\'%s\');"><p>[+] %s</p></a>' % (table, table, table.replace('_', ' ').title())
-        table_hide = '<a id="hide-%s" href="javascript:showhide(\'%s\');"><p>[-] %s</p><hr></a>' % (table, table, table.replace('_', ' ').title())
-        columns = [x[1] for x in self.query('PRAGMA table_info(\'%s\')' % (table))]
+        table_show = (f'<a id="show-{table}" href="javascript:showhide(\'{table}\');"><p>[+] {table.replace(\'_\', \' \').title()}</p></a>')
+        table_hide = (f'<a id="hide-{table}" href="javascript:showhide(\'{table}\');"><p>[-] {table.replace(\'_\', \' \').title()}</p><hr></a>')
+        columns = [x[1] for x in self.query(f"PRAGMA table_info('{table}')")]
         row_headers = '<tr><th>%s</th></tr>' % ('</th><th>'.join(columns))
         rows = self.query('SELECT "%s" FROM "%s" ORDER BY 1' % ('", "'.join(columns), table))
         if not rows: return ''
@@ -52,7 +52,7 @@ class Module(BaseModule):
             row_headers = '<tr><th>table</th><th>count</th></tr>'
             row_content = ''
             for table in tables:
-                query = 'SELECT COUNT(*) FROM "%s"' % (table)
+                query = f'SELECT COUNT(*) FROM "{table}"'
                 if table == 'leaks':
                     query = 'SELECT COUNT(DISTINCT leak) FROM credentials WHERE leak IS NOT NULL'
                 count = self.query(query)[0][0]
@@ -92,4 +92,4 @@ class Module(BaseModule):
             created = datetime.datetime.now().strftime('%a, %b %d %Y %H:%M:%S')
             markup = template % (title, table_content, creator, created)
             outfile.write(markup)
-        self.output('Report generated at \'%s\'.' % (filename))
+        self.output(f"Report generated at '{filename}'.")

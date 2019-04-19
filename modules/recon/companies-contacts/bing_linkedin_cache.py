@@ -35,10 +35,7 @@ class Module(BaseModule):
         subdomains = self.options['subdomains']
         subdomain_list = [''] if not subdomains else [x.strip()+'.' for x in subdomains.split(',')]
         for subdomain in subdomain_list:
-            base_query = [
-                "site:\"%slinkedin.com/in/\" \"%s\"" % (subdomain, company),
-                "site:\"%slinkedin.com\" -jobs \"%s\"" % (subdomain, company),
-            ]
+            base_query = [f'site:"{subdomain}linkedin.com/in/" "{company}"', f'site:"{subdomain}linkedin.com" -jobs "{company}"']
             for query in base_query:
                 results = self.search_bing_api(query, self.options['limit'])
                 for result in results:

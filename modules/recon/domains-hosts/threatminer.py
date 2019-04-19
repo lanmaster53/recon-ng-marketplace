@@ -14,7 +14,7 @@ class Module(BaseModule):
     def module_run(self, domains):
         for domain in domains:
             self.heading(domain, level=0)
-            resp = self.request(url = 'https://api.threatminer.org/v2/domain.php?rt=5&q=%s' % domain)
+            resp = self.request(url=f"https://api.threatminer.org/v2/domain.php?rt=5&q={domain}")
             if resp.json.get('status_code') == '200':
                 for subdomain in resp.json.get('results'):
                     self.insert_hosts(host=subdomain)

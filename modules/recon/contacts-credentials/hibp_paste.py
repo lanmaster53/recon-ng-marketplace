@@ -38,9 +38,9 @@ class Module(BaseModule):
             resp = self.request(base_url % (endpoint, urllib.parse.quote(account)))
             rcode = resp.status_code
             if rcode == 404:
-                self.verbose('%s => Not Found.' % (account))
+                self.verbose(f"{account} => Not Found.")
             elif rcode == 400:
-                self.error('%s => Bad Request.' % (account))
+                self.error(f"{account} => Bad Request.")
                 continue
             else:
                 for paste in resp.json:
@@ -51,18 +51,18 @@ class Module(BaseModule):
                         download = self.options['download']
                     elif self.options['download'] == True:
                         self.alert('Download not available for %s pastes.' % (paste['Source']))
-                    self.alert('%s => Paste found! Seen in a %s on %s (%s).' % (account, paste['Source'], paste['Date'], fileurl))
+                    self.alert(f"{account} => Paste found! Seen in a {paste['Source']} on {paste['Date']} ({fileurl}).")
                     if download == True:
                         resp = self.request(fileurl)
                         if resp.status_code == 200:
-                            filepath = '%s/%s.txt' % (self.workspace, _safe_file_name(fileurl))
+                            filepath = f"{self.workspace}/{_safe_file_name(fileurl)}.txt"
                             if not os.path.exists(filepath):
                                 dl = open(filepath, 'w')
                                 dl.write(resp.text.encode(resp.encoding) if resp.encoding else resp.text)
                                 dl.close()
-                            self.verbose('Paste stored at \'%s\'.' % (filepath))
+                            self.verbose(f"Paste stored at '{filepath}'.")
                         else:
-                            self.alert('Paste could not be downloaded (%s).' % (fileurl))
+                            self.alert(f"Paste could not be downloaded ({fileurl}).")
                 self.insert_credentials(account)
             time.sleep(1.6)
 

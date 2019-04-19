@@ -15,13 +15,13 @@ class Module(BaseModule):
     def module_run(self, points):
         api_key = self.keys.get('google_api')
         for point in points:
-            self.verbose("Reverse geocoding (%s)..." % (point))
+            self.verbose(f"Reverse geocoding ({point})...")
             payload = {'latlng' : point, 'key' : api_key}
             url = 'https://maps.googleapis.com/maps/api/geocode/json'
             resp = self.request(url, payload=payload)
             # kill the module if nothing is returned
             if len(resp.json['results']) == 0:
-                self.output('Unable to resolve an address for (%s).' % (point))
+                self.output(f"Unable to resolve an address for ({point}).")
                 return
             # loop through the results
             found = False
