@@ -30,14 +30,14 @@ class Module(BaseModule):
                     except KeyError:
                         first_name, middle_name, last_name = self.parse_name(resp.json['contactInfo']['fullName'])
                     name = ' '.join([x for x in (first_name, middle_name, last_name) if x])
-                    self.alert('%s - %s' % (name, email))
+                    self.alert(f"{name} - {email}")
                     # parse company information for title
                     title = None
                     if 'organizations' in resp.json:
                         for occupation in resp.json['organizations']:
                             if 'current' in occupation and occupation['current']:
                                 if 'title' in occupation:
-                                    title = '%s at %s' % (occupation['title'], occupation['name'])
+                                    title = f"{occupation['title']} at {occupation['name']}"
                                 else:
                                     title = 'Employee at %s' % occupation['name']
                                 self.output(title)
@@ -63,8 +63,8 @@ class Module(BaseModule):
             elif resp.status_code == 202:
                 # add emails queued by fullcontact back to the list
                 emails.append(email)
-                self.output('%s - Queued for search.' % email)
+                self.output(f"{email} - Queued for search.")
             else:
-                self.output('%s - %s' % (email, resp.json['message']))
+                self.output(f"{email} - {resp.json['message']}")
             # 60 requests per minute api rate limit
             time.sleep(1)

@@ -25,12 +25,12 @@ class Module(BaseModule):
             hosts = []
             results = []
             pages = 1
-            base_query = 'domain:%s' % (domain)
+            base_query = f"domain:{domain}"
             while not limit or requests < limit:
                 query = base_query
                 # build query string based on api limitations
                 for host in hosts:
-                    omit_domain = ' -domain:%s' % (host)
+                    omit_domain = f" -domain:{host}"
                     # https://msdn.microsoft.com/en-us/library/dn760794.aspx
                     if len(query) + len(omit_domain) >= 1500:
                         break
@@ -53,4 +53,4 @@ class Module(BaseModule):
                     break
                 elif not flag and last_len != len(results):
                     pages += 1
-                    self.verbose('No new hosts found for the current query. Increasing depth to \'%d\' pages.' % (pages))
+                    self.verbose(f"No new hosts found for the current query. Increasing depth to '{pages}' pages.")

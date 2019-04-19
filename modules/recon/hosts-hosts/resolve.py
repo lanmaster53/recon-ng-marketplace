@@ -21,11 +21,11 @@ class Module(BaseModule, ResolverMixin):
             try:
                 answers = q.query(host)
             except dns.resolver.NXDOMAIN:
-                self.verbose('%s => Unknown' % (host))
+                self.verbose(f"{host} => Unknown")
             except dns.resolver.NoAnswer:
-                self.verbose('%s => No answer' % (host))
+                self.verbose(f"{host} => No answer")
             except (dns.resolver.NoNameservers, dns.resolver.Timeout):
-                self.verbose('%s => DNS Error' % (host))
+                self.verbose(f"{host} => DNS Error")
             else:
                 for i in range(0, len(answers)):
                     if i == 0:
@@ -36,4 +36,4 @@ class Module(BaseModule, ResolverMixin):
                             'ip_address': self.to_unicode(answers[i].address)
                         }
                         self.insert('hosts', data, list(data.keys()))
-                    self.output('%s => %s' % (host, answers[i].address))
+                    self.output(f"{host} => {answers[i].address}")

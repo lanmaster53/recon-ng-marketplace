@@ -17,7 +17,7 @@ class Module(BaseModule):
             self.heading(domain, level=0)
             resp = self.request('https://crt.sh/?q=%25.{0}&output=json'.format(domain))
             if resp.status_code != 200:
-                self.output('Invalid response for \'%s\'' % domain)
+                self.output(f"Invalid response for '{domain}'")
                 continue
             for cert in resp.json:
                 self.insert_hosts(cert.get('name_value'))

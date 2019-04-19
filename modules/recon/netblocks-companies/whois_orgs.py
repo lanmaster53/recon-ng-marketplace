@@ -15,12 +15,9 @@ class Module(BaseModule):
         headers = {'Accept': 'application/json'}
         for netblock in netblocks:
             self.heading(netblock, level=0)
-            urls = [
-                'http://whois.arin.net/rest/cidr/%s' % (netblock),
-                'http://whois.arin.net/rest/ip/%s' % (netblock.split('/')[0]),
-            ]
+            urls = [f"http://whois.arin.net/rest/cidr/{netblock}", 'http://whois.arin.net/rest/ip/%s' % netblock.split('/')[0]]
             for url in urls:
-                self.verbose('URL: %s' % url)
+                self.verbose(f"URL: {url}")
                 resp = self.request(url, headers=headers)
                 if 'No record found for the handle provided.' in resp.text:
                     self.output('No companies found.')

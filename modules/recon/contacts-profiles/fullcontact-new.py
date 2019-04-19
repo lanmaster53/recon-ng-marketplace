@@ -50,9 +50,9 @@ class Module(BaseModule):
                 title = resp.json.get('title')
                 organization = resp.json.get('organization')
                 if title and organization:
-                    title = '%s at %s' % (title, organization)
+                    title = f"{title} at {organization}"
                 elif organization:
-                    title = 'Employee at %s' % organization
+                    title = f"Employee at {organization}"
                 if title:
                     self.alert(title)
 
@@ -73,8 +73,8 @@ class Module(BaseModule):
             elif resp.status_code == 202:
                 # add emails queued by fullcontact back to the list
                 entities.append(entity)
-                self.output('%s queued and added back to the list.' % entity)
+                self.output(f"{entity} queued and added back to the list.")
             else:
-                self.output('%s - %s' % (entity, resp.json['message']))
+                self.output(f"{entity} - {resp.json['message']}")
             # 600 requests per minute api rate limit
             sleep(.1)

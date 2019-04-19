@@ -60,7 +60,7 @@ class Module(BaseModule):
             username = email.split('@')[0]
             result = pattern.search(username)
             if result is None:
-                self.verbose('%s did not match the pattern. Skipping.' % email)
+                self.verbose(f"{email} did not match the pattern. Skipping.")
                 continue
             
             for name in contact:

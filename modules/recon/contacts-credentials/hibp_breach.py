@@ -23,12 +23,12 @@ class Module(BaseModule):
             resp = self.request(base_url % (endpoint, urllib.parse.quote(account)))
             rcode = resp.status_code
             if rcode == 404:
-                self.verbose('%s => Not Found.' % (account))
+                self.verbose(f"{account} => Not Found.")
             elif rcode == 400:
-                self.error('%s => Bad Request.' % (account))
+                self.error(f"{account} => Bad Request.")
                 continue
             else:
                 for breach in resp.json:
-                    self.alert('%s => Breach found! Seen in the %s breach that occurred on %s.' % (account, breach['Title'], breach['BreachDate']))
+                    self.alert(f"{account} => Breach found! Seen in the {breach['Title']} breach that occurred on {breach['BreachDate']}.")
                 self.insert_credentials(account)
             time.sleep(1.6)

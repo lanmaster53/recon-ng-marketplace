@@ -25,7 +25,7 @@ class Module(BaseModule):
         for repo in repos:
             self.heading(repo, level=0)
             for dork in dorks:
-                query = 'repo:%s %s' % (repo, dork)
+                query = f"repo:{repo} {dork}"
                 for result in self.search_github_api(query):
                     data = {
                         'reference': query,

@@ -29,7 +29,7 @@ class Module(BaseModule):
             if cookie.name == 'netcraft_js_verification_challenge':
                 challenge = cookie.value
                 response = hashlib.sha1(urllib.parse.unquote(challenge)).hexdigest()
-                cookiejar.set_cookie(self.make_cookie('netcraft_js_verification_response', '%s' % response, '.netcraft.com'))
+                cookiejar.set_cookie(self.make_cookie('netcraft_js_verification_response', f"{response}", '.netcraft.com'))
                 break
         for domain in domains:
             self.heading(domain, level=0)
@@ -38,7 +38,7 @@ class Module(BaseModule):
             # execute search engine queries and scrape results storing subdomains in a list
             # loop until no Next Page is available
             while True:
-                self.verbose('URL: %s?%s' % (url, encode_payload(payload)))
+                self.verbose(f"URL: {url}?{encode_payload(payload)}")
                 resp = self.request(url, payload=payload, cookiejar=cookiejar)
                 content = resp.text
                 sites = re.findall(pattern, content)

@@ -20,7 +20,7 @@ class Module(BaseModule):
         limit = self.options['limit']
         for domain in domains:
             self.heading(domain, level=0)
-            query = 'hostname:%s' % (domain)
+            query = f"hostname:{domain}"
             results = self.search_shodan_api(query, limit)
             for host in results:
                 address = host['ip_str']

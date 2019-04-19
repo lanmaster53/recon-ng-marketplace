@@ -15,16 +15,16 @@ class Module(BaseModule):
         headers = {'Accept': 'application/json'}
         for domain in domains:
             self.heading(domain, level=0)
-            url = 'http://whois.arin.net/rest/pocs;domain=%s' % (domain)
-            self.verbose('URL: %s' % url)
+            url = f"http://whois.arin.net/rest/pocs;domain={domain}"
+            self.verbose(f"URL: {url}")
             resp = self.request(url, headers=headers)
             if 'Your search did not yield any results.' in resp.text:
                 self.output('No contacts found.')
                 continue
             handles = [x['@handle'] for x in resp.json['pocs']['pocRef']] if type(resp.json['pocs']['pocRef']) == list else [resp.json['pocs']['pocRef']['@handle']]
             for handle in handles:
-                url = 'http://whois.arin.net/rest/poc/%s' % (handle)
-                self.verbose('URL: %s' % url)
+                url = f"http://whois.arin.net/rest/poc/{handle}"
+                self.verbose(f"URL: {url}")
                 resp = self.request(url, headers=headers)
                 poc = resp.json['poc']
                 emails = poc['emails']['email'] if type(poc['emails']['email']) == list else [poc['emails']['email']]

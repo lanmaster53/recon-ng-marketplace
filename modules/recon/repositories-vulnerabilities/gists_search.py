@@ -29,7 +29,7 @@ class Module(BaseModule):
             self.heading(filename, level=0)
             resp = self.request(gist)
             for keyword in keywords:
-                self.verbose('Searching Gist for: %s' % (keyword))
+                self.verbose(f"Searching Gist for: {keyword}")
                 lines = resp.raw.splitlines()
                 for lineno, line in enumerate(lines):
                     if keyword in line:

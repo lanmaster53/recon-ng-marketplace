@@ -20,11 +20,11 @@ class Module(BaseModule):
     # Add a method for each repository
     def github(self, username):
         self.verbose('Checking Github...')
-        url = 'https://api.github.com/users/%s' % (username)
+        url = f"https://api.github.com/users/{username}"
         resp = self.request(url)
         data = resp.json
         if 'login' in data:
-            self.alert('Github username found - (%s)' % url)
+            self.alert(f"Github username found - ({url})")
             # extract data from the optional fields
             gitName    = data['name'] if 'name' in data else None
             gitCompany = data['company'] if 'company' in data else None
@@ -60,11 +60,11 @@ class Module(BaseModule):
 
     def bitbucket(self, username):
         self.verbose('Checking Bitbucket...')
-        url = 'https://bitbucket.org/api/2.0/users/%s' % (username)
+        url = f"https://bitbucket.org/api/2.0/users/{username}"
         resp = self.request(url)
         data = resp.json
         if 'username' in data:
-            self.alert('Bitbucket username found - (%s)' % url)
+            self.alert(f"Bitbucket username found - ({url})")
             # extract data from the optional fields
             bbName = data['display_name']
             bbJoin = data['created_on'].split('T')
@@ -88,11 +88,11 @@ class Module(BaseModule):
 
     def sourceforge(self, username):
         self.verbose('Checking SourceForge...')
-        url = 'http://sourceforge.net/u/%s/profile/' % (username)
+        url = f"http://sourceforge.net/u/{username}/profile/"
         resp = self.request(url)
         sfName = re.search('<title>(.+) / Profile', resp.text)
         if sfName:
-            self.alert('Sourceforge username found - (%s)' % url)
+            self.alert(f"Sourceforge username found - ({url})")
             # extract data
             sfJoin = re.search('<dt>Joined:</dt><dd>\s*(\d\d\d\d-\d\d-\d\d) ', resp.text)
             sfLocation = re.search('<dt>Location:</dt><dd>\s*(\w.*)', resp.text)
@@ -123,11 +123,11 @@ class Module(BaseModule):
 
     def codeplex(self, username):
         self.verbose('Checking CodePlex...')
-        url = 'http://www.codeplex.com/site/users/view/%s' % (username)
+        url = f"http://www.codeplex.com/site/users/view/{username}"
         resp = self.request(url)
         cpName = re.search('<h1 class="user_name" style="display: inline">(.+)</h1>', resp.text)
         if cpName:
-            self.alert('CodePlex username found - (%s)' % url)
+            self.alert(f"CodePlex username found - ({url})")
             # extract data
             cpJoin = re.search('Member Since<span class="user_float">([A-Z].+[0-9])</span>', resp.text)
             cpLast = re.search('Last Visit<span class="user_float">([A-Z].+[0-9])</span>', resp.text)
@@ -146,7 +146,7 @@ class Module(BaseModule):
             tdata.append(['Date Last', time.strftime('%Y-%m-%d', time.strptime(cpLast, '%B %d, %Y'))])
             cpCoordProject = re.findall('<a href="(http://.+)/" title=".+">(.+)<br /></a>', cpCoordinator)
             for cpReposUrl, cpRepos in cpCoordProject:
-                tdata.append(['Project', '%s (%s)' % (cpRepos, cpReposUrl)])
+                tdata.append(['Project', f"{cpRepos} ({cpReposUrl})"])
             self.table(tdata, title='CodePlex')
             # add the pertinent information to the database
             if not cpName: cpName = username
@@ -157,10 +157,10 @@ class Module(BaseModule):
 
     def gitorious(self, username):
         self.verbose('Checking Gitorious...')
-        url = 'https://gitorious.org/~%s' % (username)
+        url = f"https://gitorious.org/~{username}"
         resp = self.request(url)
         if re.search('href="/~%s" class="avatar"' % (username), resp.text):
-            self.alert('Gitorious username found - (%s)' % url)
+            self.alert(f"Gitorious username found - ({url})")
             # extract data
             gitoName = re.search('<strong>([^<]*)</strong>\s+</li>\s+<li class="email">', resp.text)
             # Gitorious URL encodes the user's email to obscure it...lulz. No problem.
@@ -183,7 +183,7 @@ class Module(BaseModule):
             tdata.append(['Email', gitoEmail])
             tdata.append(['Personal URL', gitoPersonalUrl])
             for gitoProjUrl, gitoProjName in gitoProjects:
-                tdata.append(['Project', '%s (https://gitorious.org/%s)' % (gitoProjName, gitoProjUrl)])
+                tdata.append(['Project', f"{gitoProjName} (https://gitorious.org/{gitoProjUrl})"])
             self.table(tdata, title='Gitorious')
             # add the pertinent information to the database
             if not gitoName: gitoName = username

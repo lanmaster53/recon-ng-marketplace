@@ -22,7 +22,7 @@ class Module(BaseModule):
             addresses = self.cidr_to_list(netblock)
             first = addresses[0]
             last = addresses[-1]
-            self.verbose('%s (%s - %s)' % (netblock, first, last))
+            self.verbose(f"{netblock} ({first} - {last})")
             payload = {'startIP': first, 'endIP': last, 'includeHostnames': 'Yes', 'rawDownload': 'Yes'}
             resp = self.request(url, payload=payload)
             hosts = resp.text.strip().split('\r\n')[1:]

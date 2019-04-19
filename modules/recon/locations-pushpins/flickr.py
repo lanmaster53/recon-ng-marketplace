@@ -47,7 +47,7 @@ class Module(BaseModule):
                     source = 'Flickr'
                     screen_name = photo['owner']
                     profile_name = photo['ownername']
-                    profile_url = 'http://flickr.com/photos/%s' % screen_name
+                    profile_url = f"http://flickr.com/photos/{screen_name}"
                     try:
                         media_url = photo['url_m']
                     except KeyError:
@@ -60,7 +60,7 @@ class Module(BaseModule):
                         time = datetime(1970, 1, 1)
                     self.insert_pushpins(source, screen_name, profile_name, profile_url, media_url, thumb_url, message, latitude, longitude, time)
                 processed += len(jsonobj['photos']['photo'])
-                self.verbose('%s photos processed.' % (processed))
+                self.verbose(f"{processed} photos processed.")
                 if jsonobj['photos']['page'] >= jsonobj['photos']['pages']:
                     break
                 payload['page'] = jsonobj['photos']['page'] + 1

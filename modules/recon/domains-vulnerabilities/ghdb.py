@@ -44,7 +44,7 @@ class Module(BaseModule, GoogleWebMixin):
                 dorks = [x.strip() for x in fp.readlines()]
         for domain in domains:
             self.heading(domain, level=0)
-            base_query = 'site:%s' % (domain)
+            base_query = f"site:{domain}"
             for dork in dorks:
                 # build query based on alternate list
                 if isinstance(dork, str):

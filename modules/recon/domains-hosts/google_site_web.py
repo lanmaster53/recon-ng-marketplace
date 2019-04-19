@@ -17,7 +17,7 @@ class Module(BaseModule, GoogleWebMixin):
         for domain in domains:
             self.heading(domain, level=0)
             base_query = 'site:' + domain
-            regmatch = re.compile('//([^/]*\.%s)' % (domain))
+            regmatch = re.compile(f'//([^/]*\\.{domain})')
             hosts = []
             # control variables
             new = True
@@ -29,7 +29,7 @@ class Module(BaseModule, GoogleWebMixin):
                 # build query based on results of previous results
                 query = ''
                 for host in hosts:
-                    query += ' -site:%s' % (host)
+                    query += f" -site:{host}"
                 # send query to search engine
                 results = self.search_google_web(base_query + query, limit=1, start_page=page)
                 # extract hosts from search results

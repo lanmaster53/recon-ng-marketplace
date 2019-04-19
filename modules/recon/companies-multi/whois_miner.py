@@ -23,7 +23,7 @@ class Module(BaseModule):
         headers = {'Accept': 'application/json'}
         for search in searches:
             for rtype in ('org', 'customer'):
-                url = 'http://whois.arin.net/rest/%ss;name=%s' % (rtype, urllib.parse.quote(search))
+                url = f"http://whois.arin.net/rest/{rtype}s;name={urllib.parse.quote(search)}"
                 entities = self._request(url, headers, rtype+'s', rtype+'Ref')
                 for entity in entities:
                     self.heading(entity['@name'], level=0)
@@ -43,14 +43,14 @@ class Module(BaseModule):
                             end = netblock.strtoip(net['@endAddress'])
                             blocks = netblock.lhcidrs(begin, end)
                         except ValueError:
-                            self.alert('IPv6 ranges not supported: %s-%s' % (net['@startAddress'], net['@endAddress']))
+                            self.alert(f"IPv6 ranges not supported: {net['@startAddress']}-{net['@endAddress']}")
                             continue
                         for block in blocks:
                             ip = netblock.iptostr(block[0])
-                            cidr = '%s/%s' % (ip, str(block[1]))
+                            cidr = f"{ip}/{str(block[1])}"
                             self.insert_netblocks(netblock=cidr)
                     # add contacts
-                    url = 'http://whois.arin.net/rest/%s/%s/pocs' % (rtype, entity['@handle'])
+                    url = f"http://whois.arin.net/rest/{rtype}/{entity['@handle']}/pocs"
                     pocLinks = self._request(url, headers, 'pocs', 'pocLinkRef')
                     for pocLink in pocLinks:
                         url = pocLink['$']
@@ -67,7 +67,7 @@ class Module(BaseModule):
                             self.insert_contacts(first_name=fname, last_name=lname, email=email, title=title, region=location.region, country=location.country)
 
     def _request(self, url, headers, grp, ref):
-        self.verbose('URL: %s' % url)
+        self.verbose(f"URL: {url}")
         resp = self.request(url, headers=headers)
         strs = [
             'No related resources were found for the handle provided.',

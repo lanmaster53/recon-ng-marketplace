@@ -19,10 +19,10 @@ class Module(BaseModule, ThreadingMixin):
     def module_run(self, usernames):
         # retrieve list of sites
         url = 'https://raw.githubusercontent.com/WebBreacher/WhatsMyName/master/web_accounts_list.json'
-        self.verbose('Retrieving %s...' % (url))
+        self.verbose(f"Retrieving {url}...")
         resp = self.request(url)
         for user in usernames: 
-            self.heading('Looking up data for: %s' % user)
+            self.heading(f"Looking up data for: {user}")
             self.thread(resp.json['sites'], user)
 
     def module_thread(self, site, user):
@@ -32,7 +32,7 @@ class Module(BaseModule, ThreadingMixin):
             url = d['check_uri'].replace('{account}', urllib.parse.quote(user))
             resp = self.request(url, redirect=False)
             if resp.status_code == int(d['account_existence_code']):
-                self.debug('Codes matched %s %s' % (resp.status_code, d['account_existence_code']))
+                self.debug(f"Codes matched {resp.status_code} {d['account_existence_code']}")
                 if d['account_existence_string'] in resp.text or d['account_existence_string'] in resp.headers:
                     self.insert_profiles(username=user, url=url, resource=d['name'], category=d['category'])
                     self.query('DELETE FROM profiles WHERE username = ? and url IS NULL', (user,))

@@ -15,13 +15,13 @@ class Module(BaseModule):
     def module_run(self, addresses):
         api_key = self.keys.get('google_api')
         for address in addresses:
-            self.verbose("Geocoding '%s'..." % (address))
+            self.verbose(f"Geocoding '{address}'...")
             payload = {'address' : address, 'key' : api_key}
             url = 'https://maps.googleapis.com/maps/api/geocode/json'
             resp = self.request(url, payload=payload)
             # kill the module if nothing is returned
             if len(resp.json['results']) == 0:
-                self.output('Unable to geocode \'%s\'.' % (address))
+                self.output(f"Unable to geocode '{address}'.")
                 return
             # loop through the results
             for result in resp.json['results']:

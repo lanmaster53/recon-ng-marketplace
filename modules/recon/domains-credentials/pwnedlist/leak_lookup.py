@@ -20,5 +20,5 @@ class Module(BaseModule):
                 continue
             for i in range(0,len(columns)):
                 title = ' '.join(columns[i].split('_')).title()
-                self.output('%s: %s' % (title, values[0][i]))
+                self.output(f"{title}: {values[0][i]}")
             self.output(self.ruler*50)
