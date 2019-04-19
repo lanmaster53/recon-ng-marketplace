@@ -43,7 +43,7 @@ class Module(BaseModule):
                     self.error('Invalid JSON response for \'%s\'.\n%s' % (domain, resp.text))
                     break
                 if len(jsonobj['accounts']) == 0:
-                    self.output('No results returned for \'%s\'.' % (domain))
+                    self.output(f"No results returned for '{domain}'.")
                     break
                 # extract the credentials
                 for cred in jsonobj['accounts']:

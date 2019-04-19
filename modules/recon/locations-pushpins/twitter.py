@@ -30,8 +30,8 @@ class Module(BaseModule):
                 source = 'Twitter'
                 screen_name = tweet['user']['screen_name']
                 profile_name = tweet['user']['name']
-                profile_url = 'https://twitter.com/%s' % screen_name
-                media_url = 'https://twitter.com/%s/statuses/%s' % (screen_name, tweet_id)
+                profile_url = f"https://twitter.com/{screen_name}"
+                media_url = f"https://twitter.com/{screen_name}/statuses/{tweet_id}"
                 thumb_url = tweet['user']['profile_image_url_https']
                 message = tweet['text']
                 latitude = tweet['geo']['coordinates'][0]

@@ -25,19 +25,19 @@ class Module(BaseModule):
         rad = self.options['radius']
         for point in points:
             self.heading(point, level=0)
-            query = 'geo:%s,%d' % (point, rad)
+            query = f"geo:{point},{rad}"
             results = self.search_shodan_api(query, limit)
             for host in results:
                 os = host['os'] if 'os' in host else ''
                 hostname = host['hostnames'][0] if len(host['hostnames']) > 0 else 'None'
-                protocol = '%s:%d' % (host['ip_str'], host['port'])
+                protocol = f"{host['ip_str']}:{host['port']}"
                 source = 'Shodan'
                 screen_name = protocol
                 profile_name = protocol
-                profile_url = 'http://%s' % (protocol)
+                profile_url = f"http://{protocol}"
                 media_url = 'https://www.shodan.io/host/%s' % (host['ip_str'])
                 thumb_url = 'https://gravatar.com/avatar/ffc4048d63729d4932fd3cc45139174f?s=300'
-                message = 'Hostname: %s | City: %s, %s | OS: %s' % (hostname, host['location']['city'], host['location']['country_name'], os)
+                message = (f"Hostname: {hostname} | City: {host['location']['city']}, {host['location']['country_name']} | OS: {os}")
                 latitude = host['location']['latitude']
                 longitude = host['location']['longitude']
                 time = datetime.strptime(host['timestamp'], '%Y-%m-%dT%H:%M:%S.%f')

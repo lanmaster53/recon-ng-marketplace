@@ -28,7 +28,7 @@ class Module(BaseModule):
                 columns = [c[0] for c in self.get_columns(table)]
                 csvwriter.writerow(columns)
             cnt = 0
-            rows = self.query('SELECT * FROM "%s" ORDER BY 1' % (table))
+            rows = self.query(f'SELECT * FROM "{table}" ORDER BY 1')
             for row in rows:
                 row = [x if x else '' for x in row]
                 if any(row):
@@ -40,4 +40,4 @@ class Module(BaseModule):
                             cell = ' '+cell
                         sanitized_row.append(cell.encode("utf-8"))
                     csvwriter.writerow(sanitized_row)
-        self.output('%d records added to \'%s\'.' % (cnt, filename))
+        self.output(f"{cnt} records added to '{filename}'.")

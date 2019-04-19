@@ -23,7 +23,7 @@ class Module(BaseModule):
         for handle in handles:
             handle = handle if not handle.startswith('@') else handle[1:]
             self.heading(handle, level=0)
-            results = self.search_twitter_api({'q':'from:%s' % (handle)}, self.options['limit'])
+            results = self.search_twitter_api({'q': f"from:{handle}"}, self.options['limit'])
             for tweet in results:
                 if 'entities' in tweet:
                     if 'user_mentions' in tweet['entities']:

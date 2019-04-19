@@ -31,10 +31,10 @@ class Module(BaseModule):
             wordlist = set(resp.raw.replace('.', ' ').replace(':', ' ').replace('?', '').split(' '))
             plaintext, hashtype = crack(hashstr, wordlist)
             if plaintext:
-                self.alert('%s (%s) => %s' % (hashstr, hashtype, plaintext))
-                self.query('UPDATE credentials SET password=\'%s\', type=\'%s\' WHERE hash=\'%s\'' % (plaintext, hashtype, hashstr))
+                self.alert(f"{hashstr} ({hashtype}) => {plaintext}")
+                self.query(f"UPDATE credentials SET password='{plaintext}', type='{hashtype}' WHERE hash='{hashstr}'")
             else:
-                self.verbose('Value not found for hash: %s' % (hashstr))
+                self.verbose(f"Value not found for hash: {hashstr}")
             # sleep to avoid lock-out
             time.sleep(random.randint(3,5))
 

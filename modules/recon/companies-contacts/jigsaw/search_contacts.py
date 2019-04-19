@@ -36,7 +36,7 @@ class Module(BaseModule):
         url = 'https://www.jigsaw.com/rest/searchCompany.json'
         #while True:
         payload = {'token': self.api_key, 'name': params, 'offset': cnt, 'pageSize': size}
-        self.verbose('Query: %s?%s' % (url, encode_payload(payload)))
+        self.verbose(f"Query: {url}?{encode_payload(payload)}")
         resp = self.request(url, payload=payload, redirect=False)
         jsonobj = resp.json
         if jsonobj['totalHits'] == 0:
@@ -46,25 +46,25 @@ class Module(BaseModule):
             companies = jsonobj['companies']
             for company in companies:
                 if company['activeContacts'] > 0:
-                    location = '%s, %s, %s' % (company['city'], company['state'], company['country'])
+                    location = f"{company['city']}, {company['state']}, {company['country']}"
                     all_companies.append((company['companyId'], company['name'], company['activeContacts'], location))
             #cnt += size
             #if cnt > jsonobj['totalHits']: break
             # jigsaw rate limits requests per second to the api
             #time.sleep(.25)
         if len(all_companies) == 0:
-            self.output('No contacts available for companies matching \'%s\'.' % (company_name))
+            self.output(f"No contacts available for companies matching '{company_name}'.")
             return
         if len(all_companies) == 1:
             company_id = all_companies[0][0]
             company_name = all_companies[0][1]
             contact_cnt = all_companies[0][2]
-            self.output('Unique company match found: [%s - %s (%s contacts)]' % (company_name, company_id, contact_cnt))
+            self.output(f"Unique company match found: [{company_name} - {company_id} ({contact_cnt} contacts)]")
             return company_id
         id_len = len(max([str(x[0]) for x in all_companies], key=len))
         for company in all_companies:
-            self.output('[%s] %s - %s (%s contacts)' % (str(company[0]).ljust(id_len), company[1], company[3], company[2]))
-        company_id = eval(input('Enter Company ID from list [%s - %s]: ' % (all_companies[0][1], all_companies[0][0])))
+            self.output(f"[{str(company[0]).ljust(id_len)}] {company[1]} - {company[3]} ({company[2]} contacts)")
+        company_id = eval(input(f"Enter Company ID from list [{all_companies[0][1]} - {all_companies[0][0]}]: "))
         if not company_id: company_id = all_companies[0][0]
         return company_id
 
@@ -83,7 +83,7 @@ class Module(BaseModule):
                 # fname includes the preferred name as an element that needs to be removed
                 fname = ' '.join(fname.split()[:2]) if len(fname.split()) > 2 else fname
                 lname = self.html_unescape(contact['lastname'])
-                name = '%s %s' % (fname, lname)
+                name = f"{fname} {lname}"
                 fname, mname, lname = self.parse_name(name)
                 title = self.html_unescape(contact['title'])
                 city = self.html_unescape(contact['city']).title()

@@ -38,4 +38,4 @@ class Module(BaseModule):
             # write the xml to a file
             reparsed = parseString(dicttoxml(data_dict))
             outfile.write(reparsed.toprettyxml(indent=' '*4))
-        self.output('%d records added to \'%s\'.' % (cnt, filename))
+        self.output(f"{cnt} records added to '{filename}'.")

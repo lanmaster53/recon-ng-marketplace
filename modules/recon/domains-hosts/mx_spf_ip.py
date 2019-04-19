@@ -22,18 +22,18 @@ class Module(BaseModule, ResolverMixin):
         answers = ""
         for domain in domains:
             attempt = 0
-            self.verbose('Retrieving MX records for %s.' % (domain))
+            self.verbose(f"Retrieving MX records for {domain}.")
             while attempt < max_attempts:
                 try:
                     answers = resolver.query(domain, 'MX')
                 except (dns.resolver.NXDOMAIN, dns.resolver.NoAnswer):
-                    self.verbose('%s => No record found.' % (domain))
+                    self.verbose(f"{domain} => No record found.")
                 except dns.resolver.Timeout:
-                    self.verbose('%s => Request timed out.' % (domain))
+                    self.verbose(f"{domain} => Request timed out.")
                     attempt += 1
                     continue
                 except dns.resolver.NoNameservers:
-                    self.verbose('%s => Invalid nameserver.' % (domain))
+                    self.verbose(f"{domain} => Invalid nameserver.")
                 else:
                     for rdata in answers:
                         host = rdata.exchange
@@ -45,21 +45,21 @@ class Module(BaseModule, ResolverMixin):
         # Now look for SPF records
         for domain in domains:
             attempt = 0
-            self.verbose('Retrieving SPF records for %s.' % (domain))
+            self.verbose(f"Retrieving SPF records for {domain}.")
             while attempt < max_attempts:
                 try:
                     answers = resolver.query(domain, 'TXT')
                 except (dns.resolver.NXDOMAIN, dns.resolver.NoAnswer):
-                    self.verbose('%s => No record found.' % (domain))
+                    self.verbose(f"{domain} => No record found.")
                 except dns.resolver.Timeout:
-                    self.verbose('%s => Request timed out.' % (domain))
+                    self.verbose(f"{domain} => Request timed out.")
                     attempt += 1
                     continue
                 except dns.resolver.NoNameservers:
-                    self.verbose('%s => Invalid nameserver.' % (domain))
+                    self.verbose(f"{domain} => Invalid nameserver.")
                 else:
                     for txtrecord in answers:
-                        self.verbose('TXT record: %s' % (txtrecord))
+                        self.verbose(f"TXT record: {txtrecord}")
                         if "v=spf" in txtrecord.to_text():
                             resp = txtrecord.to_text()
                             words = resp.split()

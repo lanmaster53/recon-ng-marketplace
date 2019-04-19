@@ -16,7 +16,7 @@ class Module(BaseModule):
     def module_run(self, hosts):
         for host in hosts:
             api_key = self.keys.get('ipstack_api')
-            url = 'http://api.ipstack.com/%s?access_key=%s' % (host, api_key)
+            url = f"http://api.ipstack.com/{host}?access_key={api_key}"
             resp = self.request(url)
             if resp.json:
                 jsonobj = resp.json
@@ -27,5 +27,5 @@ class Module(BaseModule):
             country = jsonobj['country_name'].title()
             latitude = str(jsonobj['latitude'])
             longitude = str(jsonobj['longitude'])
-            self.output('%s - %s,%s - %s' % (host, latitude, longitude, ', '.join([x for x in [region, country] if x])))
+            self.output(f"{host} - {latitude},{longitude} - {', '.join([x for x in [region, country] if x])}")
             self.query('UPDATE hosts SET region=?, country=?, latitude=?, longitude=? WHERE ip_address=?', (region, country, latitude, longitude, host))

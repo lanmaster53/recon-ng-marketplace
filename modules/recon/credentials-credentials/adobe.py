@@ -61,13 +61,13 @@ class Module(BaseModule):
             # output the result based on the level of success
             # partial crack
             if partial and padded:
-                self.output('%s => %s' % (hashstr, plaintext))
+                self.output(f"{hashstr} => {plaintext}")
             # full crack
             elif partial and not padded:
-                self.alert('%s => %s' % (hashstr, plaintext))
+                self.alert(f"{hashstr} => {plaintext}")
             # failed crack
             else:
-                self.verbose('Value not found for hash: %s' % (hashstr))
+                self.verbose(f"Value not found for hash: {hashstr}")
                 continue
             # add the cracked/partially cracked hash to the database
             # must reset the hashtype in order to compensate for all sources of input

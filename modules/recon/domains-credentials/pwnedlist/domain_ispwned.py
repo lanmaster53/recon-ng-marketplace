@@ -32,10 +32,10 @@ class Module(BaseModule):
                 continue
             # check for a positive response
             if not jsonobj['num_entries']:
-                self.verbose('Domain \'%s\' has no publicly compromised accounts.' % (domain))
+                self.verbose(f"Domain '{domain}' has no publicly compromised accounts.")
                 continue
             # handle the output
-            self.alert('Domain \'%s\' has publicly compromised accounts!' % (domain))
+            self.alert(f"Domain '{domain}' has publicly compromised accounts!")
             tdata.append([jsonobj['domain'], str(jsonobj['num_entries']), jsonobj['first_seen'], jsonobj['last_seen']])
         if tdata:
             header = ['Domain', 'Pwned_Accounts', 'First_Seen', 'Last_Seen']

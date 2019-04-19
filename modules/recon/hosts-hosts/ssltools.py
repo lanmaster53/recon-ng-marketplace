@@ -25,7 +25,7 @@ class Module(BaseModule):
         regex = '(?:%s)' % ('|'.join(['\.'+re.escape(x)+'$' for x in domains]))
         for ip_address in hosts:
             self.heading(ip_address, level=0)
-            url = 'http://www.ssltools.com/certificate_lookup/%s' % ip_address 
+            url = f"http://www.ssltools.com/certificate_lookup/{ip_address}"
             html = self.request(url).text
 
             # names
@@ -33,12 +33,12 @@ class Module(BaseModule):
             cn = re.search('<br>Common Name :(.*?)<br>', html)
             names = ""
             if san is None:
-                self.output('No Subject Alternative Names found for \'%s\'' % ip_address)
+                self.output(f"No Subject Alternative Names found for '{ip_address}'")
             else:
                 self.output('Subject Alternative Names: \'%s\'' % san.group(1))
                 names = san.group(1)
             if cn is None:
-                self.output('No Common Name found for \'%s\'' % ip_address)
+                self.output(f"No Common Name found for '{ip_address}'")
             else:
                 self.output('Common Name: \'%s\'' % cn.group(1))
                 names += cn.group(1)

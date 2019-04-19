@@ -18,10 +18,10 @@ class Module(BaseModule):
             url = 'http://www.ssltools.com/api/scan'
             resp = self.request(url, method="POST", payload={'url': domain})
             if not resp.json['response']:
-                self.output('SSL endpoint not reachable or response invalid for \'%s\'' % domain)
+                self.output(f"SSL endpoint not reachable or response invalid for '{domain}'")
                 continue
             if not resp.json['response']['san_entries']:
-                self.output('No Subject Alternative Names found for \'%s\'' % domain)
+                self.output(f"No Subject Alternative Names found for '{domain}'")
                 continue
             hosts = [x.strip() for x in resp.json['response']['san_entries'] if '*' not in x]
             for host in hosts:

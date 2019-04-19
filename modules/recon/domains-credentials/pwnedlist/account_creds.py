@@ -49,4 +49,4 @@ class Module(BaseModule):
                 leak = cred['leak_id']
                 self.insert_credentials(username=username, password=password, leak=leak)
                 self.insert_leaks(mute=True, **self.get_pwnedlist_leak(leak))
-                self.query('DELETE FROM credentials WHERE username = \'%s\' and password IS NULL and hash IS NULL' % (username))
+                self.query(f"DELETE FROM credentials WHERE username = '{username}' and password IS NULL and hash IS NULL")

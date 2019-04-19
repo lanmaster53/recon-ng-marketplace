@@ -56,7 +56,7 @@ class Module(BaseModule, ThreadingMixin):
                 if fails < retries:
                     fails += 1
                     continue
-                self.error('%s: Unknown error!' % (label))
+                self.error(f"{label}: Unknown error!")
             else:
                 username = resp.json['username']
                 available = resp.json['available']

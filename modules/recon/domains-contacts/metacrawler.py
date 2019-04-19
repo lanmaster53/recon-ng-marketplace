@@ -110,7 +110,7 @@ class Module(BaseModule, GoogleWebMixin):
                                         # display the extracted metadata
                                         for key in meta:
                                             if meta[key]:
-                                                self.alert('%s: %s' % (key.title(), meta[key]))
+                                                self.alert(f"{key.title()}: {meta[key]}")
                                     else:
                                         self.output('No meta data found.')
                                 else:
@@ -118,4 +118,4 @@ class Module(BaseModule, GoogleWebMixin):
                             except Exception:
                                 self.print_exception()
                             break
-            self.alert('%d files found on \'%s\'.' % (len(results), domain))
+            self.alert(f"{len(results)} files found on '{domain}'.")

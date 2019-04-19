@@ -24,13 +24,13 @@ class Module(BaseModule, ResolverMixin):
                     addr = dns.reversename.from_address(address)
                     hosts = resolver.query(addr, 'PTR')
                 except (dns.resolver.NXDOMAIN, dns.resolver.NoAnswer):
-                    self.verbose('%s => No record found.' % (address))
+                    self.verbose(f"{address} => No record found.")
                 except dns.resolver.Timeout:
-                    self.verbose('%s => Request timed out.' % (address))
+                    self.verbose(f"{address} => Request timed out.")
                     attempt += 1
                     continue
                 except dns.resolver.NoNameservers:
-                    self.verbose('%s => Invalid nameserver.' % (address))
+                    self.verbose(f"{address} => Invalid nameserver.")
                     #self.error('Invalid nameserver.')
                     #return
                 else:

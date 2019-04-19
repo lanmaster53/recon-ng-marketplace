@@ -30,7 +30,7 @@ class Module(BaseModule):
             msg_list = tree.xpath('//table[last()]/tr[last()]/td[last()]/text()')
             msg = ' '.join([x.strip() for x in msg_list])
             output = self.alert if 'is valid' in msg else self.verbose
-            output('%s => %s' % (email, msg))
+            output(f"{email} => {msg}")
             if 'does not exist' in msg:
                 self.query('UPDATE contacts SET email=NULL where email=?', (email,))
-                self.verbose('%s removed.' % (email))
+                self.verbose(f"{email} removed.")

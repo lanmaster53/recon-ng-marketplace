@@ -20,7 +20,7 @@ class Module(BaseModule):
         limit = self.options['limit']
         for netblock in netblocks:
             self.heading(netblock, level=0)
-            query = 'net:%s' % (netblock)
+            query = f"net:{netblock}"
             results = self.search_shodan_api(query, limit)
             for host in results:
                 address = host['ip_str']

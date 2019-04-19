@@ -42,7 +42,7 @@ class Module(BaseModule):
                     time = datetime.strptime(video['snippet']['publishedAt'], '%Y-%m-%dT%H:%M:%S.%fZ')
                     self.insert_pushpins(source, screen_name, profile_name, profile_url, media_url, thumb_url, message, latitude, longitude, time)
                 processed += len(resp.json['items'])
-                self.verbose('%s videos processed.' % (processed))
+                self.verbose(f"{processed} videos processed.")
                 if 'nextPageToken' in resp.json:
                     payload['pageToken'] = resp.json['nextPageToken']
                     continue

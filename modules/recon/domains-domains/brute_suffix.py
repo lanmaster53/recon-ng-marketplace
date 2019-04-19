@@ -34,13 +34,13 @@ class Module(BaseModule, ResolverMixin):
             for word in words:
                 attempt = 0
                 while attempt < max_attempts:
-                    domain = '%s.%s' % (domain_root, word)
+                    domain = f"{domain_root}.{word}"
                     try:
                         answers = resolver.query(domain, 'SOA')
                     except (dns.resolver.NXDOMAIN, dns.resolver.NoAnswer, dns.resolver.NoNameservers):
-                        self.verbose('%s => No record found.' % (domain))
+                        self.verbose(f"{domain} => No record found.")
                     except dns.resolver.Timeout:
-                        self.verbose('%s => Request timed out.' % (domain))
+                        self.verbose(f"{domain} => Request timed out.")
                         attempt += 1
                         continue
                     else:
@@ -48,7 +48,7 @@ class Module(BaseModule, ResolverMixin):
                         for answer in answers.response.answer:                                        
                             if answer.rdtype == 6:
                                 soa = answer.name.to_text()[:-1]
-                                self.alert('%s => (SOA) %s' % (domain, soa))
+                                self.alert(f"{domain} => (SOA) {soa}")
                                 # use "host" rather than "soa" as sometimes the SOA record has a CNAME
                                 self.insert_domains(domain)
                     # break out of the loop

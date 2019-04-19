@@ -28,7 +28,7 @@ class Module(BaseModule):
             time.sleep(3)
             resp = self.request(url, payload=payload)
             if resp.status_code != 200:
-                self.error('Unexpected service response: %d' % resp.status_code)
+                self.error(f"Unexpected service response: {resp.status_code}")
                 break
             elif resp.json['status'] == 'error':
                 self.error(resp.json['errorMessage'])
@@ -37,7 +37,7 @@ class Module(BaseModule):
                 if resp.json['result'][result]:
                     plaintext = resp.json['result'][result]['plain']
                     hashtype = resp.json['result'][result]['algorithm']
-                    self.alert('%s (%s) => %s' % (hashstr, hashtype, plaintext))
+                    self.alert(f"{hashstr} ({hashtype}) => {plaintext}")
                     self.query('UPDATE credentials SET password=?, type=? WHERE hash=?', (plaintext, hashtype, hashstr))
                 else:
-                    self.verbose('%s => %s' % (hashstr, 'Not found.'))
+                    self.verbose(f"{hashstr} => {'Not found.'}")

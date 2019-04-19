@@ -36,4 +36,4 @@ class Module(BaseModule):
                     cnt += 1
             # write the JSON to a file
             outfile.write(json.dumps(data_dict, indent=4))
-        self.output('%d records added to \'%s\'.' % (cnt, filename))
+        self.output(f"{cnt} records added to '{filename}'.")

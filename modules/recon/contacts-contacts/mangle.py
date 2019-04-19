@@ -48,6 +48,6 @@ class Module(BaseModule):
                 email = email.replace(item, items[item])
             email = email[:self.options['max-length']]
             domain = self.options['domain']
-            if domain: email = '%s@%s' % (email, domain)
-            self.output('%s %s => %s' % (fname, lname, email))
+            if domain:email = f"{email}@{domain}"
+            self.output(f"{fname} {lname} => {email}")
             self.query('UPDATE contacts SET email=? WHERE rowid=?', (email, row))
