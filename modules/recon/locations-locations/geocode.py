@@ -1,6 +1,5 @@
 from recon.core.module import BaseModule
 
-
 class Module(BaseModule):
 
     meta = {
@@ -20,11 +19,11 @@ class Module(BaseModule):
             url = 'https://maps.googleapis.com/maps/api/geocode/json'
             resp = self.request(url, payload=payload)
             # kill the module if nothing is returned
-            if len(resp.json['results']) == 0:
+            if len(resp.json()['results']) == 0:
                 self.output(f"Unable to geocode '{address}'.")
                 return
             # loop through the results
-            for result in resp.json['results']:
+            for result in resp.json()['results']:
                 lat = result['geometry']['location']['lat']
                 lon = result['geometry']['location']['lng']
                 # store the result

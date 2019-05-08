@@ -13,8 +13,10 @@ class Module(BaseModule):
     def module_run(self, leak_ids):
         self.output(self.ruler*50)
         columns = [x[1] for x in self.query('PRAGMA table_info(leaks)')]
+        columns_str = '", "'.join(columns)
+        query_str = f'SELECT "{columns_str}" FROM leaks WHERE leak_id=?'
         for leak_id in leak_ids:
-            values = self.query('SELECT "%s" FROM leaks WHERE leak_id=?' % ('", "'.join(columns)), (leak_id,))
+            values = self.query(query_str, (leak_id,))
             if not values:
                 self.error('Invalid leak ID.')
                 continue

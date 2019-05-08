@@ -22,34 +22,34 @@ class Module(BaseModule):
             resp = self.request(base_url, payload=payload, headers=headers)
             if resp.status_code == 200:
                 # parse contact information
-                if 'contactInfo' in resp.json:
+                if 'contactInfo' in resp.json():
                     try:
-                        first_name = resp.json['contactInfo']['givenName']
-                        last_name = resp.json['contactInfo']['familyName']
+                        first_name = resp.json()['contactInfo']['givenName']
+                        last_name = resp.json()['contactInfo']['familyName']
                         middle_name = None
                     except KeyError:
-                        first_name, middle_name, last_name = self.parse_name(resp.json['contactInfo']['fullName'])
+                        first_name, middle_name, last_name = self.parse_name(resp.json()['contactInfo']['fullName'])
                     name = ' '.join([x for x in (first_name, middle_name, last_name) if x])
                     self.alert(f"{name} - {email}")
                     # parse company information for title
                     title = None
-                    if 'organizations' in resp.json:
-                        for occupation in resp.json['organizations']:
+                    if 'organizations' in resp.json():
+                        for occupation in resp.json()['organizations']:
                             if 'current' in occupation and occupation['current']:
                                 if 'title' in occupation:
                                     title = f"{occupation['title']} at {occupation['name']}"
                                 else:
-                                    title = 'Employee at %s' % occupation['name']
+                                    title = f"Employee at {occupation['name']}"
                                 self.output(title)
                     # parse demographics for region
                     region = None
-                    if 'demographics' in resp.json and 'locationGeneral' in resp.json['demographics']:
-                        region = resp.json['demographics']['locationGeneral']
+                    if 'demographics' in resp.json() and 'locationGeneral' in resp.json()['demographics']:
+                        region = resp.json()['demographics']['locationGeneral']
                         self.output(region)
                     self.insert_contacts(first_name=first_name, middle_name=middle_name, last_name=last_name, title=title, email=email, region=region)
                 # parse profile information
-                if 'socialProfiles' in resp.json:
-                    for profile in resp.json['socialProfiles']:
+                if 'socialProfiles' in resp.json():
+                    for profile in resp.json()['socialProfiles']:
                         # set the username to 'username' or 'id' and default to email if they are unknown
                         username = email
                         for key in ['username', 'id']:
@@ -59,12 +59,12 @@ class Module(BaseModule):
                         resource = profile['typeName']
                         url = profile['url']
                         self.insert_profiles(username=username, url=url, resource=resource, category='social')
-                self.output('Confidence: %d%%' % (resp.json['likelihood']*100,))
+                self.output(f"Confidence: {resp.json()['likelihood']*100}%")
             elif resp.status_code == 202:
                 # add emails queued by fullcontact back to the list
                 emails.append(email)
                 self.output(f"{email} - Queued for search.")
             else:
-                self.output(f"{email} - {resp.json['message']}")
+                self.output(f"{email} - {resp.json()['message']}")
             # 60 requests per minute api rate limit
             time.sleep(1)

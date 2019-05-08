@@ -1,6 +1,5 @@
 from recon.core.module import BaseModule
 
-
 class Module(BaseModule):
     meta = {
         'name': 'HackerTarget Lookup',
@@ -17,7 +16,7 @@ class Module(BaseModule):
             payload = {'q': domain}
             resp = self.request(url, payload=payload)
             if resp.status_code is not 200:
-                self.error('Got unexpected response code: %i' % resp.status_code)
+                self.error(f"Got unexpected response code: {resp.status_code}")
                 continue
             if resp.text == '':
                 self.output('No results found.')

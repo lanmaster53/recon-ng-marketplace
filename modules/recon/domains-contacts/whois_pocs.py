@@ -1,5 +1,4 @@
 from recon.core.module import BaseModule
-from urllib.parse import urlparse
 
 class Module(BaseModule):
 
@@ -21,12 +20,12 @@ class Module(BaseModule):
             if 'Your search did not yield any results.' in resp.text:
                 self.output('No contacts found.')
                 continue
-            handles = [x['@handle'] for x in resp.json['pocs']['pocRef']] if type(resp.json['pocs']['pocRef']) == list else [resp.json['pocs']['pocRef']['@handle']]
+            handles = [x['@handle'] for x in resp.json()['pocs']['pocRef']] if type(resp.json()['pocs']['pocRef']) == list else [resp.json()['pocs']['pocRef']['@handle']]
             for handle in handles:
                 url = f"http://whois.arin.net/rest/poc/{handle}"
                 self.verbose(f"URL: {url}")
                 resp = self.request(url, headers=headers)
-                poc = resp.json['poc']
+                poc = resp.json()['poc']
                 emails = poc['emails']['email'] if type(poc['emails']['email']) == list else [poc['emails']['email']]
                 for email in emails:
                     fname = poc['firstName']['$'] if 'firstName' in poc else None

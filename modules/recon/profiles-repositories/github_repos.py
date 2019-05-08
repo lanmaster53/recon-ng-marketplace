@@ -1,7 +1,6 @@
 from recon.core.module import BaseModule
 from urllib.parse import quote_plus
 
-
 class Module(BaseModule):
     meta = {
         'name': 'Github Code Enumerator',
@@ -16,7 +15,7 @@ class Module(BaseModule):
         for user in users:
             self.heading(user, level=0)
             # enumerate repositories
-            repos = self.query_github_api('/users/%s/repos' % (quote_plus(user)))
+            repos = self.query_github_api(f"/users/{quote_plus(user)}/repos")
             for repo in repos:
                 data = {
                     'name': repo['name'],
@@ -28,9 +27,9 @@ class Module(BaseModule):
                 }
                 self.insert_repositories(**data)
             # enumerate gists
-            gists = self.query_github_api('/users/%s/gists' % (quote_plus(user)))
+            gists = self.query_github_api(f"/users/{quote_plus(user)}/gists")
             for gist in gists:
-                files = list(gist['files'].values())
+                files = gist['files'].values()
                 for _file in files:
                     data = {
                         'name': _file['filename'],

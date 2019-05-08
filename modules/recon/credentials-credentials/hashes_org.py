@@ -30,13 +30,13 @@ class Module(BaseModule):
             if resp.status_code != 200:
                 self.error(f"Unexpected service response: {resp.status_code}")
                 break
-            elif resp.json['status'] == 'error':
-                self.error(resp.json['errorMessage'])
+            elif resp.json()['status'] == 'error':
+                self.error(resp.json()['errorMessage'])
                 break
-            for result in resp.json['result']:
-                if resp.json['result'][result]:
-                    plaintext = resp.json['result'][result]['plain']
-                    hashtype = resp.json['result'][result]['algorithm']
+            for result in resp.json()['result']:
+                if resp.json()['result'][result]:
+                    plaintext = resp.json()['result'][result]['plain']
+                    hashtype = resp.json()['result'][result]['algorithm']
                     self.alert(f"{hashstr} ({hashtype}) => {plaintext}")
                     self.query('UPDATE credentials SET password=?, type=? WHERE hash=?', (plaintext, hashtype, hashstr))
                 else:

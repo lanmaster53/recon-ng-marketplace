@@ -3,7 +3,6 @@ import codecs
 import json
 import os
 
-
 class Module(BaseModule):
 
     meta = {
@@ -27,7 +26,8 @@ class Module(BaseModule):
             for table in tables:
                 data_dict[table] = []
                 columns = [x[0] for x in self.get_columns(table)]
-                rows = self.query('SELECT "%s" FROM "%s" ORDER BY 1' % ('", "'.join(columns), table))
+                columns_str = '", "'.join(columns)
+                rows = self.query(f'SELECT "{columns_str}" FROM "{table}" ORDER BY 1')
                 for row in rows:
                     row_dict = {}
                     for i in range(0, len(columns)):

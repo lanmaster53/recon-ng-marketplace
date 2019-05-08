@@ -1,6 +1,5 @@
 from recon.core.module import BaseModule
 from recon.utils.parsers import parse_hostname
-from urllib.parse import urlparse
 import re
 
 class Module(BaseModule):

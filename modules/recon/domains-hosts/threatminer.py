@@ -1,6 +1,5 @@
 from recon.core.module import BaseModule
 
-
 class Module(BaseModule):
 
     meta = {
@@ -15,6 +14,6 @@ class Module(BaseModule):
         for domain in domains:
             self.heading(domain, level=0)
             resp = self.request(url=f"https://api.threatminer.org/v2/domain.php?rt=5&q={domain}")
-            if resp.json.get('status_code') == '200':
-                for subdomain in resp.json.get('results'):
+            if resp.json().get('status_code') == '200':
+                for subdomain in resp.json().get('results'):
                     self.insert_hosts(host=subdomain)

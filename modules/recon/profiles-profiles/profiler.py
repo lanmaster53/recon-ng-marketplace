@@ -1,6 +1,6 @@
 from recon.core.module import BaseModule
 from recon.mixins.threads import ThreadingMixin
-import urllib.request, urllib.parse, urllib.error
+from urllib.parse import quote_plus
 
 class Module(BaseModule, ThreadingMixin):
 
@@ -23,13 +23,13 @@ class Module(BaseModule, ThreadingMixin):
         resp = self.request(url)
         for user in usernames: 
             self.heading(f"Looking up data for: {user}")
-            self.thread(resp.json['sites'], user)
+            self.thread(resp.json()['sites'], user)
 
     def module_thread(self, site, user):
         d = dict(site)
         if d['valid'] == True:
-            self.verbose('Checking: %s' % d['name'])
-            url = d['check_uri'].replace('{account}', urllib.parse.quote(user))
+            self.verbose(f"Checking: {d['name']}")
+            url = d['check_uri'].replace('{account}', quote_plus(user))
             resp = self.request(url, redirect=False)
             if resp.status_code == int(d['account_existence_code']):
                 self.debug(f"Codes matched {resp.status_code} {d['account_existence_code']}")

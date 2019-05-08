@@ -32,8 +32,8 @@ class Module(BaseModule, ResolverMixin):
                         self.query('UPDATE hosts SET ip_address=? WHERE host=?', (answers[i].address, host))
                     else:
                         data = {
-                            'host': self.to_unicode(host),
-                            'ip_address': self.to_unicode(answers[i].address)
+                            'host': host,
+                            'ip_address': answers[i].address
                         }
                         self.insert('hosts', data, list(data.keys()))
                     self.output(f"{host} => {answers[i].address}")

@@ -1,17 +1,17 @@
 from recon.core.module import BaseModule
 from recon.mixins.search import GoogleWebMixin
 from itertools import groupby
+from urllib.parse import urlparse, parse_qs
 import json
 import os
-import urllib.parse
 
 def _optionize(s):
-    return 'ghdb_%s' % (s.replace(' ', '_').lower())
+    return f"ghdb_{s.replace(' ', '_').lower()}"
 
 def _build_options(ghdb):
     categories = []
     for key, group in groupby([x['category'] for x in sorted(ghdb, key=lambda x: x['category'])]):
-        categories.append((_optionize(key), False, True, 'enable/disable the %d dorks in this category' % (len(list(group)))))
+        categories.append((_optionize(key), False, True, f"enable/disable the {len(group)} dorks in this category"))
     return categories
 
 class Module(BaseModule, GoogleWebMixin):
@@ -56,8 +56,8 @@ class Module(BaseModule, GoogleWebMixin):
                         continue
                     if self.options[_optionize(dork['category'])]:
                         # parse the query string to extract the dork syntax
-                        parsed = urllib.parse.urlparse(dork['querystring'])
-                        params = urllib.parse.parse_qs(parsed.query)
+                        parsed = urlparse(dork['querystring'])
+                        params = parse_qs(parsed.query)
                         # unparsable url
                         if 'q' not in params:
                             continue
@@ -66,7 +66,7 @@ class Module(BaseModule, GoogleWebMixin):
 
     def _search(self, query):
         for result in self.search_google_web(query):
-            host = urllib.parse.urlparse(result).netloc
+            host = urlparse(result).netloc
             data = {
                 'host': host,
                 'reference': query,

@@ -1,10 +1,21 @@
 from recon.core.module import BaseModule
-import aes
+import base64
+import pyaes
+
+def aes_encrypt(plaintext, key, iv):
+    iv = iv.encode('utf-8')
+    key = key.encode('utf-8')
+    aes = pyaes.AESModeOfOperationCBC(key, iv=iv)
+    ciphertext = aes.encrypt(plaintext)
+    return base64.b64encode(ciphertext)
 
 def aes_decrypt(ciphertext, key, iv):
-    decoded = ciphertext.decode('base64')
-    password = aes.decryptData(key, iv.encode('utf-8') + decoded)
-    return str(password, 'utf-8')
+    ciphertext = base64.b64decode(ciphertext)
+    iv = iv.encode('utf-8')
+    key = key.encode('utf-8')
+    aes = pyaes.AESModeOfOperationCBC(key, iv=iv)
+    plaintext = aes.decrypt(ciphertext)
+    return plaintext.decode("utf-8")
 
 class Module(BaseModule):
 
@@ -19,7 +30,7 @@ class Module(BaseModule):
         ),
         'query': 'SELECT DISTINCT domain FROM domains WHERE domain IS NOT NULL',
         'dependencies': (
-            'slowaes',
+            'pycryptodome',
         ),
     }
 
@@ -38,9 +49,10 @@ class Module(BaseModule):
                 pwnedlist_payload = self.build_pwnedlist_payload(payload, 'domains.query', key, secret)
                 # make the request
                 resp = self.request(url, payload=pwnedlist_payload)
-                if resp.json: jsonobj = resp.json
-                else:
-                    self.error('Invalid JSON response for \'%s\'.\n%s' % (domain, resp.text))
+                try:
+                    jsonobj = resp.json()
+                except ValueError:
+                    self.error(f"Invalid JSON response for '{domain}'.\n{resp.text}")
                     break
                 if len(jsonobj['accounts']) == 0:
                     self.output(f"No results returned for '{domain}'.")

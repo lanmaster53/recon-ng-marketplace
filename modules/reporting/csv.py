@@ -2,7 +2,6 @@ from recon.core.module import BaseModule
 import csv
 import os
 
-
 class Module(BaseModule):
 
     meta = {

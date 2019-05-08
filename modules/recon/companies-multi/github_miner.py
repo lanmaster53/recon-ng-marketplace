@@ -15,7 +15,7 @@ class Module(BaseModule):
         for company in companies:
             self.heading(company, level=0)
             # enumerate members
-            members = self.query_github_api('/orgs/%s/members' % (quote_plus(company)))
+            members = self.query_github_api(f"/orgs/{quote_plus(company)}/members")
             for member in members:
                 data = {
                     'username': member['login'],
@@ -26,7 +26,7 @@ class Module(BaseModule):
                 }
                 self.insert_profiles(**data)
             # enumerate repositories
-            repos = self.query_github_api('/orgs/%s/repos' % (quote_plus(company)))
+            repos = self.query_github_api(f"/orgs/{quote_plus(company)}/repos")
             for repo in repos:
                 data = {
                     'name': repo['name'],

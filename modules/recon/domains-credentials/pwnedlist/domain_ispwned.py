@@ -25,10 +25,10 @@ class Module(BaseModule):
             payload = self.build_pwnedlist_payload(payload, 'domains.info', key, secret)
             # make the request
             resp = self.request(url, payload=payload)
-            jsonobj = resp.json
+            jsonobj = resp.json()
             # compare to None to confirm valid json as empty json is returned when domain not found
             if jsonobj is None:
-                self.error('Invalid JSON response for \'%s\'.\n%s' % (domain, resp.text))
+                self.error(f"Invalid JSON response for '{domain}'.\n{resp.text}")
                 continue
             # check for a positive response
             if not jsonobj['num_entries']:

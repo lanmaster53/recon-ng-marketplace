@@ -3,7 +3,6 @@ import codecs
 import datetime
 import os
 
-
 class Module(BaseModule):
 
     meta = {
@@ -24,19 +23,20 @@ class Module(BaseModule):
 
     def build_table(self, table):
         table_content = ''
-        table_show = (f'<a id="show-{table}" href="javascript:showhide(\'{table}\');"><p>[+] {table.replace(\'_\', \' \').title()}</p></a>')
-        table_hide = (f'<a id="hide-{table}" href="javascript:showhide(\'{table}\');"><p>[-] {table.replace(\'_\', \' \').title()}</p><hr></a>')
+        table_show = (f"<a id=\"show-{table}\" href=\"javascript:showhide('{table}');\"><p>[+] {table.replace('_', ' ').title()}</p></a>")
+        table_hide = (f"<a id=\"hide-{table}\" href=\"javascript:showhide('{table}');\"><p>[-] {table.replace('_', ' ').title()}</p><hr></a>")
         columns = [x[1] for x in self.query(f"PRAGMA table_info('{table}')")]
-        row_headers = '<tr><th>%s</th></tr>' % ('</th><th>'.join(columns))
-        rows = self.query('SELECT "%s" FROM "%s" ORDER BY 1' % ('", "'.join(columns), table))
+        columns_str = '", "'.join(columns)
+        row_headers = f"<tr><th>{'</th><th>'.join(columns)}</th></tr>"
+        rows = self.query(f'SELECT "{columns_str}" FROM "{table}" ORDER BY 1')
         if not rows: return ''
         row_content = ''
         for row in rows:
             values = [self.to_unicode_str(x) if x != None else '' for x in row]
             if table == 'credentials' and values[1] and self.options['sanitize']:
                 values[1] = '<omitted>'
-            row_content += '<tr><td>%s</td></tr>\n' % ('</td><td>'.join([self.html_escape(x) for x in values]))
-        table_content += '<div class="container">\n%s\n%s\n<table name="table" id="%s">\n%s\n%s</table>\n</div><br />\n' % (table_show, table_hide, table, row_headers, row_content)
+            row_content += f"<tr><td>{'</td><td>'.join([self.html_escape(x) for x in values])}</td></tr>\n"
+        table_content += f'<div class="container">\n{table_show}\n{table_hide}\n<table name="table" id="{table}">\n{row_headers}\n{row_content}</table>\n</div><br />\n'
         return table_content
 
     def module_run(self):
@@ -56,8 +56,8 @@ class Module(BaseModule):
                 if table == 'leaks':
                     query = 'SELECT COUNT(DISTINCT leak) FROM credentials WHERE leak IS NOT NULL'
                 count = self.query(query)[0][0]
-                row_content += '<tr><td>%s</td><td class="centered">%s</td></tr>\n' % (table, count)
-            table_content += '<div class="container">\n%s\n%s\n<table id="summary">\n%s\n%s</table>\n</div><br />\n' % (table_show, table_hide, row_headers, row_content)
+                row_content += f'<tr><td>{table}</td><td class="centered">{count}</td></tr>\n'
+            table_content += f'<div class="container">\n{table_show}\n{table_hide}\n<table id="summary">\n{row_headers}\n{row_content}</table>\n</div><br />\n'
             # main content tables
             tables = ['domains', 'companies', 'netblocks', 'locations', 'hosts', 'contacts', 'credentials']
             for table in tables:
@@ -76,8 +76,8 @@ class Module(BaseModule):
                         row = self.query('SELECT * FROM leaks WHERE leak_id=?', (leak,))[0]
                         values = [self.html_escape(x) if x != None else '' for x in row]
                         for i in range(0, len(columns)):
-                            row_content += '<tr><td><strong>%s</strong></td><td>%s</td></tr>\n' % (columns[i], values[i])
-                        table_content += '<hr>\n<table class="leak">\n%s</table>\n' % (row_content)
+                            row_content += f"<tr><td><strong>{columns[i]}</strong></td><td>{values[i]}</td></tr>\n"
+                        table_content += f'<hr>\n<table class="leak">\n{row_content}</table>\n'
                     table_content += '</div>\n</div><br />'
                 else:
                     self.output('Associated leak data omitted. Please run the \'leaks_dump\' module to populate the database and try again.')

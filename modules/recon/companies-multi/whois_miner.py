@@ -1,7 +1,6 @@
 from recon.core.module import BaseModule
-from recon.utils import netblock
-from urllib.parse import urlparse
-import urllib.request, urllib.parse, urllib.error
+from urllib.parse import quote_plus
+import ipaddress
 
 class Module(BaseModule):
 
@@ -23,7 +22,7 @@ class Module(BaseModule):
         headers = {'Accept': 'application/json'}
         for search in searches:
             for rtype in ('org', 'customer'):
-                url = f"http://whois.arin.net/rest/{rtype}s;name={urllib.parse.quote(search)}"
+                url = f"http://whois.arin.net/rest/{rtype}s;name={quote_plus(search)}"
                 entities = self._request(url, headers, rtype+'s', rtype+'Ref')
                 for entity in entities:
                     self.heading(entity['@name'], level=0)
@@ -32,37 +31,31 @@ class Module(BaseModule):
                     # add company
                     self.insert_companies(company=entity['@name'], description=rtype)
                     # add location
-                    location = WhoisLocation(resp.json[rtype])
+                    location = WhoisLocation(resp.json()[rtype])
                     self.insert_locations(street_address=location.address)
                     # add netblocks
-                    url = 'http://whois.arin.net/rest/%s/%s/nets' % (rtype, entity['@handle'])
+                    url = f"http://whois.arin.net/rest/{rtype}/{entity['@handle']}/nets"
                     nets = self._request(url, headers, 'nets', 'netRef')
                     for net in nets:
-                        try:
-                            begin = netblock.strtoip(net['@startAddress'])
-                            end = netblock.strtoip(net['@endAddress'])
-                            blocks = netblock.lhcidrs(begin, end)
-                        except ValueError:
-                            self.alert(f"IPv6 ranges not supported: {net['@startAddress']}-{net['@endAddress']}")
-                            continue
+                        start = ipaddress.ip_address(net['@startAddress'])
+                        end = ipaddress.ip_address(net['@endAddress'])
+                        blocks = ipaddress.summarize_address_range(start, end)
                         for block in blocks:
-                            ip = netblock.iptostr(block[0])
-                            cidr = f"{ip}/{str(block[1])}"
-                            self.insert_netblocks(netblock=cidr)
+                            self.insert_netblocks(netblock=str(block))
                     # add contacts
                     url = f"http://whois.arin.net/rest/{rtype}/{entity['@handle']}/pocs"
                     pocLinks = self._request(url, headers, 'pocs', 'pocLinkRef')
                     for pocLink in pocLinks:
                         url = pocLink['$']
                         resp = self.request(url, headers=headers)
-                        poc = resp.json['poc']
+                        poc = resp.json()['poc']
                         emails = _enum_ref(poc['emails']['email'])
                         for email in emails:
                             fname = poc['firstName']['$'] if 'firstName' in poc else None
                             lname = poc['lastName']['$']
                             name = ' '.join([x for x in [fname, lname] if x])
                             email = email['$']
-                            title = 'Whois contact (%s)' % (pocLink['@description'])
+                            title = f"Whois contact ({pocLink['@description']})"
                             location = WhoisLocation(poc)
                             self.insert_contacts(first_name=fname, last_name=lname, email=email, title=title, region=location.region, country=location.country)
 
@@ -73,10 +66,10 @@ class Module(BaseModule):
             'No related resources were found for the handle provided.',
             'Your search did not yield any results.'
         ]
-        if any(x in resp.text for x in strs) or ref not in resp.json[grp]:
-            self.output('No %s found.' % (grp.upper()))
+        if any(x in resp.text for x in strs) or ref not in resp.json()[grp]:
+            self.output(f"No {grp.upper()} found.")
             return []
-        return _enum_ref(resp.json[grp][ref])
+        return _enum_ref(resp.json()[grp][ref])
 
 def _enum_ref(ref):
     if type(ref) == list:

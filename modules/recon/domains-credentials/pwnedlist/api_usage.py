@@ -19,14 +19,14 @@ class Module(BaseModule):
         payload = self.build_pwnedlist_payload(payload, 'usage.info', key, secret)
         # make the request
         resp = self.request(url, payload=payload)
-        if resp.json:
-            jsonobj = resp.json
-        else:
-            self.error('Invalid JSON response.\n%s' % (resp.text))
+        try:
+            jsonobj = resp.json()
+        except ValueError:
+            self.error(f"Invalid JSON response.\n{resp.text}")
             return
         # handle the output
         total = jsonobj['num_queries_allotted']
         left = jsonobj['num_queries_left']
-        self.output('Queries allotted:  %s' % (str(total)))
-        self.output('Queries remaining: %s' % (str(left)))
-        self.output('Queries used:      %s' % (str(total-left)))
+        self.output(f"Queries allotted:  {total}")
+        self.output(f"Queries remaining: {left}")
+        self.output(f"Queries used:      {total-left}")

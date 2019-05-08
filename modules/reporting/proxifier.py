@@ -1,7 +1,6 @@
 from recon.core.module import BaseModule
 from recon.mixins.threads import ThreadingMixin
 
-
 class Module(BaseModule, ThreadingMixin):
 
     meta = {

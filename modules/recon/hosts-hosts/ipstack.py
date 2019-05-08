@@ -1,7 +1,6 @@
 from recon.core.module import BaseModule
 import json
 
-
 class Module(BaseModule):
 
     meta = {
@@ -18,10 +17,10 @@ class Module(BaseModule):
             api_key = self.keys.get('ipstack_api')
             url = f"http://api.ipstack.com/{host}?access_key={api_key}"
             resp = self.request(url)
-            if resp.json:
-                jsonobj = resp.json
-            else:
-                self.error('Invalid JSON response for \'%s\'.\n%s' % (host, resp.text))
+            try:
+                jsonobj = resp.json()
+            except ValueError:
+                self.error(f"Invalid JSON response for '{host}'.\n{resp.text}")
                 continue
             region = ', '.join([str(jsonobj[x]).title() for x in ['city', 'region_name'] if jsonobj[x]]) or None
             country = jsonobj['country_name'].title()

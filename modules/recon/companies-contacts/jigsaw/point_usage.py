@@ -17,9 +17,10 @@ class Module(BaseModule):
         url = 'https://www.jigsaw.com/rest/user.json'
         payload = {'token': key, 'username': username, 'password': password}
         resp = self.request(url, payload=payload, redirect=False)
-        if resp.json: jsonobj = resp.json
-        else:
-            self.error('Invalid JSON response.\n%s' % (resp.text))
+        try:
+            jsonobj = resp.json()
+        except ValueError:
+            self.error(f"Invalid JSON response.\n{resp.text}")
             return
         # handle output
-        self.output('%d Jigsaw points remaining.' % (jsonobj['points']))
+        self.output(f"{jsonobj['points']} Jigsaw points remaining.")

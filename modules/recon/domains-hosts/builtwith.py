@@ -1,7 +1,6 @@
 from recon.core.module import BaseModule
 import textwrap
 
-
 class Module(BaseModule):
 
     meta = {
@@ -24,10 +23,10 @@ class Module(BaseModule):
             self.heading(domain, level=0)
             payload = {'key': key, 'lookup': domain}
             resp = self.request(url, payload=payload)
-            if 'error' in resp.json:
-                self.error(resp.json['error'])
+            if 'error' in resp.json():
+                self.error(resp.json()['error'])
                 continue
-            for result in resp.json['Results']:
+            for result in resp.json()['Results']:
                 # extract and add emails to contacts
                 emails = result['Meta']['Emails']
                 if emails is None: emails = []
@@ -62,5 +61,5 @@ class Module(BaseModule):
                             self.output(self.ruler*50)
                         for item in data[host]:
                             for tag in item:
-                                self.output('%s: %s' % (tag, textwrap.fill(self.to_unicode_str(item[tag]), 100, initial_indent='', subsequent_indent=self.spacer*2)))
+                                self.output(f"{tag}: {textwrap.fill(self.to_unicode_str(item[tag]), 100, initial_indent='', subsequent_indent=self.spacer*2)}")
                             self.output(self.ruler*50)

@@ -1,7 +1,6 @@
 from recon.core.module import BaseModule
 from datetime import datetime
 
-
 class Module(BaseModule):
 
     meta = {
@@ -35,7 +34,7 @@ class Module(BaseModule):
                 screen_name = protocol
                 profile_name = protocol
                 profile_url = f"http://{protocol}"
-                media_url = 'https://www.shodan.io/host/%s' % (host['ip_str'])
+                media_url = f"https://www.shodan.io/host/{host['ip_str']}"
                 thumb_url = 'https://gravatar.com/avatar/ffc4048d63729d4932fd3cc45139174f?s=300'
                 message = (f"Hostname: {hostname} | City: {host['location']['city']}, {host['location']['country_name']} | OS: {os}")
                 latitude = host['location']['latitude']

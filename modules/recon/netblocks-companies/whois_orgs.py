@@ -1,5 +1,4 @@
 from recon.core.module import BaseModule
-from urllib.parse import urlparse
 
 class Module(BaseModule):
 
@@ -15,7 +14,7 @@ class Module(BaseModule):
         headers = {'Accept': 'application/json'}
         for netblock in netblocks:
             self.heading(netblock, level=0)
-            urls = [f"http://whois.arin.net/rest/cidr/{netblock}", 'http://whois.arin.net/rest/ip/%s' % netblock.split('/')[0]]
+            urls = [f"http://whois.arin.net/rest/cidr/{netblock}", f"http://whois.arin.net/rest/ip/{netblock.split('/')[0]}"]
             for url in urls:
                 self.verbose(f"URL: {url}")
                 resp = self.request(url, headers=headers)
@@ -23,7 +22,7 @@ class Module(BaseModule):
                     self.output('No companies found.')
                     continue
                 for ref in ['orgRef', 'customerRef']:
-                    if ref in resp.json['net']:
-                        company = resp.json['net'][ref]['@name']
-                        handle = resp.json['net'][ref]['$']
+                    if ref in resp.json()['net']:
+                        company = resp.json()['net'][ref]['@name']
+                        handle = resp.json()['net'][ref]['$']
                         self.insert_companies(company=company, description=handle)

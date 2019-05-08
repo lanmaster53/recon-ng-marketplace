@@ -2,7 +2,6 @@ from recon.core.module import BaseModule
 import os
 import xlsxwriter
 
-
 class Module(BaseModule):
 
     meta = {

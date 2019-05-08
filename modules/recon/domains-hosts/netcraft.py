@@ -1,7 +1,6 @@
 from recon.core.module import BaseModule
-from recon.utils.requests import encode_payload
 from http.cookiejar import CookieJar
-import urllib.request, urllib.parse, urllib.error
+from urllib.parse import unquote_plus, urlencode
 import re
 import hashlib
 import time
@@ -19,7 +18,7 @@ class Module(BaseModule):
 
     def module_run(self, domains):
         url = 'http://searchdns.netcraft.com/'
-        pattern = '<td align\=\"left\">\s*<a href=\"http://(.*?)/"'
+        pattern = r'<td align="left">\s*<a href="http://(.*?)/"'
         # answer challenge cookie
         cookiejar = CookieJar()
         payload = {'restriction': 'site+ends+with', 'host': 'test.com'}
@@ -28,7 +27,7 @@ class Module(BaseModule):
         for cookie in cookiejar:
             if cookie.name == 'netcraft_js_verification_challenge':
                 challenge = cookie.value
-                response = hashlib.sha1(urllib.parse.unquote(challenge)).hexdigest()
+                response = hashlib.sha1(unquote_plus(challenge)).hexdigest()
                 cookiejar.set_cookie(self.make_cookie('netcraft_js_verification_response', f"{response}", '.netcraft.com'))
                 break
         for domain in domains:
@@ -38,7 +37,7 @@ class Module(BaseModule):
             # execute search engine queries and scrape results storing subdomains in a list
             # loop until no Next Page is available
             while True:
-                self.verbose(f"URL: {url}?{encode_payload(payload)}")
+                self.verbose(f"URL: {url}?{urlencode(payload)}")
                 resp = self.request(url, payload=payload, cookiejar=cookiejar)
                 content = resp.text
                 sites = re.findall(pattern, content)

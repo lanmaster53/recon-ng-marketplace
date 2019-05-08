@@ -1,6 +1,5 @@
 from recon.core.module import BaseModule
 from datetime import datetime
-from urllib.parse import parse_qs
 
 class Module(BaseModule):
 
@@ -22,7 +21,7 @@ class Module(BaseModule):
         for point in points:
             self.heading(point, level=0)
             self.output('Collecting data for an unknown number of tweets...')
-            results = self.search_twitter_api({'q':'', 'geocode': '%s,%fkm' % (point, rad), 'count':'100'})
+            results = self.search_twitter_api({'q':'', 'geocode': f"{point},{rad}km", 'count':'100'})
             for tweet in results:
                 if not tweet['geo']:
                     continue
@@ -38,4 +37,4 @@ class Module(BaseModule):
                 longitude = tweet['geo']['coordinates'][1]
                 time = datetime.strptime(tweet['created_at'], '%a %b %d %H:%M:%S +0000 %Y')
                 self.insert_pushpins(source, screen_name, profile_name, profile_url, media_url, thumb_url, message, latitude, longitude, time)
-            self.verbose('%s tweets processed.' % (len(results)))
+            self.verbose(f"{len(results)} tweets processed.")

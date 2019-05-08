@@ -1,19 +1,19 @@
 from recon.core.module import BaseModule
-import re
 from string import capwords
 from sre_constants import error as RegexError
+import re
 
 class Module(BaseModule):
 
     patterns = {
-        '<fi><ln>': '(?P<first_name>.)(?P<last_name>.*)',
-        '<ln><fi>': '(?P<last_name>.*)(?P<first_name>.)',
-        '<ln><fi><mi>': '(?P<last_name>.*)(?P<first_name>.)(?P<middle_name>.)',
-        '<fn>.<ln>': '(?P<first_name>.*)\.(?P<last_name>.*)',
-        '<fn>-<ln>': '(?P<first_name>.*)-(?P<last_name>.*)',
-        '<fn>_<ln>': '(?P<first_name>.*)_(?P<last_name>.*)',
-        '<fn>': '(?P<first_name>.*)',
-        '<ln>': '(?P<last_name>.*)',
+        '<fi><ln>': r'(?P<first_name>.)(?P<last_name>.*)',
+        '<ln><fi>': r'(?P<last_name>.*)(?P<first_name>.)',
+        '<ln><fi><mi>': r'(?P<last_name>.*)(?P<first_name>.)(?P<middle_name>.)',
+        '<fn>.<ln>': r'(?P<first_name>.*)\.(?P<last_name>.*)',
+        '<fn>-<ln>': r'(?P<first_name>.*)-(?P<last_name>.*)',
+        '<fn>_<ln>': r'(?P<first_name>.*)_(?P<last_name>.*)',
+        '<fn>': r'(?P<first_name>.*)',
+        '<ln>': r'(?P<last_name>.*)',
     }
 
     meta = {
@@ -24,7 +24,7 @@ class Module(BaseModule):
         'comments': (
             'Pattern can be either a regex or a pattern.',
             'The available patterns are:',
-            '\t' + ', '.join(list(patterns.keys())),
+            '\t' + ', '.join(patterns.keys()),
             'A regex must capture the values using these named capture groups:',
             '\t(?P<first_name>) (?P<middle_name>) (?P<last_name>)',
             'A regex syntax cheatsheet and troubleshooter can be found here:',
@@ -54,7 +54,7 @@ class Module(BaseModule):
             rowid = contact[0]
             email = contact[4]
             names = ('first_name', 'middle_name', 'last_name')
-            contact = dict(list(zip(names, contact[1:4])))
+            contact = dict(zip(names, contact[1:4]))
             contact_changed = False
             
             username = email.split('@')[0]
