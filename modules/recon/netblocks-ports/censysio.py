@@ -1,7 +1,6 @@
 from recon.core.module import BaseModule
 import time
 
-
 class Module(BaseModule):
 
     meta = {
@@ -29,17 +28,17 @@ class Module(BaseModule):
             while True:
                 resp = self._get_page(netblock, page)
                 if resp.status_code != 200:
-                    self.error('Error: \'%s\'' % (resp.json.get('error')))
+                    self.error(f"Error: '{resp.json().get('error')}'")
                     break
                 self._load_results(resp)
-                if resp.json.get('metadata').get('page') >= resp.json.get('metadata').get('pages'):
+                if resp.json().get('metadata').get('page') >= resp.json().get('metadata').get('pages'):
                     break
                 self.verbose('Fetching the next page of results...')
                 page += 1
 
     def _get_page(self, netblock, page):
         payload = {
-            'query': 'ip:{}'.format(netblock),
+            'query': f"ip:{netblock}",
             'page': page,
             'fields': ['ip', 'protocols']
         }
@@ -58,7 +57,7 @@ class Module(BaseModule):
         return resp
 
     def _load_results(self, resp):
-        for result in resp.json.get('results'):
+        for result in resp.json().get('results'):
             ip_address = result.get('ip')
             for service in result.get('protocols'):
                 port, protocol = service.split('/')

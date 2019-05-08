@@ -2,7 +2,6 @@ from recon.core.module import BaseModule
 import codecs
 import os
 
-
 class Module(BaseModule):
 
     meta = {
@@ -27,11 +26,10 @@ class Module(BaseModule):
             table = self.options['table']
             nulls = f' WHERE "{column}" IS NOT NULL' if not self.options['nulls'] else ''
             unique = 'DISTINCT ' if self.options['unique'] else ''
-            values = (unique, column, table, nulls)
-            query = 'SELECT %s"%s" FROM "%s"%s ORDER BY 1' % values
+            query = f'SELECT {unique}"{column}" FROM "{table}"{nulls} ORDER BY 1'
             rows = self.query(query)
             for row in [x[0] for x in rows]:
                 row = row if row else ''
-                outfile.write('%s\n' % (row))
+                outfile.write(f"{row}\n")
                 print(row)
         self.output(f"{len(rows)} items added to '{filename}'.")

@@ -1,7 +1,6 @@
 from recon.core.module import BaseModule
 from urllib.parse import quote_plus
 
-
 class Module(BaseModule):
     meta = {
         'name': 'Github Commit Searcher',
@@ -20,7 +19,7 @@ class Module(BaseModule):
     def module_run(self, repos):
         for repo in repos:
             commits = self.query_github_api(
-                endpoint='/repos/%s/%s/commits' % (quote_plus(repo[0]), quote_plus(repo[1])),
+                endpoint=f"/repos/{quote_plus(repo[0])}/{quote_plus(repo[1])}/commits",
                 payload={},
                 options={'max_pages': int(self.options['maxpages']) or None},
             )

@@ -1,5 +1,4 @@
 from recon.core.module import BaseModule
-from urllib.parse import quote_plus
 import os
 
 class Module(BaseModule):
@@ -35,7 +34,7 @@ class Module(BaseModule):
                     if keyword in line:
                         data = {
                             'reference': gist,
-                            'example': 'line %d: %s' % (lineno, line.strip()),
+                            'example': f"line {lineno}: {line.strip()}",
                             'category': 'Information Disclosure',
                         }
                         self.insert_vulnerabilities(**data)

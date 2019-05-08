@@ -1,7 +1,6 @@
 from recon.core.module import BaseModule
 import json
 
-
 class Module(BaseModule):
 
     meta = {
@@ -17,12 +16,12 @@ class Module(BaseModule):
             self.heading(domain, level=0)
             url = 'http://www.ssltools.com/api/scan'
             resp = self.request(url, method="POST", payload={'url': domain})
-            if not resp.json['response']:
+            if not resp.json()['response']:
                 self.output(f"SSL endpoint not reachable or response invalid for '{domain}'")
                 continue
-            if not resp.json['response']['san_entries']:
+            if not resp.json()['response']['san_entries']:
                 self.output(f"No Subject Alternative Names found for '{domain}'")
                 continue
-            hosts = [x.strip() for x in resp.json['response']['san_entries'] if '*' not in x]
+            hosts = [x.strip() for x in resp.json()['response']['san_entries'] if '*' not in x]
             for host in hosts:
                 self.insert_hosts(host)

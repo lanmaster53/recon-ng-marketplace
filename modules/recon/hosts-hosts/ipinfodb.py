@@ -2,7 +2,6 @@ from recon.core.module import BaseModule
 import json
 import time
 
-
 class Module(BaseModule):
 
     meta = {
@@ -19,10 +18,10 @@ class Module(BaseModule):
         for host in hosts:
             url = (f"http://api.ipinfodb.com/v3/ip-city/?key={api_key}&ip={host}&format=json")
             resp = self.request(url)
-            if resp.json:
-                jsonobj = resp.json
-            else:
-                self.error('Invalid JSON response for \'%s\'.\n%s' % (host, resp.text))
+            try:
+                jsonobj = resp.json()
+            except ValueError:
+                self.error(f"Invalid JSON response for '{host}'.\n{resp.text}")
                 continue
             if jsonobj['statusCode'].lower() == 'error':
                 self.error(jsonobj['statusMessage'])

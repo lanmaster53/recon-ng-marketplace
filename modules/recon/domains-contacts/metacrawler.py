@@ -48,7 +48,7 @@ def pdf_parser(s):
     meta = pdf.getDocumentInfo() or {}
     #print(str(meta))
     result = {}
-    for key in list(meta.keys()):
+    for key in meta.keys():
         result[key[1:]] = meta.get(key)
     return result
 
@@ -74,7 +74,7 @@ class Module(BaseModule, GoogleWebMixin):
         ),
         'dependencies': (
             'olefile',
-            'PyPDF2',
+            'pypdf2',
             'lxml',
         ),
     }
@@ -85,7 +85,7 @@ class Module(BaseModule, GoogleWebMixin):
             'ooxml': ['docx', 'xlsx', 'pptx'],
             'pdf': ['pdf'],
         }
-        search = 'site:%s ' + ' OR '.join(['filetype:%s' % (ext) for ext in list(itertools.chain.from_iterable(list(exts.values())))])
+        search = 'site:%s ' + ' OR '.join([f"filetype:{ext}" for ext in itertools.chain.from_iterable(exts.values())])
         for domain in domains:
             self.heading(domain, level=0)
             results = self.search_google_web(search % domain)
@@ -114,7 +114,7 @@ class Module(BaseModule, GoogleWebMixin):
                                     else:
                                         self.output('No meta data found.')
                                 else:
-                                    self.error('Resource not a valid file: %s' % resp.headers['content-type'])
+                                    self.error(f"Resource not a valid file: {resp.headers['content-type']}")
                             except Exception:
                                 self.print_exception()
                             break

@@ -1,11 +1,8 @@
 from recon.core.module import BaseModule
+from urllib.parse import unquote_plus
 import json
 import re
 import time
-import urllib.request
-import urllib.parse
-import urllib.error
-
 
 class Module(BaseModule):
 
@@ -22,7 +19,7 @@ class Module(BaseModule):
         self.verbose('Checking Github...')
         url = f"https://api.github.com/users/{username}"
         resp = self.request(url)
-        data = resp.json
+        data = resp.json()
         if 'login' in data:
             self.alert(f"Github username found - ({url})")
             # extract data from the optional fields
@@ -62,7 +59,7 @@ class Module(BaseModule):
         self.verbose('Checking Bitbucket...')
         url = f"https://bitbucket.org/api/2.0/users/{username}"
         resp = self.request(url)
-        data = resp.json
+        data = resp.json()
         if 'username' in data:
             self.alert(f"Bitbucket username found - ({url})")
             # extract data from the optional fields
@@ -90,14 +87,14 @@ class Module(BaseModule):
         self.verbose('Checking SourceForge...')
         url = f"http://sourceforge.net/u/{username}/profile/"
         resp = self.request(url)
-        sfName = re.search('<title>(.+) / Profile', resp.text)
+        sfName = re.search(r'<title>(.+) / Profile', resp.text)
         if sfName:
             self.alert(f"Sourceforge username found - ({url})")
             # extract data
-            sfJoin = re.search('<dt>Joined:</dt><dd>\s*(\d\d\d\d-\d\d-\d\d) ', resp.text)
-            sfLocation = re.search('<dt>Location:</dt><dd>\s*(\w.*)', resp.text)
-            sfGender = re.search('<dt>Gender:</dt><dd>\s*(\w.*)', resp.text)
-            sfProjects = re.findall('class="project-info">\s*<a href="/p/.+/">(.+)</a>', resp.text)
+            sfJoin = re.search(r'<dt>Joined:</dt><dd>\s*(\d\d\d\d-\d\d-\d\d) ', resp.text)
+            sfLocation = re.search(r'<dt>Location:</dt><dd>\s*(\w.*)', resp.text)
+            sfGender = re.search(r'<dt>Gender:</dt><dd>\s*(\w.*)', resp.text)
+            sfProjects = re.findall(r'class="project-info">\s*<a href="/p/.+/">(.+)</a>', resp.text)
             # establish non-match values
             sfName = sfName.group(1)
             sfJoin = sfJoin.group(1) if sfJoin else None
@@ -125,13 +122,13 @@ class Module(BaseModule):
         self.verbose('Checking CodePlex...')
         url = f"http://www.codeplex.com/site/users/view/{username}"
         resp = self.request(url)
-        cpName = re.search('<h1 class="user_name" style="display: inline">(.+)</h1>', resp.text)
+        cpName = re.search(r'<h1 class="user_name" style="display: inline">(.+)</h1>', resp.text)
         if cpName:
             self.alert(f"CodePlex username found - ({url})")
             # extract data
-            cpJoin = re.search('Member Since<span class="user_float">([A-Z].+[0-9])</span>', resp.text)
-            cpLast = re.search('Last Visit<span class="user_float">([A-Z].+[0-9])</span>', resp.text)
-            cpCoordinator = re.search('(?s)<p class="OverflowHidden">(.*?)</p>', resp.text)
+            cpJoin = re.search(r'Member Since<span class="user_float">([A-Z].+[0-9])</span>', resp.text)
+            cpLast = re.search(r'Last Visit<span class="user_float">([A-Z].+[0-9])</span>', resp.text)
+            cpCoordinator = re.search(r'(?s)<p class="OverflowHidden">(.*?)</p>', resp.text)
             # establish non-match values
             cpName = cpName.group(1) if cpName else None
             cpJoin = cpJoin.group(1) if cpJoin else 'January 1, 1900'
@@ -144,7 +141,7 @@ class Module(BaseModule):
             tdata.append(['Profile URL', url])
             tdata.append(['Joined', time.strftime('%Y-%m-%d', time.strptime(cpJoin, '%B %d, %Y'))])
             tdata.append(['Date Last', time.strftime('%Y-%m-%d', time.strptime(cpLast, '%B %d, %Y'))])
-            cpCoordProject = re.findall('<a href="(http://.+)/" title=".+">(.+)<br /></a>', cpCoordinator)
+            cpCoordProject = re.findall(r'<a href="(http://.+)/" title=".+">(.+)<br /></a>', cpCoordinator)
             for cpReposUrl, cpRepos in cpCoordProject:
                 tdata.append(['Project', f"{cpRepos} ({cpReposUrl})"])
             self.table(tdata, title='CodePlex')
@@ -159,16 +156,16 @@ class Module(BaseModule):
         self.verbose('Checking Gitorious...')
         url = f"https://gitorious.org/~{username}"
         resp = self.request(url)
-        if re.search('href="/~%s" class="avatar"' % (username), resp.text):
+        if re.search(rf'href="/~{username}" class="avatar"', resp.text):
             self.alert(f"Gitorious username found - ({url})")
             # extract data
-            gitoName = re.search('<strong>([^<]*)</strong>\s+</li>\s+<li class="email">', resp.text)
+            gitoName = re.search(r'<strong>([^<]*)</strong>\s+</li>\s+<li class="email">', resp.text)
             # Gitorious URL encodes the user's email to obscure it...lulz. No problem.
-            gitoEmailRaw = re.search("eval\(decodeURIComponent\('(.+)'", resp.text)
-            gitoEmail = re.search(r'mailto:([^\\]+)', urllib.parse.unquote(gitoEmailRaw.group(1))) if gitoEmailRaw else None
-            gitoJoin = re.search('Member for (.+)', resp.text)
-            gitoPersonalUrl = re.search('rel="me" href="(.+)">', resp.text)
-            gitoProjects = re.findall('<tr class="project">\s+<td>\s+<a href="/([^"]*)">([^<]*)</a>\s+</td>\s+</tr>', resp.text)
+            gitoEmailRaw = re.search(r"eval\(decodeURIComponent\('(.+)'", resp.text)
+            gitoEmail = re.search(r'mailto:([^\\]+)', unquote_plus(gitoEmailRaw.group(1))) if gitoEmailRaw else None
+            gitoJoin = re.search(r'Member for (.+)', resp.text)
+            gitoPersonalUrl = re.search(r'rel="me" href="(.+)">', resp.text)
+            gitoProjects = re.findall(r'<tr class="project">\s+<td>\s+<a href="/([^"]*)">([^<]*)</a>\s+</td>\s+</tr>', resp.text)
             # establish non-match values
             gitoName = gitoName.group(1) if gitoName else None
             gitoEmail = gitoEmail.group(1) if gitoEmail else None

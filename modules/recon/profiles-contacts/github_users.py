@@ -13,7 +13,7 @@ class Module(BaseModule):
 
     def module_run(self, usernames):
         for username in usernames:
-            users = self.query_github_api(endpoint='/users/%s' % (quote_plus(username)))
+            users = self.query_github_api(endpoint=f"/users/{quote_plus(username)}")
             # should only be one result, but loop just in case
             for user in users:
                 name = user['name']
@@ -21,7 +21,7 @@ class Module(BaseModule):
                 email = user['email']
                 title = 'Github Contributor'
                 if user['company']:
-                    title += ' at %s' % (user['company'])
+                    title += f" at {user['company']}"
                 region = user['location']
                 # don't add if lacking meaningful data
                 if any((fname, lname, email)):

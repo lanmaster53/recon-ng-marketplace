@@ -1,7 +1,7 @@
 from recon.core.module import BaseModule
 import os
 import time
-import urllib.request, urllib.parse, urllib.error
+from urllib.parse import quote_plus
 
 class Module(BaseModule):
 
@@ -23,19 +23,19 @@ class Module(BaseModule):
     def module_run(self, accounts):
         # check back often for new paste sources
         sites = {
-            'Pastebin': 'http://pastebin.com/raw.php?i=%s',
-            'Pastie': 'http://pastie.org/pastes/%s/text',
-            'Slexy': 'http://slexy.org/raw/%s',
-            'Ghostbin': 'https://ghostbin.com/paste/%s/raw',
-            'QuickLeak': 'http://www.quickleak.ir/%s',
-            'JustPaste': 'https://justpaste.it/%s',
-            'AdHocUrl': '%s',
+            'Pastebin': 'http://pastebin.com/raw.php?i={}',
+            'Pastie': 'http://pastie.org/pastes/{}/text',
+            'Slexy': 'http://slexy.org/raw/{}',
+            'Ghostbin': 'https://ghostbin.com/paste/{}/raw',
+            'QuickLeak': 'http://www.quickleak.ir/{}',
+            'JustPaste': 'https://justpaste.it/{}',
+            'AdHocUrl': '{}',
             }
         # retrieve status
-        base_url = 'https://haveibeenpwned.com/api/v2/%s/%s'
+        base_url = 'https://haveibeenpwned.com/api/v2/{}/{}'
         endpoint = 'pasteaccount'
         for account in accounts:
-            resp = self.request(base_url % (endpoint, urllib.parse.quote(account)))
+            resp = self.request(base_url.format(endpoint, quote_plus(account)))
             rcode = resp.status_code
             if rcode == 404:
                 self.verbose(f"{account} => Not Found.")
@@ -43,14 +43,14 @@ class Module(BaseModule):
                 self.error(f"{account} => Bad Request.")
                 continue
             else:
-                for paste in resp.json:
+                for paste in resp.json():
                     download = False
                     fileurl = paste['Id']
                     if paste['Source'] in sites:
-                        fileurl = sites[paste['Source']] % (paste['Id'])
+                        fileurl = sites[paste['Source']].format(paste['Id'])
                         download = self.options['download']
                     elif self.options['download'] == True:
-                        self.alert('Download not available for %s pastes.' % (paste['Source']))
+                        self.alert(f"Download not available for {paste['Source']} pastes.")
                     self.alert(f"{account} => Paste found! Seen in a {paste['Source']} on {paste['Date']} ({fileurl}).")
                     if download == True:
                         resp = self.request(fileurl)

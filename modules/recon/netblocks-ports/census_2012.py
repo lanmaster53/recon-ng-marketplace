@@ -1,7 +1,6 @@
 from recon.core.module import BaseModule
 import re
 
-
 class Module(BaseModule):
 
     meta = {

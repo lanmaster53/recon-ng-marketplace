@@ -2,7 +2,6 @@ from recon.core.module import BaseModule
 from datetime import datetime
 import re
 
-
 class Module(BaseModule):
 
     meta = {
@@ -25,14 +24,14 @@ class Module(BaseModule):
             while True:
                 payload['pageNumber'] = page
                 resp = self.request(url, method='POST', payload=payload, content='json')
-                results = resp.json['output']['domainSummaryDTOs']
+                results = resp.json()['output']['domainSummaryDTOs']
                 if not results: break
                 for result in results:
                     data = {}
                     data['host'] = result['id']
-                    data['reference'] = 'https://punkspider.hyperiongray.com/service/search/detail/%s' % ('.'.join(data['host'].split('.')[::-1]))
+                    data['reference'] = f"https://punkspider.hyperiongray.com/service/search/detail/{'.'.join(data['host'].split('.')[::-1])}"
                     resp = self.request(data['reference'])
-                    vulns = resp.json['data']
+                    vulns = resp.json()['data']
                     for vuln in vulns:
                         vulnerable = True
                         data['example'] = vuln['vulnerabilityUrl']

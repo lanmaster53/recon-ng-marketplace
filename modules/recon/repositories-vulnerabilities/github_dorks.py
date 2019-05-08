@@ -1,7 +1,6 @@
 from recon.core.module import BaseModule
 import os
 
-
 class Module(BaseModule):
     meta = {
         'name': 'Github Dork Analyzer',

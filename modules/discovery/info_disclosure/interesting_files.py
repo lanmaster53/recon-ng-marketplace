@@ -3,7 +3,6 @@ import warnings
 import gzip
 from io import StringIO
 
-
 class Module(BaseModule):
 
     meta = {
@@ -56,11 +55,11 @@ class Module(BaseModule):
             ('jmx-console/', 'JBoss'),  # JBoss 5.1.0.GA
             ('admin-console/', 'index.seam'),  # JBoss 5.1.0.GA
             ('web-console/', 'Administration'),  # JBoss 5.1.0.GA
-            ]
+        ]
         count = 0
         for host in hosts:
             for (filename, verify) in filetypes:
-                url = f'{protocol}://{host}:{port}/{filename}'
+                url = f"{protocol}://{host}:{port}/{filename}"
                 try:
                     resp = self.request(url, timeout=2, redirect=False)
                     code = resp.status_code
@@ -73,18 +72,18 @@ class Module(BaseModule):
                     text = ('.gz' in filename and self.uncompress(resp.text)) or resp.text
                     # check for file type since many custom 404s are returned as 200s
                     if verify.lower() in text.lower():
-                        self.alert(f'{url} => {code}. \'{filename}\' found!')
+                        self.alert(f"{url} => {code}. '{filename}' found!")
                         # urls that end with '/' are not necessary to download
                         if download and not filename.endswith("/"):
-                            filepath = f'{self.workspace}/{protocol}_{host}_{filename}'
+                            filepath = f"{self.workspace}/{protocol}_{host}_{filename}"
                             dl = open(filepath, 'w')
                             dl.write(resp.text.encode(resp.encoding) if resp.encoding else resp.text)
                             dl.close()
                         count += 1
                     else:
-                        self.output(f'{url} => {code}. \'{filename}\' found but unverified.')
+                        self.output(f"{url} => {code}. '{filename}' found but unverified.")
                 else:
-                    self.verbose(f'{url} => {code}')
-        self.output(f'{count} interesting files found.')
+                    self.verbose(f"{url} => {code}")
+        self.output(f"{count} interesting files found.")
         if download:
-            self.output(f'...downloaded to \'{self.workspace}/\'')
+            self.output(f"...downloaded to '{self.workspace}/'")

@@ -3,7 +3,7 @@ from time import sleep
 
 
 def find(key, dictionary):
-    for k, v in list(dictionary.items()):
+    for k, v in dictionary.items():
         if k == key:
             yield v
         elif isinstance(v, dict):
@@ -13,7 +13,6 @@ def find(key, dictionary):
             for d in v:
                 for result in find(key, d):
                     yield result
-
 
 class Module(BaseModule):
 
@@ -37,18 +36,18 @@ class Module(BaseModule):
             if resp.status_code == 200:
 
                 # parse contact information
-                name = resp.json.get('fullName')
+                name = resp.json().get('fullName')
                 if name:
                     first_name, middle_name, last_name = self.parse_name(name)
                     self.alert(name)
-                emails = resp.json['details'].get('emails')
+                emails = resp.json()['details'].get('emails')
                 if emails:
                     for email in emails:
                         self.alert(email['value'])
 
                 # parse title
-                title = resp.json.get('title')
-                organization = resp.json.get('organization')
+                title = resp.json().get('title')
+                organization = resp.json().get('organization')
                 if title and organization:
                     title = f"{title} at {organization}"
                 elif organization:
@@ -57,14 +56,14 @@ class Module(BaseModule):
                     self.alert(title)
 
                 # parse location
-                region = resp.json.get('location')
+                region = resp.json().get('location')
                 if region:
                     self.alert(region)
                 #self.insert_contacts(first_name=first_name, middle_name=middle_name, last_name=last_name, title=title, email=email, region=region)
 
                 # parse profiles
                 for resource in ['twitter', 'linkedin', 'facebook']:
-                    url = resp.json.get(resource)
+                    url = resp.json().get(resource)
                     if url:
                         username = url.split('/')[-1]
                         self.alert(url)
@@ -75,6 +74,6 @@ class Module(BaseModule):
                 entities.append(entity)
                 self.output(f"{entity} queued and added back to the list.")
             else:
-                self.output(f"{entity} - {resp.json['message']}")
+                self.output(f"{entity} - {resp.json()['message']}")
             # 600 requests per minute api rate limit
             sleep(.1)

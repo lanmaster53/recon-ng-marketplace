@@ -21,8 +21,8 @@ class Module(BaseModule):
         for ip in addresses:
             self.heading(ip, level=0)
             resp = self.request( url, payload = {'ip': ip, 'apikey': key} )
-            if resp.json and 'resolutions' in list(resp.json.keys()):
-                for entry in resp.json['resolutions']:
+            if resp.json() and 'resolutions' in resp.json().keys():
+                for entry in resp.json()['resolutions']:
                     hostname = entry.get('hostname')
                     if hostname:
                         self.insert_hosts(host=hostname, ip_address=ip)

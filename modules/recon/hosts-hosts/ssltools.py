@@ -2,7 +2,6 @@ from recon.core.module import BaseModule
 from datetime import datetime
 import re
 
-
 class Module(BaseModule):
 
     meta = {
@@ -22,7 +21,8 @@ class Module(BaseModule):
     def module_run(self, hosts):
         # build a regex that matches any of the stored domains
         domains = [x[0] for x in self.query('SELECT DISTINCT domain from domains WHERE domain IS NOT NULL')]
-        regex = '(?:%s)' % ('|'.join(['\.'+re.escape(x)+'$' for x in domains]))
+        domains_str = '|'.join(['\.'+re.escape(x)+'$' for x in domains])
+        regex = f"(?:{domains_str})"
         for ip_address in hosts:
             self.heading(ip_address, level=0)
             url = f"http://www.ssltools.com/certificate_lookup/{ip_address}"
@@ -35,12 +35,12 @@ class Module(BaseModule):
             if san is None:
                 self.output(f"No Subject Alternative Names found for '{ip_address}'")
             else:
-                self.output('Subject Alternative Names: \'%s\'' % san.group(1))
+                self.output(f"Subject Alternative Names: '{san.group(1)}'")
                 names = san.group(1)
             if cn is None:
                 self.output(f"No Common Name found for '{ip_address}'")
             else:
-                self.output('Common Name: \'%s\'' % cn.group(1))
+                self.output(f"Common Name: '{cn.group(1)}'")
                 names += cn.group(1)
             if not names:
                 continue

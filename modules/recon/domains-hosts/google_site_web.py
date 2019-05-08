@@ -1,6 +1,5 @@
 from recon.core.module import BaseModule
 from recon.mixins.search import GoogleWebMixin
-import urllib.request, urllib.parse, urllib.error
 import re
 
 class Module(BaseModule, GoogleWebMixin):
@@ -17,7 +16,7 @@ class Module(BaseModule, GoogleWebMixin):
         for domain in domains:
             self.heading(domain, level=0)
             base_query = 'site:' + domain
-            regmatch = re.compile(f'//([^/]*\\.{domain})')
+            regmatch = re.compile(rf"//([^/]*\.{domain})")
             hosts = []
             # control variables
             new = True
@@ -54,5 +53,5 @@ class Module(BaseModule, GoogleWebMixin):
                     else:
                         # intelligently paginate separate from the framework to optimize the number of queries required
                         page += 1
-                        self.verbose('No New Subdomains Found on the Current Page. Jumping to Result %d.' % ((page*nr)+1))
+                        self.verbose(f"No New Subdomains Found on the Current Page. Jumping to Result {(page*nr)+1}.")
                         new = True

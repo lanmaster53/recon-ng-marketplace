@@ -71,13 +71,13 @@ class Module(BaseModule):
         for row in self.__values[(1 if has_header else 0):]:
             # creates a dictionary where the keys are the column names and the values are the column values from row
             data = dict(
-                list(zip(
+                zip(
                     used_column_names,
-                    list(map(row.__getitem__, used_column_indices))
-                ))
+                    map(row.__getitem__, used_column_indices)
+                )
             )
             # e.g. data = {'fname':'John', 'lname':'Doe', 'title':'CEO'}
-            self.verbose('Inserting %s' % ' '.join([data[col] for col in used_column_names]))
+            self.verbose(f"Inserting {' '.join([data[col] for col in used_column_names])}")
             if not self.insert(table, data):
                 self.error('There was a problem inserting the previous row into the database. Please check your settings.')
                 return
@@ -90,7 +90,7 @@ class Module(BaseModule):
         try:
             self.__values = self.__parse_file()
         except IOError:
-            self.error('\'%s\' could not be opened. The file may not exist.' % self.options['filename'])
+            self.error(f"'{self.options['filename']}' could not be opened. The file may not exist.")
         except AssertionError:
             self.error('The number of columns in each row is inconsistent. Try checking the input file, changing the column separator, or changing the quote character.')
         else:
@@ -149,8 +149,7 @@ class Module(BaseModule):
 
     def __register_options(self):
         # remove any old csv-file options
-        options = list(self.options.keys())
-        for option in options:
+        for option in self.options.keys():
             if option.startswith('csv_'):
                 del self.options[option]
 

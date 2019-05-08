@@ -1,7 +1,6 @@
 from recon.core.module import BaseModule
 import json
 
-
 class Module(BaseModule):
 
     meta = {
@@ -15,9 +14,9 @@ class Module(BaseModule):
     def module_run(self, domains):
         for domain in domains:
             self.heading(domain, level=0)
-            resp = self.request('https://crt.sh/?q=%25.{0}&output=json'.format(domain))
+            resp = self.request(f"https://crt.sh/?q=%25.{domain}&output=json")
             if resp.status_code != 200:
                 self.output(f"Invalid response for '{domain}'")
                 continue
-            for cert in resp.json:
+            for cert in resp.json():
                 self.insert_hosts(cert.get('name_value'))

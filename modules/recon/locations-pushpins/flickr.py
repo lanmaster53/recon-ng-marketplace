@@ -2,7 +2,6 @@ from recon.core.module import BaseModule
 from datetime import datetime
 import json
 
-
 class Module(BaseModule):
 
     meta = {
@@ -38,7 +37,7 @@ class Module(BaseModule):
                     self.error(jsonobj['message'])
                     break
                 if not processed:
-                    self.output('Collecting data for ~%s total photos...' % (jsonobj['photos']['total']))
+                    self.output(f"Collecting data for ~{jsonobj['photos']['total']} total photos...")
                 for photo in jsonobj['photos']['photo']:
                     latitude = photo['latitude']
                     longitude = photo['longitude']

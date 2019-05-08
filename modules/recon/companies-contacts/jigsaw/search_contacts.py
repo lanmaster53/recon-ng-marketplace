@@ -1,6 +1,5 @@
 from recon.core.module import BaseModule
-from recon.utils.requests import encode_payload
-import urllib.request, urllib.parse, urllib.error
+from urllib.parse import urlencode
 import time
 
 class Module(BaseModule):
@@ -36,9 +35,9 @@ class Module(BaseModule):
         url = 'https://www.jigsaw.com/rest/searchCompany.json'
         #while True:
         payload = {'token': self.api_key, 'name': params, 'offset': cnt, 'pageSize': size}
-        self.verbose(f"Query: {url}?{encode_payload(payload)}")
+        self.verbose(f"Query: {url}?{urlencode(payload)}")
         resp = self.request(url, payload=payload, redirect=False)
-        jsonobj = resp.json
+        jsonobj = resp.json()
         if jsonobj['totalHits'] == 0:
             self.output('No company matches found.')
             return
@@ -64,7 +63,7 @@ class Module(BaseModule):
         id_len = len(max([str(x[0]) for x in all_companies], key=len))
         for company in all_companies:
             self.output(f"[{str(company[0]).ljust(id_len)}] {company[1]} - {company[3]} ({company[2]} contacts)")
-        company_id = eval(input(f"Enter Company ID from list [{all_companies[0][1]} - {all_companies[0][0]}]: "))
+        company_id = input(f"Enter Company ID from list [{all_companies[0][1]} - {all_companies[0][0]}]: ")
         if not company_id: company_id = all_companies[0][0]
         return company_id
 
@@ -76,7 +75,7 @@ class Module(BaseModule):
         while True:
             payload = {'token': self.api_key, 'companyId': company_id, 'offset': cnt, 'pageSize': size}
             resp = self.request(url, payload=payload, redirect=False)
-            jsonobj = resp.json
+            jsonobj = resp.json()
             for contact in jsonobj['contacts']:
                 contact_id = contact['contactId']
                 fname = self.html_unescape(contact['firstname'])

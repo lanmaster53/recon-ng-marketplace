@@ -2,7 +2,6 @@ from recon.core.module import BaseModule
 import os
 import re
 
-
 class Module(BaseModule):
 
     meta = {

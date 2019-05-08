@@ -1,6 +1,6 @@
 from recon.core.module import BaseModule
 from http.cookiejar import CookieJar
-import urllib.request, urllib.parse, urllib.error
+from urllib.parse import quote_plus
 import re
 import time
 import random
@@ -37,7 +37,7 @@ class Module(BaseModule):
                 for sub in subs:
                     query += f" -domain:{sub}.{domain}"
                 full_query = base_query + query
-                url = '%s?first=%d&q=%s' % (base_url, (page*nr), urllib.parse.quote_plus(full_query))
+                url = f"{base_url}?first={page*nr}&q={urllib.parse.quote_plus(full_query)}"
                 # bing errors out at > 2059 characters not including the protocol
                 if len(url) > 2066: url = url[:2066]
                 self.verbose(f"URL: {url}")
@@ -64,7 +64,7 @@ class Module(BaseModule):
                         break
                     else:
                         page += 1
-                        self.verbose('No New Subdomains Found on the Current Page. Jumping to Result %d.' % ((page*nr)+1))
+                        self.verbose(f"No New Subdomains Found on the Current Page. Jumping to Result {(page*nr)+1}.")
                         new = True
                 # sleep script to avoid lock-out
                 self.verbose('Sleeping to avoid lockout...')

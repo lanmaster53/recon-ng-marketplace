@@ -3,7 +3,6 @@ from recon.mixins.resolver import ResolverMixin
 import dns.resolver
 import dns.reversename
 
-
 class Module(BaseModule, ResolverMixin):
 
     meta = {

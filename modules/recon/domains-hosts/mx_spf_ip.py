@@ -2,7 +2,6 @@ from recon.core.module import BaseModule
 from recon.mixins.resolver import ResolverMixin
 import dns.resolver
 
-
 class Module(BaseModule, ResolverMixin):
 
     meta = {

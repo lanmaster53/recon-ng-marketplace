@@ -5,7 +5,6 @@ import re
 import time
 import webbrowser
 
-
 class Module(BaseModule):
 
     meta = {
@@ -46,16 +45,16 @@ class Module(BaseModule):
         for source in sources:
             count = source[0]
             source = source[1]
-            map_arrays += 'var %s = [];\n' % (source.lower())
-            map_checkboxes += '<input type="checkbox" id="%s" onchange="toggleMarkers(\'%s\');" checked="checked"/>%s<br />\n' % (source.lower(), source.lower(), source)
-            media_content += '<div class="media_column %s">\n<div class="media_header"><div class="media_summary">%s</div>%s</div>\n' % (source.lower(), count, source.capitalize())
+            map_arrays += f"var {source.lower()} = [];\n"
+            map_checkboxes += f'<input type="checkbox" id="{source.lower()}" onchange="toggleMarkers(\'{source.lower()}\');" checked="checked"/>{source}<br />\n'
+            media_content += f'<div class="media_column {source.lower()}">\n<div class="media_header"><div class="media_summary">{count}</div>{source.capitalize()}</div>\n'
             items = self.query('SELECT * FROM pushpins WHERE source=?', (source,))
             items.sort(key=lambda x: x[9], reverse=True)
             for item in items:
                 item = [self.to_unicode_str(x) if x != None else '' for x in item]
-                media_content += '<div class="media_row"><div class="prof_cell"><a href="%s" target="_blank"><img class="prof_img rounded" src="%s" /></a></div><div class="data_cell"><div class="trigger" id="trigger" lat="%s" lon="%s">[<a href="%s" target="_blank">%s</a>] %s<br /><span class="time">%s</span></div></div></div>\n' % (item[4], item[5], item[7], item[8], item[3], item[2], self.remove_nl(item[6], '<br />'), item[9])
+                media_content += f'<div class="media_row"><div class="prof_cell"><a href="{item[4]}" target="_blank"><img class="prof_img rounded" src="{item[5]}" /></a></div><div class="data_cell"><div class="trigger" id="trigger" lat="{item[7]}" lon="{item[8]}">[<a href="{item[3]}" target="_blank">{item[2]}</a>] {self.remove_nl(item[6], "<br />")}<br /><span class="time">{item[9]}</span></div></div></div>\n'
                 map_details = (f"<table><tr><td class='prof_cell'><a href='{item[4]}' target='_blank'><img class='prof_img rounded' src='{item[5]}' /></a></td><td class='data_cell'>[<a href='{item[3]}' target='_blank'>{self.remove_nl(item[2])}</a>] {self.remove_nl(item[6], '<br />')}<br /><span class='time'>{item[9]}</span></td></tr></table>")
-                map_content += 'add_marker({position: new google.maps.LatLng(%s,%s),title:"%s",icon:"%s",map:map},{details:"%s"}, "%s");\n' % (item[7], item[8], self.remove_nl(item[2]), icons[source.lower()], map_details, source.lower())
+                map_content += f'add_marker({{position: new google.maps.LatLng({item[7]},{item[8]}),title:"{self.remove_nl(item[2])}",icon:"{icons[source.lower()]}",map:map}},{{details:"{map_details}"}}, "{source.lower()}");\n'
             media_content += '</div>\n'
         return (media_content,), (map_content, map_arrays, map_checkboxes)
 
