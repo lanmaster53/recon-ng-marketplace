@@ -65,6 +65,7 @@ class Module(BaseModule):
             fp.write(page)
 
     def module_run(self):
+        key = self.keys.get('google_api')
         sources = self.query('SELECT COUNT(source), source FROM pushpins GROUP BY source')
         media_content, map_content = self.build_content(sources)
         meta_content = (self.options['latitude'], self.options['longitude'], self.options['radius'])
@@ -80,6 +81,11 @@ class Module(BaseModule):
         # create the map report
         map_filename = self.options['map_filename']
         self.write_markup(os.path.join(self.data_path, 'template_map.html'), map_filename, map_content)
+        with open(os.path.join(self.data_path, 'template_map.html')) as f:
+            newText = f.read().replace('PUTAPIKEYHERE', key)
+
+        with open(os.path.join(self.data_path, 'template_map.html'), "w") as f:
+            f.write(newText)
         self.output(f"Mapping data written to '{map_filename}'")
         # open the reports in a browser
         w = webbrowser.get()
