@@ -12,6 +12,7 @@ class Module(BaseModule):
         'author': 'Tim Tomes (@LaNMaSteR53)',
         'version': '1.0',
         'description': 'Creates HTML media and map reports for all of the PushPins stored in the database.',
+        'required_keys': ['google_api'],
         'options': (
             ('latitude', None, True, 'latitude of the epicenter'),
             ('longitude', None, True, 'longitude of the epicenter'),
@@ -82,7 +83,8 @@ class Module(BaseModule):
         map_filename = self.options['map_filename']
         self.write_markup(os.path.join(self.data_path, 'template_map.html'), map_filename, map_content)
         with open(os.path.join(self.data_path, 'template_map.html')) as f:
-            newText = f.read().replace('PUTAPIKEYHERE', key)
+            newText = f.read().replace('<script src="http://maps.google.com/maps/api/js?key=PUTAPIKEYHERE"></script>',
+                                       '<script src="http://maps.google.com/maps/api/js?key=%s"></script>' % key)
 
         with open(os.path.join(self.data_path, 'template_map.html'), "w") as f:
             f.write(newText)

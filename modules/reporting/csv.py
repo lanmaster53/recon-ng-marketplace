@@ -7,7 +7,7 @@ class Module(BaseModule):
     meta = {
         'name': 'CSV File Creator',
         'author': 'Tim Tomes (@LaNMaSteR53)',
-        'version': '1.0',
+        'version': '1.1',
         'description': 'Creates a CSV file containing the specified harvested data.',
         'options': (
             ('table', 'hosts', True, 'source table of data to export'),
@@ -37,6 +37,6 @@ class Module(BaseModule):
                     for cell in row:
                         if cell and cell[0] in badcharacters:
                             cell = ' '+cell
-                        sanitized_row.append(cell.encode("utf-8"))
+                        sanitized_row.append(cell.encode("utf-8").decode())
                     csvwriter.writerow(sanitized_row)
         self.output(f"{cnt} records added to '{filename}'.")
