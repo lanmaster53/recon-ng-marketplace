@@ -40,4 +40,3 @@ class Module(BaseModule):
                         sanitized_row.append(cell.encode("utf-8"))
                     csvwriter.writerow(sanitized_row)
         self.output(f"{cnt} records added to '{filename}'.")
-
