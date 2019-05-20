@@ -58,16 +58,17 @@ class Module(BaseModule):
                     if download:
                         try:
                             resp = self.request(fileurl)
-                            if resp.status_code == 200:
-                                filepath = f"{self.workspace}/{_safe_file_name(fileurl)}.txt"
-                                if not os.path.exists(filepath):
-                                    dl = open(filepath, 'w')
-                                    dl.write(resp.text.encode(resp.encoding) if resp.encoding else resp.text)
-                                    dl.close()
-                                self.verbose(f"Paste stored at '{filepath}'.")
-                            else:
-                                self.alert(f"Paste could not be downloaded ({fileurl}).")
                         except ConnectionError:
+                            self.alert(f"Paste could not be downloaded ({fileurl}).")
+
+                        if resp.status_code == 200:
+                            filepath = f"{self.workspace}/{_safe_file_name(fileurl)}.txt"
+                            if not os.path.exists(filepath):
+                                dl = open(filepath, 'wb')
+                                dl.write(resp.text.encode(resp.encoding) if resp.encoding else resp.text)
+                                dl.close()
+                            self.verbose(f"Paste stored at '{filepath}'.")
+                        else:
                             self.alert(f"Paste could not be downloaded ({fileurl}).")
                 self.insert_credentials(account)
             time.sleep(1.6)
