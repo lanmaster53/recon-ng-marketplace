@@ -18,7 +18,7 @@ class Module(BaseModule):
             resp = self.request(url=f"https://api.binaryedge.io/v2/query/domains/dns/{domain}", headers={'X-Key': key})
             if resp.status_code == 200:
                 for subdomain in resp.json().get('events'):
-                    try:
+                    if "A" in subdomain:
                         self.insert_hosts(host=subdomain['domain'], ip_address=subdomain['A'][0])
-                    except KeyError:
+                    else:
                         self.insert_hosts(host=subdomain['domain'])
