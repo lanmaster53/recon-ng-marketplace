@@ -1020,3 +1020,13 @@
   path: recon/netblocks-hosts/reverse_resolve
   required_keys: []
   version: '1.0'
+- author: Ryan Hays
+  dependencies: []
+  description: Uses the BinaryEdge API to discover open services for IP Addresses.
+  files: []
+  last_updated: '2019-05-28'
+  name: BinaryEdge.io Ports lookup
+  path: dev/binaryedge_ports
+  required_keys:
+  - binaryedge_api
+  version: '1.0'
