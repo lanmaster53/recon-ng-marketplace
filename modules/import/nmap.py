@@ -23,12 +23,9 @@ class Module(BaseModule):
                     ipaddress = ip.attrib.get('addr')
                     self.insert_hosts(ip_address=ipaddress)
 
-            try:
-                for host_port in host.find('ports').findall('port'):
-                    if host_port.find('state').get('state') != 'open':
-                        continue
-                    port = host_port.attrib.get('portid')
-                    protocol = host_port.attrib.get('protocol')
-                    self.insert_ports(ip_address=ipaddress, port=port, protocol=protocol)
-            except AttributeError:
-                pass
+            for host_port in host.find('ports').findall('port'):
+                if host_port.find('state').get('state') != 'open':
+                    continue
+                port = host_port.attrib.get('portid')
+                protocol = host_port.attrib.get('protocol')
+                self.insert_ports(ip_address=ipaddress, port=port, protocol=protocol)
