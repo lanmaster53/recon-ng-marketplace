@@ -12,6 +12,7 @@ class Module(BaseModule):
         'author': 'Tim Tomes (@LaNMaSteR53)',
         'version': '1.0',
         'description': 'Creates HTML media and map reports for all of the PushPins stored in the database.',
+        'required_keys': ['google_api'],
         'options': (
             ('latitude', None, True, 'latitude of the epicenter'),
             ('longitude', None, True, 'longitude of the epicenter'),
@@ -65,6 +66,7 @@ class Module(BaseModule):
             fp.write(page)
 
     def module_run(self):
+        key = self.keys.get('google_api')
         sources = self.query('SELECT COUNT(source), source FROM pushpins GROUP BY source')
         media_content, map_content = self.build_content(sources)
         meta_content = (self.options['latitude'], self.options['longitude'], self.options['radius'])
@@ -74,8 +76,8 @@ class Module(BaseModule):
         self.write_markup(os.path.join(self.data_path, 'template_media.html'), media_filename, media_content)
         self.output(f"Media data written to '{media_filename}'")
         # order the map_content tuple
-        map_content = meta_content + map_content
-        order = [4, 0, 1, 2, 3, 5]
+        map_content = meta_content + map_content + (key,)
+        order = [6, 4, 0, 1, 2, 3, 5]
         map_content = tuple([map_content[i] for i in order])
         # create the map report
         map_filename = self.options['map_filename']

@@ -37,6 +37,6 @@ class Module(BaseModule):
                     for cell in row:
                         if cell and cell[0] in badcharacters:
                             cell = ' '+cell
-                        sanitized_row.append(cell.encode("utf-8"))
+                        sanitized_row.append(cell)
                     csvwriter.writerow(sanitized_row)
         self.output(f"{cnt} records added to '{filename}'.")

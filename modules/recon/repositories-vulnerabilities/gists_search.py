@@ -29,7 +29,7 @@ class Module(BaseModule):
             resp = self.request(gist)
             for keyword in keywords:
                 self.verbose(f"Searching Gist for: {keyword}")
-                lines = resp.raw.splitlines()
+                lines = resp.text.splitlines()
                 for lineno, line in enumerate(lines):
                     if keyword in line:
                         data = {
