@@ -1026,7 +1026,7 @@
   files: []
   last_updated: '2019-05-28'
   name: BinaryEdge.io DNS lookup
-  path: recon/domains-hosts/binaryedge_hosts
+  path: recon/domains-hosts/binaryedge
   required_keys:
   - binaryedge_api
   version: '1.0'
@@ -1036,7 +1036,7 @@
   files: []
   last_updated: '2019-05-28'
   name: BinaryEdge.io Ports lookup
-  path: recon/hosts-ports/binaryedge_ports
+  path: recon/hosts-ports/binaryedge
   required_keys:
   - binaryedge_api
   version: '1.0'
