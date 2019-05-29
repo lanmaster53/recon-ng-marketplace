@@ -1026,7 +1026,7 @@
   files: []
   last_updated: '2019-05-28'
   name: BinaryEdge.io Ports lookup
-  path: dev/binaryedge_ports
+  path: recon/hosts-ports/binaryedge_ports
   required_keys:
   - binaryedge_api
   version: '1.0'
