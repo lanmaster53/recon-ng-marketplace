@@ -26,7 +26,7 @@ class Module(BaseModule):
             while True:
                 resp = self.request(self.url % 'search', payload=payload)
                 if 'error' in resp.json():
-                    self.output(resp.json()['error']['message'])
+                    self.alert(resp.json()['error']['message'])
                     break
                 if not processed:
                     self.output(f"Collecting data for {resp.json()['pageInfo']['totalResults']} videos...")
