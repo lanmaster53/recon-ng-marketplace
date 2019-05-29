@@ -25,7 +25,6 @@ class Module(BaseModule):
             processed = 0
             while True:
                 resp = self.request(self.url % 'search', payload=payload)
-                print(resp.json())
                 if 'error' in resp.json():
                     self.output(resp.json()['error']['message'])
                     break
