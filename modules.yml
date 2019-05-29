@@ -1026,7 +1026,7 @@
   files: []
   last_updated: '2019-05-28'
   name: BinaryEdge.io DNS lookup
-  path: dev/binaryedge_hosts
+  path: recon/domains-hosts/binaryedge_hosts
   required_keys:
   - binaryedge_api
   version: '1.0'
