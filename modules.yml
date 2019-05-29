@@ -1027,6 +1027,6 @@
   files: []
   last_updated: '2019-05-28'
   name: Nmap XML Output Importer
-  path: dev/nmap
+  path: import/nmap
   required_keys: []
   version: '1.0'
