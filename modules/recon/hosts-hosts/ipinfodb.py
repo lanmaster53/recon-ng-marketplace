@@ -26,7 +26,7 @@ class Module(BaseModule):
             if jsonobj['statusCode'].lower() == 'error':
                 self.error(jsonobj['statusMessage'])
                 continue
-            time.sleep(.7)
+            time.sleep(1.5)
             # Used to catch the garbage data and null it out so it does not clog up the database.
             for x in ['cityName', 'regionName', 'countryName', 'latitude', 'longitude']:
                 if jsonobj[x] == '-' or jsonobj[x] == '0':
@@ -38,4 +38,3 @@ class Module(BaseModule):
             longitude = jsonobj['longitude']
             self.output(f"{host} - {latitude},{longitude} - {', '.join([x for x in [region, country] if x])}")
             self.query('UPDATE hosts SET region=?, country=?, latitude=?, longitude=? WHERE ip_address=?', (region, country, latitude, longitude, host))
-            time.sleep(.5)
