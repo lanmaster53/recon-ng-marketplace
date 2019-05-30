@@ -3,6 +3,7 @@ import hashlib
 import random
 import time
 
+
 class Module(BaseModule):
 
     meta = {
@@ -27,8 +28,8 @@ class Module(BaseModule):
                 else:
                     self.error('Google has encountered an error.')
                 break
-            #re.sub('[\.:?]', ' ', resp.text).split()
-            wordlist = set(resp.raw.replace('.', ' ').replace(':', ' ').replace('?', '').split(' '))
+
+            wordlist = set(resp.text.replace('.', ' ').replace(':', ' ').replace('?', '').split(' '))
             plaintext, hashtype = crack(hashstr, wordlist)
             if plaintext:
                 self.alert(f"{hashstr} ({hashtype}) => {plaintext}")
@@ -38,10 +39,16 @@ class Module(BaseModule):
             # sleep to avoid lock-out
             time.sleep(random.randint(3,5))
 
+
 def crack(hashstr, wordlist):
     for word in wordlist:
-        for hashtype in hashlib.algorithms:
-            func = getattr(hashlib, hashtype)
-            if func(word).hexdigest().lower() == hashstr.lower():
-                return word, hashtype
+        if word != '':
+            for hashtype in hashlib.algorithms_guaranteed:
+                h = hashlib.new(hashtype)
+                h.update(word.encode('utf-8'))
+                try:
+                    if h.hexdigest().lower() == hashstr.lower():
+                        return word, hashtype
+                except TypeError:
+                    continue
     return None, None
