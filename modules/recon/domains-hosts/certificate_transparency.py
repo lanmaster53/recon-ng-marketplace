@@ -14,7 +14,7 @@ class Module(BaseModule):
     def module_run(self, domains):
         for domain in domains:
             self.heading(domain, level=0)
-            resp = self.request(f"https://crt.sh/?q=%25.{domain}&output=json")
+            resp = self.request(f"https://crt.sh/?q=%25.{domain}&output=json", timeout=20)
             if resp.status_code != 200:
                 self.output(f"Invalid response for '{domain}'")
                 continue
