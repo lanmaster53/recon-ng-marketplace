@@ -57,6 +57,9 @@ def crack(hashstr, wordlist, hashlist):
     for word in wordlist:
         for hashtype in hashlist:
             func = getattr(hashlib, hashtype)
-            if func(word.encode('utf-8')).hexdigest().lower() == hashstr.lower():
-                return word, hashtype
+            try:
+                if func(word.encode('utf-8')).hexdigest().lower() == hashstr.lower():
+                    return word, hashtype
+            except TypeError:
+                continue
     return None, None
