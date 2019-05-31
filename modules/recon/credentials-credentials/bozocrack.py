@@ -42,13 +42,11 @@ class Module(BaseModule):
 
 def crack(hashstr, wordlist):
     for word in wordlist:
-        if word != '':
-            for hashtype in hashlib.algorithms_guaranteed:
-                h = hashlib.new(hashtype)
-                h.update(word.encode('utf-8'))
-                try:
-                    if h.hexdigest().lower() == hashstr.lower():
-                        return word, hashtype
-                except TypeError:
-                    continue
+        for hashtype in hashlib.algorithms_guaranteed:
+            func = getattr(hashlib, hashtype)
+            try:
+                if func(word.encode('utf-8')).hexdigest().lower() == hashstr.lower():
+                    return word, hashtype
+            except TypeError:
+                continue
     return None, None
