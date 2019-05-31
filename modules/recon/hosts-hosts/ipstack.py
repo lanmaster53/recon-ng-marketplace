@@ -22,9 +22,9 @@ class Module(BaseModule):
             except ValueError:
                 self.error(f"Invalid JSON response for '{host}'.\n{resp.text}")
                 continue
-            region = ', '.join([str(jsonobj[x]).title() for x in ['city', 'region_name'] if jsonobj[x]]) or None
-            country = jsonobj['country_name'].title()
-            latitude = str(jsonobj['latitude'])
-            longitude = str(jsonobj['longitude'])
+            region = ', '.join([jsonobj[x] for x in ['city', 'region_name'] if jsonobj[x]]) or None
+            country = jsonobj['country_name']
+            latitude = jsonobj['latitude']
+            longitude = jsonobj['longitude']
             self.output(f"{host} - {latitude},{longitude} - {', '.join([x for x in [region, country] if x])}")
             self.query('UPDATE hosts SET region=?, country=?, latitude=?, longitude=? WHERE ip_address=?', (region, country, latitude, longitude, host))
