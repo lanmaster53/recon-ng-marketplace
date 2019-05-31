@@ -21,7 +21,7 @@ class Module(BaseModule):
             self.alert('When retrieving IANA PEN Registry, got HTTP status code ' + str(resp.status_code) + '!')
         for company in companies:
             comp = re.escape(company)
-            regex = '(\d+)\\s*\\n\\s{2}.*' + comp + '.*\\s*\\n\\s{4}(.*)\\s*\\n\\s{6}(.*)\\s*\\n'
+            regex = r'(\d+)\s*\n\s{2}.*' + comp + r'.*\s*\n\s{4}(.*)\s*\n\s{6}(.*)\s*\n'
             matchfound = False
             for match in re.finditer(regex, resp.text, re.IGNORECASE):
                 fullname = match.groups()[1]
