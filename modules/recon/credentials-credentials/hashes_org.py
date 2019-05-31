@@ -9,14 +9,11 @@ class Module(BaseModule):
         'name': 'Hashes.org Hash Lookup',
         'author': 'Tim Tomes (@LaNMaSteR53) and Mike Lisi (@MikeCodesThings)',
         'version': '1.0',
-        'description': 'Uses the Hashes.org API to perform a reverse hash lookup. Updates the \'credentials\' table '
-                       'with the positive results.',
+        'description': 'Uses the Hashes.org API to perform a reverse hash lookup. Updates the \'credentials\' table with the positive results.',
         'required_keys': ['hashes_api'],
         'comments': (
-            'Hash types supported: MD5, MD4, NTLM, LM, DOUBLEMD5, TRIPLEMD5, MD5SHA1, SHA1, MYSQL5, SHA1MD5, '
-            'DOUBLESHA1, RIPEMD160',
-            'Hashes.org is a free service. Please consider a small donation to keep the service running. Thanks. - '
-            '@s3inlc'
+            'Hash types supported: MD5, MD4, NTLM, LM, DOUBLEMD5, TRIPLEMD5, MD5SHA1, SHA1, MYSQL5, SHA1MD5, DOUBLESHA1, RIPEMD160',
+            'Hashes.org is a free service. Please consider a small donation to keep the service running. Thanks. - @s3inlc'
         ),
         'query': 'SELECT DISTINCT hash FROM credentials WHERE hash IS NOT NULL AND password IS NULL AND type IS '
                  'NOT \'Adobe\'',
