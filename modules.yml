@@ -1050,3 +1050,14 @@
   path: import/nmap
   required_keys: []
   version: '1.0'
+- author: Ryan Hays
+  dependencies: []
+  description: Compares the hosts table and removes hosts that are not found within
+    the provided scope document. Scope should be defined within the document either
+    by single IP or in CIDR notation (eg. 192.168.1.0/24)
+  files: []
+  last_updated: '2019-05-31'
+  name: Scope Checker
+  path: scope/scope_checker
+  required_keys: []
+  version: '1.0'
