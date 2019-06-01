@@ -1,8 +1,8 @@
 from recon.core.module import BaseModule
 from recon.mixins.search import GoogleWebMixin
-from PyPDF2 import PdfFileReader
-from PyPDF2.utils import PdfReadError
-from io import StringIO
+from PyPDF3 import PdfFileReader
+from PyPDF3.utils import PdfReadError
+from io import BytesIO
 import itertools
 import lxml.etree
 import olefile
@@ -26,7 +26,7 @@ def ole_parser(s):
     return result
 
 def ooxml_parser(s):
-    zf = zipfile.ZipFile(StringIO(s))
+    zf = zipfile.ZipFile(BytesIO(s))
     doc = lxml.etree.fromstring(zf.read('docProps/core.xml'))
     meta = [(x.tag, x.text) for x in doc.xpath('/*/*', namespaces=doc.nsmap)]
     #print(lxml.etree.tostring(doc, pretty_print=True))
@@ -39,7 +39,7 @@ def pdf_parser(s):
     s = s.strip()
     # required to suppress warning messages
     with open(os.devnull, 'w') as fp:
-        pdf = PdfFileReader(StringIO(s), strict=False, warndest=fp)
+        pdf = PdfFileReader(BytesIO(s), strict=False, warndest=fp)
     if pdf.isEncrypted:
         try:
             pdf.decrypt('')
@@ -74,7 +74,7 @@ class Module(BaseModule, GoogleWebMixin):
         ),
         'dependencies': (
             'olefile',
-            'pypdf2',
+            'pypdf3',
             'lxml',
         ),
     }
@@ -105,7 +105,7 @@ class Module(BaseModule, GoogleWebMixin):
                                 resp = self.request(result)
                                 # validate that the url resulted in a file 
                                 if [x for x in ('application', 'binary') if resp.headers['content-type'].startswith(x)]:
-                                    meta = func(resp.raw)
+                                    meta = func(resp.content)
                                     if meta:
                                         # display the extracted metadata
                                         for key in meta:
