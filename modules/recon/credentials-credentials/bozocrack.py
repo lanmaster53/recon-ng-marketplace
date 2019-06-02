@@ -26,11 +26,13 @@ class Module(BaseModule):
         hashlist = []
         for hash in [x.strip() for x in self.options['algorithms'].split(',')]:
             try:
-                getattr(hashlib, hash)
-                hashlist.append(hash)
+                hashlist.append(getattr(hashlib, hash))
             except AttributeError:
                 self.error(f"{hash} is not supported.")
-                continue
+        # exit if no supported algorithms
+        if not hashlist:
+            self.alert('No valid algorithms provided.')
+            return
 
         for hashstr in hashes:
             payload = {'q': hashstr}
@@ -55,10 +57,9 @@ class Module(BaseModule):
 
 def crack(hashstr, wordlist, hashlist):
     for word in wordlist:
-        for hashtype in hashlist:
-            func = getattr(hashlib, hashtype)
+        for hashfunc in hashlist:
             try:
-                if func(word.encode('utf-8')).hexdigest().lower() == hashstr.lower():
+                if hashfunc(word.encode('utf-8')).hexdigest().lower() == hashstr.lower():
                     return word, hashtype
             except TypeError:
                 continue
