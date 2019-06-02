@@ -13,23 +13,23 @@ class Module(BaseModule):
         'description': 'Searches Google for the value of a hash and tests for a match by hashing every word in the resulting page using all hashing algorithms supported by the \'hashlib\' library. Updates the \'credentials\' table with the positive results.',
         'comments': (
             'Inspired by the PyBozoCrack script: https://github.com/ikkebr/PyBozoCrack',
-            'Available Algorithms: {}'.format(', '.join(hashlib.algorithms_available)),
+            'Available Algorithms: f"{', '.join(hashlib.algorithms_available)}",
         ),
         'query': 'SELECT DISTINCT hash FROM credentials WHERE hash IS NOT NULL AND password IS NULL AND type IS NOT \'Adobe\'',
         'options': (
-            ('algorithms', 'md5, sha1, sha256, sha512', True, 'Comma separated list of hashing algorithms to use. Supported list is below.'),
+            ('algorithms', 'md5, sha1, sha256, sha512', True, 'Comma separated list of hashing algorithms to use. See comments for a list of available algorithms.'),
         ),
     }
 
     def module_run(self, hashes):
         url = 'http://www.google.com/search'
         hashlist = []
-        for hash in self.options['algorithms'].split(','):
+        for hash in [x.strip() for x in self.options['algorithms'].split(',')]:
             try:
-                getattr(hashlib, hash.strip())
-                hashlist.append(hash.strip())
+                getattr(hashlib, hash)
+                hashlist.append(hash)
             except AttributeError:
-                self.error(f"{hash.strip()} is not supported.")
+                self.error(f"{hash} is not supported.")
                 continue
 
         for hashstr in hashes:
