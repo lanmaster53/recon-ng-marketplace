@@ -15,8 +15,7 @@ class Module(BaseModule):
             'Hash types supported: MD5, MD4, NTLM, LM, DOUBLEMD5, TRIPLEMD5, MD5SHA1, SHA1, MYSQL5, SHA1MD5, DOUBLESHA1, RIPEMD160',
             'Hashes.org is a free service. Please consider a small donation to keep the service running. Thanks. - @s3inlc'
         ),
-        'query': 'SELECT DISTINCT hash FROM credentials WHERE hash IS NOT NULL AND password IS NULL AND type IS '
-                 'NOT \'Adobe\'',
+        'query': 'SELECT DISTINCT hash FROM credentials WHERE hash IS NOT NULL AND password IS NULL AND type IS NOT \'Adobe\'',
     }
 
     def module_run(self, hashes):
