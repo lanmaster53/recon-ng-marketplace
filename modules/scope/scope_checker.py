@@ -9,10 +9,11 @@ class Module(BaseModule):
         'name': 'Scope Checker',
         'author': 'Ryan Hays',
         'version': '1.0',
-        'description': 'Compares the hosts table and removes hosts that are not found within the provided scope '
-                       'document. Scope should be defined within the document by one entry per line either by single '
-                       'domain, IP, or CIDR notation (eg. google.com, 192.168.1.1, or 192.168.1.0/24)',
-        'query': 'SELECT DISTINCT ip_address FROM hosts WHERE ip_address IS NOT NULL',
+        'description': 'Compares the hosts and ports table and removes hosts that are not found within the provided '
+                       'scope document. Scope should be defined within the document by one entry per line either by '
+                       'single domain, IP, or CIDR notation (eg. google.com, 192.168.1.1, or 192.168.1.0/24)',
+        'query': 'SELECT DISTINCT ip_address FROM hosts WHERE ip_address IS NOT NULL '
+                 'UNION SELECT ip_address FROM ports WHERE ip_address IS NOT NULL',
         'options': (
             ('filename', None, True, 'path and filename for scope document'),
         ),
@@ -60,5 +61,6 @@ class Module(BaseModule):
                 cnt += 1
                 self.alert(f"{str(ip)} not found in scope document removing from hosts table.")
                 self.query('DELETE FROM hosts WHERE ip_address=?', (str(ip),))
+                self.query('DELETE FROM ports WHERE ip_address=?', (str(ip),))
 
         self.output(f"Remove {cnt} out of scope hosts from the hosts table.")
