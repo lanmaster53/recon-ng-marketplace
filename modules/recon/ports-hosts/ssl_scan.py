@@ -34,7 +34,7 @@ class Module(BaseModule):
 
             x509 = M2Crypto.X509.load_cert_string(cert)
             regex = re.compile(cn_regex_pat)
-            commonname = regex.search(x509.get_subject().as_text()).group(1)
+            commonname = regex.search(x509.get_subject().as_text()).group(1).lower()
 
             if re.match(dn_regex_pat, commonname):
                 self.output(f"Updating ports table for {ip} to include host {commonname}")
@@ -49,6 +49,6 @@ class Module(BaseModule):
                 continue
 
             for san in subaltname:
-                san = san.split(':')[1]
+                san = san.split(':')[1].lower()
                 if re.match(dn_regex_pat, san):
                     self.insert_hosts(host=san)
