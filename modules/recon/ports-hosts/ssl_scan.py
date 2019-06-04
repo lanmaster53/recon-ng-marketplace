@@ -21,12 +21,12 @@ class Module(BaseModule):
             setdefaulttimeout(10)
             ip, port = host.split(':')
             try:
-                cert = ssl.get_server_certificate((ip, port), timeout=self.config['timeout'])
+                cert = ssl.get_server_certificate((ip, port))
             except ssl.SSLError:
                 self.alert(f"This is not a proper HTTPS service: {ip}:{port}")
                 continue
             except timeout:
-                self.alert(f"Timed out connecting to host")
+                self.alert(f"Timed out connecting to host {ip}:{port}")
                 continue
 
             x509 = M2Crypto.X509.load_cert_string(cert)
