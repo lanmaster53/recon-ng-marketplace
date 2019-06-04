@@ -1,5 +1,6 @@
 from recon.core.module import BaseModule
 import ssl
+from socket import setdefaulttimeout, timeout
 import M2Crypto
 
 
@@ -17,11 +18,15 @@ class Module(BaseModule):
 
     def module_run(self, hosts):
         for host in hosts:
+            setdefaulttimeout(10)
             ip, port = host.split(':')
             try:
-                cert = ssl.get_server_certificate((ip, port))
+                cert = ssl.get_server_certificate((ip, port), timeout=self.config['timeout'])
             except ssl.SSLError:
                 self.alert(f"This is not a proper HTTPS service: {ip}:{port}")
+                continue
+            except timeout:
+                self.alert(f"Timed out connecting to host")
                 continue
 
             x509 = M2Crypto.X509.load_cert_string(cert)
