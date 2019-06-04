@@ -24,8 +24,8 @@ class Module(BaseModule):
             setdefaulttimeout(10)
             ip, port = host.split(':')
             try:
-                cert = ssl.get_server_certificate((ip, port))
-            except (ssl.SSLError, ConnectionResetError, ssl.SSLEOFError, OSError):
+                cert = ssl.get_server_certificate((ip, port), ssl_version=ssl.PROTOCOL_TLS)
+            except (ssl.SSLError, ConnectionResetError, ConnectionRefusedError, ssl.SSLEOFError, OSError):
                 self.alert(f"This is not a proper HTTPS service: {ip}:{port}")
                 continue
             except timeout:
