@@ -63,4 +63,4 @@ class Module(BaseModule):
                 self.query('DELETE FROM hosts WHERE ip_address=?', (str(ip),))
                 self.query('DELETE FROM ports WHERE ip_address=?', (str(ip),))
 
-        self.output(f"Remove {cnt} out of scope hosts from the hosts table.")
+        self.output(f"Remove {cnt} out of scope hosts.")
