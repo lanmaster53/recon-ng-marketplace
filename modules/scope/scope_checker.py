@@ -35,7 +35,7 @@ class Module(BaseModule):
                 cidr = cidr.rstrip()
 
                 try:
-                    cidr_dict[ipaddress.ip_network(cidr)] = cidr
+                    cidr_dict[ipaddress.ip_network(cidr, False)] = cidr
                 except ValueError:
                     if cidr.split('.')[-1].lower() in tld_list:
                         try:
