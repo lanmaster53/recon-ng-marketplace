@@ -17,7 +17,7 @@ class Module(BaseModule):
 
     def module_run(self, domains):
         key = self.keys.get('builtwith_api')
-        url = ' http://api.builtwith.com/v5/api.json'
+        url = 'http://api.builtwith.com/v5/api.json'
         title = 'BuiltWith contact'
         for domain in domains:
             self.heading(domain, level=0)
