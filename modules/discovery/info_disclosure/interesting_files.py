@@ -61,7 +61,7 @@ class Module(BaseModule):
             for (filename, verify) in filetypes:
                 url = f"{protocol}://{host}:{port}/{filename}"
                 try:
-                    resp = self.request(url, timeout=2, redirect=False)
+                    resp = self.request(url)
                     code = resp.status_code
                 except KeyboardInterrupt:
                     raise KeyboardInterrupt
@@ -77,7 +77,7 @@ class Module(BaseModule):
                         if download and not filename.endswith("/"):
                             filepath = f"{self.workspace}/{protocol}_{host}_{filename}"
                             dl = open(filepath, 'w')
-                            dl.write(resp.text.encode(resp.encoding) if resp.encoding else resp.text)
+                            dl.write(resp.text)
                             dl.close()
                         count += 1
                     else:
@@ -85,5 +85,5 @@ class Module(BaseModule):
                 else:
                     self.verbose(f"{url} => {code}")
         self.output(f"{count} interesting files found.")
-        if download:
-            self.output(f"...downloaded to '{self.workspace}/'")
+        if download and count:
+            self.output(f"Files downloaded to '{self.workspace}/'")

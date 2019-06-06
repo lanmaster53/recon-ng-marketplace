@@ -20,13 +20,11 @@ class Module(BaseModule):
 
     def module_run(self, hashes):
         api_key = self.keys.get('hashes_api')
-        url = 'https://hashes.org/api.php'
-        payload = {'key':api_key}
         for hashstr in hashes:
-            payload['query'] = hashstr
+            url = f"https://hashes.org/api.php?key={api_key}&query={hashstr}"
             # 20 requests per minute
             time.sleep(3)
-            resp = self.request(url, payload=payload)
+            resp = self.request(url)
             if resp.status_code != 200:
                 self.error(f"Unexpected service response: {resp.status_code}")
                 break
