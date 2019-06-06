@@ -47,5 +47,5 @@ class Module(BaseModule):
                        (region, country, latitude, longitude, host))
             cnt += 1
             if cnt == limit:
-                time.sleep(1.2)
+                time.sleep(1.1)
                 cnt = 0
