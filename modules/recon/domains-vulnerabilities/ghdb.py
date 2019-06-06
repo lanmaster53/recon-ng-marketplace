@@ -5,14 +5,18 @@ from urllib.parse import urlparse, parse_qs
 import json
 import os
 
+
 def _optionize(s):
     return f"ghdb_{s.replace(' ', '_').lower()}"
+
 
 def _build_options(ghdb):
     categories = []
     for key, group in groupby([x['category'] for x in sorted(ghdb, key=lambda x: x['category'])]):
-        categories.append((_optionize(key), False, True, f"enable/disable the {len(group)} dorks in this category"))
+        categories.append((_optionize(key), False, True, f"enable/disable the {len(list(group))} dorks in this "
+        f"category"))
     return categories
+
 
 class Module(BaseModule, GoogleWebMixin):
 
@@ -23,9 +27,12 @@ class Module(BaseModule, GoogleWebMixin):
         'name': 'Google Hacking Database',
         'author': 'Tim Tomes (@LaNMaSteR53)',
         'version': '1.0',
-        'description': 'Searches for possible vulnerabilites in a domain by leveraging the Google Hacking Database (GHDB) and the \'site\' search operator. Updates the \'vulnerabilities\' table with the results.',
+        'description': 'Searches for possible vulnerabilites in a domain by leveraging the Google Hacking '
+                       'Database (GHDB) and the \'site\' search operator. Updates the \'vulnerabilities\' table '
+                       'with the results.',
         'comments': (
-            'Offensive Security no longer provides access to the GHDB for Recon-ng. The included list was last updated on 8/1/2016.',
+            'Offensive Security no longer provides access to the GHDB for Recon-ng. The included list was last '
+            'updated on 8/1/2016.',
         ),
         'query': 'SELECT DISTINCT domain FROM domains WHERE domain IS NOT NULL',
         'options': [
