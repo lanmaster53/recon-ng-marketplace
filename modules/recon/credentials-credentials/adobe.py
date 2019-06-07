@@ -3,29 +3,21 @@ import os
 import re
 import json
 
-
 class Module(BaseModule):
 
     meta = {
         'name': 'Adobe Hash Cracker',
         'author': 'Ethan Robish (@EthanRobish) and Tim Tomes (@LaNMaSteR53)',
         'version': '1.0',
-        'description': 'Decrypts hashes leaked from the 2013 Adobe breach. First, the module cross references the leak'
-                       ' ID to identify Adobe hashes in the \'password\' column of the \'creds\' table, moves the Adobe'
-                       ' hashes to the \'hash\' column, and changes the \'type\' to \'Adobe\'. Second, the module '
-                       'attempts to crack the hashes by comparing the ciphertext\'s decoded cipher blocks to a local '
-                       'block lookup table (BLOCK_DB) of known cipher block values. Finally, the module updates '
-                       'the \'creds\' table with the results based on the level of success.',
+        'description': 'Decrypts hashes leaked from the 2013 Adobe breach. First, the module cross references the leak ID to identify Adobe hashes in the \'password\' column of the \'creds\' table, moves the Adobe hashes to the \'hash\' column, and changes the \'type\' to \'Adobe\'. Second, the module attempts to crack the hashes by comparing the ciphertext\'s decoded cipher blocks to a local block lookup table (BLOCK_DB) of known cipher block values. Finally, the module updates the \'creds\' table with the results based on the level of success.',
         'comments': (
             'Hash types supported: Adobe\'s base64 format',
             'Hash database from: http://stricture-group.com/files/adobe-top100.txt',
             'A completely padded password indicates that the exact length is known.',
         ),
-        'query': 'SELECT DISTINCT hash FROM credentials WHERE hash IS NOT NULL AND password IS NULL AND type '
-                 'IS \'Adobe\'',
+        'query': 'SELECT DISTINCT hash FROM credentials WHERE hash IS NOT NULL AND password IS NULL AND type IS \'Adobe\'',
         'options': (
-            ('block_db', os.path.join(BaseModule.data_path, 'adobe_blocks.json'), True,
-             'JSON file containing known Adobe cipher blocks and plaintext'),
+            ('block_db', os.path.join(BaseModule.data_path, 'adobe_blocks.json'), True, 'JSON file containing known Adobe cipher blocks and plaintext'),
         ),
         'files': (
             'adobe_blocks.json',
