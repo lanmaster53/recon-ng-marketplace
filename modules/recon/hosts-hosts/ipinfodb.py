@@ -13,14 +13,15 @@ class Module(BaseModule):
         'required_keys': ['ipinfodb_api'],
         'query': 'SELECT DISTINCT ip_address FROM hosts WHERE ip_address IS NOT NULL',
         'options': (
-            ('limit', 2, True, 'limit number of api requests per second (0 = unlimited)'),
+            ('limit', True, True, 'toggle rate limiting'),
+        ),
+        'comments': (
+            'Free API access requires the use of rate limiting.',
         ),
     }
    
     def module_run(self, hosts):
         api_key = self.keys.get('ipinfodb_api')
-        limit = self.options['limit']
-        cnt = 0
         for host in hosts:
             url = (f"http://api.ipinfodb.com/v3/ip-city/?key={api_key}&ip={host}&format=json")
             resp = self.request(url)
@@ -45,7 +46,5 @@ class Module(BaseModule):
             self.output(f"{host} - {latitude},{longitude} - {', '.join([x for x in [region, country] if x])}")
             self.query('UPDATE hosts SET region=?, country=?, latitude=?, longitude=? WHERE ip_address=?',
                        (region, country, latitude, longitude, host))
-            cnt += 1
-            if cnt == limit:
-                time.sleep(1.1)
-                cnt = 0
+            if self.options['limit']
+                time.sleep(0.6)
