@@ -26,7 +26,7 @@ class Module(BaseModule, ThreadingMixin):
                 self.thread(avail_sites.json(), username, key)
 
     def module_thread(self, site, username, key):
-        resp = self.request(url=f"https://api.namechk.com/services/check.json", method='POST',
+        resp = self.request(url='https://api.namechk.com/services/check.json', method='POST',
                             headers={'AUTHORIZATION': f"Bearer {key}", 'Accept': 'application/vnd.api.v1+json'},
                             payload={'site': site['short_name'], 'username': username})
 
