@@ -17,7 +17,7 @@ class Module(BaseModule, ThreadingMixin):
     def module_run(self, usernames):
         key = self.get_key('namechk_api')
         # Gets a list of available services
-        avail_sites = self.request(url=f"https://api.namechk.com/services/available.json",
+        avail_sites = self.request(url='https://api.namechk.com/services/available.json',
                                    headers={'AUTHORIZATION': f"Bearer {key}", 'Accept': 'application/vnd.api.v1+json'})
 
         if avail_sites.status_code == 200:
