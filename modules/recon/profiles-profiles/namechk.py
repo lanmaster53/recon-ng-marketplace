@@ -6,14 +6,11 @@ class Module(BaseModule, ThreadingMixin):
 
     meta = {
         'name': 'NameChk.com Username Validator',
-        'author': 'Tim Tomes (@LaNMaSteR53) and thrapt (thrapt@gmail.com) and Ryan Hays (@_ryanhays)',
+        'author': 'Tim Tomes (@LaNMaSteR53), thrapt (thrapt@gmail.com) and Ryan Hays (@_ryanhays)',
         'version': '1.0',
         'description': 'Leverages NameChk.com API to validate the existance of usernames on specific web sites and '
-                       'pdates the \'profiles\' table with the results.',
+                       'updates the \'profiles\' table with the results.',
         'required_keys': ['namechk_api'],
-        'comments': (
-            'Note: The global timeout option may need to be increased to support slower sites.',
-        ),
         'query': 'SELECT DISTINCT username FROM profiles WHERE username IS NOT NULL',
     }
 
