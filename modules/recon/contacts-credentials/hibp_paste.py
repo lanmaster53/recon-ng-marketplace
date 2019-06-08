@@ -12,7 +12,8 @@ class Module(BaseModule):
         'name': 'Have I been pwned? Paste Search',
         'author': 'Tim Tomes (@LaNMaSteR53)',
         'version': '1.0',
-        'description': 'Leverages the haveibeenpwned.com API to determine if email addresses have been published to various paste sites. Adds compromised email addresses to the \'credentials\' table.',
+        'description': 'Leverages the haveibeenpwned.com API to determine if email addresses have been published to '
+                       'various paste sites. Adds compromised email addresses to the \'credentials\' table.',
         'comments': (
             'Paste sites supported: Pastebin, Pastie, Slexy, Ghostbin, QuickLeak, JustPaste, AdHocUrl, and OptOut.'
             'The HIBP API is rate limited to 1 request per 1.5 seconds.',
@@ -65,13 +66,14 @@ class Module(BaseModule):
                             filepath = f"{self.workspace}/{_safe_file_name(fileurl)}.txt"
                             if not os.path.exists(filepath):
                                 dl = open(filepath, 'wb')
-                                dl.write(resp.text.encode(resp.encoding) if resp.encoding else resp.text)
+                                dl.write(resp.content)
                                 dl.close()
                             self.verbose(f"Paste stored at '{filepath}'.")
                         else:
                             self.alert(f"Paste could not be downloaded ({fileurl}).")
                 self.insert_credentials(account)
             time.sleep(1.6)
+
 
 def _safe_file_name(s):
     return "".join(c for c in s if c.isalnum()).rstrip()
