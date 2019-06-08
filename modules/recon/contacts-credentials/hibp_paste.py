@@ -74,6 +74,5 @@ class Module(BaseModule):
                 self.insert_credentials(account)
             time.sleep(1.6)
 
-
 def _safe_file_name(s):
     return "".join(c for c in s if c.isalnum()).rstrip()
