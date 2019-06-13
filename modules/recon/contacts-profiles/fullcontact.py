@@ -61,7 +61,8 @@ class Module(BaseModule):
                 region = resp.json().get('location')
                 if region:
                     self.alert(region)
-                self.insert_contacts(first_name=first_name, middle_name=middle_name, last_name=last_name, title=title, email=email['value'], region=region)
+                self.insert_contacts(first_name=first_name, middle_name=middle_name, last_name=last_name, title=title,
+                                     email=email['value'], region=region)
 
                 # parse profiles
                 for resource in ['twitter', 'linkedin', 'facebook']:
