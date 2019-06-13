@@ -1,70 +1,81 @@
 from recon.core.module import BaseModule
-import time
+from time import sleep
+
+
+def find(key, dictionary):
+    for k, v in dictionary.items():
+        if k == key:
+            yield v
+        elif isinstance(v, dict):
+            for result in find(key, v):
+                yield result
+        elif isinstance(v, list):
+            for d in v:
+                for result in find(key, d):
+                    yield result
+
 
 class Module(BaseModule):
 
     meta = {
         'name': 'FullContact Contact Enumerator',
-        'author': 'Quentin Kaiser (@qkaiser, contact[at]quentinkaiser.be) and Tim Tomes (@LaNMaSteR53)',
+        'author': 'Tim Tomes (@LaNMaSteR53)',
         'version': '1.0',
-        'description': 'Harvests contact information and profiles from the fullcontact.com API using email addresses as input. Updates the \'contacts\' and \'profiles\' tables with the results.',
+        'description': 'Harvests contact information and profiles from the fullcontact.com API using email addresses '
+                       'as input. Updates the \'contacts\' and \'profiles\' tables with the results.',
         'required_keys': ['fullcontact_api'],
         'query': 'SELECT DISTINCT email FROM contacts WHERE email IS NOT NULL',
     }
 
-    def module_run(self, emails):
+    def module_run(self, entities):
         api_key = self.keys.get('fullcontact_api')
-        base_url = 'https://api.fullcontact.com/v2/person.json'
-        while emails:
-            email = emails.pop(0)
-            payload = {'email':email}
-            headers = {'X-FullContact-APIKey': api_key}
-            resp = self.request(base_url, payload=payload, headers=headers)
+        base_url = 'https://api.fullcontact.com/v3/person.enrich'
+        while entities:
+            entity = entities.pop(0)
+            payload = {'email': entity}
+            headers = {'Authorization': 'Bearer ' + api_key}
+            resp = self.request(base_url, method='POST', payload=payload, headers=headers, content='JSON')
             if resp.status_code == 200:
+
                 # parse contact information
-                if 'contactInfo' in resp.json():
-                    try:
-                        first_name = resp.json()['contactInfo']['givenName']
-                        last_name = resp.json()['contactInfo']['familyName']
-                        middle_name = None
-                    except KeyError:
-                        first_name, middle_name, last_name = self.parse_name(resp.json()['contactInfo']['fullName'])
-                    name = ' '.join([x for x in (first_name, middle_name, last_name) if x])
-                    self.alert(f"{name} - {email}")
-                    # parse company information for title
-                    title = None
-                    if 'organizations' in resp.json():
-                        for occupation in resp.json()['organizations']:
-                            if 'current' in occupation and occupation['current']:
-                                if 'title' in occupation:
-                                    title = f"{occupation['title']} at {occupation['name']}"
-                                else:
-                                    title = f"Employee at {occupation['name']}"
-                                self.output(title)
-                    # parse demographics for region
-                    region = None
-                    if 'demographics' in resp.json() and 'locationGeneral' in resp.json()['demographics']:
-                        region = resp.json()['demographics']['locationGeneral']
-                        self.output(region)
-                    self.insert_contacts(first_name=first_name, middle_name=middle_name, last_name=last_name, title=title, email=email, region=region)
-                # parse profile information
-                if 'socialProfiles' in resp.json():
-                    for profile in resp.json()['socialProfiles']:
-                        # set the username to 'username' or 'id' and default to email if they are unknown
-                        username = email
-                        for key in ['username', 'id']:
-                            if key in profile:
-                                username = profile[key]
-                                break
-                        resource = profile['typeName']
-                        url = profile['url']
+                name = resp.json().get('fullName')
+                if name:
+                    first_name, middle_name, last_name = self.parse_name(name)
+                    self.alert(name)
+                emails = resp.json()['details'].get('emails')
+                if emails:
+                    for email in emails:
+                        self.alert(email['value'])
+
+                # parse title
+                title = resp.json().get('title')
+                organization = resp.json().get('organization')
+                if title and organization:
+                    title = f"{title} at {organization}"
+                elif organization:
+                    title = f"Employee at {organization}"
+                if title:
+                    self.alert(title)
+
+                # parse location
+                region = resp.json().get('location')
+                if region:
+                    self.alert(region)
+                self.insert_contacts(first_name=first_name, middle_name=middle_name, last_name=last_name, title=title, email=email['value'], region=region)
+
+                # parse profiles
+                for resource in ['twitter', 'linkedin', 'facebook']:
+                    url = resp.json().get(resource)
+                    if url:
+                        username = url.split('/')[-1]
+                        self.alert(url)
                         self.insert_profiles(username=username, url=url, resource=resource, category='social')
-                self.output(f"Confidence: {resp.json()['likelihood']*100}%")
+
             elif resp.status_code == 202:
                 # add emails queued by fullcontact back to the list
-                emails.append(email)
-                self.output(f"{email} - Queued for search.")
+                entities.append(entity)
+                self.output(f"{entity} queued and added back to the list.")
             else:
-                self.output(f"{email} - {resp.json()['message']}")
-            # 60 requests per minute api rate limit
-            time.sleep(1)
+                self.output(f"{entity} - {resp.json()['message']}")
+            # 600 requests per minute api rate limit
+            sleep(.1)
