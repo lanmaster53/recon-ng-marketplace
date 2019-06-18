@@ -627,18 +627,6 @@
   path: recon/domains-hosts/mx_spf_ip
   required_keys: []
   version: '1.0'
-- author: Tim Tomes (@LaNMaSteR53)
-  dependencies: []
-  description: Harvests contact information and profiles from the fullcontact.com
-    API using email addresses as input. Updates the 'contacts' and 'profiles' tables
-    with the results.
-  files: []
-  last_updated: '2019-05-08'
-  name: FullContact Contact Enumerator
-  path: recon/contacts-profiles/fullcontact-new
-  required_keys:
-  - fullcontact_api
-  version: '1.0'
 - author: AverageSecurityGuy (@averagesecguy)
   dependencies: []
   description: Requests URLs from the database for the purpose of populating an inline
@@ -766,7 +754,7 @@
   path: recon/domains-vulnerabilities/ghdb
   required_keys: []
   version: '1.0'
-- author: Quentin Kaiser (@qkaiser, contact[at]quentinkaiser.be) and Tim Tomes (@LaNMaSteR53)
+- author: Tim Tomes (@LaNMaSteR53)
   dependencies: []
   description: Harvests contact information and profiles from the fullcontact.com
     API using email addresses as input. Updates the 'contacts' and 'profiles' tables
@@ -774,7 +762,7 @@
   files: []
   last_updated: '2019-05-08'
   name: FullContact Contact Enumerator
-  path: recon/contacts-profiles/fullcontact
+  path: dev/recon/contacts-profiles/fullcontact
   required_keys:
   - fullcontact_api
   version: '1.0'
