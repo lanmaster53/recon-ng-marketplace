@@ -371,16 +371,6 @@
   path: recon/domains-contacts/whois_pocs
   required_keys: []
   version: '1.0'
-- author: Tim Tomes (@LaNMaSteR53) and thrapt (thrapt@gmail.com)
-  dependencies: []
-  description: Leverages the PunkSPIDER API to search for previosuly discovered vulnerabltiies
-    on hosts within a domain.
-  files: []
-  last_updated: '2019-05-08'
-  name: PunkSPIDER Vulnerabilty Finder
-  path: recon/domains-vulnerabilities/punkspider
-  required_keys: []
-  version: '1.0'
 - author: Tim Tomes (@LaNMaSteR53) and Matt Puckett (@t3lc0)
   dependencies: []
   description: Harvests port information from the Shodan API by using the 'ip' search
