@@ -1,7 +1,8 @@
 from recon.core.module import BaseModule
+from recon.mixins.github import GithubMixin
 import os
 
-class Module(BaseModule):
+class Module(BaseModule, GithubMixin):
     meta = {
         'name': 'Github Dork Analyzer',
         'author': 'Tim Tomes (@LaNMaSteR53)',
