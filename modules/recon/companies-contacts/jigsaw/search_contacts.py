@@ -1,4 +1,5 @@
 from recon.core.module import BaseModule
+from recon.utils.parsers import parse_name
 from urllib.parse import urlencode
 import time
 
@@ -83,7 +84,7 @@ class Module(BaseModule):
                 fname = ' '.join(fname.split()[:2]) if len(fname.split()) > 2 else fname
                 lname = self.html_unescape(contact['lastname'])
                 name = f"{fname} {lname}"
-                fname, mname, lname = self.parse_name(name)
+                fname, mname, lname = parse_name(name)
                 title = self.html_unescape(contact['title'])
                 city = self.html_unescape(contact['city']).title()
                 state = self.html_unescape(contact['state']).upper()

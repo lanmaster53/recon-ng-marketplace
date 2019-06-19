@@ -1,4 +1,5 @@
 from recon.core.module import BaseModule
+from recon.utils.parsers import parse_name
 import re
 
 class Module(BaseModule):
@@ -25,7 +26,7 @@ class Module(BaseModule):
             matchfound = False
             for match in re.finditer(regex, resp.text, re.IGNORECASE):
                 fullname = match.groups()[1]
-                fname, mname, lname = self.parse_name(fullname)
+                fname, mname, lname = parse_name(fullname)
                 email = match.groups()[2].replace('&', '@')
                 self.insert_contacts(
                     first_name=fname,

@@ -1,7 +1,8 @@
 from recon.core.module import BaseModule
+from recon.mixins.github import GithubMixin
 from urllib.parse import quote_plus
 
-class Module(BaseModule):
+class Module(BaseModule, GithubMixin):
     meta = {
         'name': 'Github Resource Miner',
         'author': 'Tim Tomes (@LaNMaSteR53)',

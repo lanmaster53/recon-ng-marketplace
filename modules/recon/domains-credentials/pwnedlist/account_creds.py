@@ -1,4 +1,5 @@
 from recon.core.module import BaseModule
+from recon.mixins.pwnedlist import PwnedlistMixin
 import base64
 import pyaes
 
@@ -17,7 +18,7 @@ def aes_decrypt(ciphertext, key, iv):
     plaintext = aes.decrypt(ciphertext)
     return plaintext.decode("utf-8")
 
-class Module(BaseModule):
+class Module(BaseModule, PwnedlistMixin):
 
     meta = {
         'name': 'PwnedList - Account Credentials Fetcher',

@@ -1,4 +1,5 @@
 from recon.core.module import BaseModule
+from recon.utils.parsers import parse_name
 from urllib.parse import unquote_plus
 import json
 import re
@@ -50,7 +51,7 @@ class Module(BaseModule):
             self.table(tdata, title='Github')
             # add the pertinent information to the database
             if not gitName: gitName = username
-            fname, mname, lname = self.parse_name(gitName)
+            fname, mname, lname = parse_name(gitName)
             self.insert_contacts(first_name=fname, middle_name=mname, last_name=lname, title='Github Contributor')
         else:
             self.output('Github username not found.')
@@ -78,7 +79,7 @@ class Module(BaseModule):
             self.table(tdata, title='Bitbucket')
             # add the pertinent information to the database
             if not bbName: bbName = username
-            fname, mname, lname = self.parse_name(bbName)
+            fname, mname, lname = parse_name(bbName)
             self.insert_contacts(first_name=fname, middle_name=mname, last_name=lname, title='Bitbucket Contributor')
         else:
             self.output('Bitbucket username not found.')
@@ -113,7 +114,7 @@ class Module(BaseModule):
             self.table(tdata, title='Sourceforge')
             # add the pertinent information to the database
             if not sfName: sfName = username
-            fname, mname, lname = self.parse_name(sfName)
+            fname, mname, lname = parse_name(sfName)
             self.insert_contacts(first_name=fname, middle_name=mname, last_name=lname, title='Sourceforge Contributor')
         else:
             self.output('Sourceforge username not found.')
@@ -147,7 +148,7 @@ class Module(BaseModule):
             self.table(tdata, title='CodePlex')
             # add the pertinent information to the database
             if not cpName: cpName = username
-            fname, mname, lname = self.parse_name(cpName)
+            fname, mname, lname = parse_name(cpName)
             self.insert_contacts(first_name=fname, middle_name=mname, last_name=lname, title='CodePlex Contributor')
         else:
             self.output('CodePlex username not found.')
@@ -184,7 +185,7 @@ class Module(BaseModule):
             self.table(tdata, title='Gitorious')
             # add the pertinent information to the database
             if not gitoName: gitoName = username
-            fname, mname, lname = self.parse_name(gitoName)
+            fname, mname, lname = parse_name(gitoName)
             self.insert_contacts(first_name=fname, middle_name=mname, last_name=lname, title='Gitorious Contributor', email=gitoEmail)
         else:
             self.output('Gitorious username not found.')

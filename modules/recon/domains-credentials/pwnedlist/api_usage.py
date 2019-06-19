@@ -1,6 +1,7 @@
 from recon.core.module import BaseModule
+from recon.mixins.pwnedlist import PwnedlistMixin
 
-class Module(BaseModule):
+class Module(BaseModule, PwnedlistMixin):
 
     meta = {
         'name': 'PwnedList - API Usage Statistics Fetcher',

@@ -1,7 +1,8 @@
 from recon.core.module import BaseModule
+from recon.mixins.twitter import TwitterMixin
 import re
 
-class Module(BaseModule):
+class Module(BaseModule, TwitterMixin):
 
     meta = {
         'name': 'Twitter Mentions',

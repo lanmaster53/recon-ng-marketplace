@@ -1,4 +1,5 @@
 from recon.core.module import BaseModule
+from recon.utils.parsers import parse_name
 import textwrap
 
 class Module(BaseModule):
@@ -36,7 +37,7 @@ class Module(BaseModule):
                 names = result['Meta']['Names']
                 if names is None: names = []
                 for name in names:
-                    fname, mname, lname = self.parse_name(name['Name'])
+                    fname, mname, lname = parse_name(name['Name'])
                     self.insert_contacts(first_name=fname, middle_name=mname, last_name=lname, title=title)
                 # extract and consolidate hosts and associated technology data
                 data = {}

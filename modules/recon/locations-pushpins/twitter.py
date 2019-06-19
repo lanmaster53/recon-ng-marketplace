@@ -1,7 +1,8 @@
 from recon.core.module import BaseModule
+from recon.mixins.twitter import TwitterMixin
 from datetime import datetime
 
-class Module(BaseModule):
+class Module(BaseModule, TwitterMixin):
 
     meta = {
         'name': 'Twitter Geolocation Search',

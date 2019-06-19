@@ -1,7 +1,8 @@
 from recon.core.module import BaseModule
+from recon.mixins.search import ShodanAPIMixin
 import re
 
-class Module(BaseModule):
+class Module(BaseModule, ShodanAPIMixin):
 
     meta = {
         'name': 'Shodan IP Enumerator',

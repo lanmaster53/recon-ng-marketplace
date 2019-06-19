@@ -1,4 +1,5 @@
 from recon.core.module import BaseModule
+from recon.utils.parsers import parse_name
 from time import sleep
 
 
@@ -40,7 +41,7 @@ class Module(BaseModule):
                 # parse contact information
                 name = resp.json().get('fullName')
                 if name:
-                    first_name, middle_name, last_name = self.parse_name(name)
+                    first_name, middle_name, last_name = parse_name(name)
                     self.alert(name)
                 emails = resp.json()['details'].get('emails')
                 if emails:
