@@ -752,7 +752,7 @@
   files: []
   last_updated: '2019-05-08'
   name: FullContact Contact Enumerator
-  path: dev/recon/contacts-profiles/fullcontact
+  path: recon/contacts-profiles/fullcontact
   required_keys:
   - fullcontact_api
   version: '1.0'
