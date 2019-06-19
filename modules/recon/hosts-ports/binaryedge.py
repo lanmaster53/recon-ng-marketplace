@@ -15,7 +15,7 @@ class Module(BaseModule):
         key = self.get_key('binaryedge_api')
         for ipaddr in ipaddrs:
             self.heading(ipaddr, level=0)
-            resp = self.request(url=f"https://api.binaryedge.io/v2/query/ip/{ipaddr}", headers={'X-Key': key})
+            resp = self.request('GET', f"https://api.binaryedge.io/v2/query/ip/{ipaddr}", headers={'X-Key': key})
             if resp.status_code == 200:
                 for event in resp.json().get('events'):
                     for result in event['results']:

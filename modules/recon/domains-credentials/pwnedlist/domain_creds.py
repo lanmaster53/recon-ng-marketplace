@@ -48,7 +48,7 @@ class Module(BaseModule):
                 # build the payload
                 pwnedlist_payload = self.build_pwnedlist_payload(payload, 'domains.query', key, secret)
                 # make the request
-                resp = self.request(url, payload=pwnedlist_payload)
+                resp = self.request('GET', url, params=pwnedlist_payload)
                 try:
                     jsonobj = resp.json()
                 except ValueError:

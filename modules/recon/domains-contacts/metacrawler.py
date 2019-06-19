@@ -102,7 +102,7 @@ class Module(BaseModule, GoogleWebMixin):
                             # check to see if a parser exists for the file type
                             try:
                                 func = parsers[key]
-                                resp = self.request(result)
+                                resp = self.request('GET', result)
                                 # validate that the url resulted in a file 
                                 if [x for x in ('application', 'binary') if resp.headers['content-type'].startswith(x)]:
                                     meta = func(resp.content)

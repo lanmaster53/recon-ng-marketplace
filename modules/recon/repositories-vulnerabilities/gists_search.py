@@ -26,7 +26,7 @@ class Module(BaseModule):
         for gist in gists:
             filename = gist.split(os.sep)[-1]
             self.heading(filename, level=0)
-            resp = self.request(gist)
+            resp = self.request('GET', gist)
             for keyword in keywords:
                 self.verbose(f"Searching Gist for: {keyword}")
                 lines = resp.text.splitlines()

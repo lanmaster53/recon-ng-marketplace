@@ -45,7 +45,7 @@ class Module(BaseModule):
         payload = {'account_identifier': ','.join(accounts), 'daysAgo': 0}
         payload = self.build_pwnedlist_payload(payload, 'accounts.query', key, secret)
         # make the request
-        resp = self.request(url, payload=payload)
+        resp = self.request('GET', url, params=payload)
         try:
             jsonobj = resp.json()
         except ValueError:

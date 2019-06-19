@@ -16,7 +16,7 @@ class Module(BaseModule):
 
     def module_run(self, domains):
         url = 'https://www.iana.org/assignments/enterprise-numbers/enterprise-numbers'
-        resp = self.request(url, method='GET')
+        resp = self.request('GET', url)
         if resp.status_code != 200:
             self.alert('When retrieving IANA PEN Registry, got HTTP status code ' + str(resp.status_code) + '!')
         for domain in domains:

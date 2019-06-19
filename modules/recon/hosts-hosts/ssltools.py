@@ -21,12 +21,12 @@ class Module(BaseModule):
     def module_run(self, hosts):
         # build a regex that matches any of the stored domains
         domains = [x[0] for x in self.query('SELECT DISTINCT domain from domains WHERE domain IS NOT NULL')]
-        domains_str = '|'.join(['\.'+re.escape(x)+'$' for x in domains])
+        domains_str = '|'.join([r'\.'+re.escape(x)+'$' for x in domains])
         regex = f"(?:{domains_str})"
         for ip_address in hosts:
             self.heading(ip_address, level=0)
             url = f"http://www.ssltools.com/certificate_lookup/{ip_address}"
-            html = self.request(url).text
+            html = self.request('GET', url).text
 
             # names
             san = re.search('<br>Subject Alternative Names :(.*?)<br>', html)
@@ -56,7 +56,7 @@ class Module(BaseModule):
             data['host'] = ip_address
             data['reference'] = url
             data['status'] = 'unfixed'
-            data['publish_date'] = datetime.strptime(re.search('<h4>generated at (.*) -\d{4} \(click', html).group(1), '%Y-%m-%d %H:%M:%S')
+            data['publish_date'] = datetime.strptime(re.search(r'<h4>generated at (.*) -\d{4} \(click', html).group(1), '%Y-%m-%d %H:%M:%S')
             vuln_expired = re.search('<br>Incorrect : Certificate date is invalid[^<]*expired[^<]*<br>', html)
             if vuln_expired:
                 self.output('Vulnerability: ')

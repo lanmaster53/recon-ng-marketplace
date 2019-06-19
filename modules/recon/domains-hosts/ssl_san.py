@@ -15,7 +15,7 @@ class Module(BaseModule):
         for domain in domains:
             self.heading(domain, level=0)
             url = 'http://www.ssltools.com/api/scan'
-            resp = self.request(url, method="POST", payload={'url': domain})
+            resp = self.request('POST', url, data={'url': domain})
             if not resp.json()['response']:
                 self.output(f"SSL endpoint not reachable or response invalid for '{domain}'")
                 continue

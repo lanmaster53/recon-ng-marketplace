@@ -24,7 +24,7 @@ class Module(BaseModule):
         api_key = self.keys.get('ipinfodb_api')
         for host in hosts:
             url = (f"http://api.ipinfodb.com/v3/ip-city/?key={api_key}&ip={host}&format=json")
-            resp = self.request(url)
+            resp = self.request('GET', url)
             try:
                 jsonobj = resp.json()
             except ValueError:

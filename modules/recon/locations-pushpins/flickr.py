@@ -30,7 +30,7 @@ class Module(BaseModule):
             payload = {'method': 'flickr.photos.search', 'format': 'json', 'api_key': api_key, 'lat': lat, 'lon': lon, 'has_geo': 1, 'min_taken_date': '1990-01-01 00:00:00', 'extras': 'date_upload,date_taken,owner_name,geo,url_t,url_m', 'radius': rad, 'radius_units':'km', 'per_page': 500}
             processed = 0
             while True:
-                resp = self.request(url, payload=payload)
+                resp = self.request('GET', url, params=payload)
                 jsonobj = json.loads(resp.text[14:-1])
                 # check for, and exit on, an erroneous request
                 if jsonobj['stat'] == 'fail':

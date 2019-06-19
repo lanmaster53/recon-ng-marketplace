@@ -24,7 +24,7 @@ class Module(BaseModule):
             payload = {'domain_identifier': domain}
             payload = self.build_pwnedlist_payload(payload, 'domains.info', key, secret)
             # make the request
-            resp = self.request(url, payload=payload)
+            resp = self.request('GET', url, params=payload)
             jsonobj = resp.json()
             # compare to None to confirm valid json as empty json is returned when domain not found
             if jsonobj is None:

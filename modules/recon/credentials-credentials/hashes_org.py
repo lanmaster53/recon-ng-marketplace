@@ -24,7 +24,7 @@ class Module(BaseModule):
             url = f"https://hashes.org/api.php?key={api_key}&query={hashstr}"
             # 20 requests per minute
             time.sleep(3)
-            resp = self.request(url)
+            resp = self.request('GET', url)
             if resp.status_code != 200:
                 self.error(f"Unexpected service response: {resp.status_code}")
                 break

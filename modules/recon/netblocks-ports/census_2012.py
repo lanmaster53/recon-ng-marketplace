@@ -23,7 +23,7 @@ class Module(BaseModule):
             last = addresses[-1]
             self.verbose(f"{netblock} ({first} - {last})")
             payload = {'startIP': first, 'endIP': last, 'includeHostnames': 'Yes', 'rawDownload': 'Yes'}
-            resp = self.request(url, payload=payload)
+            resp = self.request('GET', url, params=payload)
             hosts = resp.text.strip().split('\r\n')[1:]
             for host in hosts:
                 elements = host.split('\t')

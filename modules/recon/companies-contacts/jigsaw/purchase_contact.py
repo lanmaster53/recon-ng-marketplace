@@ -24,7 +24,7 @@ class Module(BaseModule):
         key = self.keys.get('jigsaw_api')
         url = f"https://www.jigsaw.com/rest/contacts/{self.options['contact']}.json"
         payload = {'token': key, 'username': username, 'password': password, 'purchaseFlag': 'true'}
-        resp = self.request(url, payload=payload, redirect=False)
+        resp = self.request('GET', url, params=payload, allow_redirects=False)
         try:
             jsonobj = resp.json()
         except ValueError:

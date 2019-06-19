@@ -16,7 +16,7 @@ class Module(BaseModule, ThreadingMixin):
 
     def module_thread(self, url):
         try:
-            resp = self.request(url)
+            resp = self.request('GET', url)
             self.verbose(f"{url} => {resp.status_code}")
         except Exception as e:
             self.error(f"{url} => {e}")

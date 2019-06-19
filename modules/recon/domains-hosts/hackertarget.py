@@ -14,7 +14,7 @@ class Module(BaseModule):
             self.heading(domain, level=0)
             url = 'https://api.hackertarget.com/hostsearch/'
             payload = {'q': domain}
-            resp = self.request(url, payload=payload)
+            resp = self.request('GET', url, params=payload)
             if resp.status_code is not 200:
                 self.error(f"Got unexpected response code: {resp.status_code}")
                 continue

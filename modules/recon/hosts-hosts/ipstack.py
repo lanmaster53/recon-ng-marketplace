@@ -16,7 +16,7 @@ class Module(BaseModule):
         for host in hosts:
             api_key = self.keys.get('ipstack_api')
             url = f"http://api.ipstack.com/{host}?access_key={api_key}"
-            resp = self.request(url)
+            resp = self.request('GET', url)
             try:
                 jsonobj = resp.json()
             except ValueError:

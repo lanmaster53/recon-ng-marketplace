@@ -39,7 +39,7 @@ class Module(BaseModule):
         base_url = 'https://haveibeenpwned.com/api/v2/{}/{}'
         endpoint = 'pasteaccount'
         for account in accounts:
-            resp = self.request(base_url.format(endpoint, quote_plus(account)))
+            resp = self.request('GET', base_url.format(endpoint, quote_plus(account)))
             rcode = resp.status_code
             if rcode == 404:
                 self.verbose(f"{account} => Not Found.")
@@ -58,7 +58,7 @@ class Module(BaseModule):
                     self.alert(f"{account} => Paste found! Seen in a {paste['Source']} on {paste['Date']} ({fileurl}).")
                     if download:
                         try:
-                            resp = self.request(fileurl)
+                            resp = self.request('GET', fileurl)
                         except ConnectionError:
                             self.alert(f"Paste could not be downloaded ({fileurl}).")
 

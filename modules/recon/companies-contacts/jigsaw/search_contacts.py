@@ -36,7 +36,7 @@ class Module(BaseModule):
         #while True:
         payload = {'token': self.api_key, 'name': params, 'offset': cnt, 'pageSize': size}
         self.verbose(f"Query: {url}?{urlencode(payload)}")
-        resp = self.request(url, payload=payload, redirect=False)
+        resp = self.request('GET', url, params=payload, allow_redirects=False)
         jsonobj = resp.json()
         if jsonobj['totalHits'] == 0:
             self.output('No company matches found.')
@@ -74,7 +74,7 @@ class Module(BaseModule):
         url = 'https://www.jigsaw.com/rest/searchContact.json'
         while True:
             payload = {'token': self.api_key, 'companyId': company_id, 'offset': cnt, 'pageSize': size}
-            resp = self.request(url, payload=payload, redirect=False)
+            resp = self.request('GET', url, params=payload, allow_redirects=False)
             jsonobj = resp.json()
             for contact in jsonobj['contacts']:
                 contact_id = contact['contactId']

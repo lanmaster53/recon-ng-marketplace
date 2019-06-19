@@ -17,7 +17,7 @@ class Module(BaseModule):
             urls = [f"http://whois.arin.net/rest/cidr/{netblock}", f"http://whois.arin.net/rest/ip/{netblock.split('/')[0]}"]
             for url in urls:
                 self.verbose(f"URL: {url}")
-                resp = self.request(url, headers=headers)
+                resp = self.request('GET', url, headers=headers)
                 if 'No record found for the handle provided.' in resp.text:
                     self.output('No companies found.')
                     continue

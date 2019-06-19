@@ -34,7 +34,7 @@ class Module(BaseModule):
             entity = entities.pop(0)
             payload = {'email': entity}
             headers = {'Authorization': 'Bearer ' + api_key}
-            resp = self.request(base_url, method='POST', payload=payload, headers=headers, content='JSON')
+            resp = self.request('POST', base_url, json=payload, headers=headers)
             if resp.status_code == 200:
 
                 # parse contact information

@@ -21,7 +21,7 @@ class Module(BaseModule):
         for netblock in netblocks:
             for ip in self.cidr_to_list(netblock):
                 self.heading(ip, level=0)
-                resp = self.request( url, payload = {'ip': ip, 'apikey': key} )
+                resp = self.request('GET', url, params={'ip': ip, 'apikey': key})
                 if resp.json() and 'resolutions' in resp.json().keys():
                     for entry in resp.json()['resolutions']:
                         hostname = entry.get('hostname')

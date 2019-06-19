@@ -16,7 +16,7 @@ class Module(BaseModule):
         key = self.keys.get('jigsaw_api')
         url = 'https://www.jigsaw.com/rest/user.json'
         payload = {'token': key, 'username': username, 'password': password}
-        resp = self.request(url, payload=payload, redirect=False)
+        resp = self.request('GET', url, params=payload, allow_redirects=False)
         try:
             jsonobj = resp.json()
         except ValueError:

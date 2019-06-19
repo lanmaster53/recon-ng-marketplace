@@ -13,7 +13,7 @@ class Module(BaseModule):
     def module_run(self, domains):
         for domain in domains:
             self.heading(domain, level=0)
-            resp = self.request(url=f"https://findsubdomains.com/subdomains-of/{domain}")
+            resp = self.request('GET', f"https://findsubdomains.com/subdomains-of/{domain}")
 
             if resp.status_code == 200:
                 doc = lxml.html.document_fromstring(resp.text)

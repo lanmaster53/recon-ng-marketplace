@@ -18,11 +18,11 @@ class Module(BaseModule):
         url_vuln = 'http://xssed.com/mirror/%s/'
         for domain in domains:
             self.heading(domain, level=0)
-            resp = self.request(url % domain)
+            resp = self.request('GET', url % domain)
             vulns = re.findall('mirror/([0-9]+)/\' target=\'_blank\'>', resp.text)
             for vuln in vulns:
                 # Go fetch and parse the specific page for this item
-                resp_vuln = self.request(url_vuln % vuln)
+                resp_vuln = self.request('GET', url_vuln % vuln)
                 # Parse the response and get the details
                 details = re.findall(r'<th class="row3"[^>]*>[^:?]+[:?]+(.+?)<\/th>', resp_vuln.text)#.replace('&nbsp;', ' '))
                 details = [self.html_unescape(x).strip() for x in details]

@@ -20,7 +20,7 @@ class Module(BaseModule):
         payload = {'lang':'en'}
         for email in emails:
             payload['email'] = email
-            resp = self.request(url, method='POST', payload=payload)
+            resp = self.request('POST', url, data=payload)
             if error in resp.text:
                 self.error(error)
                 break

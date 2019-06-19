@@ -22,7 +22,7 @@ class Module(BaseModule):
         for domain in domains:
             self.heading(domain, level=0)
             payload = {'key': key, 'lookup': domain}
-            resp = self.request(url, payload=payload)
+            resp = self.request('GET', url, params=payload)
             if 'error' in resp.json():
                 self.error(resp.json()['error'])
                 continue

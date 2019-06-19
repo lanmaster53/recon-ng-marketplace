@@ -18,7 +18,7 @@ class Module(BaseModule):
     def github(self, username):
         self.verbose('Checking Github...')
         url = f"https://api.github.com/users/{username}"
-        resp = self.request(url)
+        resp = self.request('GET', url)
         data = resp.json()
         if 'login' in data:
             self.alert(f"Github username found - ({url})")
@@ -58,7 +58,7 @@ class Module(BaseModule):
     def bitbucket(self, username):
         self.verbose('Checking Bitbucket...')
         url = f"https://bitbucket.org/api/2.0/users/{username}"
-        resp = self.request(url)
+        resp = self.request('GET', url)
         data = resp.json()
         if 'username' in data:
             self.alert(f"Bitbucket username found - ({url})")
@@ -86,7 +86,7 @@ class Module(BaseModule):
     def sourceforge(self, username):
         self.verbose('Checking SourceForge...')
         url = f"http://sourceforge.net/u/{username}/profile/"
-        resp = self.request(url)
+        resp = self.request('GET', url)
         sfName = re.search(r'<title>(.+) / Profile', resp.text)
         if sfName:
             self.alert(f"Sourceforge username found - ({url})")
@@ -121,7 +121,7 @@ class Module(BaseModule):
     def codeplex(self, username):
         self.verbose('Checking CodePlex...')
         url = f"http://www.codeplex.com/site/users/view/{username}"
-        resp = self.request(url)
+        resp = self.request('GET', url)
         cpName = re.search(r'<h1 class="user_name" style="display: inline">(.+)</h1>', resp.text)
         if cpName:
             self.alert(f"CodePlex username found - ({url})")
@@ -155,7 +155,7 @@ class Module(BaseModule):
     def gitorious(self, username):
         self.verbose('Checking Gitorious...')
         url = f"https://gitorious.org/~{username}"
-        resp = self.request(url)
+        resp = self.request('GET', url)
         if re.search(rf'href="/~{username}" class="avatar"', resp.text):
             self.alert(f"Gitorious username found - ({url})")
             # extract data

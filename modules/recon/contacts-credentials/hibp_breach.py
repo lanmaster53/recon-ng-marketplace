@@ -20,7 +20,7 @@ class Module(BaseModule):
         base_url = 'https://haveibeenpwned.com/api/v2/{}/{}'
         endpoint = 'breachedaccount'
         for account in accounts:
-            resp = self.request(base_url.format(endpoint, quote_plus(account)))
+            resp = self.request('GET', base_url.format(endpoint, quote_plus(account)))
             rcode = resp.status_code
             if rcode == 404:
                 self.verbose(f"{account} => Not Found.")

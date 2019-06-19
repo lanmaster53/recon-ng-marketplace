@@ -42,16 +42,8 @@ class Module(BaseModule):
             'page': page,
             'fields': ['ip', 'protocols']
         }
-        resp = self.request(
-            'https://censys.io/api/v1/search/ipv4',
-            payload=payload,
-            auth=(
-                self.keys.get('censysio_id'),
-                self.keys.get('censysio_secret')
-            ),
-            method='POST',
-            content='JSON',
-        )
+        credentials = (self.keys.get('censysio_id'), self.keys.get('censysio_secret'))
+        resp = self.request('POST', 'https://censys.io/api/v1/search/ipv4', json=payload, auth=credentials)
         if self.options['limit']:
             time.sleep(1 / self.options['rate'])
         return resp

@@ -17,7 +17,7 @@ class Module(BaseModule):
             self.verbose(f"Reverse geocoding ({point})...")
             payload = {'latlng' : point, 'key' : api_key}
             url = 'https://maps.googleapis.com/maps/api/geocode/json'
-            resp = self.request(url, payload=payload)
+            resp = self.request('GET', url, params=payload)
             # kill the module if nothing is returned
             if len(resp.json()['results']) == 0:
                 self.output(f"Unable to resolve an address for ({point}).")

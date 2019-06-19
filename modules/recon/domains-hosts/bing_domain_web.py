@@ -42,7 +42,7 @@ class Module(BaseModule):
                 if len(url) > 2066: url = url[:2066]
                 self.verbose(f"URL: {url}")
                 # send query to search engine
-                resp = self.request(url, cookiejar=cookiejar)
+                resp = self.request('GET', url, cookies=cookiejar)
                 if resp.status_code != 200:
                     self.alert('Bing has encountered an error. Please submit an issue for debugging.')
                     break

@@ -61,7 +61,7 @@ class Module(BaseModule):
             for (filename, verify) in filetypes:
                 url = f"{protocol}://{host}:{port}/{filename}"
                 try:
-                    resp = self.request(url)
+                    resp = self.request('GET', url)
                     code = resp.status_code
                 except KeyboardInterrupt:
                     raise KeyboardInterrupt
