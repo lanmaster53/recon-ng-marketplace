@@ -46,5 +46,5 @@ class Module(BaseModule):
             self.output(f"{host} - {latitude},{longitude} - {', '.join([x for x in [region, country] if x])}")
             self.query('UPDATE hosts SET region=?, country=?, latitude=?, longitude=? WHERE ip_address=?',
                        (region, country, latitude, longitude, host))
-            if self.options['limit']
+            if self.options['limit']:
                 time.sleep(0.6)
