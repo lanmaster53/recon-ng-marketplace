@@ -30,19 +30,6 @@
   required_keys: []
   version: '1.0'
 - author: Tim Tomes (@LaNMaSteR53)
-  dependencies: []
-  description: Retrieves a single complete contact from the Jigsaw.com API using points
-    from the given account.
-  files: []
-  last_updated: '2019-05-08'
-  name: Jigsaw - Single Contact Retriever
-  path: recon/companies-contacts/jigsaw/purchase_contact
-  required_keys:
-  - jigsaw_username
-  - jigsaw_password
-  - jigsaw_api
-  version: '1.0'
-- author: Tim Tomes (@LaNMaSteR53)
   dependencies:
   - olefile
   - PyPDF2
@@ -55,17 +42,6 @@
   path: recon/domains-contacts/metacrawler
   required_keys: []
   version: '1.1'
-- author: Tim Tomes (@LaNMaSteR53)
-  dependencies: []
-  description: Harvests contacts from the Jigsaw.com API. Updates the 'contacts' table
-    with the results.
-  files: []
-  last_updated: '2019-05-08'
-  name: Jigsaw Contact Enumerator
-  path: recon/companies-contacts/jigsaw/search_contacts
-  required_keys:
-  - jigsaw_api
-  version: '1.0'
 - author: Ethan Robish (@EthanRobish) and Tim Tomes (@LaNMaSteR53)
   dependencies: []
   description: Decrypts hashes leaked from the 2013 Adobe breach. First, the module
@@ -485,19 +461,6 @@
   name: XSSposed Domain Lookup
   path: recon/domains-vulnerabilities/xssposed
   required_keys: []
-  version: '1.0'
-- author: Tim Tomes (@LaNMaSteR53)
-  dependencies: []
-  description: Queries the Jigsaw API for the point usage statistics of the given
-    account.
-  files: []
-  last_updated: '2019-05-08'
-  name: Jigsaw - Point Usage Statistics Fetcher
-  path: recon/companies-contacts/jigsaw/point_usage
-  required_keys:
-  - jigsaw_username
-  - jigsaw_password
-  - jigsaw_api
   version: '1.0'
 - author: thrapt (thrapt@gmail.com)
   dependencies: []
