@@ -6,7 +6,7 @@ class Module(BaseModule, ShodanAPIMixin):
 
     meta = {
         'name': 'Shodan Network Enumerator',
-        'author': 'Mike Siegel and Tim Tomes (@LaNMaSteR53)',
+        'author': 'Mike Siegel and Tim Tomes (@lanmaster53)',
         'version': '1.0',
         'description': 'Harvests hosts from the Shodan API by using the \'net\' search operator. Updates the \'hosts\' table with the results.',
         'required_keys': ['shodan_api'],

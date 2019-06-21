@@ -4,7 +4,7 @@ class Module(BaseModule):
 
     meta = {
         'name': 'Whois POC Harvester',
-        'author': 'Tim Tomes (@LaNMaSteR53)',
+        'author': 'Tim Tomes (@lanmaster53)',
         'version': '1.0',
         'description': 'Uses the ARIN Whois RWS to harvest POC data from whois queries for the given domain. Updates the \'contacts\' table with the results.',
         'query': 'SELECT DISTINCT domain FROM domains WHERE domain IS NOT NULL',

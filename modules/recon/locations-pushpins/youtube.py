@@ -5,7 +5,7 @@ class Module(BaseModule):
 
     meta = {
         'name': 'YouTube Geolocation Search',
-        'author': 'Tim Tomes (@LaNMaSteR53)',
+        'author': 'Tim Tomes (@lanmaster53)',
         'version': '1.0',
         'description': 'Searches the YouTube API for media in the specified proximity to a location.',
         'required_keys': ['google_api'],

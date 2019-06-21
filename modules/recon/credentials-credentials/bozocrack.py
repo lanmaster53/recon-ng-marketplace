@@ -8,7 +8,7 @@ class Module(BaseModule):
 
     meta = {
         'name': 'PyBozoCrack Hash Lookup',
-        'author': 'Tim Tomes (@LaNMaSteR53)',
+        'author': 'Tim Tomes (@lanmaster53)',
         'version': '1.0',
         'description': 'Searches Google for the value of a hash and tests for a match by hashing every word in the resulting page using all hashing algorithms supported by the \'hashlib\' library. Updates the \'credentials\' table with the positive results.',
         'comments': (

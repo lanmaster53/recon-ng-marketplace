@@ -10,7 +10,7 @@ class Module(BaseModule):
 
     meta = {
         'name': 'Have I been pwned? Paste Search',
-        'author': 'Tim Tomes (@LaNMaSteR53)',
+        'author': 'Tim Tomes (@lanmaster53)',
         'version': '1.0',
         'description': 'Leverages the haveibeenpwned.com API to determine if email addresses have been published to '
                        'various paste sites. Adds compromised email addresses to the \'credentials\' table.',

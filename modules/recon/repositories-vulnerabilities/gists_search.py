@@ -4,7 +4,7 @@ import os
 class Module(BaseModule):
     meta = {
         'name': 'Github Gist Searcher',
-        'author': 'Tim Tomes (@LaNMaSteR53)',
+        'author': 'Tim Tomes (@lanmaster53)',
         'version': '1.0',
         'description': 'Uses the Github API to download and search Gists for possible information disclosures. Updates the \'vulnerabilities\' table with the results.',
         'comments': (

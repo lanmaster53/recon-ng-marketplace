@@ -7,7 +7,7 @@ class Module(BaseModule):
 
     meta = {
         'name': 'Interesting File Finder',
-        'author': 'Tim Tomes (@LaNMaSteR53), thrapt (thrapt@gmail.com), Jay Turla (@shipcod3), and Mark Jeffery',
+        'author': 'Tim Tomes (@lanmaster53), thrapt (thrapt@gmail.com), Jay Turla (@shipcod3), and Mark Jeffery',
         'version': '1.0',
         'description': 'Checks hosts for interesting files in predictable locations.',
         'comments': (

@@ -20,7 +20,7 @@ class Module(BaseModule):
 
     meta = {
         'name': 'FullContact Contact Enumerator',
-        'author': 'Tim Tomes (@LaNMaSteR53)',
+        'author': 'Tim Tomes (@lanmaster53)',
         'version': '1.0',
         'description': 'Harvests contact information and profiles from the fullcontact.com API using email addresses '
                        'as input. Updates the \'contacts\' and \'profiles\' tables with the results.',

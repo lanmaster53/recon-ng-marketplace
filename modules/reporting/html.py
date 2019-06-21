@@ -7,7 +7,7 @@ class Module(BaseModule):
 
     meta = {
         'name': 'HTML Report Generator',
-        'author': 'Tim Tomes (@LaNMaSteR53)',
+        'author': 'Tim Tomes (@lanmaster53)',
         'version': '1.0',
         'description': 'Creates an HTML report.',
         'options': (

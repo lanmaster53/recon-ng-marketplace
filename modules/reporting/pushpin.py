@@ -9,7 +9,7 @@ class Module(BaseModule):
 
     meta = {
         'name': 'PushPin Report Generator',
-        'author': 'Tim Tomes (@LaNMaSteR53)',
+        'author': 'Tim Tomes (@lanmaster53)',
         'version': '1.0',
         'description': 'Creates HTML media and map reports for all of the PushPins stored in the database.',
         'required_keys': ['google_api'],

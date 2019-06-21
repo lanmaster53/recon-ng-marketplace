@@ -6,7 +6,7 @@ class Module(BaseModule):
 
     meta = {
         'name': 'XSSposed Domain Lookup',
-        'author': 'Tim Tomes (@LaNMaSteR53)',
+        'author': 'Tim Tomes (@lanmaster53)',
         'version': '1.0',
         'description': 'Checks XSSposed.com for XSS records associated with a domain.',
         'query': 'SELECT DISTINCT domain FROM domains WHERE domain IS NOT NULL',

@@ -6,7 +6,7 @@ class Module(BaseModule):
 
     meta = {
         'name': 'Flickr Geolocation Search',
-        'author': 'Tim Tomes (@LaNMaSteR53)',
+        'author': 'Tim Tomes (@lanmaster53)',
         'version': '1.0',
         'description': 'Searches Flickr for media in the specified proximity to a location.',
         'required_keys': ['flickr_api'],

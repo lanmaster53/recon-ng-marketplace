@@ -6,7 +6,7 @@ class Module(BaseModule):
 
     meta = {
         'name': 'Whois Data Miner',
-        'author': 'Tim Tomes (@LaNMaSteR53)',
+        'author': 'Tim Tomes (@lanmaster53)',
         'version': '1.0',
         'description': 'Uses the ARIN Whois RWS to harvest companies, locations, netblocks, and contacts associated with the given company search string. Updates the respective tables with the results.',
         'comments': (

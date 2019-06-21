@@ -5,7 +5,7 @@ class Module(BaseModule):
 
     meta = {
         'name': 'Ports to Hosts Data Migrator',
-        'author': 'Tim Tomes (@LaNMaSteR53)',
+        'author': 'Tim Tomes (@lanmaster53)',
         'version': '1.0',
         'description': 'Adds a new host for all the hostnames stored in the \'ports\' table.',
     }

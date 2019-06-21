@@ -6,7 +6,7 @@ class Module(BaseModule):
 
     meta = {
         'name': 'XLSX File Creator',
-        'author': 'Tim Tomes (@LaNMaSteR53)',
+        'author': 'Tim Tomes (@lanmaster53)',
         'version': '1.0',
         'description': 'Creates an Excel compatible XLSX file containing the entire data set.',
         'options': (

@@ -6,7 +6,7 @@ class Module(BaseModule):
 
     meta = {
         'name': 'IPInfoDB GeoIP',
-        'author': 'Tim Tomes (@LaNMaSteR53)',
+        'author': 'Tim Tomes (@lanmaster53)',
         'version': '1.0',
         'description': 'Leverages the ipinfodb.com API to geolocate a host by IP address. Updates the \'hosts\' table '
                        'with the results.',

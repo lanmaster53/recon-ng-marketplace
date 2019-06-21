@@ -6,7 +6,7 @@ class Module(BaseModule):
 
     meta = {
         'name': 'Contacts to Domains Data Migrator',
-        'author': 'Tim Tomes (@LaNMaSteR53)',
+        'author': 'Tim Tomes (@lanmaster53)',
         'version': '1.0',
         'description': 'Adds a new domain for all the hostnames associated with email addresses stored in the \'contacts\' table.',
         'comments': (

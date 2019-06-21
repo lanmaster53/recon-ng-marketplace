@@ -6,7 +6,7 @@ class Module(BaseModule, TwitterMixin):
 
     meta = {
         'name': 'Twitter Geolocation Search',
-        'author': 'Tim Tomes (@LaNMaSteR53)',
+        'author': 'Tim Tomes (@lanmaster53)',
         'version': '1.0',
         'description': 'Searches Twitter for media in the specified proximity to a location.',
         'required_keys': ['twitter_api', 'twitter_secret'],

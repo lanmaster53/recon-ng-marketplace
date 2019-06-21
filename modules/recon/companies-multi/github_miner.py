@@ -5,7 +5,7 @@ from urllib.parse import quote_plus
 class Module(BaseModule, GithubMixin):
     meta = {
         'name': 'Github Resource Miner',
-        'author': 'Tim Tomes (@LaNMaSteR53)',
+        'author': 'Tim Tomes (@lanmaster53)',
         'version': '1.0',
         'description': 'Uses the Github API to enumerate repositories and member profiles associated with a company search string. Updates the respective tables with the results.',
         'required_keys': ['github_api'],

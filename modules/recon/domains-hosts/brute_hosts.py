@@ -8,7 +8,7 @@ class Module(BaseModule, ResolverMixin, ThreadingMixin):
 
     meta = {
         'name': 'DNS Hostname Brute Forcer',
-        'author': 'Tim Tomes (@LaNMaSteR53)',
+        'author': 'Tim Tomes (@lanmaster53)',
         'version': '1.0',
         'description': 'Brute forces host names using DNS. Updates the \'hosts\' table with the results.',
         'query': 'SELECT DISTINCT domain FROM domains WHERE domain IS NOT NULL',
