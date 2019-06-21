@@ -16,17 +16,17 @@ class Module(BaseModule, ThreadingMixin):
 
     def module_run(self, usernames):
         key = self.get_key('namechk_api')
-        self.headers = {'authorization': f"Bearer {key}", 'Accept': 'application/vnd.api.v1+json'}
+        headers = {'authorization': f"Bearer {key}", 'Accept': 'application/vnd.api.v1+json'}
         # Gets a list of available services
         avail_sites = self.request('GET', 'https://api.namechk.com/services/available.json', headers=headers)
         if avail_sites.status_code == 200:
             for username in usernames:
                 self.heading(username, level=0)
-                self.thread(avail_sites.json(), username)
+                self.thread(avail_sites.json(), username, headers)
 
-    def module_thread(self, site, username):
+    def module_thread(self, site, username, headers):
         payload = {'site': site['short_name'], 'username': username}
-        resp = self.request('POST', 'https://api.namechk.com/services/check.json', data=payload, headers=self.headers)
+        resp = self.request('POST', 'https://api.namechk.com/services/check.json', data=payload, headers=headers)
         if resp.status_code == 200:
             if not resp.json().get('available'):
                 self.insert_profiles(username=username, resource=site['name'], url=resp.json().get('callback_url'),
