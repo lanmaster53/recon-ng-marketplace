@@ -1,4 +1,4 @@
-Welcome to the the Recon-ng Marketplace! The official module repository for the Recon-ng Framework.
+Welcome to the Recon-ng Marketplace! The official module repository for the Recon-ng Framework.
 
 For guidance on contributing to or developing modules, see the [Development Guide](https://github.com/lanmaster53/recon-ng/wiki/Development-Guide) in the official [Recon-ng wiki](https://github.com/lanmaster53/recon-ng/wiki).
 
