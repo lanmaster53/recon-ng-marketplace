@@ -15,7 +15,7 @@ class Module(BaseModule, ThreadingMixin):
     }
 
     def module_run(self, usernames):
-        key = self.get_key('namechk_api')
+        key = self.keys.get('namechk_api')
         headers = {'authorization': f"Bearer {key}", 'Accept': 'application/vnd.api.v1+json'}
         # Gets a list of available services
         avail_sites = self.request('GET', 'https://api.namechk.com/services/available.json', headers=headers)

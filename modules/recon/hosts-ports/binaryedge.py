@@ -12,7 +12,7 @@ class Module(BaseModule):
     }
 
     def module_run(self, ipaddrs):
-        key = self.get_key('binaryedge_api')
+        key = self.keys.get('binaryedge_api')
         for ipaddr in ipaddrs:
             self.heading(ipaddr, level=0)
             resp = self.request('GET', f"https://api.binaryedge.io/v2/query/ip/{ipaddr}", headers={'X-Key': key})

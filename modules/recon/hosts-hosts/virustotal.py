@@ -16,7 +16,7 @@ class Module(BaseModule):
     }
 
     def module_run(self, addresses):
-        key = self.get_key('virustotal_api')
+        key = self.keys.get('virustotal_api')
         url = 'https://www.virustotal.com/vtapi/v2/ip-address/report'
         for ip in addresses:
             self.heading(ip, level=0)

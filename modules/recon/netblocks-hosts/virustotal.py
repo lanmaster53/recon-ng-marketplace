@@ -16,7 +16,7 @@ class Module(BaseModule):
     }
 
     def module_run(self, netblocks):
-        key = self.get_key('virustotal_api')
+        key = self.keys.get('virustotal_api')
         url = 'https://www.virustotal.com/vtapi/v2/ip-address/report'
         for netblock in netblocks:
             for ip in self.cidr_to_list(netblock):
