@@ -20,10 +20,7 @@ class Module(BaseModule):
             ('map_filename', os.path.join(BaseModule.workspace, 'pushpin_map.html'), True, 'path and filename for PushPin map report'),
             ('media_filename', os.path.join(BaseModule.workspace, 'pushpin_media.html'), True, 'path and filename for PushPin media report'),
         ),
-        'files': (
-            'template_media.html',
-            'template_map.html',
-        ),
+        'files': ['template_media.html', 'template_map.html'],
     }
 
     def remove_nl(self, x, repl=''):

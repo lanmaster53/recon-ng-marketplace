@@ -13,9 +13,7 @@ class Module(BaseModule):
             'This modules considers that everything after the first element could contain other hosts besides the current. Therefore, hosts > 2 domains deep will create domains > 2 elements in length.',
         ),
         'query': 'SELECT DISTINCT host FROM hosts WHERE host IS NOT NULL',
-        'files': (
-            'suffixes.txt',
-        ),
+        'files': ['suffixes.txt'],
     }
 
     def module_run(self, hosts):

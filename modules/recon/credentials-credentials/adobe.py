@@ -19,9 +19,7 @@ class Module(BaseModule):
         'options': (
             ('block_db', os.path.join(BaseModule.data_path, 'adobe_blocks.json'), True, 'JSON file containing known Adobe cipher blocks and plaintext'),
         ),
-        'files': (
-            'adobe_blocks.json',
-        ),
+        'files': ['adobe_blocks.json'],
     }
                      
     def module_pre(self):

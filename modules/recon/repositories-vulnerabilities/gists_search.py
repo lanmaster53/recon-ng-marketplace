@@ -14,9 +14,7 @@ class Module(BaseModule):
         'options': (
             ('keywords', os.path.join(BaseModule.data_path, 'gist_keywords.txt'), True, 'file containing a list of keywords'),
         ),
-        'files': (
-            'gist_keywords.txt',
-        ),
+        'files': ['gist_keywords.txt'],
     }
 
     def module_run(self, gists):

@@ -72,11 +72,7 @@ class Module(BaseModule, GoogleWebMixin):
         'options': (
             ('extract', False, True, 'extract metadata from discovered files'),
         ),
-        'dependencies': (
-            'olefile',
-            'pypdf3',
-            'lxml',
-        ),
+        'dependencies': ['olefile', 'pypdf3', 'lxml'],
     }
 
     def module_run(self, domains):

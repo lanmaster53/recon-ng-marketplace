@@ -30,9 +30,7 @@ class Module(BaseModule, PwnedlistMixin):
             'API Query Cost: 1 query per request and 1 query per unique leak.',
         ),
         'query': 'SELECT DISTINCT username FROM credentials WHERE username IS NOT NULL and password IS NULL',
-        'dependencies': (
-            'pyaes',
-        ),
+        'dependencies': ['pyaes'],
     }
 
     def module_run(self, accounts):

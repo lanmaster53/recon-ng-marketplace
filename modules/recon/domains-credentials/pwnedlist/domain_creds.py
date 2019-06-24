@@ -30,9 +30,7 @@ class Module(BaseModule, PwnedlistMixin):
             'API Query Cost: 10,000 queries per request, 1 query for each account returned, and 1 query per unique leak.',
         ),
         'query': 'SELECT DISTINCT domain FROM domains WHERE domain IS NOT NULL',
-        'dependencies': (
-            'pycryptodome',
-        ),
+        'dependencies': ['pycryptodome'],
     }
 
     def module_run(self, domains):
