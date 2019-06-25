@@ -7,7 +7,7 @@ class Module(BaseModule):
 
     meta = {
         'name': 'Hashes.org Hash Lookup',
-        'author': 'Tim Tomes (@LaNMaSteR53) and Mike Lisi (@MikeCodesThings)',
+        'author': 'Tim Tomes (@lanmaster53) and Mike Lisi (@MikeCodesThings)',
         'version': '1.0',
         'description': 'Uses the Hashes.org API to perform a reverse hash lookup. Updates the \'credentials\' table with the positive results.',
         'required_keys': ['hashes_api'],
@@ -24,7 +24,7 @@ class Module(BaseModule):
             url = f"https://hashes.org/api.php?key={api_key}&query={hashstr}"
             # 20 requests per minute
             time.sleep(3)
-            resp = self.request(url)
+            resp = self.request('GET', url)
             if resp.status_code != 200:
                 self.error(f"Unexpected service response: {resp.status_code}")
                 break

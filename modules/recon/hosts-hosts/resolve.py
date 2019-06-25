@@ -6,7 +6,7 @@ class Module(BaseModule, ResolverMixin):
 
     meta = {
         'name': 'Hostname Resolver',
-        'author': 'Tim Tomes (@LaNMaSteR53)',
+        'author': 'Tim Tomes (@lanmaster53)',
         'version': '1.0',
         'description': 'Resolves the IP address for a host. Updates the \'hosts\' table with the results.',
         'comments': (

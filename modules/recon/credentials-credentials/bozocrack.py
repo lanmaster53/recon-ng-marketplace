@@ -8,12 +8,12 @@ class Module(BaseModule):
 
     meta = {
         'name': 'PyBozoCrack Hash Lookup',
-        'author': 'Tim Tomes (@LaNMaSteR53)',
+        'author': 'Tim Tomes (@lanmaster53)',
         'version': '1.0',
         'description': 'Searches Google for the value of a hash and tests for a match by hashing every word in the resulting page using all hashing algorithms supported by the \'hashlib\' library. Updates the \'credentials\' table with the positive results.',
         'comments': (
             'Inspired by the PyBozoCrack script: https://github.com/ikkebr/PyBozoCrack',
-            'Available Algorithms: f"{', '.join(hashlib.algorithms_available)}",
+            f"Available Algorithms: {', '.join(hashlib.algorithms_available)}",
         ),
         'query': 'SELECT DISTINCT hash FROM credentials WHERE hash IS NOT NULL AND password IS NULL AND type IS NOT \'Adobe\'',
         'options': (
@@ -36,7 +36,7 @@ class Module(BaseModule):
 
         for hashstr in hashes:
             payload = {'q': hashstr}
-            resp = self.request(url, payload=payload, redirect=False)
+            resp = self.request('GET', url, params=payload, allow_redirects=False)
             if resp.status_code != 200:
                 if resp.status_code == 302:
                     self.error('You\'ve been temporarily banned by Google for violating the terms of service.')

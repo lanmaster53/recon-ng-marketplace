@@ -4,7 +4,7 @@ class Module(BaseModule):
 
     meta = {
         'name': 'PwnedList - Leak Details Retriever',
-        'author': 'Tim Tomes (@LaNMaSteR53)',
+        'author': 'Tim Tomes (@lanmaster53)',
         'version': '1.0',
         'description': 'Queries the PwnedList API for information associated with all known leaks. Updates the \'leaks\' table with the results.',
         'required_keys': ['pwnedlist_api', 'pwnedlist_secret'],

@@ -13,7 +13,7 @@ class Module(BaseModule):
     def module_run(self, domains):
         for domain in domains:
             self.heading(domain, level=0)
-            resp = self.request(url=f"https://www.threatcrowd.org/searchApi/v2/domain/report/?domain={domain}")
+            resp = self.request('GET', f"https://www.threatcrowd.org/searchApi/v2/domain/report/?domain={domain}")
             if resp.json().get('response_code') == '1':
                 for subdomain in resp.json().get('subdomains'):
                     self.insert_hosts(host=subdomain)

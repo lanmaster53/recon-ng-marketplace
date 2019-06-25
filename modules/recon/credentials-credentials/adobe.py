@@ -7,7 +7,7 @@ class Module(BaseModule):
 
     meta = {
         'name': 'Adobe Hash Cracker',
-        'author': 'Ethan Robish (@EthanRobish) and Tim Tomes (@LaNMaSteR53)',
+        'author': 'Ethan Robish (@EthanRobish) and Tim Tomes (@lanmaster53)',
         'version': '1.0',
         'description': 'Decrypts hashes leaked from the 2013 Adobe breach. First, the module cross references the leak ID to identify Adobe hashes in the \'password\' column of the \'creds\' table, moves the Adobe hashes to the \'hash\' column, and changes the \'type\' to \'Adobe\'. Second, the module attempts to crack the hashes by comparing the ciphertext\'s decoded cipher blocks to a local block lookup table (BLOCK_DB) of known cipher block values. Finally, the module updates the \'creds\' table with the results based on the level of success.',
         'comments': (
@@ -19,9 +19,7 @@ class Module(BaseModule):
         'options': (
             ('block_db', os.path.join(BaseModule.data_path, 'adobe_blocks.json'), True, 'JSON file containing known Adobe cipher blocks and plaintext'),
         ),
-        'files': (
-            'adobe_blocks.json',
-        ),
+        'files': ['adobe_blocks.json'],
     }
                      
     def module_pre(self):

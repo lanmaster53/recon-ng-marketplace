@@ -1,270 +1,69 @@
-- author: Tim Tomes (@LaNMaSteR53)
-  dependencies: []
-  description: Creates HTML media and map reports for all of the PushPins stored in
-    the database.
-  files:
-  - template_media.html
-  - template_map.html
-  last_updated: '2019-05-08'
-  name: PushPin Report Generator
-  path: reporting/pushpin
-  required_keys: []
-  version: '1.0'
-- author: Eric Humphries (@e2fsck) and Tim Tomes (@LaNMaSteR53)
-  dependencies: []
-  description: Creates a XML report.
-  files: []
-  last_updated: '2019-05-08'
-  name: XML Report Generator
-  path: reporting/xml
-  required_keys: []
-  version: '1.1'
 - author: thrapt (thrapt@gmail.com)
   dependencies: []
-  description: Harvests hosts from Netcraft.com. Updates the 'hosts' table with the
-    results.
-  files: []
-  last_updated: '2019-05-08'
-  name: Netcraft Hostname Enumerator
-  path: recon/domains-hosts/netcraft
-  required_keys: []
-  version: '1.0'
-- author: Tim Tomes (@LaNMaSteR53)
-  dependencies: []
-  description: Retrieves a single complete contact from the Jigsaw.com API using points
-    from the given account.
-  files: []
-  last_updated: '2019-05-08'
-  name: Jigsaw - Single Contact Retriever
-  path: recon/companies-contacts/jigsaw/purchase_contact
-  required_keys:
-  - jigsaw_username
-  - jigsaw_password
-  - jigsaw_api
-  version: '1.0'
-- author: Tim Tomes (@LaNMaSteR53)
-  dependencies:
-  - olefile
-  - PyPDF2
-  - lxml
-  description: Searches for files associated with the provided domain(s) and extracts
-    any contact related metadata.
-  files: []
-  last_updated: '2019-03-27'
-  name: Meta Data Extractor
-  path: recon/domains-contacts/metacrawler
-  required_keys: []
-  version: '1.1'
-- author: Tim Tomes (@LaNMaSteR53)
-  dependencies: []
-  description: Harvests contacts from the Jigsaw.com API. Updates the 'contacts' table
-    with the results.
-  files: []
-  last_updated: '2019-05-08'
-  name: Jigsaw Contact Enumerator
-  path: recon/companies-contacts/jigsaw/search_contacts
-  required_keys:
-  - jigsaw_api
-  version: '1.0'
-- author: Ethan Robish (@EthanRobish) and Tim Tomes (@LaNMaSteR53)
-  dependencies: []
-  description: Decrypts hashes leaked from the 2013 Adobe breach. First, the module
-    cross references the leak ID to identify Adobe hashes in the 'password' column
-    of the 'creds' table, moves the Adobe hashes to the 'hash' column, and changes
-    the 'type' to 'Adobe'. Second, the module attempts to crack the hashes by comparing
-    the ciphertext's decoded cipher blocks to a local block lookup table (BLOCK_DB)
-    of known cipher block values. Finally, the module updates the 'creds' table with
-    the results based on the level of success.
+  description: Uses the DNS cache snooping technique to check for visited domains
   files:
-  - adobe_blocks.json
-  last_updated: '2019-05-08'
-  name: Adobe Hash Cracker
-  path: recon/credentials-credentials/adobe
+  - av_domains.lst
+  last_updated: '2019-06-24'
+  name: DNS Cache Snooper
+  path: discovery/info_disclosure/cache_snoop
   required_keys: []
   version: '1.0'
-- author: Tim Tomes (@LaNMaSteR53)
+- author: Tim Tomes (@lanmaster53), thrapt (thrapt@gmail.com), Jay Turla (@shipcod3),
+    and Mark Jeffery
   dependencies: []
-  description: Brute forces host names using DNS. Updates the 'hosts' table with the
-    results.
-  files:
-  - hostnames.txt
-  last_updated: '2019-05-08'
-  name: DNS Hostname Brute Forcer
-  path: recon/domains-hosts/brute_hosts
+  description: Checks hosts for interesting files in predictable locations.
+  files: []
+  last_updated: '2019-06-24'
+  name: Interesting File Finder
+  path: discovery/info_disclosure/interesting_files
   required_keys: []
   version: '1.0'
-- author: Rich Warren (richard.warren@nccgroup.trust)
+- author: Tim Tomes (@lanmaster53)
   dependencies: []
-  description: Searches certificate transparency data from crt.sh, adding newly identified
-    hosts to the hosts table.
+  description: Provides a shell interface for remote command injection flaws in web
+    applications.
   files: []
-  last_updated: '2019-05-08'
-  name: Certificiate Transparency Search
-  path: recon/domains-hosts/certificate_transparency
+  last_updated: '2019-06-24'
+  name: Remote Command Injection Shell Interface
+  path: exploitation/injection/command_injector
   required_keys: []
   version: '1.0'
-- author: Pedro Rodrigues (@Pedro_SEC_R)
+- author: Tim Tomes (@lanmaster53)
   dependencies: []
-  description: Queries the FindSubDomain page for sub-domain information in a domain.
+  description: Exploits XPath injection flaws to enumerate the contents of serverside
+    XML documents.
   files: []
-  last_updated: '2019-05-08'
-  name: FindSubDomains DNS search
-  path: recon/domains-hosts/findsubdomains
+  last_updated: '2019-06-24'
+  name: Xpath Injection Brute Forcer
+  path: exploitation/injection/xpath_bruter
   required_keys: []
   version: '1.0'
-- author: Robert Frost (@frosty_1313, frosty[at]unluckyfrosty.net)
+- author: Ethan Robish (@EthanRobish)
   dependencies: []
-  description: Leverages the Twitter API to enumerate users that were mentioned by
-    the given handle. Updates the 'profiles' table with the results.
+  description: Imports values from a CSV file into a database table.
   files: []
-  last_updated: '2019-05-08'
-  name: Twitter Mentions
-  path: recon/profiles-profiles/twitter_mentions
-  required_keys:
-  - twitter_api
-  - twitter_secret
-  version: '1.0'
-- author: Tim Maletic (borrowing from the ssl_san module by Zach Graces)
-  dependencies: []
-  description: Uses the ssltools.com site to obtain host names from a site's SSL certificate
-    metadata to update the 'hosts' table.  Security issues with the certificate trust
-    are pushed to the 'vulnerabilities' table.
-  files: []
-  last_updated: '2019-05-08'
-  name: SSLTools.com Host Name Lookups
-  path: recon/hosts-hosts/ssltools
+  last_updated: '2019-06-24'
+  name: Advanced CSV File Importer
+  path: import/csv_file
   required_keys: []
   version: '1.0'
-- author: Tim Tomes (@LaNMaSteR53)
-  dependencies:
-  - slowaes
-  description: Queries the PwnedList API for credentials associated with the given
-    usernames. Updates the 'credentials' table with the results.
-  files: []
-  last_updated: '2019-05-08'
-  name: PwnedList - Account Credentials Fetcher
-  path: recon/domains-credentials/pwnedlist/account_creds
-  required_keys:
-  - pwnedlist_api
-  - pwnedlist_secret
-  - pwnedlist_iv
-  version: '1.0'
-- author: John Askew (https://bitbucket.org/skew)
+- author: Tim Tomes (@lanmaster53)
   dependencies: []
-  description: Queries the censys.io API to enumerate information about netblocks.
+  description: Imports values from a list file into a database table and column.
   files: []
-  last_updated: '2019-05-08'
-  name: Censys.io Netblock Enumerator
-  path: recon/netblocks-ports/censysio
-  required_keys:
-  - censysio_id
-  - censysio_secret
-  version: '1.0'
-- author: Tim Tomes (@LaNMaSteR53)
-  dependencies: []
-  description: Resolves the IP address for a host. Updates the 'hosts' table with
-    the results.
-  files: []
-  last_updated: '2019-05-08'
-  name: Hostname Resolver
-  path: recon/hosts-hosts/resolve
+  last_updated: '2019-06-24'
+  name: List File Importer
+  path: import/list
   required_keys: []
   version: '1.0'
-- author: Michael Henriksen (@michenriksen)
+- author: Ryan Hays
   dependencies: []
-  description: Uses the HackerTarget.com API to find host names. Updates the 'hosts'
-    table with the results.
+  description: Imports hosts and ports into the respective databases from Nmap XML
+    output.
   files: []
-  last_updated: '2019-05-08'
-  name: HackerTarget Lookup
-  path: recon/domains-hosts/hackertarget
-  required_keys: []
-  version: '1.0'
-- author: Marcus Watson (@BranMacMuffin)
-  dependencies: []
-  description: Brute forces TLDs and SLDs using DNS. Updates the 'domains' table with
-    the results.
-  files:
-  - suffixes.txt
-  last_updated: '2019-05-08'
-  name: DNS Public Suffix Brute Forcer
-  path: recon/domains-domains/brute_suffix
-  required_keys: []
-  version: '1.0'
-- author: Tim Tomes (@LaNMaSteR53) and thrapt (thrapt@gmail.com)
-  dependencies: []
-  description: Leverages NameChk.com to validate the existance of usernames on specific
-    web sites and updates the 'profiles' table with the results.
-  files: []
-  last_updated: '2019-05-08'
-  name: NameChk.com Username Validator
-  path: recon/profiles-profiles/namechk
-  required_keys: []
-  version: '1.0'
-- author: Michael Henriksen (@michenriksen)
-  dependencies: []
-  description: Uses the Github API to gather user profiles from repository commits.
-    Updates the 'profiles' table with the results.
-  files: []
-  last_updated: '2019-05-08'
-  name: Github Commit Searcher
-  path: recon/repositories-profiles/github_commits
-  required_keys:
-  - github_api
-  version: '1.0'
-- author: Marcus Watson (@BranMacMuffin)
-  dependencies: []
-  description: Leverages the Bing API and "domain:" advanced search operator to harvest
-    hosts. Updates the 'hosts' table with the results.
-  files: []
-  last_updated: '2019-05-08'
-  name: Bing API Hostname Enumerator
-  path: recon/domains-hosts/bing_domain_api
-  required_keys:
-  - bing_api
-  version: '1.0'
-- author: USSC (thanks @jevalenciap)
-  dependencies: []
-  description: Harvests domains from the Virustotal by using the report API. Updates
-    the 'hosts' table with the results.
-  files: []
-  last_updated: '2019-05-08'
-  name: Virustotal domains extractor
-  path: recon/hosts-hosts/virustotal
-  required_keys:
-  - virustotal_api
-  version: '1.0'
-- author: Tim Tomes (@LaNMaSteR53)
-  dependencies: []
-  description: Queries the PwnedList API for account usage statistics.
-  files: []
-  last_updated: '2019-05-08'
-  name: PwnedList - API Usage Statistics Fetcher
-  path: recon/domains-credentials/pwnedlist/api_usage
-  required_keys:
-  - pwnedlist_api
-  - pwnedlist_secret
-  version: '1.0'
-- author: Jonathan M. Wilbur <jonathan@wilbur.space>
-  dependencies: []
-  description: Given a company name, gathers the registered IANA Private Enterprise
-    Number (PEN) contact from the PEN registry. The contacts's full name and email
-    address are then added to the 'contacts' table.
-  files: []
-  last_updated: '2019-05-08'
-  name: IANA Private Enterprise Number Contact Getter
-  path: recon/companies-contacts/pen
-  required_keys: []
-  version: '1.0'
-- author: Tim Tomes (@LaNMaSteR53)
-  dependencies: []
-  description: Queries the local database for information associated with a leak ID.
-    The 'leaks_dump' module must be used to populate the local database before this
-    module will execute successfully.
-  files: []
-  last_updated: '2019-05-08'
-  name: PwnedList - Leak Details Fetcher
-  path: recon/domains-credentials/pwnedlist/leak_lookup
+  last_updated: '2019-06-24'
+  name: Nmap XML Output Importer
+  path: import/nmap
   required_keys: []
   version: '1.0'
 - author: Joe Black (@MyChickenNinja), @fullmetalcache, and Brian King
@@ -276,205 +75,22 @@
     and title are then added to the 'contacts' table. This module does not access
     LinkedIn at any time.
   files: []
-  last_updated: '2019-05-08'
+  last_updated: '2019-06-24'
   name: Bing Cache Linkedin Profile and Contact Harvester
   path: recon/companies-contacts/bing_linkedin_cache
   required_keys:
   - bing_api
   version: '1.0'
-- author: Tim Tomes (@LaNMaSteR53)
+- author: Jonathan M. Wilbur <jonathan@wilbur.space>
   dependencies: []
-  description: Creates a CSV file containing the specified harvested data.
+  description: Given a company name, gathers the registered IANA Private Enterprise
+    Number (PEN) contact from the PEN registry. The contacts's full name and email
+    address are then added to the 'contacts' table.
   files: []
-  last_updated: '2019-05-08'
-  name: CSV File Creator
-  path: reporting/csv
+  last_updated: '2019-06-24'
+  name: IANA Private Enterprise Number Contact Getter
+  path: recon/companies-contacts/pen
   required_keys: []
-  version: '1.0'
-- author: Tim Tomes (@LaNMaSteR53)
-  dependencies: []
-  description: Uses the Github API to download and search Gists for possible information
-    disclosures. Updates the 'vulnerabilities' table with the results.
-  files:
-  - gist_keywords.txt
-  last_updated: '2019-05-08'
-  name: Github Gist Searcher
-  path: recon/repositories-vulnerabilities/gists_search
-  required_keys: []
-  version: '1.0'
-- author: Zach Grace (@ztgrace) zgrace@403labs.com and Bryan Onel (@BryanOnel86) onel@oneleet.com
-  dependencies: []
-  description: Uses the ssltools.com API to obtain the Subject Alternative Names for
-    a domain. Updates the 'hosts' table with the results.
-  files: []
-  last_updated: '2019-05-08'
-  name: SSL SAN Lookup
-  path: recon/domains-hosts/ssl_san
-  required_keys: []
-  version: '1.0'
-- author: Tim Tomes (@LaNMaSteR53)
-  dependencies: []
-  description: Provides a shell interface for remote command injection flaws in web
-    applications.
-  files: []
-  last_updated: '2019-05-08'
-  name: Remote Command Injection Shell Interface
-  path: exploitation/injection/command_injector
-  required_keys: []
-  version: '1.0'
-- author: Tim Tomes (@LaNMaSteR53)
-  dependencies: []
-  description: Creates a file containing a list of records from the database.
-  files: []
-  last_updated: '2019-05-08'
-  name: List Creator
-  path: reporting/list
-  required_keys: []
-  version: '1.0'
-- author: Tim Tomes (@LaNMaSteR53)
-  dependencies: []
-  description: Searches Flickr for media in the specified proximity to a location.
-  files: []
-  last_updated: '2019-05-08'
-  name: Flickr Geolocation Search
-  path: recon/locations-pushpins/flickr
-  required_keys:
-  - flickr_api
-  version: '1.0'
-- author: Tim Tomes (@LaNMaSteR53)
-  dependencies: []
-  description: Uses the ARIN Whois RWS to harvest companies, locations, netblocks,
-    and contacts associated with the given company search string. Updates the respective
-    tables with the results.
-  files: []
-  last_updated: '2019-05-08'
-  name: Whois Data Miner
-  path: recon/companies-multi/whois_miner
-  required_keys: []
-  version: '1.0'
-- author: Tim Tomes (@LaNMaSteR53)
-  dependencies: []
-  description: Adds a new location for all the locations stored in the 'hosts' table.
-  files: []
-  last_updated: '2019-05-08'
-  name: Hosts to Locations Data Migrator
-  path: recon/hosts-locations/migrate_hosts
-  required_keys: []
-  version: '1.0'
-- author: Tim Tomes (@LaNMaSteR53)
-  dependencies: []
-  description: Uses the ARIN Whois RWS to harvest POC data from whois queries for
-    the given domain. Updates the 'contacts' table with the results.
-  files: []
-  last_updated: '2019-05-08'
-  name: Whois POC Harvester
-  path: recon/domains-contacts/whois_pocs
-  required_keys: []
-  version: '1.0'
-- author: Tim Tomes (@LaNMaSteR53) and thrapt (thrapt@gmail.com)
-  dependencies: []
-  description: Leverages the PunkSPIDER API to search for previosuly discovered vulnerabltiies
-    on hosts within a domain.
-  files: []
-  last_updated: '2019-05-08'
-  name: PunkSPIDER Vulnerabilty Finder
-  path: recon/domains-vulnerabilities/punkspider
-  required_keys: []
-  version: '1.0'
-- author: Tim Tomes (@LaNMaSteR53) and Matt Puckett (@t3lc0)
-  dependencies: []
-  description: Harvests port information from the Shodan API by using the 'ip' search
-    operator. Updates the 'ports' table with the results.
-  files: []
-  last_updated: '2019-05-08'
-  name: Shodan IP Enumerator
-  path: recon/hosts-ports/shodan_ip
-  required_keys:
-  - shodan_api
-  version: '1.0'
-- author: Tim Tomes (@LaNMaSteR53)
-  dependencies: []
-  description: Adds a new domain for all the hostnames stored in the 'hosts' table.
-  files:
-  - suffixes.txt
-  last_updated: '2019-05-08'
-  name: Hosts to Domains Data Migrator
-  path: recon/hosts-domains/migrate_hosts
-  required_keys: []
-  version: '1.0'
-- author: Tim Tomes (@LaNMaSteR53)
-  dependencies: []
-  description: Leverages MailTester.com to validate email addresses.
-  files: []
-  last_updated: '2019-05-08'
-  name: MailTester Email Validator
-  path: recon/contacts-contacts/mailtester
-  required_keys: []
-  version: '1.0'
-- author: Tim Tomes (@LaNMaSteR53)
-  dependencies: []
-  description: Searches Shodan for media in the specified proximity to a location.
-  files: []
-  last_updated: '2019-05-08'
-  name: Shodan Geolocation Search
-  path: recon/locations-pushpins/shodan
-  required_keys:
-  - shodan_api
-  version: '1.0'
-- author: Quentin Kaiser (contact@quentinkaiser.be)
-  dependencies: []
-  description: Queries the Google Maps API to obtain coordinates for an address. Updates
-    the 'locations' table with the results.
-  files: []
-  last_updated: '2019-05-08'
-  name: Address Geocoder
-  path: recon/locations-locations/geocode
-  required_keys:
-  - google_api
-  version: '1.0'
-- author: Tim Tomes (@LaNMaSteR53)
-  dependencies: []
-  description: Uses the Github API to gather user info from harvested profiles. Updates
-    the 'contacts' table with the results.
-  files: []
-  last_updated: '2019-05-08'
-  name: Github Profile Harvester
-  path: recon/profiles-contacts/github_users
-  required_keys:
-  - github_api
-  version: '1.0'
-- author: Tim Tomes (@LaNMaSteR53)
-  dependencies: []
-  description: Harvests hosts from the Shodan API by using the 'hostname' search operator.
-    Updates the 'hosts' table with the results.
-  files: []
-  last_updated: '2019-05-08'
-  name: Shodan Hostname Enumerator
-  path: recon/domains-hosts/shodan_hostname
-  required_keys:
-  - shodan_api
-  version: '1.0'
-- author: Tim Tomes (@LaNMaSteR53)
-  dependencies: []
-  description: Uses the Github API to enumerate repositories and member profiles associated
-    with a company search string. Updates the respective tables with the results.
-  files: []
-  last_updated: '2019-05-08'
-  name: Github Resource Miner
-  path: recon/companies-multi/github_miner
-  required_keys:
-  - github_api
-  version: '1.0'
-- author: Siarhei Harbachou (Tech.Insiders), Gerrit Helm (G) and Tim Tomes (@LaNMaSteR53)
-  dependencies: []
-  description: Leverages the ipstack.com API to geolocate a host by IP address. Updates
-    the 'hosts' table with the results.
-  files: []
-  last_updated: '2019-05-08'
-  name: ipstack
-  path: recon/hosts-hosts/ipstack
-  required_keys:
-  - ipstack_api
   version: '1.0'
 - author: Jonathan M. Wilbur <jonathan@wilbur.space>
   dependencies: []
@@ -482,171 +98,51 @@
     registered IANA Private Enterprise Number (PEN) contact from the PEN registry.
     The domain is added to the 'domains' table.
   files: []
-  last_updated: '2019-05-08'
+  last_updated: '2019-06-24'
   name: IANA Private Enterprise Number Domain Getter
   path: recon/companies-domains/pen
   required_keys: []
   version: '1.0'
-- author: Tim Tomes (@LaNMaSteR53)
+- author: Tim Tomes (@lanmaster53)
   dependencies: []
-  description: Checks XSSposed.com for XSS records associated with a domain.
+  description: Uses the Github API to enumerate repositories and member profiles associated
+    with a company search string. Updates the respective tables with the results.
   files: []
-  last_updated: '2019-05-08'
-  name: XSSposed Domain Lookup
-  path: recon/domains-vulnerabilities/xssposed
-  required_keys: []
-  version: '1.0'
-- author: Tim Tomes (@LaNMaSteR53)
-  dependencies: []
-  description: Queries the Jigsaw API for the point usage statistics of the given
-    account.
-  files: []
-  last_updated: '2019-05-08'
-  name: Jigsaw - Point Usage Statistics Fetcher
-  path: recon/companies-contacts/jigsaw/point_usage
+  last_updated: '2019-06-24'
+  name: Github Resource Miner
+  path: recon/companies-multi/github_miner
   required_keys:
-  - jigsaw_username
-  - jigsaw_password
-  - jigsaw_api
+  - github_api
   version: '1.0'
-- author: thrapt (thrapt@gmail.com)
+- author: Tim Tomes (@lanmaster53)
   dependencies: []
-  description: Uses the DNS cache snooping technique to check for visited domains
-  files:
-  - av_domains.lst
-  last_updated: '2019-05-08'
-  name: DNS Cache Snooper
-  path: discovery/info_disclosure/cache_snoop
+  description: Uses the ARIN Whois RWS to harvest companies, locations, netblocks,
+    and contacts associated with the given company search string. Updates the respective
+    tables with the results.
+  files: []
+  last_updated: '2019-06-24'
+  name: Whois Data Miner
+  path: recon/companies-multi/whois_miner
   required_keys: []
   version: '1.0'
-- author: Tim Tomes (@LaNMaSteR53)
+- author: Tim Tomes (@lanmaster53)
   dependencies: []
-  description: Creates a HTML report.
-  files:
-  - template_html.html
-  last_updated: '2019-05-08'
-  name: HTML Report Generator
-  path: reporting/html
+  description: Leverages MailTester.com to validate email addresses.
+  files: []
+  last_updated: '2019-06-24'
+  name: MailTester Email Validator
+  path: recon/contacts-contacts/mailtester
   required_keys: []
   version: '1.0'
-- author: Tim Tomes (@LaNMaSteR53) & Tyler Halfpop (@tylerhalfpop)
+- author: Tim Tomes (@lanmaster53)
   dependencies: []
-  description: Leverages the haveibeenpwned.com API to determine if email addresses
-    are associated with breached credentials. Adds compromised email addresses to
-    the 'credentials' table.
+  description: Applies a mangle pattern to all of the contacts stored in the database,
+    creating email addresses or usernames for each harvested contact. Updates the
+    'contacts' table with the results.
   files: []
-  last_updated: '2019-05-08'
-  name: Have I been pwned? Breach Search
-  path: recon/contacts-credentials/hibp_breach
-  required_keys: []
-  version: '1.0'
-- author: Tim Tomes (@LaNMaSteR53)
-  dependencies: []
-  description: Uses the ARIN Whois RWS to harvest Companies data from whois queries
-    for the given netblock. Updates the 'companies' table with the results.
-  files: []
-  last_updated: '2019-05-08'
-  name: Whois Company Harvester
-  path: recon/netblocks-companies/whois_orgs
-  required_keys: []
-  version: '1.0'
-- author: Tim Tomes (@LaNMaSteR53)
-  dependencies: []
-  description: Queries the PwnedList API for a domain to determine if any associated
-    credentials have been compromised. This module does NOT return any credentials,
-    only a total number of compromised credentials.
-  files: []
-  last_updated: '2019-05-08'
-  name: PwnedList - Pwned Domain Statistics Fetcher
-  path: recon/domains-credentials/pwnedlist/domain_ispwned
-  required_keys:
-  - pwnedlist_api
-  - pwnedlist_secret
-  version: '1.0'
-- author: Tim Tomes (@LaNMaSteR53)
-  dependencies:
-  - slowaes
-  description: Queries the PwnedList API to fetch all credentials for a domain. Updates
-    the 'credentials' table with the results.
-  files: []
-  last_updated: '2019-05-08'
-  name: PwnedList - Pwned Domain Credentials Fetcher
-  path: recon/domains-credentials/pwnedlist/domain_creds
-  required_keys:
-  - pwnedlist_api
-  - pwnedlist_secret
-  - pwnedlist_iv
-  version: '1.0'
-- author: John Babio (@3vi1john), @vulp1n3, and Tim Tomes (@LaNMaSteR53)
-  dependencies: []
-  description: Conducts a reverse lookup for each IP address to resolve the hostname.
-    Updates the 'hosts' table with the results.
-  files: []
-  last_updated: '2019-05-08'
-  name: Reverse Resolver
-  path: recon/hosts-hosts/reverse_resolve
-  required_keys: []
-  version: '1.0'
-- author: Robert Frost (@frosty_1313, frosty[at]unluckyfrosty.net)
-  dependencies: []
-  description: Leverages the Twitter API to enumerate users that mentioned the given
-    handle. Updates the 'profiles' table with the results.
-  files: []
-  last_updated: '2019-05-08'
-  name: Twitter Mentioned
-  path: recon/profiles-profiles/twitter_mentioned
-  required_keys:
-  - twitter_api
-  - twitter_secret
-  version: '1.0'
-- author: Tim Tomes (@LaNMaSteR53)
-  dependencies: []
-  description: Imports values from a list file into a database table and column.
-  files: []
-  last_updated: '2019-05-08'
-  name: List File Importer
-  path: import/list
-  required_keys: []
-  version: '1.0'
-- author: mike2dot0
-  dependencies: []
-  description: Leverages the ThreatCrowd passive DNS API to discover hosts/subdomains.
-  files: []
-  last_updated: '2019-05-08'
-  name: ThreatCrowd DNS lookup
-  path: recon/domains-hosts/threatcrowd
-  required_keys: []
-  version: '1.0'
-- author: Jim Becher (@jimbecher, jbecher@korelogic.com)
-  dependencies: []
-  description: Retrieves the MX and SPF IPv4 records for a domain. Updates the 'hosts'
-    and/or 'netblocks' tables with the results.
-  files: []
-  last_updated: '2019-05-08'
-  name: Mail eXchange (MX) and Sender Policy Framework (SPF) Record Retriever
-  path: recon/domains-hosts/mx_spf_ip
-  required_keys: []
-  version: '1.0'
-- author: Tim Tomes (@LaNMaSteR53)
-  dependencies: []
-  description: Harvests contact information and profiles from the fullcontact.com
-    API using email addresses as input. Updates the 'contacts' and 'profiles' tables
-    with the results.
-  files: []
-  last_updated: '2019-05-08'
-  name: FullContact Contact Enumerator
-  path: recon/contacts-profiles/fullcontact-new
-  required_keys:
-  - fullcontact_api
-  version: '1.0'
-- author: AverageSecurityGuy (@averagesecguy)
-  dependencies: []
-  description: Requests URLs from the database for the purpose of populating an inline
-    proxy. Requires that the global proxy option be set prior to running the module.
-  files: []
-  last_updated: '2019-05-08'
-  name: Proxifier
-  path: reporting/proxifier
+  last_updated: '2019-06-24'
+  name: Contact Name Mangler
+  path: recon/contacts-contacts/mangle
   required_keys: []
   version: '1.0'
 - author: Ethan Robish (@EthanRobish)
@@ -655,51 +151,93 @@
     the database, pulling out the individual name components. Updates the 'contacts'
     table with the results.
   files: []
-  last_updated: '2019-05-08'
+  last_updated: '2019-06-24'
   name: Contact Name Unmangler
   path: recon/contacts-contacts/unmangle
   required_keys: []
   version: '1.0'
-- author: Mike Siegel and Tim Tomes (@LaNMaSteR53)
+- author: Tim Tomes (@lanmaster53) & Tyler Halfpop (@tylerhalfpop)
   dependencies: []
-  description: Harvests hosts from the Shodan API by using the 'net' search operator.
-    Updates the 'hosts' table with the results.
+  description: Leverages the haveibeenpwned.com API to determine if email addresses
+    are associated with breached credentials. Adds compromised email addresses to
+    the 'credentials' table.
   files: []
-  last_updated: '2019-05-08'
-  name: Shodan Network Enumerator
-  path: recon/netblocks-hosts/shodan_net
-  required_keys:
-  - shodan_api
-  version: '1.0'
-- author: Quentin Kaiser (contact@quentinkaiser.be)
-  dependencies: []
-  description: Queries the Google Maps API to obtain an address from coordinates.
-  files: []
-  last_updated: '2019-05-08'
-  name: Reverse Geocoder
-  path: recon/locations-locations/reverse_geocode
-  required_keys:
-  - google_api
-  version: '1.0'
-- author: Tim Tomes (@LaNMaSteR53)
-  dependencies: []
-  description: Searches the YouTube API for media in the specified proximity to a
-    location.
-  files: []
-  last_updated: '2019-05-08'
-  name: YouTube Geolocation Search
-  path: recon/locations-pushpins/youtube
-  required_keys:
-  - google_api
-  version: '1.0'
-- author: Tim Tomes (@LaNMaSteR53)
-  dependencies: []
-  description: Adds a new host for all the hostnames stored in the 'ports' table.
-  files: []
-  last_updated: '2019-05-08'
-  name: Ports to Hosts Data Migrator
-  path: recon/ports-hosts/migrate_ports
+  last_updated: '2019-06-24'
+  name: Have I been pwned? Breach Search
+  path: recon/contacts-credentials/hibp_breach
   required_keys: []
+  version: '1.0'
+- author: Tim Tomes (@lanmaster53)
+  dependencies: []
+  description: Leverages the haveibeenpwned.com API to determine if email addresses
+    have been published to various paste sites. Adds compromised email addresses to
+    the 'credentials' table.
+  files: []
+  last_updated: '2019-06-24'
+  name: Have I been pwned? Paste Search
+  path: recon/contacts-credentials/hibp_paste
+  required_keys: []
+  version: '1.0'
+- author: Tim Tomes (@lanmaster53)
+  dependencies: []
+  description: Adds a new domain for all the hostnames associated with email addresses
+    stored in the 'contacts' table.
+  files:
+  - suffixes.txt
+  last_updated: '2019-06-24'
+  name: Contacts to Domains Data Migrator
+  path: recon/contacts-domains/migrate_contacts
+  required_keys: []
+  version: '1.0'
+- author: Tim Tomes (@lanmaster53)
+  dependencies: []
+  description: Harvests contact information and profiles from the fullcontact.com
+    API using email addresses as input. Updates the 'contacts' and 'profiles' tables
+    with the results.
+  files: []
+  last_updated: '2019-06-24'
+  name: FullContact Contact Enumerator
+  path: recon/contacts-profiles/fullcontact
+  required_keys:
+  - fullcontact_api
+  version: '1.0'
+- author: Ethan Robish (@EthanRobish) and Tim Tomes (@lanmaster53)
+  dependencies: []
+  description: Decrypts hashes leaked from the 2013 Adobe breach. First, the module
+    cross references the leak ID to identify Adobe hashes in the 'password' column
+    of the 'creds' table, moves the Adobe hashes to the 'hash' column, and changes
+    the 'type' to 'Adobe'. Second, the module attempts to crack the hashes by comparing
+    the ciphertext's decoded cipher blocks to a local block lookup table (BLOCK_DB)
+    of known cipher block values. Finally, the module updates the 'creds' table with
+    the results based on the level of success.
+  files:
+  - adobe_blocks.json
+  last_updated: '2019-06-24'
+  name: Adobe Hash Cracker
+  path: recon/credentials-credentials/adobe
+  required_keys: []
+  version: '1.0'
+- author: Tim Tomes (@lanmaster53)
+  dependencies: []
+  description: Searches Google for the value of a hash and tests for a match by hashing
+    every word in the resulting page using all hashing algorithms supported by the
+    'hashlib' library. Updates the 'credentials' table with the positive results.
+  files: []
+  last_updated: '2019-06-24'
+  name: PyBozoCrack Hash Lookup
+  path: recon/credentials-credentials/bozocrack
+  required_keys: []
+  version: '1.0'
+- author: Tim Tomes (@lanmaster53) and Mike Lisi (@MikeCodesThings)
+  dependencies: []
+  description: Uses the Hashes.org API to perform a reverse hash lookup. Updates the
+    'credentials' table with the positive results.
+  files: []
+  last_updated: '2019-06-24'
+  name: Hashes.org Hash Lookup
+  path: recon/credentials-credentials/hashes_org
+  required_keys:
+  - hashes_api
   version: '1.0'
 - author: Jonathan M. Wilbur <jonathan@wilbur.space>
   dependencies: []
@@ -707,208 +245,292 @@
     (PEN) registry whose email address ends with that domain. The domain is then added
     to the 'domains' table.
   files: []
-  last_updated: '2019-05-08'
+  last_updated: '2019-06-24'
   name: IANA Private Enterprise Number Company-by-Domain Lookup
   path: recon/domains-companies/pen
   required_keys: []
   version: '1.0'
-- author: Tim Tomes (@LaNMaSteR53)
-  dependencies: []
-  description: Leverages the Bing API and "ip:" advanced search operator to enumerate
-    other virtual hosts sharing the same IP address. Updates the 'hosts' table with
-    the results.
+- author: Tim Tomes (@lanmaster53)
+  dependencies:
+  - olefile
+  - pypdf3
+  - lxml
+  description: Searches for files associated with the provided domain(s) and extracts
+    any contact related metadata.
   files: []
-  last_updated: '2019-05-08'
-  name: Bing API IP Neighbor Enumerator
-  path: recon/hosts-hosts/bing_ip
+  last_updated: '2019-06-24'
+  name: Meta Data Extractor
+  path: recon/domains-contacts/metacrawler
+  required_keys: []
+  version: '1.1'
+- author: Jonathan M. Wilbur <jonathan@wilbur.space>
+  dependencies: []
+  description: Given a domain, finds a contact in the IANA Private Enterprise Number
+    (PEN) registry whose email address ends with that domain. The domain is then added
+    to the 'domains' table.
+  files: []
+  last_updated: '2019-06-24'
+  name: IANA Private Enterprise Number Company-by-Domain Lookup
+  path: recon/domains-contacts/pen
+  required_keys: []
+  version: '1.0'
+- author: Tim Tomes (@lanmaster53)
+  dependencies: []
+  description: Uses the ARIN Whois RWS to harvest POC data from whois queries for
+    the given domain. Updates the 'contacts' table with the results.
+  files: []
+  last_updated: '2019-06-24'
+  name: Whois POC Harvester
+  path: recon/domains-contacts/whois_pocs
+  required_keys: []
+  version: '1.0'
+- author: Tim Tomes (@lanmaster53)
+  dependencies:
+  - pyaes
+  description: Queries the PwnedList API for credentials associated with the given
+    usernames. Updates the 'credentials' table with the results.
+  files: []
+  last_updated: '2019-06-24'
+  name: PwnedList - Account Credentials Fetcher
+  path: recon/domains-credentials/pwnedlist/account_creds
   required_keys:
-  - bing_api
+  - pwnedlist_api
+  - pwnedlist_secret
+  - pwnedlist_iv
   version: '1.0'
-- author: Tim Tomes (@LaNMaSteR53)
+- author: Tim Tomes (@lanmaster53)
   dependencies: []
-  description: Adds a new domain for all the hostnames associated with email addresses
-    stored in the 'contacts' table.
-  files:
-  - suffixes.txt
-  last_updated: '2019-05-08'
-  name: Contacts to Domains Data Migrator
-  path: recon/contacts-domains/migrate_contacts
-  required_keys: []
-  version: '1.0'
-- author: Pedro Rodrigues
-  dependencies: []
-  description: Use ThreatMiner API to discover subdomains.
+  description: Queries the PwnedList API for account usage statistics.
   files: []
-  last_updated: '2019-05-08'
-  name: ThreatMiner DNS lookup
-  path: recon/domains-hosts/threatminer
-  required_keys: []
-  version: '1.0'
-- author: Tim Tomes (@LaNMaSteR53)
-  dependencies: []
-  description: Queries the Internet Census 2012 data through Exfiltrated.com to enumerate
-    open ports for a netblock.
-  files: []
-  last_updated: '2019-05-08'
-  name: Internet Census 2012 Lookup
-  path: recon/netblocks-ports/census_2012
-  required_keys: []
-  version: '1.0'
-- author: Tim Tomes (@LaNMaSteR53)
-  dependencies: []
-  description: Searches for possible vulnerabilites in a domain by leveraging the
-    Google Hacking Database (GHDB) and the 'site' search operator. Updates the 'vulnerabilities'
-    table with the results.
-  files:
-  - ghdb.json
-  last_updated: '2019-05-08'
-  name: Google Hacking Database
-  path: recon/domains-vulnerabilities/ghdb
-  required_keys: []
-  version: '1.0'
-- author: Quentin Kaiser (@qkaiser, contact[at]quentinkaiser.be) and Tim Tomes (@LaNMaSteR53)
-  dependencies: []
-  description: Harvests contact information and profiles from the fullcontact.com
-    API using email addresses as input. Updates the 'contacts' and 'profiles' tables
-    with the results.
-  files: []
-  last_updated: '2019-05-08'
-  name: FullContact Contact Enumerator
-  path: recon/contacts-profiles/fullcontact
+  last_updated: '2019-06-24'
+  name: PwnedList - API Usage Statistics Fetcher
+  path: recon/domains-credentials/pwnedlist/api_usage
   required_keys:
-  - fullcontact_api
+  - pwnedlist_api
+  - pwnedlist_secret
   version: '1.0'
-- author: Tim Tomes (@LaNMaSteR53)
-  dependencies: []
-  description: Uses the Github API to search for possible vulnerabilites in source
-    code by leveraging Github Dorks and the 'repo' search operator. Updates the 'vulnerabilities'
-    table with the results.
-  files:
-  - github_dorks.txt
-  last_updated: '2019-05-08'
-  name: Github Dork Analyzer
-  path: recon/repositories-vulnerabilities/github_dorks
+- author: Tim Tomes (@lanmaster53)
+  dependencies:
+  - pycryptodome
+  description: Queries the PwnedList API to fetch all credentials for a domain. Updates
+    the 'credentials' table with the results.
+  files: []
+  last_updated: '2019-06-24'
+  name: PwnedList - Pwned Domain Credentials Fetcher
+  path: recon/domains-credentials/pwnedlist/domain_creds
   required_keys:
-  - github_api
+  - pwnedlist_api
+  - pwnedlist_secret
+  - pwnedlist_iv
   version: '1.0'
-- author: Tim Tomes (@LaNMaSteR53)
+- author: Tim Tomes (@lanmaster53)
   dependencies: []
-  description: Harvests hosts from Bing.com by using the 'site' search operator. Updates
-    the 'hosts' table with the results.
+  description: Queries the PwnedList API for a domain to determine if any associated
+    credentials have been compromised. This module does NOT return any credentials,
+    only a total number of compromised credentials.
   files: []
-  last_updated: '2019-05-08'
-  name: Bing Hostname Enumerator
-  path: recon/domains-hosts/bing_domain_web
-  required_keys: []
-  version: '1.0'
-- author: Micah Hoffman (@WebBreacher)
-  dependencies: []
-  description: Takes each username from the profiles table and searches a variety
-    of web sites for those users. The list of valid sites comes from the parent project
-    at https://github.com/WebBreacher/WhatsMyName
-  files: []
-  last_updated: '2019-05-08'
-  name: OSINT HUMINT Profile Collector
-  path: recon/profiles-profiles/profiler
-  required_keys: []
-  version: '1.0'
-- author: Tim Tomes (@LaNMaSteR53)
-  dependencies: []
-  description: Searches Google for the value of a hash and tests for a match by hashing
-    every word in the resulting page using all hashing algorithms supported by the
-    'hashlib' library. Updates the 'credentials' table with the positive results.
-  files: []
-  last_updated: '2019-05-08'
-  name: PyBozoCrack Hash Lookup
-  path: recon/credentials-credentials/bozocrack
-  required_keys: []
-  version: '1.0'
-- author: USSC (thanks @jevalenciap)
-  dependencies: []
-  description: Harvests domains from the Virustotal by using the report API. Updates
-    the 'hosts' table with the results.
-  files: []
-  last_updated: '2019-05-08'
-  name: Virustotal domains extractor
-  path: recon/netblocks-hosts/virustotal
+  last_updated: '2019-06-24'
+  name: PwnedList - Pwned Domain Statistics Fetcher
+  path: recon/domains-credentials/pwnedlist/domain_ispwned
   required_keys:
-  - virustotal_api
+  - pwnedlist_api
+  - pwnedlist_secret
   version: '1.0'
-- author: Tim Tomes (@LaNMaSteR53)
+- author: Tim Tomes (@lanmaster53)
+  dependencies: []
+  description: Queries the local database for information associated with a leak ID.
+    The 'leaks_dump' module must be used to populate the local database before this
+    module will execute successfully.
+  files: []
+  last_updated: '2019-06-24'
+  name: PwnedList - Leak Details Fetcher
+  path: recon/domains-credentials/pwnedlist/leak_lookup
+  required_keys: []
+  version: '1.0'
+- author: Tim Tomes (@lanmaster53)
   dependencies: []
   description: Queries the PwnedList API for information associated with all known
     leaks. Updates the 'leaks' table with the results.
   files: []
-  last_updated: '2019-05-08'
+  last_updated: '2019-06-24'
   name: PwnedList - Leak Details Retriever
   path: recon/domains-credentials/pwnedlist/leaks_dump
   required_keys:
   - pwnedlist_api
   - pwnedlist_secret
   version: '1.0'
-- author: Tim Tomes (@LaNMaSteR53)
+- author: Marcus Watson (@BranMacMuffin)
   dependencies: []
-  description: Leverages the haveibeenpwned.com API to determine if email addresses
-    have been published to various paste sites. Adds compromised email addresses to
-    the 'credentials' table.
-  files: []
-  last_updated: '2019-05-08'
-  name: Have I been pwned? Paste Search
-  path: recon/contacts-credentials/hibp_paste
+  description: Brute forces TLDs and SLDs using DNS. Updates the 'domains' table with
+    the results.
+  files:
+  - suffixes.txt
+  last_updated: '2019-06-24'
+  name: DNS Public Suffix Brute Forcer
+  path: recon/domains-domains/brute_suffix
   required_keys: []
   version: '1.0'
-- author: Tim Tomes (@LaNMaSteR53)
+- author: Ryan Hays
   dependencies: []
-  description: Searches Twitter for media in the specified proximity to a location.
+  description: Uses the BinaryEdge API to discover subdomains.
   files: []
-  last_updated: '2019-05-08'
-  name: Twitter Geolocation Search
-  path: recon/locations-pushpins/twitter
+  last_updated: '2019-06-24'
+  name: BinaryEdge.io DNS lookup
+  path: recon/domains-hosts/binaryedge
   required_keys:
-  - twitter_api
-  - twitter_secret
+  - binaryedge_api
   version: '1.0'
-- author: Tim Tomes (@LaNMaSteR53)
+- author: Marcus Watson (@BranMacMuffin)
   dependencies: []
-  description: Applies a mangle pattern to all of the contacts stored in the database,
-    creating email addresses or usernames for each harvested contact. Updates the
-    'contacts' table with the results.
+  description: Leverages the Bing API and "domain:" advanced search operator to harvest
+    hosts. Updates the 'hosts' table with the results.
   files: []
-  last_updated: '2019-05-08'
-  name: Contact Name Mangler
-  path: recon/contacts-contacts/mangle
-  required_keys: []
-  version: '1.0'
-- author: Tim Tomes (@LaNMaSteR53) and Mike Lisi (@MikeCodesThings)
-  dependencies: []
-  description: Uses the Hashes.org API to perform a reverse hash lookup. Updates the
-    'credentials' table with the positive results.
-  files: []
-  last_updated: '2019-05-08'
-  name: Hashes.org Hash Lookup
-  path: recon/credentials-credentials/hashes_org
+  last_updated: '2019-06-24'
+  name: Bing API Hostname Enumerator
+  path: recon/domains-hosts/bing_domain_api
   required_keys:
-  - hashes_api
+  - bing_api
   version: '1.0'
-- author: Tim Tomes (@LaNMaSteR53)
+- author: Tim Tomes (@lanmaster53)
   dependencies: []
-  description: Leverages the ipinfodb.com API to geolocate a host by IP address. Updates
+  description: Harvests hosts from Bing.com by using the 'site' search operator. Updates
     the 'hosts' table with the results.
   files: []
-  last_updated: '2019-05-08'
-  name: IPInfoDB GeoIP
-  path: recon/hosts-hosts/ipinfodb
-  required_keys:
-  - ipinfodb_api
+  last_updated: '2019-06-24'
+  name: Bing Hostname Enumerator
+  path: recon/domains-hosts/bing_domain_web
+  required_keys: []
   version: '1.0'
-- author: Tim Tomes (@LaNMaSteR53), thrapt (thrapt@gmail.com), Jay Turla (@shipcod3),
-    and Mark Jeffery
+- author: Tim Tomes (@lanmaster53)
   dependencies: []
-  description: Checks hosts for interesting files in predictable locations.
+  description: Brute forces host names using DNS. Updates the 'hosts' table with the
+    results.
+  files:
+  - hostnames.txt
+  last_updated: '2019-06-24'
+  name: DNS Hostname Brute Forcer
+  path: recon/domains-hosts/brute_hosts
+  required_keys: []
+  version: '1.0'
+- author: Tim Tomes (@lanmaster53)
+  dependencies: []
+  description: Leverages the BuiltWith API to identify hosts, technologies, and contacts
+    associated with a domain.
   files: []
-  last_updated: '2019-05-08'
-  name: Interesting File Finder
-  path: discovery/info_disclosure/interesting_files
+  last_updated: '2019-06-24'
+  name: BuiltWith Enumerator
+  path: recon/domains-hosts/builtwith
+  required_keys:
+  - builtwith_api
+  version: '1.0'
+- author: Rich Warren (richard.warren@nccgroup.trust)
+  dependencies: []
+  description: Searches certificate transparency data from crt.sh, adding newly identified
+    hosts to the hosts table.
+  files: []
+  last_updated: '2019-06-24'
+  name: Certificiate Transparency Search
+  path: recon/domains-hosts/certificate_transparency
+  required_keys: []
+  version: '1.0'
+- author: Pedro Rodrigues (@Pedro_SEC_R)
+  dependencies: []
+  description: Queries the FindSubDomain page for sub-domain information in a domain.
+  files: []
+  last_updated: '2019-06-24'
+  name: FindSubDomains DNS search
+  path: recon/domains-hosts/findsubdomains
+  required_keys: []
+  version: '1.0'
+- author: Tim Tomes (@lanmaster53)
+  dependencies: []
+  description: Harvests hosts from Google.com by using the 'site' search operator.
+    Updates the 'hosts' table with the results.
+  files: []
+  last_updated: '2019-06-24'
+  name: Google Hostname Enumerator
+  path: recon/domains-hosts/google_site_web
+  required_keys: []
+  version: '1.0'
+- author: Michael Henriksen (@michenriksen)
+  dependencies: []
+  description: Uses the HackerTarget.com API to find host names. Updates the 'hosts'
+    table with the results.
+  files: []
+  last_updated: '2019-06-24'
+  name: HackerTarget Lookup
+  path: recon/domains-hosts/hackertarget
+  required_keys: []
+  version: '1.0'
+- author: Jim Becher (@jimbecher, jbecher@korelogic.com)
+  dependencies: []
+  description: Retrieves the MX and SPF IPv4 records for a domain. Updates the 'hosts'
+    and/or 'netblocks' tables with the results.
+  files: []
+  last_updated: '2019-06-24'
+  name: Mail eXchange (MX) and Sender Policy Framework (SPF) Record Retriever
+  path: recon/domains-hosts/mx_spf_ip
+  required_keys: []
+  version: '1.0'
+- author: thrapt (thrapt@gmail.com)
+  dependencies: []
+  description: Harvests hosts from Netcraft.com. Updates the 'hosts' table with the
+    results.
+  files: []
+  last_updated: '2019-06-24'
+  name: Netcraft Hostname Enumerator
+  path: recon/domains-hosts/netcraft
+  required_keys: []
+  version: '1.0'
+- author: Tim Tomes (@lanmaster53)
+  dependencies: []
+  description: Harvests hosts from the Shodan API by using the 'hostname' search operator.
+    Updates the 'hosts' table with the results.
+  files: []
+  last_updated: '2019-06-24'
+  name: Shodan Hostname Enumerator
+  path: recon/domains-hosts/shodan_hostname
+  required_keys:
+  - shodan_api
+  version: '1.0'
+- author: Zach Grace (@ztgrace) zgrace@403labs.com and Bryan Onel (@BryanOnel86) onel@oneleet.com
+  dependencies: []
+  description: Uses the ssltools.com API to obtain the Subject Alternative Names for
+    a domain. Updates the 'hosts' table with the results.
+  files: []
+  last_updated: '2019-06-24'
+  name: SSL SAN Lookup
+  path: recon/domains-hosts/ssl_san
+  required_keys: []
+  version: '1.0'
+- author: mike2dot0
+  dependencies: []
+  description: Leverages the ThreatCrowd passive DNS API to discover hosts/subdomains.
+  files: []
+  last_updated: '2019-06-24'
+  name: ThreatCrowd DNS lookup
+  path: recon/domains-hosts/threatcrowd
+  required_keys: []
+  version: '1.0'
+- author: Pedro Rodrigues
+  dependencies: []
+  description: Use ThreatMiner API to discover subdomains.
+  files: []
+  last_updated: '2019-06-24'
+  name: ThreatMiner DNS lookup
+  path: recon/domains-hosts/threatminer
+  required_keys: []
+  version: '1.0'
+- author: Tim Tomes (@lanmaster53)
+  dependencies: []
+  description: Searches for possible vulnerabilites in a domain by leveraging the
+    Google Hacking Database (GHDB) and the 'site' search operator. Updates the 'vulnerabilities'
+    table with the results.
+  files:
+  - ghdb.json
+  last_updated: '2019-06-24'
+  name: Google Hacking Database
+  path: recon/domains-vulnerabilities/ghdb
   required_keys: []
   version: '1.0'
 - author: Micah Hoffman (@WebBreacher)
@@ -916,137 +538,458 @@
   description: Checks XSSed.com for XSS records associated with a domain and displays
     the first 20 results.
   files: []
-  last_updated: '2019-05-08'
+  last_updated: '2019-06-24'
   name: XSSed Domain Lookup
   path: recon/domains-vulnerabilities/xssed
   required_keys: []
   version: '1.0'
-- author: Tim Tomes (@LaNMaSteR53)
+- author: Tim Tomes (@lanmaster53)
   dependencies: []
-  description: Harvests hosts from Google.com by using the 'site' search operator.
+  description: Checks XSSposed.com for XSS records associated with a domain.
+  files: []
+  last_updated: '2019-06-24'
+  name: XSSposed Domain Lookup
+  path: recon/domains-vulnerabilities/xssposed
+  required_keys: []
+  version: '1.0'
+- author: Tim Tomes (@lanmaster53)
+  dependencies: []
+  description: Adds a new domain for all the hostnames stored in the 'hosts' table.
+  files:
+  - suffixes.txt
+  last_updated: '2019-06-24'
+  name: Hosts to Domains Data Migrator
+  path: recon/hosts-domains/migrate_hosts
+  required_keys: []
+  version: '1.0'
+- author: Tim Tomes (@lanmaster53)
+  dependencies: []
+  description: Leverages the Bing API and "ip:" advanced search operator to enumerate
+    other virtual hosts sharing the same IP address. Updates the 'hosts' table with
+    the results.
+  files: []
+  last_updated: '2019-06-24'
+  name: Bing API IP Neighbor Enumerator
+  path: recon/hosts-hosts/bing_ip
+  required_keys:
+  - bing_api
+  version: '1.0'
+- author: Tim Tomes (@lanmaster53)
+  dependencies: []
+  description: Leverages the ipinfodb.com API to geolocate a host by IP address. Updates
+    the 'hosts' table with the results.
+  files: []
+  last_updated: '2019-06-24'
+  name: IPInfoDB GeoIP
+  path: recon/hosts-hosts/ipinfodb
+  required_keys:
+  - ipinfodb_api
+  version: '1.0'
+- author: Siarhei Harbachou (Tech.Insiders), Gerrit Helm (G) and Tim Tomes (@lanmaster53)
+  dependencies: []
+  description: Leverages the ipstack.com API to geolocate a host by IP address. Updates
+    the 'hosts' table with the results.
+  files: []
+  last_updated: '2019-06-24'
+  name: ipstack
+  path: recon/hosts-hosts/ipstack
+  required_keys:
+  - ipstack_api
+  version: '1.0'
+- author: Tim Tomes (@lanmaster53)
+  dependencies: []
+  description: Resolves the IP address for a host. Updates the 'hosts' table with
+    the results.
+  files: []
+  last_updated: '2019-06-24'
+  name: Hostname Resolver
+  path: recon/hosts-hosts/resolve
+  required_keys: []
+  version: '1.0'
+- author: John Babio (@3vi1john), @vulp1n3, and Tim Tomes (@lanmaster53)
+  dependencies: []
+  description: Conducts a reverse lookup for each IP address to resolve the hostname.
     Updates the 'hosts' table with the results.
   files: []
-  last_updated: '2019-05-08'
-  name: Google Hostname Enumerator
-  path: recon/domains-hosts/google_site_web
+  last_updated: '2019-06-24'
+  name: Reverse Resolver
+  path: recon/hosts-hosts/reverse_resolve
   required_keys: []
   version: '1.0'
-- author: Tim Tomes (@LaNMaSteR53)
+- author: Tim Maletic (borrowing from the ssl_san module by Zach Graces)
   dependencies: []
-  description: Creates an Excel compatible XLSX file containing the entire data set.
+  description: Uses the ssltools.com site to obtain host names from a site's SSL certificate
+    metadata to update the 'hosts' table.  Security issues with the certificate trust
+    are pushed to the 'vulnerabilities' table.
   files: []
-  last_updated: '2019-05-08'
-  name: XLSX File Creator
-  path: reporting/xlsx
+  last_updated: '2019-06-24'
+  name: SSLTools.com Host Name Lookups
+  path: recon/hosts-hosts/ssltools
   required_keys: []
   version: '1.0'
-- author: Ethan Robish (@EthanRobish)
+- author: USSC (thanks @jevalenciap)
   dependencies: []
-  description: Imports values from a CSV file into a database table.
+  description: Harvests domains from the Virustotal by using the report API. Updates
+    the 'hosts' table with the results.
   files: []
-  last_updated: '2019-05-08'
-  name: Advanced CSV File Importer
-  path: import/csv_file
-  required_keys: []
-  version: '1.0'
-- author: Paul (@PaulWebSec)
-  dependencies: []
-  description: Creates a JSON report.
-  files: []
-  last_updated: '2019-05-08'
-  name: JSON Report Generator
-  path: reporting/json
-  required_keys: []
-  version: '1.0'
-- author: Tim Tomes (@LaNMaSteR53)
-  dependencies: []
-  description: Exploits XPath injection flaws to enumerate the contents of serverside
-    XML documents.
-  files: []
-  last_updated: '2019-05-08'
-  name: Xpath Injection Brute Forcer
-  path: exploitation/injection/xpath_bruter
-  required_keys: []
-  version: '1.0'
-- author: Tim Tomes (@LaNMaSteR53)
-  dependencies: []
-  description: Leverages the BuiltWith API to identify hosts, technologies, and contacts
-    associated with a domain.
-  files: []
-  last_updated: '2019-05-08'
-  name: BuiltWith Enumerator
-  path: recon/domains-hosts/builtwith
+  last_updated: '2019-06-24'
+  name: Virustotal domains extractor
+  path: recon/hosts-hosts/virustotal
   required_keys:
-  - builtwith_api
+  - virustotal_api
   version: '1.0'
-- author: Micah Hoffman (@WebBreacher)
+- author: Tim Tomes (@lanmaster53)
   dependencies: []
-  description: Searches public code repositories for information about a given username.
+  description: Adds a new location for all the locations stored in the 'hosts' table.
   files: []
-  last_updated: '2019-05-08'
-  name: Dev Diver Repository Activity Examiner
-  path: recon/profiles-contacts/dev_diver
+  last_updated: '2019-06-24'
+  name: Hosts to Locations Data Migrator
+  path: recon/hosts-locations/migrate_hosts
   required_keys: []
   version: '1.0'
-- author: Jonathan M. Wilbur <jonathan@wilbur.space>
+- author: Ryan Hays
   dependencies: []
-  description: Given a domain, finds a contact in the IANA Private Enterprise Number
-    (PEN) registry whose email address ends with that domain. The domain is then added
-    to the 'domains' table.
+  description: Uses the BinaryEdge API to discover open services for IP Addresses.
   files: []
-  last_updated: '2019-05-08'
-  name: IANA Private Enterprise Number Company-by-Domain Lookup
-  path: recon/domains-contacts/pen
-  required_keys: []
-  version: '1.0'
-- author: Tim Tomes (@LaNMaSteR53)
-  dependencies: []
-  description: Uses the Github API to enumerate repositories and gists owned by a
-    Github user. Updates the 'repositories' table with the results.
-  files: []
-  last_updated: '2019-05-08'
-  name: Github Code Enumerator
-  path: recon/profiles-repositories/github_repos
+  last_updated: '2019-06-24'
+  name: BinaryEdge.io Ports lookup
+  path: recon/hosts-ports/binaryedge
   required_keys:
-  - github_api
+  - binaryedge_api
+  version: '1.0'
+- author: Tim Tomes (@lanmaster53) and Matt Puckett (@t3lc0)
+  dependencies: []
+  description: Harvests port information from the Shodan API by using the 'ip' search
+    operator. Updates the 'ports' table with the results.
+  files: []
+  last_updated: '2019-06-24'
+  name: Shodan IP Enumerator
+  path: recon/hosts-ports/shodan_ip
+  required_keys:
+  - shodan_api
+  version: '1.0'
+- author: Quentin Kaiser (contact@quentinkaiser.be)
+  dependencies: []
+  description: Queries the Google Maps API to obtain coordinates for an address. Updates
+    the 'locations' table with the results.
+  files: []
+  last_updated: '2019-06-24'
+  name: Address Geocoder
+  path: recon/locations-locations/geocode
+  required_keys:
+  - google_api
+  version: '1.0'
+- author: Quentin Kaiser (contact@quentinkaiser.be)
+  dependencies: []
+  description: Queries the Google Maps API to obtain an address from coordinates.
+  files: []
+  last_updated: '2019-06-24'
+  name: Reverse Geocoder
+  path: recon/locations-locations/reverse_geocode
+  required_keys:
+  - google_api
+  version: '1.0'
+- author: Tim Tomes (@lanmaster53)
+  dependencies: []
+  description: Searches Flickr for media in the specified proximity to a location.
+  files: []
+  last_updated: '2019-06-24'
+  name: Flickr Geolocation Search
+  path: recon/locations-pushpins/flickr
+  required_keys:
+  - flickr_api
+  version: '1.0'
+- author: Tim Tomes (@lanmaster53)
+  dependencies: []
+  description: Searches Shodan for media in the specified proximity to a location.
+  files: []
+  last_updated: '2019-06-24'
+  name: Shodan Geolocation Search
+  path: recon/locations-pushpins/shodan
+  required_keys:
+  - shodan_api
+  version: '1.0'
+- author: Tim Tomes (@lanmaster53)
+  dependencies: []
+  description: Searches Twitter for media in the specified proximity to a location.
+  files: []
+  last_updated: '2019-06-24'
+  name: Twitter Geolocation Search
+  path: recon/locations-pushpins/twitter
+  required_keys:
+  - twitter_api
+  - twitter_secret
+  version: '1.0'
+- author: Tim Tomes (@lanmaster53)
+  dependencies: []
+  description: Searches the YouTube API for media in the specified proximity to a
+    location.
+  files: []
+  last_updated: '2019-06-24'
+  name: YouTube Geolocation Search
+  path: recon/locations-pushpins/youtube
+  required_keys:
+  - google_api
+  version: '1.0'
+- author: Tim Tomes (@lanmaster53)
+  dependencies: []
+  description: Uses the ARIN Whois RWS to harvest Companies data from whois queries
+    for the given netblock. Updates the 'companies' table with the results.
+  files: []
+  last_updated: '2019-06-24'
+  name: Whois Company Harvester
+  path: recon/netblocks-companies/whois_orgs
+  required_keys: []
   version: '1.0'
 - author: John Babio (@3vi1john)
   dependencies: []
   description: Conducts a reverse lookup for each of a netblock's IP addresses to
     resolve the hostname. Updates the 'hosts' table with the results.
   files: []
-  last_updated: '2019-05-08'
+  last_updated: '2019-06-24'
   name: Reverse Resolver
   path: recon/netblocks-hosts/reverse_resolve
   required_keys: []
   version: '1.0'
-- author: Ryan Hays
+- author: Mike Siegel and Tim Tomes (@lanmaster53)
   dependencies: []
-  description: Uses the BinaryEdge API to discover subdomains.
+  description: Harvests hosts from the Shodan API by using the 'net' search operator.
+    Updates the 'hosts' table with the results.
   files: []
-  last_updated: '2019-05-28'
-  name: BinaryEdge.io DNS lookup
-  path: recon/domains-hosts/binaryedge
+  last_updated: '2019-06-24'
+  name: Shodan Network Enumerator
+  path: recon/netblocks-hosts/shodan_net
   required_keys:
-  - binaryedge_api
+  - shodan_api
   version: '1.0'
-- author: Ryan Hays
+- author: USSC (thanks @jevalenciap)
   dependencies: []
-  description: Uses the BinaryEdge API to discover open services for IP Addresses.
+  description: Harvests domains from the Virustotal by using the report API. Updates
+    the 'hosts' table with the results.
   files: []
-  last_updated: '2019-05-28'
-  name: BinaryEdge.io Ports lookup
-  path: recon/hosts-ports/binaryedge
+  last_updated: '2019-06-24'
+  name: Virustotal domains extractor
+  path: recon/netblocks-hosts/virustotal
   required_keys:
-  - binaryedge_api
+  - virustotal_api
   version: '1.0'
-- author: Ryan Hays
+- author: Tim Tomes (@lanmaster53)
   dependencies: []
-  description: Imports hosts and ports into the respective databases from Nmap XML
-    output.
+  description: Queries the Internet Census 2012 data through Exfiltrated.com to enumerate
+    open ports for a netblock.
   files: []
-  last_updated: '2019-05-28'
-  name: Nmap XML Output Importer
-  path: import/nmap
+  last_updated: '2019-06-24'
+  name: Internet Census 2012 Lookup
+  path: recon/netblocks-ports/census_2012
   required_keys: []
   version: '1.0'
+- author: John Askew (https://bitbucket.org/skew)
+  dependencies: []
+  description: Queries the censys.io API to enumerate information about netblocks.
+  files: []
+  last_updated: '2019-06-24'
+  name: Censys.io Netblock Enumerator
+  path: recon/netblocks-ports/censysio
+  required_keys:
+  - censysio_id
+  - censysio_secret
+  version: '1.0'
+- author: Tim Tomes (@lanmaster53)
+  dependencies: []
+  description: Adds a new host for all the hostnames stored in the 'ports' table.
+  files: []
+  last_updated: '2019-06-24'
+  name: Ports to Hosts Data Migrator
+  path: recon/ports-hosts/migrate_ports
+  required_keys: []
+  version: '1.0'
+- author: Micah Hoffman (@WebBreacher)
+  dependencies: []
+  description: Searches public code repositories for information about a given username.
+  files: []
+  last_updated: '2019-06-24'
+  name: Dev Diver Repository Activity Examiner
+  path: recon/profiles-contacts/dev_diver
+  required_keys: []
+  version: '1.0'
+- author: Tim Tomes (@lanmaster53)
+  dependencies: []
+  description: Uses the Github API to gather user info from harvested profiles. Updates
+    the 'contacts' table with the results.
+  files: []
+  last_updated: '2019-06-24'
+  name: Github Profile Harvester
+  path: recon/profiles-contacts/github_users
+  required_keys:
+  - github_api
+  version: '1.0'
+- author: Tim Tomes (@lanmaster53), thrapt (thrapt@gmail.com) and Ryan Hays (@_ryanhays)
+  dependencies: []
+  description: Leverages NameChk.com API to validate the existance of usernames on
+    specific web sites and updates the 'profiles' table with the results.
+  files: []
+  last_updated: '2019-06-24'
+  name: NameChk.com Username Validator
+  path: recon/profiles-profiles/namechk
+  required_keys:
+  - namechk_api
+  version: '1.0'
+- author: Micah Hoffman (@WebBreacher)
+  dependencies: []
+  description: Takes each username from the profiles table and searches a variety
+    of web sites for those users. The list of valid sites comes from the parent project
+    at https://github.com/WebBreacher/WhatsMyName
+  files: []
+  last_updated: '2019-06-24'
+  name: OSINT HUMINT Profile Collector
+  path: recon/profiles-profiles/profiler
+  required_keys: []
+  version: '1.0'
+- author: Robert Frost (@frosty_1313, frosty[at]unluckyfrosty.net)
+  dependencies: []
+  description: Leverages the Twitter API to enumerate users that mentioned the given
+    handle. Updates the 'profiles' table with the results.
+  files: []
+  last_updated: '2019-06-24'
+  name: Twitter Mentioned
+  path: recon/profiles-profiles/twitter_mentioned
+  required_keys:
+  - twitter_api
+  - twitter_secret
+  version: '1.0'
+- author: Robert Frost (@frosty_1313, frosty[at]unluckyfrosty.net)
+  dependencies: []
+  description: Leverages the Twitter API to enumerate users that were mentioned by
+    the given handle. Updates the 'profiles' table with the results.
+  files: []
+  last_updated: '2019-06-24'
+  name: Twitter Mentions
+  path: recon/profiles-profiles/twitter_mentions
+  required_keys:
+  - twitter_api
+  - twitter_secret
+  version: '1.0'
+- author: Tim Tomes (@lanmaster53)
+  dependencies: []
+  description: Uses the Github API to enumerate repositories and gists owned by a
+    Github user. Updates the 'repositories' table with the results.
+  files: []
+  last_updated: '2019-06-24'
+  name: Github Code Enumerator
+  path: recon/profiles-repositories/github_repos
+  required_keys:
+  - github_api
+  version: '1.0'
+- author: Michael Henriksen (@michenriksen)
+  dependencies: []
+  description: Uses the Github API to gather user profiles from repository commits.
+    Updates the 'profiles' table with the results.
+  files: []
+  last_updated: '2019-06-24'
+  name: Github Commit Searcher
+  path: recon/repositories-profiles/github_commits
+  required_keys:
+  - github_api
+  version: '1.0'
+- author: Tim Tomes (@lanmaster53)
+  dependencies: []
+  description: Uses the Github API to download and search Gists for possible information
+    disclosures. Updates the 'vulnerabilities' table with the results.
+  files:
+  - gist_keywords.txt
+  last_updated: '2019-06-24'
+  name: Github Gist Searcher
+  path: recon/repositories-vulnerabilities/gists_search
+  required_keys: []
+  version: '1.0'
+- author: Tim Tomes (@lanmaster53)
+  dependencies: []
+  description: Uses the Github API to search for possible vulnerabilites in source
+    code by leveraging Github Dorks and the 'repo' search operator. Updates the 'vulnerabilities'
+    table with the results.
+  files:
+  - github_dorks.txt
+  last_updated: '2019-06-24'
+  name: Github Dork Analyzer
+  path: recon/repositories-vulnerabilities/github_dorks
+  required_keys:
+  - github_api
+  version: '1.0'
+- author: Tim Tomes (@lanmaster53)
+  dependencies: []
+  description: Creates a CSV file containing the specified harvested data.
+  files: []
+  last_updated: '2019-06-24'
+  name: CSV File Creator
+  path: reporting/csv
+  required_keys: []
+  version: '1.0'
+- author: Tim Tomes (@lanmaster53)
+  dependencies: []
+  description: Creates an HTML report.
+  files:
+  - template_html.html
+  last_updated: '2019-06-24'
+  name: HTML Report Generator
+  path: reporting/html
+  required_keys: []
+  version: '1.0'
+- author: Paul (@PaulWebSec)
+  dependencies: []
+  description: Creates a JSON report.
+  files: []
+  last_updated: '2019-06-24'
+  name: JSON Report Generator
+  path: reporting/json
+  required_keys: []
+  version: '1.0'
+- author: Tim Tomes (@lanmaster53)
+  dependencies: []
+  description: Creates a file containing a list of records from the database.
+  files: []
+  last_updated: '2019-06-24'
+  name: List Creator
+  path: reporting/list
+  required_keys: []
+  version: '1.0'
+- author: AverageSecurityGuy (@averagesecguy)
+  dependencies: []
+  description: Requests URLs from the database for the purpose of populating an inline
+    proxy. Requires that the global proxy option be set prior to running the module.
+  files: []
+  last_updated: '2019-06-24'
+  name: Proxifier
+  path: reporting/proxifier
+  required_keys: []
+  version: '1.0'
+- author: Tim Tomes (@lanmaster53)
+  dependencies: []
+  description: Creates HTML media and map reports for all of the PushPins stored in
+    the database.
+  files:
+  - template_media.html
+  - template_map.html
+  last_updated: '2019-06-24'
+  name: PushPin Report Generator
+  path: reporting/pushpin
+  required_keys:
+  - google_api
+  version: '1.0'
+- author: Tim Tomes (@lanmaster53)
+  dependencies: []
+  description: Creates an Excel compatible XLSX file containing the entire data set.
+  files: []
+  last_updated: '2019-06-24'
+  name: XLSX File Creator
+  path: reporting/xlsx
+  required_keys: []
+  version: '1.0'
+- author: Eric Humphries (@e2fsck) and Tim Tomes (@lanmaster53)
+  dependencies: []
+  description: Creates an XML report.
+  files: []
+  last_updated: '2019-06-24'
+  name: XML Report Generator
+  path: reporting/xml
+  required_keys: []
+  version: '1.1'

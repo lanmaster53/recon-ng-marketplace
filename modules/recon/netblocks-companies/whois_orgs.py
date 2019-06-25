@@ -4,7 +4,7 @@ class Module(BaseModule):
 
     meta = {
         'name': 'Whois Company Harvester',
-        'author': 'Tim Tomes (@LaNMaSteR53)',
+        'author': 'Tim Tomes (@lanmaster53)',
         'version': '1.0',
         'description': 'Uses the ARIN Whois RWS to harvest Companies data from whois queries for the given netblock. Updates the \'companies\' table with the results.',
         'query': 'SELECT DISTINCT netblock FROM netblocks WHERE netblock IS NOT NULL',
@@ -17,7 +17,7 @@ class Module(BaseModule):
             urls = [f"http://whois.arin.net/rest/cidr/{netblock}", f"http://whois.arin.net/rest/ip/{netblock.split('/')[0]}"]
             for url in urls:
                 self.verbose(f"URL: {url}")
-                resp = self.request(url, headers=headers)
+                resp = self.request('GET', url, headers=headers)
                 if 'No record found for the handle provided.' in resp.text:
                     self.output('No companies found.')
                     continue

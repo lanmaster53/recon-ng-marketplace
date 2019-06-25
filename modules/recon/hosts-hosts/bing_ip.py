@@ -1,12 +1,13 @@
 from recon.core.module import BaseModule
+from recon.mixins.search import BingAPIMixin
 from recon.utils.parsers import parse_hostname
 import re
 
-class Module(BaseModule):
+class Module(BaseModule, BingAPIMixin):
 
     meta = {
         'name': 'Bing API IP Neighbor Enumerator',
-        'author': 'Tim Tomes (@LaNMaSteR53)',
+        'author': 'Tim Tomes (@lanmaster53)',
         'version': '1.0',
         'description': 'Leverages the Bing API and "ip:" advanced search operator to enumerate other virtual hosts sharing the same IP address. Updates the \'hosts\' table with the results.',
         'required_keys': ['bing_api'],
@@ -22,7 +23,7 @@ class Module(BaseModule):
     def module_run(self, addresses):
         # build a regex that matches any of the stored domains
         domains = [x[0] for x in self.query('SELECT DISTINCT domain from domains WHERE domain IS NOT NULL')]
-        domains_str = '|'.join(['\.'+re.escape(x)+'$' for x in domains])
+        domains_str = '|'.join([r'\.'+re.escape(x)+'$' for x in domains])
         regex = f"(?:{domains_str})"
         for address in addresses:
             self.heading(address, level=0)

@@ -1,11 +1,12 @@
 from recon.core.module import BaseModule
+from recon.mixins.search import ShodanAPIMixin
 import re
 
-class Module(BaseModule):
+class Module(BaseModule, ShodanAPIMixin):
 
     meta = {
         'name': 'Shodan Hostname Enumerator',
-        'author': 'Tim Tomes (@LaNMaSteR53)',
+        'author': 'Tim Tomes (@lanmaster53)',
         'version': '1.0',
         'description': 'Harvests hosts from the Shodan API by using the \'hostname\' search operator. Updates the \'hosts\' table with the results.',
         'required_keys': ['shodan_api'],

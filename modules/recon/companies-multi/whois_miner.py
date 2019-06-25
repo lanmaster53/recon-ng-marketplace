@@ -6,7 +6,7 @@ class Module(BaseModule):
 
     meta = {
         'name': 'Whois Data Miner',
-        'author': 'Tim Tomes (@LaNMaSteR53)',
+        'author': 'Tim Tomes (@lanmaster53)',
         'version': '1.0',
         'description': 'Uses the ARIN Whois RWS to harvest companies, locations, netblocks, and contacts associated with the given company search string. Updates the respective tables with the results.',
         'comments': (
@@ -27,7 +27,7 @@ class Module(BaseModule):
                 for entity in entities:
                     self.heading(entity['@name'], level=0)
                     url = entity['$']
-                    resp = self.request(url, headers=headers)
+                    resp = self.request('GET', url, headers=headers)
                     # add company
                     self.insert_companies(company=entity['@name'], description=rtype)
                     # add location
@@ -47,7 +47,7 @@ class Module(BaseModule):
                     pocLinks = self._request(url, headers, 'pocs', 'pocLinkRef')
                     for pocLink in pocLinks:
                         url = pocLink['$']
-                        resp = self.request(url, headers=headers)
+                        resp = self.request('GET', url, headers=headers)
                         poc = resp.json()['poc']
                         emails = _enum_ref(poc['emails']['email'])
                         for email in emails:
@@ -61,7 +61,7 @@ class Module(BaseModule):
 
     def _request(self, url, headers, grp, ref):
         self.verbose(f"URL: {url}")
-        resp = self.request(url, headers=headers)
+        resp = self.request('GET', url, headers=headers)
         strs = [
             'No related resources were found for the handle provided.',
             'Your search did not yield any results.'

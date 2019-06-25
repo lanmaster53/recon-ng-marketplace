@@ -7,7 +7,7 @@ class Module(BaseModule):
 
     meta = {
         'name': 'HTML Report Generator',
-        'author': 'Tim Tomes (@LaNMaSteR53)',
+        'author': 'Tim Tomes (@lanmaster53)',
         'version': '1.0',
         'description': 'Creates an HTML report.',
         'options': (
@@ -16,9 +16,7 @@ class Module(BaseModule):
             ('creator', None, True, 'use creator name in the report footer'),
             ('filename', os.path.join(BaseModule.workspace, 'results.html'), True, 'path and filename for report output'),
         ),
-        'files': (
-            'template_html.html',
-        ),
+        'files': ['template_html.html'],
     }
 
     def build_table(self, table):

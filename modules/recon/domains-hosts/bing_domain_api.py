@@ -1,8 +1,9 @@
 from recon.core.module import BaseModule
+from recon.mixins.search import BingAPIMixin
 from recon.utils.parsers import parse_hostname
 import re
 
-class Module(BaseModule):
+class Module(BaseModule, BingAPIMixin):
 
     meta = {
         'name': 'Bing API Hostname Enumerator',

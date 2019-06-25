@@ -4,7 +4,7 @@ import os
 class Module(BaseModule):
     meta = {
         'name': 'Github Gist Searcher',
-        'author': 'Tim Tomes (@LaNMaSteR53)',
+        'author': 'Tim Tomes (@lanmaster53)',
         'version': '1.0',
         'description': 'Uses the Github API to download and search Gists for possible information disclosures. Updates the \'vulnerabilities\' table with the results.',
         'comments': (
@@ -14,9 +14,7 @@ class Module(BaseModule):
         'options': (
             ('keywords', os.path.join(BaseModule.data_path, 'gist_keywords.txt'), True, 'file containing a list of keywords'),
         ),
-        'files': (
-            'gist_keywords.txt',
-        ),
+        'files': ['gist_keywords.txt'],
     }
 
     def module_run(self, gists):
@@ -26,7 +24,7 @@ class Module(BaseModule):
         for gist in gists:
             filename = gist.split(os.sep)[-1]
             self.heading(filename, level=0)
-            resp = self.request(gist)
+            resp = self.request('GET', gist)
             for keyword in keywords:
                 self.verbose(f"Searching Gist for: {keyword}")
                 lines = resp.text.splitlines()

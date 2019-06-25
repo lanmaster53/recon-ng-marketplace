@@ -1,11 +1,12 @@
 from recon.core.module import BaseModule
+from recon.utils.parsers import parse_name
 import textwrap
 
 class Module(BaseModule):
 
     meta = {
         'name': 'BuiltWith Enumerator',
-        'author': 'Tim Tomes (@LaNMaSteR53)',
+        'author': 'Tim Tomes (@lanmaster53)',
         'version': '1.0',
         'description': 'Leverages the BuiltWith API to identify hosts, technologies, and contacts associated with a domain.',
         'required_keys': ['builtwith_api'],
@@ -17,12 +18,12 @@ class Module(BaseModule):
 
     def module_run(self, domains):
         key = self.keys.get('builtwith_api')
-        url = ' http://api.builtwith.com/v5/api.json'
+        url = 'http://api.builtwith.com/v5/api.json'
         title = 'BuiltWith contact'
         for domain in domains:
             self.heading(domain, level=0)
             payload = {'key': key, 'lookup': domain}
-            resp = self.request(url, payload=payload)
+            resp = self.request('GET', url, params=payload)
             if 'error' in resp.json():
                 self.error(resp.json()['error'])
                 continue
@@ -36,7 +37,7 @@ class Module(BaseModule):
                 names = result['Meta']['Names']
                 if names is None: names = []
                 for name in names:
-                    fname, mname, lname = self.parse_name(name['Name'])
+                    fname, mname, lname = parse_name(name['Name'])
                     self.insert_contacts(first_name=fname, middle_name=mname, last_name=lname, title=title)
                 # extract and consolidate hosts and associated technology data
                 data = {}

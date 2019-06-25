@@ -1,7 +1,9 @@
 from recon.core.module import BaseModule
+from recon.mixins.search import BingAPIMixin
+from recon.utils.parsers import parse_name
 import re
 
-class Module(BaseModule):
+class Module(BaseModule, BingAPIMixin):
 
     meta = {
         'name': 'Bing Cache Linkedin Profile and Contact Harvester',
@@ -71,7 +73,7 @@ class Module(BaseModule):
         fullname = name.split(" -")[0]
         fullname = fullname.split(" |")[0]
         fullname = fullname.split(",")[0]
-        fname, mname, lname = self.parse_name(fullname)
+        fname, mname, lname = parse_name(fullname)
         return fullname, fname, mname, lname
 
     def parse_jobtitle(self, company, snippet):

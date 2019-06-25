@@ -6,16 +6,14 @@ class Module(BaseModule):
 
     meta = {
         'name': 'Contacts to Domains Data Migrator',
-        'author': 'Tim Tomes (@LaNMaSteR53)',
+        'author': 'Tim Tomes (@lanmaster53)',
         'version': '1.0',
         'description': 'Adds a new domain for all the hostnames associated with email addresses stored in the \'contacts\' table.',
         'comments': (
             'This modules considers that everything after the first element could contain other hosts besides the current. Therefore, hosts > 2 domains deep will create domains > 2 elements in length.',
         ),
         'query': 'SELECT DISTINCT email FROM contacts WHERE email IS NOT NULL',
-        'files': (
-            'suffixes.txt',
-        ),
+        'files': ['suffixes.txt'],
     }
 
     def module_run(self, emails):

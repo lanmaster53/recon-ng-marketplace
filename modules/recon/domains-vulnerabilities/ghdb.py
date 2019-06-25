@@ -21,7 +21,7 @@ class Module(BaseModule, GoogleWebMixin):
 
     meta = {
         'name': 'Google Hacking Database',
-        'author': 'Tim Tomes (@LaNMaSteR53)',
+        'author': 'Tim Tomes (@lanmaster53)',
         'version': '1.0',
         'description': 'Searches for possible vulnerabilites in a domain by leveraging the Google Hacking Database (GHDB) and the \'site\' search operator. Updates the \'vulnerabilities\' table with the results.',
         'comments': (
@@ -31,9 +31,7 @@ class Module(BaseModule, GoogleWebMixin):
         'options': [
             ('dorks', None, False, 'file containing an alternate list of Google dorks'),
         ] + _build_options(ghdb),
-        'files': (
-            'ghdb.json',
-        ),
+        'files': ['ghdb.json'],
     }
 
     def module_run(self, domains):

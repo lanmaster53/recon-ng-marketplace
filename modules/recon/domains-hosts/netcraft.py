@@ -22,7 +22,7 @@ class Module(BaseModule):
         # answer challenge cookie
         cookiejar = CookieJar()
         payload = {'restriction': 'site+ends+with', 'host': 'test.com'}
-        resp = self.request(url, payload=payload, cookiejar=cookiejar)
+        resp = self.request('GET', url, params=payload, cookies=cookiejar)
         cookiejar = resp.cookiejar
         for cookie in cookiejar:
             if cookie.name == 'netcraft_js_verification_challenge':
@@ -38,7 +38,7 @@ class Module(BaseModule):
             # loop until no Next Page is available
             while True:
                 self.verbose(f"URL: {url}?{urlencode(payload)}")
-                resp = self.request(url, payload=payload, cookiejar=cookiejar)
+                resp = self.request('GET', url, params=payload, cookies=cookiejar)
                 content = resp.text
                 sites = re.findall(pattern, content)
                 # create a unique list

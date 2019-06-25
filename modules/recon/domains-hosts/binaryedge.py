@@ -12,10 +12,10 @@ class Module(BaseModule):
     }
 
     def module_run(self, domains):
-        key = self.get_key('binaryedge_api')
+        key = self.keys.get('binaryedge_api')
         for domain in domains:
             self.heading(domain, level=0)
-            resp = self.request(url=f"https://api.binaryedge.io/v2/query/domains/dns/{domain}", headers={'X-Key': key})
+            resp = self.request('GET', f"https://api.binaryedge.io/v2/query/domains/dns/{domain}", headers={'X-Key': key})
             if resp.status_code == 200:
                 for subdomain in resp.json().get('events'):
                     if "A" in subdomain:

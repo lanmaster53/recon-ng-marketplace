@@ -1,4 +1,5 @@
 from recon.core.module import BaseModule
+from recon.utils.parsers import parse_name
 import re
 
 class Module(BaseModule):
@@ -16,7 +17,7 @@ class Module(BaseModule):
 
     def module_run(self, companies):
         url = 'https://www.iana.org/assignments/enterprise-numbers/enterprise-numbers'
-        resp = self.request(url, method='GET')
+        resp = self.request('GET', url)
         if resp.status_code != 200:
             self.alert('When retrieving IANA PEN Registry, got HTTP status code ' + str(resp.status_code) + '!')
         for company in companies:
@@ -25,7 +26,7 @@ class Module(BaseModule):
             matchfound = False
             for match in re.finditer(regex, resp.text, re.IGNORECASE):
                 fullname = match.groups()[1]
-                fname, mname, lname = self.parse_name(fullname)
+                fname, mname, lname = parse_name(fullname)
                 email = match.groups()[2].replace('&', '@')
                 self.insert_contacts(
                     first_name=fname,

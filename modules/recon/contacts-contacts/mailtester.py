@@ -5,7 +5,7 @@ class Module(BaseModule):
 
     meta = {
         'name': 'MailTester Email Validator',
-        'author': 'Tim Tomes (@LaNMaSteR53)',
+        'author': 'Tim Tomes (@lanmaster53)',
         'version': '1.0',
         'description': 'Leverages MailTester.com to validate email addresses.',
         'query': 'SELECT DISTINCT email FROM contacts WHERE email IS NOT NULL',
@@ -20,7 +20,7 @@ class Module(BaseModule):
         payload = {'lang':'en'}
         for email in emails:
             payload['email'] = email
-            resp = self.request(url, method='POST', payload=payload)
+            resp = self.request('POST', url, data=payload)
             if error in resp.text:
                 self.error(error)
                 break

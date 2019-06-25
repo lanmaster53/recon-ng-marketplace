@@ -5,7 +5,7 @@ class Module(BaseModule):
 
     meta = {
         'name': 'YouTube Geolocation Search',
-        'author': 'Tim Tomes (@LaNMaSteR53)',
+        'author': 'Tim Tomes (@lanmaster53)',
         'version': '1.0',
         'description': 'Searches the YouTube API for media in the specified proximity to a location.',
         'required_keys': ['google_api'],
@@ -24,7 +24,7 @@ class Module(BaseModule):
             payload['location'] = location
             processed = 0
             while True:
-                resp = self.request(self.url % 'search', payload=payload)
+                resp = self.request('GET', self.url % 'search', params=payload)
                 if 'error' in resp.json():
                     self.alert(resp.json()['error']['message'])
                     break
@@ -52,7 +52,7 @@ class Module(BaseModule):
 
     def get_video_geo(self, vid):
         payload = {'part': 'recordingDetails', 'id': vid, 'key': self.api_key}
-        resp = self.request(self.url % 'videos', payload=payload)
+        resp = self.request('GET', self.url % 'videos', params=payload)
         latitude = resp.json()['items'][0]['recordingDetails']['location']['latitude']
         longitude = resp.json()['items'][0]['recordingDetails']['location']['longitude']
         return latitude, longitude

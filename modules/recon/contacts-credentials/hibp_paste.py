@@ -1,15 +1,19 @@
-from recon.core.module import BaseModule
 import os
 import time
+
+from recon.core.module import BaseModule
+from requests.exceptions import ConnectionError
 from urllib.parse import quote_plus
+
 
 class Module(BaseModule):
 
     meta = {
         'name': 'Have I been pwned? Paste Search',
-        'author': 'Tim Tomes (@LaNMaSteR53)',
+        'author': 'Tim Tomes (@lanmaster53)',
         'version': '1.0',
-        'description': 'Leverages the haveibeenpwned.com API to determine if email addresses have been published to various paste sites. Adds compromised email addresses to the \'credentials\' table.',
+        'description': 'Leverages the haveibeenpwned.com API to determine if email addresses have been published to '
+                       'various paste sites. Adds compromised email addresses to the \'credentials\' table.',
         'comments': (
             'Paste sites supported: Pastebin, Pastie, Slexy, Ghostbin, QuickLeak, JustPaste, AdHocUrl, and OptOut.'
             'The HIBP API is rate limited to 1 request per 1.5 seconds.',
@@ -35,7 +39,7 @@ class Module(BaseModule):
         base_url = 'https://haveibeenpwned.com/api/v2/{}/{}'
         endpoint = 'pasteaccount'
         for account in accounts:
-            resp = self.request(base_url.format(endpoint, quote_plus(account)))
+            resp = self.request('GET', base_url.format(endpoint, quote_plus(account)))
             rcode = resp.status_code
             if rcode == 404:
                 self.verbose(f"{account} => Not Found.")
@@ -49,16 +53,20 @@ class Module(BaseModule):
                     if paste['Source'] in sites:
                         fileurl = sites[paste['Source']].format(paste['Id'])
                         download = self.options['download']
-                    elif self.options['download'] == True:
+                    elif self.options['download']:
                         self.alert(f"Download not available for {paste['Source']} pastes.")
                     self.alert(f"{account} => Paste found! Seen in a {paste['Source']} on {paste['Date']} ({fileurl}).")
-                    if download == True:
-                        resp = self.request(fileurl)
+                    if download:
+                        try:
+                            resp = self.request('GET', fileurl)
+                        except ConnectionError:
+                            self.alert(f"Paste could not be downloaded ({fileurl}).")
+
                         if resp.status_code == 200:
                             filepath = f"{self.workspace}/{_safe_file_name(fileurl)}.txt"
                             if not os.path.exists(filepath):
-                                dl = open(filepath, 'w')
-                                dl.write(resp.text.encode(resp.encoding) if resp.encoding else resp.text)
+                                dl = open(filepath, 'wb')
+                                dl.write(resp.content)
                                 dl.close()
                             self.verbose(f"Paste stored at '{filepath}'.")
                         else:

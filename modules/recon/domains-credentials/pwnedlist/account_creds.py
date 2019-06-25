@@ -1,4 +1,5 @@
 from recon.core.module import BaseModule
+from recon.mixins.pwnedlist import PwnedlistMixin
 import base64
 import pyaes
 
@@ -17,11 +18,11 @@ def aes_decrypt(ciphertext, key, iv):
     plaintext = aes.decrypt(ciphertext)
     return plaintext.decode("utf-8")
 
-class Module(BaseModule):
+class Module(BaseModule, PwnedlistMixin):
 
     meta = {
         'name': 'PwnedList - Account Credentials Fetcher',
-        'author': 'Tim Tomes (@LaNMaSteR53)',
+        'author': 'Tim Tomes (@lanmaster53)',
         'version': '1.0',
         'description': 'Queries the PwnedList API for credentials associated with the given usernames. Updates the \'credentials\' table with the results.',
         'required_keys': ['pwnedlist_api', 'pwnedlist_secret', 'pwnedlist_iv'],
@@ -29,9 +30,7 @@ class Module(BaseModule):
             'API Query Cost: 1 query per request and 1 query per unique leak.',
         ),
         'query': 'SELECT DISTINCT username FROM credentials WHERE username IS NOT NULL and password IS NULL',
-        'dependencies': (
-            'pyaes',
-        ),
+        'dependencies': ['pyaes'],
     }
 
     def module_run(self, accounts):
@@ -45,7 +44,7 @@ class Module(BaseModule):
         payload = {'account_identifier': ','.join(accounts), 'daysAgo': 0}
         payload = self.build_pwnedlist_payload(payload, 'accounts.query', key, secret)
         # make the request
-        resp = self.request(url, payload=payload)
+        resp = self.request('GET', url, params=payload)
         try:
             jsonobj = resp.json()
         except ValueError:

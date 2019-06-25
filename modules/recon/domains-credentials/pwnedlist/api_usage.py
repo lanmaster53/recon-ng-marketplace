@@ -1,10 +1,11 @@
 from recon.core.module import BaseModule
+from recon.mixins.pwnedlist import PwnedlistMixin
 
-class Module(BaseModule):
+class Module(BaseModule, PwnedlistMixin):
 
     meta = {
         'name': 'PwnedList - API Usage Statistics Fetcher',
-        'author': 'Tim Tomes (@LaNMaSteR53)',
+        'author': 'Tim Tomes (@lanmaster53)',
         'version': '1.0',
         'description': 'Queries the PwnedList API for account usage statistics.',
         'required_keys': ['pwnedlist_api', 'pwnedlist_secret'],
@@ -18,7 +19,7 @@ class Module(BaseModule):
         payload = {}
         payload = self.build_pwnedlist_payload(payload, 'usage.info', key, secret)
         # make the request
-        resp = self.request(url, payload=payload)
+        resp = self.request('GET', url, params=payload)
         try:
             jsonobj = resp.json()
         except ValueError:

@@ -18,9 +18,7 @@ class Module(BaseModule, ResolverMixin):
         'options': (
             ('suffixes', os.path.join(BaseModule.data_path, 'suffixes.txt'), True, 'path to public suffix wordlist'),
         ),
-        'files': (
-            'suffixes.txt',
-        ),
+        'files': ['suffixes.txt'],
     }
 
     def module_run(self, domains):

@@ -1,4 +1,5 @@
 from recon.core.module import BaseModule
+from recon.utils.parsers import parse_name
 from urllib.parse import unquote_plus
 import json
 import re
@@ -18,7 +19,7 @@ class Module(BaseModule):
     def github(self, username):
         self.verbose('Checking Github...')
         url = f"https://api.github.com/users/{username}"
-        resp = self.request(url)
+        resp = self.request('GET', url)
         data = resp.json()
         if 'login' in data:
             self.alert(f"Github username found - ({url})")
@@ -50,7 +51,7 @@ class Module(BaseModule):
             self.table(tdata, title='Github')
             # add the pertinent information to the database
             if not gitName: gitName = username
-            fname, mname, lname = self.parse_name(gitName)
+            fname, mname, lname = parse_name(gitName)
             self.insert_contacts(first_name=fname, middle_name=mname, last_name=lname, title='Github Contributor')
         else:
             self.output('Github username not found.')
@@ -58,7 +59,7 @@ class Module(BaseModule):
     def bitbucket(self, username):
         self.verbose('Checking Bitbucket...')
         url = f"https://bitbucket.org/api/2.0/users/{username}"
-        resp = self.request(url)
+        resp = self.request('GET', url)
         data = resp.json()
         if 'username' in data:
             self.alert(f"Bitbucket username found - ({url})")
@@ -78,7 +79,7 @@ class Module(BaseModule):
             self.table(tdata, title='Bitbucket')
             # add the pertinent information to the database
             if not bbName: bbName = username
-            fname, mname, lname = self.parse_name(bbName)
+            fname, mname, lname = parse_name(bbName)
             self.insert_contacts(first_name=fname, middle_name=mname, last_name=lname, title='Bitbucket Contributor')
         else:
             self.output('Bitbucket username not found.')
@@ -86,7 +87,7 @@ class Module(BaseModule):
     def sourceforge(self, username):
         self.verbose('Checking SourceForge...')
         url = f"http://sourceforge.net/u/{username}/profile/"
-        resp = self.request(url)
+        resp = self.request('GET', url)
         sfName = re.search(r'<title>(.+) / Profile', resp.text)
         if sfName:
             self.alert(f"Sourceforge username found - ({url})")
@@ -113,7 +114,7 @@ class Module(BaseModule):
             self.table(tdata, title='Sourceforge')
             # add the pertinent information to the database
             if not sfName: sfName = username
-            fname, mname, lname = self.parse_name(sfName)
+            fname, mname, lname = parse_name(sfName)
             self.insert_contacts(first_name=fname, middle_name=mname, last_name=lname, title='Sourceforge Contributor')
         else:
             self.output('Sourceforge username not found.')
@@ -121,7 +122,7 @@ class Module(BaseModule):
     def codeplex(self, username):
         self.verbose('Checking CodePlex...')
         url = f"http://www.codeplex.com/site/users/view/{username}"
-        resp = self.request(url)
+        resp = self.request('GET', url)
         cpName = re.search(r'<h1 class="user_name" style="display: inline">(.+)</h1>', resp.text)
         if cpName:
             self.alert(f"CodePlex username found - ({url})")
@@ -147,7 +148,7 @@ class Module(BaseModule):
             self.table(tdata, title='CodePlex')
             # add the pertinent information to the database
             if not cpName: cpName = username
-            fname, mname, lname = self.parse_name(cpName)
+            fname, mname, lname = parse_name(cpName)
             self.insert_contacts(first_name=fname, middle_name=mname, last_name=lname, title='CodePlex Contributor')
         else:
             self.output('CodePlex username not found.')
@@ -155,7 +156,7 @@ class Module(BaseModule):
     def gitorious(self, username):
         self.verbose('Checking Gitorious...')
         url = f"https://gitorious.org/~{username}"
-        resp = self.request(url)
+        resp = self.request('GET', url)
         if re.search(rf'href="/~{username}" class="avatar"', resp.text):
             self.alert(f"Gitorious username found - ({url})")
             # extract data
@@ -184,7 +185,7 @@ class Module(BaseModule):
             self.table(tdata, title='Gitorious')
             # add the pertinent information to the database
             if not gitoName: gitoName = username
-            fname, mname, lname = self.parse_name(gitoName)
+            fname, mname, lname = parse_name(gitoName)
             self.insert_contacts(first_name=fname, middle_name=mname, last_name=lname, title='Gitorious Contributor', email=gitoEmail)
         else:
             self.output('Gitorious username not found.')

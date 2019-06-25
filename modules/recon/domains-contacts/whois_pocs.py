@@ -4,7 +4,7 @@ class Module(BaseModule):
 
     meta = {
         'name': 'Whois POC Harvester',
-        'author': 'Tim Tomes (@LaNMaSteR53)',
+        'author': 'Tim Tomes (@lanmaster53)',
         'version': '1.0',
         'description': 'Uses the ARIN Whois RWS to harvest POC data from whois queries for the given domain. Updates the \'contacts\' table with the results.',
         'query': 'SELECT DISTINCT domain FROM domains WHERE domain IS NOT NULL',
@@ -16,7 +16,7 @@ class Module(BaseModule):
             self.heading(domain, level=0)
             url = f"http://whois.arin.net/rest/pocs;domain={domain}"
             self.verbose(f"URL: {url}")
-            resp = self.request(url, headers=headers)
+            resp = self.request('GET', url, headers=headers)
             if 'Your search did not yield any results.' in resp.text:
                 self.output('No contacts found.')
                 continue
@@ -24,7 +24,7 @@ class Module(BaseModule):
             for handle in handles:
                 url = f"http://whois.arin.net/rest/poc/{handle}"
                 self.verbose(f"URL: {url}")
-                resp = self.request(url, headers=headers)
+                resp = self.request('GET', url, headers=headers)
                 poc = resp.json()['poc']
                 emails = poc['emails']['email'] if type(poc['emails']['email']) == list else [poc['emails']['email']]
                 for email in emails:

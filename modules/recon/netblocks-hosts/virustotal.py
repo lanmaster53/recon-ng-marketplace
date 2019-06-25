@@ -16,12 +16,12 @@ class Module(BaseModule):
     }
 
     def module_run(self, netblocks):
-        key = self.get_key('virustotal_api')
+        key = self.keys.get('virustotal_api')
         url = 'https://www.virustotal.com/vtapi/v2/ip-address/report'
         for netblock in netblocks:
             for ip in self.cidr_to_list(netblock):
                 self.heading(ip, level=0)
-                resp = self.request( url, payload = {'ip': ip, 'apikey': key} )
+                resp = self.request('GET', url, params={'ip': ip, 'apikey': key})
                 if resp.json() and 'resolutions' in resp.json().keys():
                     for entry in resp.json()['resolutions']:
                         hostname = entry.get('hostname')

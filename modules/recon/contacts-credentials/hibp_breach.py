@@ -6,7 +6,7 @@ class Module(BaseModule):
 
     meta = {
         'name': 'Have I been pwned? Breach Search',
-        'author': 'Tim Tomes (@LaNMaSteR53) & Tyler Halfpop (@tylerhalfpop)',
+        'author': 'Tim Tomes (@lanmaster53) & Tyler Halfpop (@tylerhalfpop)',
         'version': '1.0',
         'description': 'Leverages the haveibeenpwned.com API to determine if email addresses are associated with breached credentials. Adds compromised email addresses to the \'credentials\' table.',
         'comments': (
@@ -20,7 +20,7 @@ class Module(BaseModule):
         base_url = 'https://haveibeenpwned.com/api/v2/{}/{}'
         endpoint = 'breachedaccount'
         for account in accounts:
-            resp = self.request(base_url.format(endpoint, quote_plus(account)))
+            resp = self.request('GET', base_url.format(endpoint, quote_plus(account)))
             rcode = resp.status_code
             if rcode == 404:
                 self.verbose(f"{account} => Not Found.")

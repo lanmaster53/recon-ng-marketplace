@@ -1,10 +1,11 @@
 from recon.core.module import BaseModule
+from recon.mixins.pwnedlist import PwnedlistMixin
 
-class Module(BaseModule):
+class Module(BaseModule, PwnedlistMixin):
 
     meta = {
         'name': 'PwnedList - Pwned Domain Statistics Fetcher',
-        'author': 'Tim Tomes (@LaNMaSteR53)',
+        'author': 'Tim Tomes (@lanmaster53)',
         'version': '1.0',
         'description': 'Queries the PwnedList API for a domain to determine if any associated credentials have been compromised. This module does NOT return any credentials, only a total number of compromised credentials.',
         'required_keys': ['pwnedlist_api', 'pwnedlist_secret'],
@@ -24,7 +25,7 @@ class Module(BaseModule):
             payload = {'domain_identifier': domain}
             payload = self.build_pwnedlist_payload(payload, 'domains.info', key, secret)
             # make the request
-            resp = self.request(url, payload=payload)
+            resp = self.request('GET', url, params=payload)
             jsonobj = resp.json()
             # compare to None to confirm valid json as empty json is returned when domain not found
             if jsonobj is None:

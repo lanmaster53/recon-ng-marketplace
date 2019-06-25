@@ -1,10 +1,11 @@
 from recon.core.module import BaseModule
+from recon.mixins.github import GithubMixin
 import os
 
-class Module(BaseModule):
+class Module(BaseModule, GithubMixin):
     meta = {
         'name': 'Github Dork Analyzer',
-        'author': 'Tim Tomes (@LaNMaSteR53)',
+        'author': 'Tim Tomes (@lanmaster53)',
         'version': '1.0',
         'description': 'Uses the Github API to search for possible vulnerabilites in source code by leveraging Github Dorks and the \'repo\' search operator. Updates the \'vulnerabilities\' table with the results.',
         'required_keys': ['github_api'],
@@ -12,9 +13,7 @@ class Module(BaseModule):
         'options': (
             ('dorks', os.path.join(BaseModule.data_path, 'github_dorks.txt'), True, 'file containing a list of Github dorks'),
         ),
-        'files': (
-            'github_dorks.txt',
-        ),
+        'files': ['github_dorks.txt'],
     }
 
     def module_run(self, repos):

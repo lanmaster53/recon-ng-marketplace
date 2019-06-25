@@ -6,7 +6,7 @@ class Module(BaseModule):
 
     meta = {
         'name': 'XSSposed Domain Lookup',
-        'author': 'Tim Tomes (@LaNMaSteR53)',
+        'author': 'Tim Tomes (@lanmaster53)',
         'version': '1.0',
         'description': 'Checks XSSposed.com for XSS records associated with a domain.',
         'query': 'SELECT DISTINCT domain FROM domains WHERE domain IS NOT NULL',
@@ -16,7 +16,7 @@ class Module(BaseModule):
         url = 'https://www.xssposed.org/api/1/search/?domain=%s'
         for domain in domains:
             self.heading(domain, level=0)
-            resp = self.request(url % domain)
+            resp = self.request('GET', url % domain)
             vulns = resp.xml.findall('item')
             for vuln in vulns:
                 data = {}
@@ -25,7 +25,7 @@ class Module(BaseModule):
                 data['publish_date'] = datetime.strptime(vuln.find('reporteddate').text, '%a, %d %b %Y %H:%M:%S +0000')
                 data['category'] = vuln.find('type').text
                 data['status'] = 'unfixed' if vuln.find('fixed').text == '0' else 'fixed'
-                resp_vuln = self.request(data['reference'])
+                resp_vuln = self.request('GET', data['reference'])
                 data['example'] = re.search(rf'href="([^"]*{data["host"]}[^"]*)"', resp_vuln.text).group(1)
                 self.insert_vulnerabilities(**data)
             if not vulns:

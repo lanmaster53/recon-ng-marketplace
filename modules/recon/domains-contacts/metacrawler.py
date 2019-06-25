@@ -62,7 +62,7 @@ class Module(BaseModule, GoogleWebMixin):
 
     meta = {
         'name': 'Meta Data Extractor',
-        'author': 'Tim Tomes (@LaNMaSteR53)',
+        'author': 'Tim Tomes (@lanmaster53)',
         'version': '1.1',
         'description': 'Searches for files associated with the provided domain(s) and extracts any contact related metadata.',
         'comments': (
@@ -72,11 +72,7 @@ class Module(BaseModule, GoogleWebMixin):
         'options': (
             ('extract', False, True, 'extract metadata from discovered files'),
         ),
-        'dependencies': (
-            'olefile',
-            'pypdf3',
-            'lxml',
-        ),
+        'dependencies': ['olefile', 'pypdf3', 'lxml'],
     }
 
     def module_run(self, domains):
@@ -102,7 +98,7 @@ class Module(BaseModule, GoogleWebMixin):
                             # check to see if a parser exists for the file type
                             try:
                                 func = parsers[key]
-                                resp = self.request(result)
+                                resp = self.request('GET', result)
                                 # validate that the url resulted in a file 
                                 if [x for x in ('application', 'binary') if resp.headers['content-type'].startswith(x)]:
                                     meta = func(resp.content)

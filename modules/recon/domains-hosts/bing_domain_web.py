@@ -9,7 +9,7 @@ class Module(BaseModule):
 
     meta = {
         'name': 'Bing Hostname Enumerator',
-        'author': 'Tim Tomes (@LaNMaSteR53)',
+        'author': 'Tim Tomes (@lanmaster53)',
         'version': '1.0',
         'description': 'Harvests hosts from Bing.com by using the \'site\' search operator. Updates the \'hosts\' table with the results.',
         'query': 'SELECT DISTINCT domain FROM domains WHERE domain IS NOT NULL',
@@ -42,7 +42,7 @@ class Module(BaseModule):
                 if len(url) > 2066: url = url[:2066]
                 self.verbose(f"URL: {url}")
                 # send query to search engine
-                resp = self.request(url, cookiejar=cookiejar)
+                resp = self.request('GET', url, cookies=cookiejar)
                 if resp.status_code != 200:
                     self.alert('Bing has encountered an error. Please submit an issue for debugging.')
                     break

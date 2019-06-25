@@ -5,7 +5,7 @@ class Module(BaseModule):
 
     meta = {
         'name': 'ipstack',
-        'author': 'Siarhei Harbachou (Tech.Insiders), Gerrit Helm (G) and Tim Tomes (@LaNMaSteR53)',
+        'author': 'Siarhei Harbachou (Tech.Insiders), Gerrit Helm (G) and Tim Tomes (@lanmaster53)',
         'version': '1.0',
         'description': 'Leverages the ipstack.com API to geolocate a host by IP address. Updates the \'hosts\' table with the results.',
         'required_keys': ['ipstack_api'],
@@ -16,7 +16,7 @@ class Module(BaseModule):
         for host in hosts:
             api_key = self.keys.get('ipstack_api')
             url = f"http://api.ipstack.com/{host}?access_key={api_key}"
-            resp = self.request(url)
+            resp = self.request('GET', url)
             try:
                 jsonobj = resp.json()
             except ValueError:

@@ -20,7 +20,7 @@ class Module(BaseModule, ThreadingMixin):
         # retrieve list of sites
         url = 'https://raw.githubusercontent.com/WebBreacher/WhatsMyName/master/web_accounts_list.json'
         self.verbose(f"Retrieving {url}...")
-        resp = self.request(url)
+        resp = self.request('GET', url)
         for user in usernames: 
             self.heading(f"Looking up data for: {user}")
             self.thread(resp.json()['sites'], user)
@@ -30,7 +30,7 @@ class Module(BaseModule, ThreadingMixin):
         if d['valid'] == True:
             self.verbose(f"Checking: {d['name']}")
             url = d['check_uri'].replace('{account}', quote_plus(user))
-            resp = self.request(url, redirect=False)
+            resp = self.request('GET', url, allow_redirects=False)
             if resp.status_code == int(d['account_existence_code']):
                 self.debug(f"Codes matched {resp.status_code} {d['account_existence_code']}")
                 if d['account_existence_string'] in resp.text or d['account_existence_string'] in resp.headers:

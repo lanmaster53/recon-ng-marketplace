@@ -7,7 +7,7 @@ class Module(BaseModule, ResolverMixin):
 
     meta = {
         'name': 'Reverse Resolver',
-        'author': 'John Babio (@3vi1john), @vulp1n3, and Tim Tomes (@LaNMaSteR53)',
+        'author': 'John Babio (@3vi1john), @vulp1n3, and Tim Tomes (@lanmaster53)',
         'version': '1.0',
         'description': 'Conducts a reverse lookup for each IP address to resolve the hostname. Updates the \'hosts\' table with the results.',
         'query': 'SELECT DISTINCT ip_address FROM hosts WHERE ip_address IS NOT NULL',

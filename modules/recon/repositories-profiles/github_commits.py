@@ -1,7 +1,9 @@
 from recon.core.module import BaseModule
+from recon.mixins.github import GithubMixin
+from recon.utils.parsers import parse_name
 from urllib.parse import quote_plus
 
-class Module(BaseModule):
+class Module(BaseModule, GithubMixin):
     meta = {
         'name': 'Github Commit Searcher',
         'author': 'Michael Henriksen (@michenriksen)',
@@ -32,5 +34,5 @@ class Module(BaseModule):
                     if self.options[key] and key in commit['commit'] and commit['commit'][key]:
                         name = commit['commit'][key]['name']
                         email = commit['commit'][key]['email']
-                        fname, mname, lname = self.parse_name(name)
+                        fname, mname, lname = parse_name(name)
                         self.insert_contacts(first_name=fname, middle_name=mname, last_name=lname, email=email, title='Github Contributor')
