@@ -7,7 +7,11 @@ class Module(BaseModule):
         'name': 'Certificiate Transparency Search',
         'author': 'Rich Warren (richard.warren@nccgroup.trust)',
         'version': '1.0',
-        'description': 'Searches certificate transparency data from crt.sh, adding newly identified hosts to the hosts table.',
+        'description': 'Searches certificate transparency data from crt.sh, adding newly identified hosts to the hosts '
+                       'table.',
+        'comments': (
+            'This module will error if the global TIMEOUT is not set to at least 20.',
+        ),
         'query': 'SELECT DISTINCT domain FROM domains WHERE domain IS NOT NULL',
     }
 
