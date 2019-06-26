@@ -10,7 +10,7 @@ class Module(BaseModule):
         'description': 'Searches certificate transparency data from crt.sh, adding newly identified hosts to the hosts '
                        'table.',
         'comments': (
-            'This module will error if the global TIMEOUT is not set to at least 20.',
+            'A longer global TIMEOUT setting may be required for larger domains.',
         ),
         'query': 'SELECT DISTINCT domain FROM domains WHERE domain IS NOT NULL',
     }
