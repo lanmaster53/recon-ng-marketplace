@@ -114,6 +114,17 @@
   required_keys:
   - github_api
   version: '1.0'
+- author: Austin Tipton (@hiEntropy404)
+  dependencies: []
+  description: Harvests host and port information from the Shodan API by using the
+    'org' search operator. Updates the 'hosts' and 'ports' tables with the results.
+  files: []
+  last_updated: '2019-06-26'
+  name: Shodan IP Enumerator
+  path: recon/companies-multi/shodan_org
+  required_keys:
+  - shodan_api
+  version: '1.0'
 - author: Tim Tomes (@lanmaster53)
   dependencies: []
   description: Uses the ARIN Whois RWS to harvest companies, locations, netblocks,
