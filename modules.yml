@@ -528,11 +528,11 @@
     table with the results.
   files:
   - ghdb.json
-  last_updated: '2019-06-24'
+  last_updated: '2019-06-26'
   name: Google Hacking Database
   path: recon/domains-vulnerabilities/ghdb
   required_keys: []
-  version: '1.0'
+  version: '1.1'
 - author: Micah Hoffman (@WebBreacher)
   dependencies: []
   description: Checks XSSed.com for XSS records associated with a domain and displays
