@@ -2,6 +2,7 @@ from recon.core.module import BaseModule
 from recon.mixins.search import ShodanAPIMixin
 from datetime import datetime
 
+
 class Module(BaseModule, ShodanAPIMixin):
 
     meta = {
@@ -11,7 +12,7 @@ class Module(BaseModule, ShodanAPIMixin):
         'description': 'Searches Shodan for media in the specified proximity to a location.',
         'required_keys': ['shodan_api'],
         'comments': (
-            'Shodan \'geo\' searches can take a long time to complete. If receiving connection timeout errors, increase the global SOCKET_TIMEOUT option.',
+            'Shodan \'geo\' searches can take a long time to complete. If receiving timeout errors, increase the global TIMEOUT option.',
         ),
         'query': 'SELECT DISTINCT latitude || \',\' || longitude FROM locations WHERE latitude IS NOT NULL AND longitude IS NOT NULL',
         'options': (

@@ -2,6 +2,7 @@ from recon.core.module import BaseModule
 from recon.mixins.search import ShodanAPIMixin
 import re
 
+
 class Module(BaseModule, ShodanAPIMixin):
 
     meta = {
