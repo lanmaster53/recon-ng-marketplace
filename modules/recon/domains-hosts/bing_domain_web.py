@@ -10,7 +10,7 @@ class Module(BaseModule):
     meta = {
         'name': 'Bing Hostname Enumerator',
         'author': 'Tim Tomes (@lanmaster53)',
-        'version': '1.0',
+        'version': '1.1',
         'description': 'Harvests hosts from Bing.com by using the \'site\' search operator. Updates the \'hosts\' table with the results.',
         'query': 'SELECT DISTINCT domain FROM domains WHERE domain IS NOT NULL',
     }
@@ -37,7 +37,7 @@ class Module(BaseModule):
                 for sub in subs:
                     query += f" -domain:{sub}.{domain}"
                 full_query = base_query + query
-                url = f"{base_url}?first={page*nr}&q={urllib.parse.quote_plus(full_query)}"
+                url = f"{base_url}?first={page*nr}&q={quote_plus(full_query)}"
                 # bing errors out at > 2059 characters not including the protocol
                 if len(url) > 2066: url = url[:2066]
                 self.verbose(f"URL: {url}")
