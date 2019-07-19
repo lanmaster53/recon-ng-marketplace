@@ -200,18 +200,18 @@
   path: recon/contacts-domains/migrate_contacts
   required_keys: []
   version: '1.0'
-- author: Tim Tomes (@lanmaster53)
+- author: Tim Tomes (@lanmaster53) and Cam Barts (@cam-barts)
   dependencies: []
   description: Harvests contact information and profiles from the fullcontact.com
     API using email addresses as input. Updates the 'contacts' and 'profiles' tables
     with the results.
   files: []
-  last_updated: '2019-06-24'
+  last_updated: '2019-07-19'
   name: FullContact Contact Enumerator
   path: recon/contacts-profiles/fullcontact
   required_keys:
   - fullcontact_api
-  version: '1.0'
+  version: '1.1'
 - author: Ethan Robish (@EthanRobish) and Tim Tomes (@lanmaster53)
   dependencies: []
   description: Decrypts hashes leaked from the 2013 Adobe breach. First, the module
