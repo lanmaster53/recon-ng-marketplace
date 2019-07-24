@@ -44,10 +44,10 @@ class Module(BaseModule):
                     first_name, middle_name, last_name = parse_name(name)
                     self.alert(name)
                 emails = [entity]
-                if len(resp.json()['details'].get('emails')):   # If json returns a non empty list
-                    for email in resp.json()['details'].get('emails'):
-                        emails.append(email)
-                        self.alert(email['value'])
+                new_emails = resp.json()['details'].get('emails') or []
+                for email in new_emails:
+                    emails.append(email['value'])
+                    self.alert(email['value'])
                 title = resp.json().get('title')
                 organization = resp.json().get('organization')
                 if title and organization:
@@ -62,11 +62,12 @@ class Module(BaseModule):
                 if region:
                     self.alert(region)
 
+                # insert contacts
                 for email in emails:
                     self.insert_contacts(first_name=first_name, middle_name=middle_name, last_name=last_name, title=title,
                                          email=email, region=region)
 
-                # parse profiles
+                # parse and insert profiles
                 for resource in ['twitter', 'linkedin', 'facebook']:
                     url = resp.json().get(resource)
                     if url:
