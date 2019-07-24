@@ -206,7 +206,7 @@
     API using email addresses as input. Updates the 'contacts' and 'profiles' tables
     with the results.
   files: []
-  last_updated: '2019-07-19'
+  last_updated: '2019-07-24'
   name: FullContact Contact Enumerator
   path: recon/contacts-profiles/fullcontact
   required_keys:
