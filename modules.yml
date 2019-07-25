@@ -1006,9 +1006,9 @@
   version: '1.1'
 - author: Cam Barts (@cam-barts)
   dependencies: []
-  description: Harvests Basic Contact Information from Bing based on LinkedIn profiles
+  description: Harvests Basic Contact Information from Bing based on LinkedIn profiles.
   files: []
-  last_updated: '2019-07-19'
+  last_updated: '2019-07-24'
   name: Bing LinkedIn Profile Contact Harvester
   path: recon/profiles-contacts/bing_linkedin_contacts
   required_keys:
