@@ -1014,3 +1014,13 @@
   required_keys:
   - bing_api
   version: '1.0'
+- author: Robert Frost (@frosty_1313, frosty[at]unluckyfrosty.net), Cam Barts (@cam-barts)
+  dependencies: []
+  description: Searches the MIT public PGP key server for email addresses of the given
+    domain. Updates the 'contacts' table with the results.
+  files: []
+  last_updated: '2019-08-04'
+  name: PGP Key Owner Lookup
+  path: recon/domains-contacts/pgp_search
+  required_keys: []
+  version: '1.1'
