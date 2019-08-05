@@ -285,6 +285,16 @@
   path: recon/domains-contacts/pen
   required_keys: []
   version: '1.0'
+- author: Robert Frost (@frosty_1313, frosty[at]unluckyfrosty.net) and Cam Barts (@cam-barts)
+  dependencies: []
+  description: Searches the MIT public PGP key server for email addresses of the given
+    domain. Updates the 'contacts' table with the results.
+  files: []
+  last_updated: '2019-08-04'
+  name: PGP Key Owner Lookup
+  path: recon/domains-contacts/pgp_search
+  required_keys: []
+  version: '1.0'
 - author: Tim Tomes (@lanmaster53)
   dependencies: []
   description: Uses the ARIN Whois RWS to harvest POC data from whois queries for
@@ -814,6 +824,16 @@
   path: recon/ports-hosts/migrate_ports
   required_keys: []
   version: '1.0'
+- author: Cam Barts (@cam-barts)
+  dependencies: []
+  description: Harvests Basic Contact Information from Bing based on LinkedIn profiles.
+  files: []
+  last_updated: '2019-07-24'
+  name: Bing LinkedIn Profile Contact Harvester
+  path: recon/profiles-contacts/bing_linkedin_contacts
+  required_keys:
+  - bing_api
+  version: '1.0'
 - author: Micah Hoffman (@WebBreacher)
   dependencies: []
   description: Searches public code repositories for information about a given username.
@@ -1002,25 +1022,5 @@
   last_updated: '2019-06-24'
   name: XML Report Generator
   path: reporting/xml
-  required_keys: []
-  version: '1.1'
-- author: Cam Barts (@cam-barts)
-  dependencies: []
-  description: Harvests Basic Contact Information from Bing based on LinkedIn profiles.
-  files: []
-  last_updated: '2019-07-24'
-  name: Bing LinkedIn Profile Contact Harvester
-  path: recon/profiles-contacts/bing_linkedin_contacts
-  required_keys:
-  - bing_api
-  version: '1.0'
-- author: Robert Frost (@frosty_1313, frosty[at]unluckyfrosty.net), Cam Barts (@cam-barts)
-  dependencies: []
-  description: Searches the MIT public PGP key server for email addresses of the given
-    domain. Updates the 'contacts' table with the results.
-  files: []
-  last_updated: '2019-08-04'
-  name: PGP Key Owner Lookup
-  path: recon/domains-contacts/pgp_search
   required_keys: []
   version: '1.1'
