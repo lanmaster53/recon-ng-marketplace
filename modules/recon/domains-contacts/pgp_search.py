@@ -12,7 +12,7 @@ class Module(BaseModule):
             "Inspiration from theHarvester.py by Christan Martorella: cmarorella[at]edge-seecurity.com",
         ),
         "query": "SELECT DISTINCT domain FROM domains WHERE domain IS NOT NULL",
-        "version": "1.1",
+        "version": "1.0",
     }
 
     def module_run(self, domains):
