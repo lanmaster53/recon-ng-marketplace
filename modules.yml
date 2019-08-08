@@ -110,7 +110,7 @@
   files: []
   last_updated: '2019-08-08'
   name: viewdns.info reverse whois domain harvester
-  path: custom/companies-domains/viewdns_reverse_whois
+  path: recon/companies-domains/viewdns_reverse_whois
   required_keys: []
   version: '1.0'
 - author: Tim Tomes (@lanmaster53)
