@@ -20,8 +20,8 @@ class Module(BaseModule):
 
     meta = {
         'name': 'FullContact Contact Enumerator',
-        'author': 'Tim Tomes (@lanmaster53)',
-        'version': '1.0',
+        'author': 'Tim Tomes (@lanmaster53) and Cam Barts (@cam-barts)',
+        'version': '1.1',
         'description': 'Harvests contact information and profiles from the fullcontact.com API using email addresses '
                        'as input. Updates the \'contacts\' and \'profiles\' tables with the results.',
         'required_keys': ['fullcontact_api'],
@@ -43,12 +43,11 @@ class Module(BaseModule):
                 if name:
                     first_name, middle_name, last_name = parse_name(name)
                     self.alert(name)
-                emails = resp.json()['details'].get('emails')
-                if emails:
-                    for email in emails:
-                        self.alert(email['value'])
-
-                # parse title
+                emails = [entity]
+                new_emails = resp.json()['details'].get('emails') or []
+                for email in new_emails:
+                    emails.append(email['value'])
+                    self.alert(email['value'])
                 title = resp.json().get('title')
                 organization = resp.json().get('organization')
                 if title and organization:
@@ -62,10 +61,13 @@ class Module(BaseModule):
                 region = resp.json().get('location')
                 if region:
                     self.alert(region)
-                self.insert_contacts(first_name=first_name, middle_name=middle_name, last_name=last_name, title=title,
-                                     email=email['value'], region=region)
 
-                # parse profiles
+                # insert contacts
+                for email in emails:
+                    self.insert_contacts(first_name=first_name, middle_name=middle_name, last_name=last_name, title=title,
+                                         email=email, region=region)
+
+                # parse and insert profiles
                 for resource in ['twitter', 'linkedin', 'facebook']:
                     url = resp.json().get(resource)
                     if url:
