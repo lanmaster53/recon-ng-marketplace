@@ -103,6 +103,16 @@
   path: recon/companies-domains/pen
   required_keys: []
   version: '1.0'
+- author: Gaetan Ferry (@_mabote_) from @synacktiv
+  dependencies: []
+  description: Harvests domain names belonging to a company by using the viewdns.info
+    free reverse whois tool.
+  files: []
+  last_updated: '2019-08-08'
+  name: viewdns.info reverse whois domain harvester
+  path: custom/companies-domains/viewdns_reverse_whois
+  required_keys: []
+  version: '1.0'
 - author: Tim Tomes (@lanmaster53)
   dependencies: []
   description: Uses the Github API to enumerate repositories and member profiles associated
