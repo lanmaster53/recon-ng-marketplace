@@ -42,11 +42,11 @@
   dependencies: []
   description: Imports values from a CSV file into a database table.
   files: []
-  last_updated: '2019-06-24'
+  last_updated: '2019-08-09'
   name: Advanced CSV File Importer
   path: import/csv_file
   required_keys: []
-  version: '1.0'
+  version: '1.1'
 - author: Tim Tomes (@lanmaster53)
   dependencies: []
   description: Imports values from a list file into a database table and column.

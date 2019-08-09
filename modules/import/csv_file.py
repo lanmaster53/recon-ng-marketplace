@@ -6,7 +6,7 @@ class Module(BaseModule):
     meta = {
         'name': 'Advanced CSV File Importer',
         'author': 'Ethan Robish (@EthanRobish)',
-        'version': '1.0',
+        'version': '1.1',
         'description': 'Imports values from a CSV file into a database table.',
         'comments': (
             'Only a few options are available until a valid filename is set. Then, the file is analyzed and more options become available for configuring where each CSV entry is imported.',
