@@ -109,7 +109,7 @@
     free reverse whois tool.
   files: []
   last_updated: '2019-08-08'
-  name: viewdns.info reverse whois domain harvester
+  name: Viewdns Reverse Whois Domain Harvester
   path: recon/companies-domains/viewdns_reverse_whois
   required_keys: []
   version: '1.0'
