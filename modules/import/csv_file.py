@@ -23,6 +23,7 @@ class Module(BaseModule):
 
     def __init__(self, *args, **kwargs):
         result = BaseModule.__init__(self, *args, **kwargs)
+        self.__option_prefix = 'CSV_'
         # stores the values read from the CSV file
         self.__values = []
         # keeps track of which module options correspond to which CSV column index
@@ -31,8 +32,8 @@ class Module(BaseModule):
         self.__init_options()
         return result
 
-    def do_set(self, *args, **kwargs):
-        BaseModule.do_set(self, *args, **kwargs)
+    def _do_options_set(self, *args, **kwargs):
+        BaseModule._do_options_set(self, *args, **kwargs)
         self.__init_options()
 
     def module_run(self):
@@ -45,7 +46,7 @@ class Module(BaseModule):
         # initialize it to a list the size of a row
         all_column_names = [None] * len(self.__values[0])
         for option in self.options:
-            if option.startswith('csv_'):
+            if option.startswith(self.__option_prefix):
                 index = self.__csv_indices[option]
                 all_column_names[index] = self.options[option]
 
@@ -129,7 +130,7 @@ class Module(BaseModule):
         quote = self.options['quote_character']
         values = []
 
-        with open(filename, 'rU') as infile:
+        with open(filename, newline='') as infile:
             # if sep is not a one character string, csv.reader will raise a TypeError
             if not quote:
                 csvreader = csv.reader(infile, delimiter=str(sep), quoting=csv.QUOTE_NONE)
@@ -139,8 +140,7 @@ class Module(BaseModule):
             # get each line from the file and separate it into columns based on sep
             for row in csvreader:
                 # append all lines as-is case-wise
-                # unicode(str, errors='ignore') causes all invalid characters to be stripped out
-                values.append([str(value.strip(), errors='ignore') for value in row])
+                values.append([value.strip() for value in row])
                 # ensure the number of columns in each row is the same as the previous row
                 if len(values) > 1:
                     assert len(values[-1]) == len(values[-2])
@@ -149,8 +149,8 @@ class Module(BaseModule):
 
     def __register_options(self):
         # remove any old csv-file options
-        for option in self.options.keys():
-            if option.startswith('csv_'):
+        for option in list(self.options.keys()):
+            if option.startswith(self.__option_prefix):
                 del self.options[option]
 
         # if there are no values, then there is nothing left to do
@@ -161,10 +161,10 @@ class Module(BaseModule):
         has_header = self.options['has_header']
 
         for i, header in enumerate(self.__values[0]):
-            prefix = 'csv_'
+            prefix = self.__option_prefix
             if has_header:
                 # TODO: use translate to map any bad characters to _
-                option_name = prefix + header.replace(' ', '_').lower()
+                option_name = prefix + header.replace(' ', '_').upper()
             else:
                 option_name = prefix + str(i)
 
