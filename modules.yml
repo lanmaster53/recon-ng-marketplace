@@ -28,16 +28,16 @@
   path: exploitation/injection/command_injector
   required_keys: []
   version: '1.0'
-- author: Tim Tomes (@lanmaster53)
+- author: Tim Tomes (@lanmaster53) & Justin Timko (@soloxdead)
   dependencies: []
   description: Exploits XPath injection flaws to enumerate the contents of serverside
     XML documents.
   files: []
-  last_updated: '2019-06-24'
+  last_updated: '2019-08-19'
   name: Xpath Injection Brute Forcer
   path: exploitation/injection/xpath_bruter
   required_keys: []
-  version: '1.0'
+  version: '1.1'
 - author: Ethan Robish (@EthanRobish)
   dependencies: []
   description: Imports values from a CSV file into a database table.
