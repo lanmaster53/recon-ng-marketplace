@@ -1034,3 +1034,114 @@
   path: reporting/xml
   required_keys: []
   version: '1.1'
+- author: J Nazario
+  dependencies: []
+  description: Retrieves the email address from the TLS certificates for a company.  Updates
+    the 'contacts' table with the results.
+  files: []
+  last_updated: '2019-08-22'
+  name: Censys hosts by domain
+  path: recon/companies-contacts/censys_email_address
+  required_keys: [censysio_id, censysio_secret]
+  version: 1.0
+- author: J Nazario
+  dependencies: []
+  description: Retrieves certificates for companies, and 'domains' tables with the
+    results.
+  files: []
+  last_updated: '2019-08-22'
+  name: Censys subdomains by company
+  path: recon/companies-domains/censys_subdomains
+  required_keys: [censysio_id, censysio_secret]
+  version: 1.0
+- author: J Nazario
+  dependencies: []
+  description: Harvests hosts from the Censys.IO API by using the 'autonomous_system.organization'
+    search operator. Updates the 'hosts' and the 'ports' tables with the results.
+  files: []
+  last_updated: '2019-08-22'
+  name: Censys hosts by company
+  path: recon/companies-hosts/censys_org
+  required_keys: [censysio_id, censysio_secret]
+  version: 1.0
+- author: J Nazario
+  dependencies: []
+  description: Retrieves the TLS certificates for a domain.  Updates the 'hosts' and
+    'ports' tables with the results.
+  files: []
+  last_updated: '2019-08-22'
+  name: Censys hosts by domain
+  path: recon/companies-hosts/censys_tls_subjects
+  required_keys: [censysio_id, censysio_secret]
+  version: 1.0
+- author: J Nazario
+  dependencies: []
+  description: Retrieves the TLS certificates for a domain. Updates the 'companies'
+    table with the values from the subject organization information.
+  files: []
+  last_updated: '2019-08-22'
+  name: Censys companies by domain
+  path: recon/domains-companies/censys_companies
+  required_keys: [censysio_id, censysio_secret]
+  version: 1.0
+- author: J Nazario
+  dependencies: []
+  description: Retrieves the MX, SMTPS, POP3S, and HTTPS records for a domain. Updates
+    the 'hosts' and the 'ports' tables with the results.
+  files: []
+  last_updated: '2019-08-22'
+  name: Censys hosts and subdomains by domain
+  path: recon/domains-hosts/censys_domain
+  required_keys: [censysio_id, censysio_secret]
+  version: 1.0
+- author: J Nazario
+  dependencies: []
+  description: Retrieves details for hosts matching an arbitrary Censys query.  Updates
+    the 'hosts', 'domains', and 'ports' tables with the results.
+  files: []
+  last_updated: '2019-08-22'
+  name: Censys hosts by search terms
+  path: recon/hosts-hosts/censys_query
+  required_keys: [censysio_id, censysio_secret]
+  version: 1.0
+- author: J Nazario
+  dependencies: []
+  description: Finds all IPs for a given hostname. Updates the "hosts" and "ports"
+    tables.
+  files: []
+  last_updated: '2019-08-22'
+  name: Censys hosts by hostname
+  path: recon/hosts-ports/censys_hostname
+  required_keys: [censysio_id, censysio_secret]
+  version: 1.0
+- author: J Nazario
+  dependencies: []
+  description: Retrieves the open ports for each IP address. Updates the 'ports' table
+    with the results.
+  files: []
+  last_updated: '2019-08-22'
+  name: Censys ports by IP
+  path: recon/hosts-ports/censys_ip
+  required_keys: [censysio_id, censysio_secret]
+  version: 1.0
+- author: J Nazario
+  dependencies: []
+  description: Harvests organizations from the Censys API by searching netblocks.
+    Updates the 'companies' table with the results.
+  files: []
+  last_updated: '2019-08-22'
+  name: Censys organizations by netblock
+  path: recon/netblocks-companies/censys_netblock_company
+  required_keys: [censysio_id, censysio_secret]
+  version: 1.0
+- author: J Nazario
+  dependencies: []
+  description: Harvests hosts and ports from the Censys API by using the 'ip' search
+    operator. Updates the 'hosts' and the 'ports' tables with the results.
+  files: []
+  last_updated: '2019-08-22'
+  name: Censys hosts by netblock
+  path: recon/netblocks-hosts/censys_netblock
+  required_keys: [censysio_id, censysio_secret]
+  version: 1.0
+
