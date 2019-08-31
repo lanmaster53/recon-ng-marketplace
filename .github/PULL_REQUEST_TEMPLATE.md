@@ -1,6 +1,6 @@
 **Before you submit a pull request, make sure you have completed the following:**
 - [ ] You have ensured there are no similar pull requests
-- [ ] You have read the [Development Guide]()
+- [ ] You have read the [Development Guide](https://github.com/lanmaster53/recon-ng/wiki/Development-Guide)
 
 
 **What kind of PR is this?**  
