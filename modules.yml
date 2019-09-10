@@ -189,17 +189,17 @@
   path: recon/contacts-credentials/hibp_breach                                      
   required_keys: [hibp_api]                                                         
   version: '1.1'                                                                    
-- author: Tim Tomes (@lanmaster53)
+- author: Tim Tomes (@lanmaster53) /v3 migration by Geoff Pamerleau (@_geoff_p_)
   dependencies: []
   description: Leverages the haveibeenpwned.com API to determine if email addresses
     have been published to various paste sites. Adds compromised email addresses to
     the 'credentials' table.
   files: []
-  last_updated: '2019-06-24'
+  last_updated: '2019-09-10'
   name: Have I been pwned? Paste Search
   path: recon/contacts-credentials/hibp_paste
-  required_keys: []
-  version: '1.0'
+  required_keys: [hibp_api]                                                         
+  version: '1.1'
 - author: Tim Tomes (@lanmaster53)
   dependencies: []
   description: Adds a new domain for all the hostnames associated with email addresses
