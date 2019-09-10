@@ -177,17 +177,18 @@
   path: recon/contacts-contacts/unmangle
   required_keys: []
   version: '1.0'
-- author: Tim Tomes (@lanmaster53) & Tyler Halfpop (@tylerhalfpop)
-  dependencies: []
-  description: Leverages the haveibeenpwned.com API to determine if email addresses
-    are associated with breached credentials. Adds compromised email addresses to
-    the 'credentials' table.
-  files: []
-  last_updated: '2019-06-24'
-  name: Have I been pwned? Breach Search
-  path: recon/contacts-credentials/hibp_breach
-  required_keys: []
-  version: '1.0'
+- author: Tim Tomes (@lanmaster53) & Tyler Halfpop (@tylerhalfpop) /v3 migration by 
+    Geoff Pamerleau (@_geoff_p)                                                     
+  dependencies: []                                                                  
+  description: Leverages the haveibeenpwned.com API to determine if email addresses 
+    are associated with breached credentials. Adds compromised email addresses to   
+    the 'credentials' table.                                                        
+  files: []                                                                         
+  last_updated: '2019-09-10'                                                        
+  name: Have I been pwned? Breach Search                                            
+  path: recon/contacts-credentials/hibp_breach                                      
+  required_keys: [hibp_api]                                                         
+  version: '1.1'                                                                    
 - author: Tim Tomes (@lanmaster53)
   dependencies: []
   description: Leverages the haveibeenpwned.com API to determine if email addresses
