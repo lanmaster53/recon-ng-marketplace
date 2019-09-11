@@ -6,7 +6,7 @@ class Module(BaseModule):
 
     meta = {
         'name': 'Have I been pwned? Breach Search',
-        'author': 'Tim Tomes (@lanmaster53) & Tyler Halfpop (@tylerhalfpop) /v3 migration by Geoff Pamerleau (@_geoff_p_)',
+        'author': 'Tim Tomes (@lanmaster53), Tyler Halfpop (@tylerhalfpop) and Geoff Pamerleau (@_geoff_p_)',
         'version': '1.1',
         'description': 'Leverages the haveibeenpwned.com API to determine if email addresses are associated with breached credentials. Adds compromised email addresses to the \'credentials\' table.',
         'comments': (
@@ -18,11 +18,11 @@ class Module(BaseModule):
 
     def module_run(self, accounts):
         # retrieve status
-        hdr = { 'hibp-api-key' : self.keys['hibp_api'] }
+        headers = {'hibp-api-key': self.keys['hibp_api']}
         base_url = 'https://haveibeenpwned.com/api/v3/{}/{}?truncateResponse=false'
         endpoint = 'breachedaccount'
         for account in accounts:
-            resp = self.request('GET', base_url.format(endpoint, quote_plus(account)), headers=hdr)
+            resp = self.request('GET', base_url.format(endpoint, quote_plus(account)), headers=headers)
             rcode = resp.status_code
             if rcode == 404:
                 self.verbose(f"{account} => Not Found.")
