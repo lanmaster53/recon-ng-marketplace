@@ -8,24 +8,24 @@ assignees: ''
 ---
 
 **Module Name**
-In which module does the bug exist?
+Which module is affected?
 https://github.com/lanmaster53/recon-ng-marketplace/tree/master/modules/[FILL ME IN]
 
-**Describe the bug**  
-\[A clear and concise description of what the bug is.\]
+**Bug Description**
+\[A clear and concise description of the bug.\]
 
-**To Reproduce**  
+**Steps to Reproduce**
 \[Steps to reproduce the behavior:
 1. Go to '...'
 2. Click on '....'
 3. Scroll down to '....'
 4. See error\]
 
-**Expected behavior**  
-\[A clear and concise description of what you expected to happen.\]
+**Expected Behavior**
+\[A clear and concise description of the expected behavior.\]
 
-**Screenshots**  
-\[If applicable, add screenshots to help explain your problem.\]
+**Screenshots**
+\[If applicable, screenshots to help explain the problem.\]
 
-**Additional context**  
-\[Add any other context about the problem here.\]
+**Additional Context**
+\[Any other context about the problem.\]
