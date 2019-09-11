@@ -177,8 +177,8 @@
   path: recon/contacts-contacts/unmangle
   required_keys: []
   version: '1.0'
-- author: Tim Tomes (@lanmaster53) & Tyler Halfpop (@tylerhalfpop) /v3 migration by 
-    Geoff Pamerleau (@_geoff_p_)                                                     
+- author: Tim Tomes (@lanmaster53), Tyler Halfpop (@tylerhalfpop) and Geoff
+    Pamerleau (@_geoff_p_)                                                     
   dependencies: []                                                                  
   description: Leverages the haveibeenpwned.com API to determine if email addresses 
     are associated with breached credentials. Adds compromised email addresses to   
@@ -189,7 +189,7 @@
   path: recon/contacts-credentials/hibp_breach                                      
   required_keys: [hibp_api]                                                         
   version: '1.1'                                                                    
-- author: Tim Tomes (@lanmaster53) /v3 migration by Geoff Pamerleau (@_geoff_p_)
+- author: Tim Tomes (@lanmaster53) and Geoff Pamerleau (@_geoff_p_)
   dependencies: []
   description: Leverages the haveibeenpwned.com API to determine if email addresses
     have been published to various paste sites. Adds compromised email addresses to
