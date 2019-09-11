@@ -7,16 +7,16 @@ assignees: ''
 
 ---
 
-**Is your feature request related to a tool? Please describe.**  
-\[A clear and concise description of what the tool is/does.\]
+**Is the feature request related to a tool? Please describe.**  
+\[A clear and concise description of the tool.\]
 
-**Does the tool have an api?**  
-\[If so, does the api require a key? Drop a link to the documentation.\]
+**Does the tool have a web API?**  
+\[If so, does the API require a key? Provide a link to the documentation.\]
 
-**Describe the module functionality you'd like**  
-\[A clear and concise description of what you want the module to do.\]
+**Describe the expected module functionality.**  
+\[A clear and concise description of what the module should do.\]
 - Expected input: 
 - Expected output: 
 
 **Additional context**  
-\[Add any other context or screenshots about the feature request here.\]
+\[Any other context or screenshots about the feature request.\]
