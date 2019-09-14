@@ -460,11 +460,11 @@
   description: Searches certificate transparency data from crt.sh, adding newly identified
     hosts to the hosts table.
   files: []
-  last_updated: '2019-06-24'
+  last_updated: '2019-09-13'
   name: Certificiate Transparency Search
   path: recon/domains-hosts/certificate_transparency
   required_keys: []
-  version: '1.0'
+  version: '1.1'
 - author: Pedro Rodrigues (@Pedro_SEC_R)
   dependencies: []
   description: Queries the FindSubDomain page for sub-domain information in a domain.

@@ -1,6 +1,7 @@
 from recon.core.module import BaseModule
 import json
 
+
 class Module(BaseModule):
 
     meta = {
@@ -23,4 +24,8 @@ class Module(BaseModule):
                 self.output(f"Invalid response for '{domain}'")
                 continue
             for cert in resp.json():
-                self.insert_hosts(cert.get('name_value'))
+                name = cert.get('name_value')
+                if '@' in name:
+                    self.insert_contacts(email=name)
+                else:
+                    self.insert_hosts(name)
