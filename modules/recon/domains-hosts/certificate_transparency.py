@@ -27,5 +27,6 @@ class Module(BaseModule):
                 name = cert.get('name_value')
                 if '@' in name:
                     self.insert_contacts(email=name)
+                    self.insert_hosts(name.split('@')[1])
                 else:
                     self.insert_hosts(name)
