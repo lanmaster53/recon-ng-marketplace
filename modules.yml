@@ -460,7 +460,7 @@
   description: Searches certificate transparency data from crt.sh, adding newly identified
     hosts to the hosts table.
   files: []
-  last_updated: '2019-09-13'
+  last_updated: '2019-09-16'
   name: Certificiate Transparency Search
   path: recon/domains-hosts/certificate_transparency
   required_keys: []
