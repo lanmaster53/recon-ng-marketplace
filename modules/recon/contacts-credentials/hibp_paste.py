@@ -10,8 +10,8 @@ class Module(BaseModule):
 
     meta = {
         'name': 'Have I been pwned? Paste Search',
-        'author': 'Tim Tomes (@lanmaster53)',
-        'version': '1.0',
+        'author': 'Tim Tomes (@lanmaster53) and Geoff Pamerleau (@_geoff_p_)',
+        'version': '1.1',
         'description': 'Leverages the haveibeenpwned.com API to determine if email addresses have been published to '
                        'various paste sites. Adds compromised email addresses to the \'credentials\' table.',
         'comments': (
@@ -19,6 +19,7 @@ class Module(BaseModule):
             'The HIBP API is rate limited to 1 request per 1.5 seconds.',
         ),
         'query': 'SELECT DISTINCT email FROM contacts WHERE email IS NOT NULL',
+        'required_keys': ['hibp_api'],
         'options': (
             ('download', True, True, 'download pastes'),
         ),
@@ -26,6 +27,7 @@ class Module(BaseModule):
 
     def module_run(self, accounts):
         # check back often for new paste sources
+        headers = {'hibp-api-key': self.keys['hibp_api']}
         sites = {
             'Pastebin': 'http://pastebin.com/raw.php?i={}',
             'Pastie': 'http://pastie.org/pastes/{}/text',
@@ -36,10 +38,10 @@ class Module(BaseModule):
             'AdHocUrl': '{}',
             }
         # retrieve status
-        base_url = 'https://haveibeenpwned.com/api/v2/{}/{}'
+        base_url = 'https://haveibeenpwned.com/api/v3/{}/{}'
         endpoint = 'pasteaccount'
         for account in accounts:
-            resp = self.request('GET', base_url.format(endpoint, quote_plus(account)))
+            resp = self.request('GET', base_url.format(endpoint, quote_plus(account)), headers=headers)
             rcode = resp.status_code
             if rcode == 404:
                 self.verbose(f"{account} => Not Found.")

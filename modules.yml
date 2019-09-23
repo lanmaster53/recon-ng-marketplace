@@ -177,28 +177,29 @@
   path: recon/contacts-contacts/unmangle
   required_keys: []
   version: '1.0'
-- author: Tim Tomes (@lanmaster53) & Tyler Halfpop (@tylerhalfpop)
-  dependencies: []
-  description: Leverages the haveibeenpwned.com API to determine if email addresses
-    are associated with breached credentials. Adds compromised email addresses to
-    the 'credentials' table.
-  files: []
-  last_updated: '2019-06-24'
-  name: Have I been pwned? Breach Search
-  path: recon/contacts-credentials/hibp_breach
-  required_keys: []
-  version: '1.0'
-- author: Tim Tomes (@lanmaster53)
+- author: Tim Tomes (@lanmaster53), Tyler Halfpop (@tylerhalfpop) and Geoff
+    Pamerleau (@_geoff_p_)                                                     
+  dependencies: []                                                                  
+  description: Leverages the haveibeenpwned.com API to determine if email addresses 
+    are associated with breached credentials. Adds compromised email addresses to   
+    the 'credentials' table.                                                        
+  files: []                                                                         
+  last_updated: '2019-09-10'                                                        
+  name: Have I been pwned? Breach Search                                            
+  path: recon/contacts-credentials/hibp_breach                                      
+  required_keys: [hibp_api]                                                         
+  version: '1.1'                                                                    
+- author: Tim Tomes (@lanmaster53) and Geoff Pamerleau (@_geoff_p_)
   dependencies: []
   description: Leverages the haveibeenpwned.com API to determine if email addresses
     have been published to various paste sites. Adds compromised email addresses to
     the 'credentials' table.
   files: []
-  last_updated: '2019-06-24'
+  last_updated: '2019-09-10'
   name: Have I been pwned? Paste Search
   path: recon/contacts-credentials/hibp_paste
-  required_keys: []
-  version: '1.0'
+  required_keys: [hibp_api]                                                         
+  version: '1.1'
 - author: Tim Tomes (@lanmaster53)
   dependencies: []
   description: Adds a new domain for all the hostnames associated with email addresses
@@ -459,11 +460,11 @@
   description: Searches certificate transparency data from crt.sh, adding newly identified
     hosts to the hosts table.
   files: []
-  last_updated: '2019-06-24'
+  last_updated: '2019-09-16'
   name: Certificiate Transparency Search
   path: recon/domains-hosts/certificate_transparency
   required_keys: []
-  version: '1.0'
+  version: '1.1'
 - author: Pedro Rodrigues (@Pedro_SEC_R)
   dependencies: []
   description: Queries the FindSubDomain page for sub-domain information in a domain.
