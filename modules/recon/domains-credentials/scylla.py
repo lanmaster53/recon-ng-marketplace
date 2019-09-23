@@ -22,17 +22,17 @@ class Module(BaseModule):
         for domain in domains:
             page = 0
             while True:
-                payload = {'q': f"Email:\"@{domain}\"", 'size': size, 'from': size*page}
+                payload = {'q': "email:domain", 'size': size, 'start': size*page}
                 resp = self.request('GET', base_url, params=payload, headers=headers)
                 if resp.status_code == 200:
                     creds = resp.json()
                     if not creds:
                         break
                     for cred in creds:
-                        leak = cred['_source'].get('Domain')
-                        username = cred['_source'].get('Email')
-                        password = cred['_source'].get('Password')
-                        passhash = cred['_source'].get('PassHash')
+                        leak = cred['domain']
+                        username = cred['email']
+                        password = cred['password']
+                        passhash = cred['hash']
                         self.insert_credentials(username=username, password=password, _hash=passhash, leak=leak)
                     page+=1
                 else:
