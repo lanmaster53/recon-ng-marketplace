@@ -32,5 +32,5 @@ class Module(BaseModule):
             else:
                 for breach in resp.json():
                     self.alert(f"{account} => Breach found! Seen in the {breach['Name']} breach that occurred on {breach['BreachDate']}.")
-                self.insert_credentials(account)
+                    self.insert_credentials(username=account, leak=breach['Name'])
             time.sleep(1.6)

@@ -188,7 +188,7 @@
   name: Have I been pwned? Breach Search                                            
   path: recon/contacts-credentials/hibp_breach                                      
   required_keys: [hibp_api]                                                         
-  version: '1.1'                                                                    
+  version: '1.2'
 - author: Tim Tomes (@lanmaster53) and Geoff Pamerleau (@_geoff_p_)
   dependencies: []
   description: Leverages the haveibeenpwned.com API to determine if email addresses
