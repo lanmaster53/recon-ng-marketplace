@@ -7,7 +7,7 @@ class Module(BaseModule):
     meta = {
         'name': 'Have I been pwned? Breach Search',
         'author': 'Tim Tomes (@lanmaster53), Tyler Halfpop (@tylerhalfpop) and Geoff Pamerleau (@_geoff_p_)',
-        'version': '1.1',
+        'version': '1.2',
         'description': 'Leverages the haveibeenpwned.com API to determine if email addresses are associated with '
                        'breached credentials. Adds compromised email addresses to the \'credentials\' table.',
         'comments': (
