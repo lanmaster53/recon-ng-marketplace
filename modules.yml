@@ -1035,3 +1035,13 @@
   path: reporting/xml
   required_keys: []
   version: '1.1'
+- author: Cam Barts (@cam-barts)
+  dependencies:
+  - beautifulsoup4
+  description: Checks names at advancedbackgroundchecks.com
+  files: []
+  last_updated: '2019-10-04'
+  name: Advance Background Check Lookup
+  path: recon/contacts-contacts/abc
+  required_keys: []
+  version: '1.0'
