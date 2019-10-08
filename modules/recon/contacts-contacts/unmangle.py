@@ -47,7 +47,7 @@ class Module(BaseModule):
         try:
             pattern = re.compile(regex)
         except RegexError:
-            self.error('Invalid regex specified. Please check your syntax and the resources listed in "show info"')
+            self.error('Invalid regex specified. Please check your syntax and the resources listed in "info"')
             return
         
         for contact in contacts:
