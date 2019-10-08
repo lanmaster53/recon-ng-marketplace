@@ -6,7 +6,7 @@ class Module(BaseModule):
 
     meta = {
         "name": "PGP Key Owner Lookup",
-        "author": "Robert Frost (@frosty_1313, frosty[at]unluckyfrosty.net), Cam Barts (@cam-barts)",
+        "author": "Robert Frost (@frosty_1313, frosty[at]unluckyfrosty.net) and Cam Barts (@cam-barts)",
         "description": "Searches the MIT public PGP key server for email addresses of the given domain. Updates the 'contacts' table with the results.",
         "comments": (
             "Inspiration from theHarvester.py by Christan Martorella: cmarorella[at]edge-seecurity.com",

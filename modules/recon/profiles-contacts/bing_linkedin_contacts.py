@@ -9,7 +9,7 @@ class Module(BaseModule, BingAPIMixin):
         "name": "Bing LinkedIn Profile Contact Harvester",
         "author": "Cam Barts (@cam-barts)",
         "version": "1.0",
-        "description": "Harvests Basic Contact Information from Bing based on LinkedIn profiles",
+        "description": "Harvests Basic Contact Information from Bing based on LinkedIn profiles.",
         "required_keys": ["bing_api"],
         "comments": (
             "Use Bing's top search results for LinkedIn urls to gather names, titles, and companies",

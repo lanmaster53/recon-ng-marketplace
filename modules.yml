@@ -33,11 +33,11 @@
   description: Exploits XPath injection flaws to enumerate the contents of serverside
     XML documents.
   files: []
-  last_updated: '2019-08-19'
+  last_updated: '2019-10-08'
   name: Xpath Injection Brute Forcer
   path: exploitation/injection/xpath_bruter
   required_keys: []
-  version: '1.1'
+  version: '1.2'
 - author: Ethan Robish (@EthanRobish)
   dependencies: []
   description: Imports values from a CSV file into a database table.
@@ -177,17 +177,18 @@
   path: recon/contacts-contacts/unmangle
   required_keys: []
   version: '1.0'
-- author: Tim Tomes (@lanmaster53), Tyler Halfpop (@tylerhalfpop) and Geoff
-    Pamerleau (@_geoff_p_)                                                     
-  dependencies: []                                                                  
-  description: Leverages the haveibeenpwned.com API to determine if email addresses 
-    are associated with breached credentials. Adds compromised email addresses to   
-    the 'credentials' table.                                                        
-  files: []                                                                         
-  last_updated: '2019-09-10'                                                        
-  name: Have I been pwned? Breach Search                                            
-  path: recon/contacts-credentials/hibp_breach                                      
-  required_keys: [hibp_api]                                                         
+- author: Tim Tomes (@lanmaster53), Tyler Halfpop (@tylerhalfpop) and Geoff Pamerleau
+    (@_geoff_p_)
+  dependencies: []
+  description: Leverages the haveibeenpwned.com API to determine if email addresses
+    are associated with breached credentials. Adds compromised email addresses to
+    the 'credentials' table.
+  files: []
+  last_updated: '2019-09-10'
+  name: Have I been pwned? Breach Search
+  path: recon/contacts-credentials/hibp_breach
+  required_keys:
+  - hibp_api
   version: '1.2'
 - author: Tim Tomes (@lanmaster53) and Geoff Pamerleau (@_geoff_p_)
   dependencies: []
@@ -198,8 +199,19 @@
   last_updated: '2019-09-10'
   name: Have I been pwned? Paste Search
   path: recon/contacts-credentials/hibp_paste
-  required_keys: [hibp_api]                                                         
+  required_keys:
+  - hibp_api
   version: '1.1'
+- author: Tim Tomes (@lanmaster53)
+  dependencies: []
+  description: Harvests credentials from the scylla.sh API using email addresses as
+    input. Updates the 'credentials' and 'contacts' tables with the results.
+  files: []
+  last_updated: '2019-09-11'
+  name: Scylla Targetted Credential Harvester
+  path: recon/contacts-credentials/scylla
+  required_keys: []
+  version: '1.0'
 - author: Tim Tomes (@lanmaster53)
   dependencies: []
   description: Adds a new domain for all the hostnames associated with email addresses
@@ -301,11 +313,11 @@
   description: Searches the MIT public PGP key server for email addresses of the given
     domain. Updates the 'contacts' table with the results.
   files: []
-  last_updated: '2019-08-04'
+  last_updated: '2019-10-08'
   name: PGP Key Owner Lookup
   path: recon/domains-contacts/pgp_search
   required_keys: []
-  version: '1.0'
+  version: '1.1'
 - author: Tim Tomes (@lanmaster53)
   dependencies: []
   description: Uses the ARIN Whois RWS to harvest POC data from whois queries for
@@ -390,6 +402,16 @@
   required_keys:
   - pwnedlist_api
   - pwnedlist_secret
+  version: '1.0'
+- author: Tim Tomes (@lanmaster53)
+  dependencies: []
+  description: Harvests credentials from the scylla.sh API using domains as input.
+    Updates the 'credentials' and 'contacts' tables with the results.
+  files: []
+  last_updated: '2019-09-11'
+  name: Scylla Bulk Credential Harvester
+  path: recon/domains-credentials/scylla
+  required_keys: []
   version: '1.0'
 - author: Marcus Watson (@BranMacMuffin)
   dependencies: []
@@ -839,12 +861,12 @@
   dependencies: []
   description: Harvests Basic Contact Information from Bing based on LinkedIn profiles.
   files: []
-  last_updated: '2019-07-24'
+  last_updated: '2019-10-08'
   name: Bing LinkedIn Profile Contact Harvester
   path: recon/profiles-contacts/bing_linkedin_contacts
   required_keys:
   - bing_api
-  version: '1.0'
+  version: '1.1'
 - author: Micah Hoffman (@WebBreacher)
   dependencies: []
   description: Searches public code repositories for information about a given username.
