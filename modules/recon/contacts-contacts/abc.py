@@ -11,7 +11,7 @@ class Module(BaseModule, ThreadingMixin):
         "name": "Advance Background Check Lookup",
         "author": "Cam Barts (@cam-barts)",
         "version": "1.0",
-        "description": "Checks names at advancedbackgroundchecks.com",
+        "description": "Checks names at advancedbackgroundchecks.com.",
         "dependencies": ["beautifulsoup4"],
         "comments": ("Inspiration drawn from @xillwillx skiptracer module https://github.com/xillwillx/skiptracer/blob/master/plugins/advance_background_checks.py"),
         "query": "SELECT DISTINCT first_name, last_name, region FROM contacts WHERE first_name IS NOT NULL AND last_name IS NOT NULL",
@@ -33,11 +33,10 @@ class Module(BaseModule, ThreadingMixin):
         self.thread(url_names)
 
     def module_thread(self, url_name):
-        headers = {"user-agent": "Mozilla/5.0 Chrome/77 Safari/537"}
         url = url_name[0]
         name = url_name[1].replace("-", " ")
 
-        resp = self.request("GET", url, headers=headers)
+        resp = self.request("GET", url)
         soup = BeautifulSoup(resp.content, features="html.parser")
 
         # Output number of results for person
@@ -56,7 +55,7 @@ class Module(BaseModule, ThreadingMixin):
         else:
             link = soup.find("a", attrs={"class": "link-to-details"})
             new_url = f"https://www.advancedbackgroundchecks.com{link['href']}"
-            person_resp = self.request("GET", new_url, headers=headers)
+            person_resp = self.request("GET", new_url)
             person_soup = BeautifulSoup(person_resp.content, features="html.parser")
 
             # Grab current address
