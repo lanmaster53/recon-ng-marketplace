@@ -146,6 +146,16 @@
   path: recon/companies-multi/whois_miner
   required_keys: []
   version: '1.0'
+- author: Cam Barts (@cam-barts)
+  dependencies:
+  - beautifulsoup4
+  description: Checks names at advancedbackgroundchecks.com.
+  files: []
+  last_updated: '2019-10-11'
+  name: Advance Background Check Lookup
+  path: recon/contacts-contacts/abc
+  required_keys: []
+  version: '1.0'
 - author: Tim Tomes (@lanmaster53)
   dependencies: []
   description: Leverages MailTester.com to validate email addresses.
