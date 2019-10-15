@@ -5,10 +5,10 @@ import re
 class Module(BaseModule):
 
     meta = {
-        'name': 'IANA Private Enterprise Number Company-by-Domain Lookup',
+        'name': 'IANA Private Enterprise Number Contact-by-Domain Lookup',
         'author': 'Jonathan M. Wilbur <jonathan@wilbur.space>',
-        'version': '1.0',
-        'description': 'Given a domain, finds a contact in the IANA Private Enterprise Number (PEN) registry whose email address ends with that domain. The domain is then added to the \'domains\' table.',
+        'version': '1.1',
+        'description': 'Given a domain, finds contacts in the IANA Private Enterprise Number (PEN) registry and adds them to the \'contacts\' table.',
         'required_keys': [],
         'comments': (),
         'query': 'SELECT DISTINCT domain FROM domains WHERE domain IS NOT NULL',

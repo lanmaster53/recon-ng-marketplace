@@ -7,8 +7,8 @@ class Module(BaseModule):
     meta = {
         'name': 'IANA Private Enterprise Number Contact Getter',
         'author': 'Jonathan M. Wilbur <jonathan@wilbur.space>',
-        'version': '1.0',
-        'description': 'Given a company name, gathers the registered IANA Private Enterprise Number (PEN) contact from the PEN registry. The contacts\'s full name and email address are then added to the \'contacts\' table.',
+        'version': '1.1',
+        'description': 'Given a company name, gathers the registered IANA Private Enterprise Number (PEN) contact from the PEN registry and adds the contacts\'s full name and email address to the \'contacts\' table.',
         'required_keys': [],
         'comments': (),
         'query': 'SELECT DISTINCT company FROM companies WHERE company IS NOT NULL',

@@ -6,7 +6,7 @@ class Module(BaseModule):
     meta = {
         'name': 'YouTube Geolocation Search',
         'author': 'Tim Tomes (@lanmaster53)',
-        'version': '1.0',
+        'version': '1.1',
         'description': 'Searches the YouTube API for media in the specified proximity to a location.',
         'required_keys': ['google_api'],
         'query': 'SELECT DISTINCT latitude || \',\' || longitude FROM locations WHERE latitude IS NOT NULL AND longitude IS NOT NULL',
@@ -18,7 +18,7 @@ class Module(BaseModule):
     def module_run(self, locations):
         self.api_key = self.keys.get('google_api')
         self.url = 'https://www.googleapis.com/youtube/v3/%s'
-        payload = {'part': 'snippet', 'type': 'video', 'key': self.api_key, 'locationRadius': f"{self.options['radius']}km", 'maxResults': 5}
+        payload = {'part': 'snippet', 'type': 'video', 'key': self.api_key, 'locationRadius': f"{self.options['radius']}km", 'maxResults': 50}
         for location in locations:
             self.heading(location, level=0)
             payload['location'] = location

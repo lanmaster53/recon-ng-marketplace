@@ -1,4 +1,5 @@
 from recon.core.module import BaseModule
+from recon.utils.parsers import parse_name
 import re
 
 
@@ -12,12 +13,11 @@ class Module(BaseModule):
             "Inspiration from theHarvester.py by Christan Martorella: cmarorella[at]edge-seecurity.com",
         ),
         "query": "SELECT DISTINCT domain FROM domains WHERE domain IS NOT NULL",
-        "version": "1.1",
+        "version": "1.2",
     }
 
     def module_run(self, domains):
-        # url = "http://pgp.mit.edu/pks/lookup"
-        url = "http://pool.sks-keyservers.net:11371"
+        url = "http://pool.sks-keyservers.net/pks/lookup"
         for domain in domains:
             self.heading(domain, level=0)
             payload = {"search": domain}
@@ -27,9 +27,9 @@ class Module(BaseModule):
             results = []
             for line in lines:
                 # remove parenthesized items
-                line = re.sub("\s*\(.*\)\s*", "", line)
+                line = re.sub(r'\s*\(.*\)\s*', '', line)
                 # parse out name and email address
-                match = re.search("^(.*)&lt;(.*)&gt;$", line)
+                match = re.search(r'^(.*)&lt;(.*)&gt;$', line)
                 if match:
                     # clean up and append the parsed elements
                     results.append(tuple([x.strip() for x in match.group(1, 2)]))
@@ -39,10 +39,10 @@ class Module(BaseModule):
                 continue
             for contact in results:
                 name = contact[0].strip()
-                fname, mname, lname = self.parse_name(name)
+                fname, mname, lname = parse_name(name)
                 email = contact[1]
                 if email.lower().endswith(domain.lower()):
-                    self.add_contacts(
+                    self.insert_contacts(
                         first_name=fname,
                         middle_name=mname,
                         last_name=lname,

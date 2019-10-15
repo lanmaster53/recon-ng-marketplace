@@ -1,5 +1,5 @@
 from recon.core.module import BaseModule
-from urllib.parse import quote_plus
+from urllib.parse import quote
 import ipaddress
 
 class Module(BaseModule):
@@ -7,7 +7,7 @@ class Module(BaseModule):
     meta = {
         'name': 'Whois Data Miner',
         'author': 'Tim Tomes (@lanmaster53)',
-        'version': '1.0',
+        'version': '1.1',
         'description': 'Uses the ARIN Whois RWS to harvest companies, locations, netblocks, and contacts associated with the given company search string. Updates the respective tables with the results.',
         'comments': (
             'Wildcard searches are allowed using the "*" character.',
@@ -22,7 +22,7 @@ class Module(BaseModule):
         headers = {'Accept': 'application/json'}
         for search in searches:
             for rtype in ('org', 'customer'):
-                url = f"http://whois.arin.net/rest/{rtype}s;name={quote_plus(search)}"
+                url = f"http://whois.arin.net/rest/{rtype}s;name={quote(search)}"
                 entities = self._request(url, headers, rtype+'s', rtype+'Ref')
                 for entity in entities:
                     self.heading(entity['@name'], level=0)
