@@ -6,24 +6,24 @@ import re
 class Module(BaseModule):
 
     meta = {
-        "name": "PGP Key Owner Lookup",
-        "author": "Robert Frost (@frosty_1313, frosty[at]unluckyfrosty.net) and Cam Barts (@cam-barts)",
-        "description": "Searches the MIT public PGP key server for email addresses of the given domain. Updates the 'contacts' table with the results.",
-        "comments": (
-            "Inspiration from theHarvester.py by Christan Martorella: cmarorella[at]edge-seecurity.com",
+        'name': 'PGP Key Owner Lookup',
+        'author': 'Robert Frost (@frosty_1313, frosty[at]unluckyfrosty.net) and Cam Barts (@cam-barts)',
+        'description': 'Searches the MIT public PGP key server for email addresses of the given domain. Updates the \'contacts\' table with the results.',
+        'comments': (
+            'Inspiration from theHarvester.py by Christan Martorella: cmarorella[at]edge-seecurity.com',
         ),
-        "query": "SELECT DISTINCT domain FROM domains WHERE domain IS NOT NULL",
-        "version": "1.2",
+        'query': 'SELECT DISTINCT domain FROM domains WHERE domain IS NOT NULL',
+        'version': '1.3',
     }
 
     def module_run(self, domains):
-        url = "http://pool.sks-keyservers.net/pks/lookup"
+        url = 'http://pgp.key-server.io/pks/lookup'
         for domain in domains:
             self.heading(domain, level=0)
-            payload = {"search": domain}
-            resp = self.request("GET", url, params=payload)
+            payload = {'search': domain}
+            resp = self.request('GET', url, params=payload)
             # split the response into the relevant lines
-            lines = [x.strip() for x in re.split("[\n<>]", resp.text) if domain in x]
+            lines = [x.strip() for x in re.split('[\n<>]', resp.text) if domain in x]
             results = []
             for line in lines:
                 # remove parenthesized items
@@ -35,7 +35,7 @@ class Module(BaseModule):
                     results.append(tuple([x.strip() for x in match.group(1, 2)]))
             results = list(set(results))
             if not results:
-                self.output("No results found.")
+                self.output('No results found.')
                 continue
             for contact in results:
                 name = contact[0].strip()
@@ -47,5 +47,5 @@ class Module(BaseModule):
                         middle_name=mname,
                         last_name=lname,
                         email=email,
-                        title="PGP key association",
+                        title='PGP key association',
                     )

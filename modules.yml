@@ -321,11 +321,11 @@
   description: Searches the MIT public PGP key server for email addresses of the given
     domain. Updates the 'contacts' table with the results.
   files: []
-  last_updated: '2019-10-15'
+  last_updated: '2019-10-16'
   name: PGP Key Owner Lookup
   path: recon/domains-contacts/pgp_search
   required_keys: []
-  version: '1.2'
+  version: '1.3'
 - author: Tim Tomes (@lanmaster53)
   dependencies: []
   description: Uses the ARIN Whois RWS to harvest POC data from whois queries for
