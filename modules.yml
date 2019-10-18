@@ -775,13 +775,13 @@
   dependencies: []
   description: Searches Twitter for media in the specified proximity to a location.
   files: []
-  last_updated: '2019-06-24'
+  last_updated: '2019-10-17'
   name: Twitter Geolocation Search
   path: recon/locations-pushpins/twitter
   required_keys:
   - twitter_api
   - twitter_secret
-  version: '1.0'
+  version: '1.1'
 - author: Tim Tomes (@lanmaster53)
   dependencies: []
   description: Searches the YouTube API for media in the specified proximity to a

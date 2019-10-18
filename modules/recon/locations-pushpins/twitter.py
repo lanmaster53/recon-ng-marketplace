@@ -7,7 +7,7 @@ class Module(BaseModule, TwitterMixin):
     meta = {
         'name': 'Twitter Geolocation Search',
         'author': 'Tim Tomes (@lanmaster53)',
-        'version': '1.0',
+        'version': '1.1',
         'description': 'Searches Twitter for media in the specified proximity to a location.',
         'required_keys': ['twitter_api', 'twitter_secret'],
         'query': 'SELECT DISTINCT latitude || \',\' || longitude FROM locations WHERE latitude IS NOT NULL AND longitude IS NOT NULL',
@@ -18,7 +18,6 @@ class Module(BaseModule, TwitterMixin):
 
     def module_run(self, points):
         rad = self.options['radius']
-        url = 'https://api.twitter.com/1.1/search/tweets.json'
         for point in points:
             self.heading(point, level=0)
             self.output('Collecting data for an unknown number of tweets...')
