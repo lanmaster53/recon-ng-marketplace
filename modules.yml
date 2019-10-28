@@ -182,11 +182,11 @@
     the database, pulling out the individual name components. Updates the 'contacts'
     table with the results.
   files: []
-  last_updated: '2019-06-24'
+  last_updated: '2019-10-27'
   name: Contact Name Unmangler
   path: recon/contacts-contacts/unmangle
   required_keys: []
-  version: '1.0'
+  version: '1.1'
 - author: Tim Tomes (@lanmaster53), Tyler Halfpop (@tylerhalfpop) and Geoff Pamerleau
     (@_geoff_p_)
   dependencies: []

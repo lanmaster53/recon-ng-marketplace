@@ -19,7 +19,7 @@ class Module(BaseModule):
     meta = {
         'name': 'Contact Name Unmangler',
         'author': 'Ethan Robish (@EthanRobish)',
-        'version': '1.0',
+        'version': '1.1',
         'description': 'Applies a regex or unmangle pattern to all of the contacts stored in the database, pulling out the individual name components. Updates the \'contacts\' table with the results.',
         'comments': (
             'Pattern can be either a regex or a pattern.',
@@ -47,7 +47,7 @@ class Module(BaseModule):
         try:
             pattern = re.compile(regex)
         except RegexError:
-            self.error('Invalid regex specified. Please check your syntax and the resources listed in "show info"')
+            self.error('Invalid regex specified. Please check your syntax and the resources listed in "info"')
             return
         
         for contact in contacts:
