@@ -172,7 +172,7 @@
     the database, pulling out the individual name components. Updates the 'contacts'
     table with the results.
   files: []
-  last_updated: '2019-10-09'
+  last_updated: '2019-10-27'
   name: Contact Name Unmangler
   path: recon/contacts-contacts/unmangle
   required_keys: []
