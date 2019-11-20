@@ -7,7 +7,7 @@ class Module(BaseModule, ShodanAPIMixin):
 
     meta = {
         'name': 'Shodan IP Enumerator',
-        'author': 'Tim Tomes (@lanmaster53) and Matt Puckett (@t3lc0)',
+        'author': 'Tim Tomes (@lanmaster53), Matt Puckett (@t3lc0) and Balakrishna Prasad Ganne (@aayush420)',
         'version': '1.1',
         'description': 'Harvests port information from the Shodan API by using the \'ip\' search operator. Updates the \'ports\' table with the results.',
         'required_keys': ['shodan_api'],
