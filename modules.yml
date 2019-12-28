@@ -555,16 +555,6 @@
   required_keys:
   - shodan_api
   version: '1.0'
-- author: Zach Grace (@ztgrace) zgrace@403labs.com and Bryan Onel (@BryanOnel86) onel@oneleet.com
-  dependencies: []
-  description: Uses the ssltools.com API to obtain the Subject Alternative Names for
-    a domain. Updates the 'hosts' table with the results.
-  files: []
-  last_updated: '2019-06-24'
-  name: SSL SAN Lookup
-  path: recon/domains-hosts/ssl_san
-  required_keys: []
-  version: '1.0'
 - author: mike2dot0
   dependencies: []
   description: Leverages the ThreatCrowd passive DNS API to discover hosts/subdomains.
