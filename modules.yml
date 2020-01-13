@@ -607,15 +607,6 @@
   version: '1.0'
 - author: Tim Tomes (@lanmaster53)
   dependencies: []
-  description: Checks XSSposed.com for XSS records associated with a domain.
-  files: []
-  last_updated: '2019-06-24'
-  name: XSSposed Domain Lookup
-  path: recon/domains-vulnerabilities/xssposed
-  required_keys: []
-  version: '1.0'
-- author: Tim Tomes (@lanmaster53)
-  dependencies: []
   description: Adds a new domain for all the hostnames stored in the 'hosts' table.
   files:
   - suffixes.txt
