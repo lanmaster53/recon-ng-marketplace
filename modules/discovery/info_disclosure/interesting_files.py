@@ -1,14 +1,14 @@
 from recon.core.module import BaseModule
 import warnings
 import gzip
-from io import StringIO
+from io import BytesIO
 
 class Module(BaseModule):
 
     meta = {
         'name': 'Interesting File Finder',
         'author': 'Tim Tomes (@lanmaster53), thrapt (thrapt@gmail.com), Jay Turla (@shipcod3), and Mark Jeffery',
-        'version': '1.0',
+        'version': '1.1',
         'description': 'Checks hosts for interesting files in predictable locations.',
         'comments': (
             'Files: robots.txt, sitemap.xml, sitemap.xml.gz, crossdomain.xml, phpinfo.php, test.php, elmah.axd, server-status, jmx-console/, admin-console/, web-console/',
@@ -26,7 +26,7 @@ class Module(BaseModule):
     }
 
     def uncompress(self, data_gz):
-        inbuffer = StringIO(data_gz)
+        inbuffer = BytesIO(data_gz.encode())
         data_ct = ''
         f = gzip.GzipFile(mode='rb', fileobj=inbuffer)
         try:
