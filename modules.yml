@@ -1056,3 +1056,13 @@
   path: reporting/xml
   required_keys: []
   version: '1.1'
+- author: Antonio (@aplneto)
+  dependencies: []
+  description: Import contacts found on domain search
+  files: []
+  last_updated: '2020-27-01'
+  name: Hunter.io Contact Founder
+  path: reporting/contacts-profiles/hunterio
+  required_keys:
+  - hunterio_api
+  version: '1.0'
