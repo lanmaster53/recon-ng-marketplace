@@ -11,23 +11,23 @@ class Module(BaseModule):
     meta = {
         'name': 'Netcraft Hostname Enumerator',
         'author': 'thrapt (thrapt@gmail.com)',
-        'version': '1.0',
+        'version': '1.1',
         'description': 'Harvests hosts from Netcraft.com. Updates the \'hosts\' table with the results.',
         'query': 'SELECT DISTINCT domain FROM domains WHERE domain IS NOT NULL',
     }
 
     def module_run(self, domains):
         url = 'http://searchdns.netcraft.com/'
-        pattern = r'<td align="left">\s*<a href="http://(.*?)/"'
+        pattern = r'results-table__host" href="http:\/\/(.*?)/"' 
         # answer challenge cookie
         cookiejar = CookieJar()
         payload = {'restriction': 'site+ends+with', 'host': 'test.com'}
         resp = self.request('GET', url, params=payload, cookies=cookiejar)
-        cookiejar = resp.cookiejar
+        cookiejar = resp.cookies
         for cookie in cookiejar:
             if cookie.name == 'netcraft_js_verification_challenge':
                 challenge = cookie.value
-                response = hashlib.sha1(unquote_plus(challenge)).hexdigest()
+                response = hashlib.sha1(unquote_plus(challenge).encode('utf-8')).hexdigest()
                 cookiejar.set_cookie(self.make_cookie('netcraft_js_verification_response', f"{response}", '.netcraft.com'))
                 break
         for domain in domains:
