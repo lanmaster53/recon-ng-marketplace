@@ -23,11 +23,11 @@ class Module(BaseModule):
         cookiejar = CookieJar()
         payload = {'restriction': 'site+ends+with', 'host': 'test.com'}
         resp = self.request('GET', url, params=payload, cookies=cookiejar)
-        cookiejar = resp.cookiejar
+        cookiejar = resp.cookies
         for cookie in cookiejar:
             if cookie.name == 'netcraft_js_verification_challenge':
                 challenge = cookie.value
-                response = hashlib.sha1(unquote_plus(challenge)).hexdigest()
+                response = hashlib.sha1(unquote_plus(challenge).encode('utf-8')).hexdigest()
                 cookiejar.set_cookie(self.make_cookie('netcraft_js_verification_response', f"{response}", '.netcraft.com'))
                 break
         for domain in domains:
