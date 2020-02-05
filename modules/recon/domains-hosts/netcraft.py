@@ -18,7 +18,7 @@ class Module(BaseModule):
 
     def module_run(self, domains):
         url = 'http://searchdns.netcraft.com/'
-        pattern = r'<td align="left">\s*<a href="http://(.*?)/"'
+        pattern = r'<a class="results-table__host" href="http://(.*?)/"'
         # answer challenge cookie
         cookiejar = CookieJar()
         payload = {'restriction': 'site+ends+with', 'host': 'test.com'}
