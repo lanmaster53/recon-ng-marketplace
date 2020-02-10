@@ -4,23 +4,17 @@ from recon.core.framework import FrameworkException
 class Module(BaseModule):
     meta = {
         "name": "Hunter.io Domain",
-        "author": "super choque",
-        "version": "0.1",
-        "description": "Uses hunter.io to catch e-mails from a domain",
+        "author": "aplneto",
+        "version": "1.0",
+        "description": "Uses hunter.io to find e-mails from given domains",
         "dependencies": [],
         "files": [],
-        "required_keys": ['hunterio_api'],
+        "required_keys": ['hunter_io'],
         "query":"SELECT DISTINCT domain FROM domains WHERE domain IS NOT NULL"
     }
-
-    def __init__(self, params, query=None):
-        BaseModule.__init__(self, params, query=query)
-
-        self.__key = None
-        self.__uri = ""
     
     def module_run(self, domains):
-        self.__key = self.keys['hunterio_api']
+        self.__key = self.keys['hunter_io']
 
         if self.__key is None:
             self.alert("No api key detect, using trial mode instead")
@@ -49,10 +43,11 @@ class Module(BaseModule):
             }
 
             response = self.request(
-                self.__uri, method="GET", payload=baseparams
+                "GET", self.__uri, params=baseparams
             )
 
-            information = response.json
+
+            information = response.json()
 
             if response.status_code != 200:
                 self.error(
@@ -87,14 +82,4 @@ class Module(BaseModule):
                 "region": region,
                 "title": "Hunter.io Contact"
             }
-            self.add_contacts(**contact)
-            
-            if registry["linkedin"] is not None:
-                self.add_profiles(username=registry["linkedin"],
-                category="linkedin")
-            if registry["twitter"] is not None:
-                self.add_profiles(username=registry["twitter"],
-                category="twitter")
-            if registry["phone_number"] is not None:
-                self.add_profiles(resource=registry["phone_number"],
-                category="phone_number")
+            self.insert_contacts(**contact)

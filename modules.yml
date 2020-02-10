@@ -1056,13 +1056,12 @@
   path: reporting/xml
   required_keys: []
   version: '1.1'
-- author: Antonio (@aplneto)
+- author: Super Choque
   dependencies: []
-  description: Import contacts found on domain search
+  description: Uses hunter.io to catch e-mails from a domain
   files: []
-  last_updated: '2020-27-01'
-  name: Hunter.io Contact Founder
-  path: reporting/contacts-profiles/hunterio
-  required_keys:
-  - hunterio_api
-  version: '1.0'
+  last_updated: '2020-02-10'
+  name: Hunter.io Domain
+  path: new/hunterio/hunter
+  required_keys: [hunter_io]
+  version: '0.1'
