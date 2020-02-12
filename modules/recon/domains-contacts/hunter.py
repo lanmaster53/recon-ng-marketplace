@@ -1,7 +1,9 @@
 from recon.core.module import BaseModule
 from recon.core.framework import FrameworkException
 
+
 class Module(BaseModule):
+
     meta = {
         "name": "Hunter.io Domain",
         "author": "Super choque",
@@ -10,9 +12,9 @@ class Module(BaseModule):
         "dependencies": [],
         "files": [],
         "required_keys": ['hunter_io'],
-        "query":"SELECT DISTINCT domain FROM domains WHERE domain IS NOT NULL"
+        "query": "SELECT DISTINCT domain FROM domains WHERE domain IS NOT NULL"
     }
-    
+
     def module_run(self, domains):
         self.__key = self.keys['hunter_io']
 
@@ -21,7 +23,7 @@ class Module(BaseModule):
             self.__uri = "https://api.hunter.io/trial/v2/domain-search"
         else:
             self.__uri = "https://api.hunter.io/v2/domain-search"
-        
+
         for domain in domains:
             self.__search_domain(domain)
 
@@ -46,14 +48,13 @@ class Module(BaseModule):
                 "GET", self.__uri, params=baseparams
             )
 
-
             information = response.json()
 
             if response.status_code != 200:
                 self.error(
-                    "Something went wrong!\n"+
+                    "Something went wrong!\n" +
                     "status code {} for domain \"{}\"".format(
-                        response.status_code, domain                    
+                        response.status_code, domain
                     )
                 )
                 self.debug(information)
@@ -65,14 +66,15 @@ class Module(BaseModule):
 
                 offset += 100
 
-            if first_query: first_query = False
+            if first_query:
+                first_query = False
 
         self.verbose("{} people found for {}".format(results, domain))
-    
+
     def process_data(self, data):
         country = data['country']
         region = data['state']
-        
+
         for registry in data['emails']:
             contact = {
                 "first_name": registry["first_name"],
