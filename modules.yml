@@ -293,6 +293,15 @@
   path: recon/domains-companies/pen
   required_keys: []
   version: '1.1'
+- author: Super Choque (@aplneto)
+  dependencies: []
+  description: Uses Hunter.io to find email addresses for given domains.
+  files: []
+  last_updated: '2020-04-06'
+  name: Hunter.io Email Address Harvester
+  path: recon/domains-contacts/hunter
+  required_keys: [hunter_io]
+  version: '0.1'
 - author: Tim Tomes (@lanmaster53)
   dependencies:
   - olefile
@@ -1056,12 +1065,3 @@
   path: reporting/xml
   required_keys: []
   version: '1.1'
-- author: Super Choque
-  dependencies: []
-  description: Uses hunter.io to catch e-mails from a domain
-  files: []
-  last_updated: '2020-02-10'
-  name: Hunter.io Domain
-  path: new/hunterio/hunter
-  required_keys: [hunter_io]
-  version: '0.1'
