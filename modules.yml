@@ -299,7 +299,7 @@
   files: []
   last_updated: '2020-04-06'
   name: Hunter.io Email Address Harvester
-  path: recon/domains-contacts/hunter
+  path: recon/domains-contacts/hunter_io
   required_keys: [hunter_io]
   version: '0.1'
 - author: Tim Tomes (@lanmaster53)
