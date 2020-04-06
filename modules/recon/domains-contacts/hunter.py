@@ -5,10 +5,10 @@ from recon.core.framework import FrameworkException
 class Module(BaseModule):
 
     meta = {
-        "name": "Hunter.io Domain",
-        "author": "Super choque",
+        "name": "Hunter.io Email Address Harvester",
+        "author": "Super Choque (@aplneto)",
         "version": "1.0",
-        "description": "Uses hunter.io to find e-mails from given domains",
+        "description": "Uses Hunter.io to find email addresses for given domains.",
         "dependencies": [],
         "files": [],
         "required_keys": ['hunter_io'],
