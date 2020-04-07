@@ -56,6 +56,16 @@
   path: import/list
   required_keys: []
   version: '1.0'
+- author: Ryan Hays (@_ryanhays)
+  dependencies: []
+  description: Imports hosts and ports into the respective databases from Masscan
+    XML output.
+  files: []
+  last_updated: '2020-04-07'
+  name: Masscan XML Output Importer
+  path: import/masscan
+  required_keys: []
+  version: '1.0'
 - author: Ryan Hays
   dependencies: []
   description: Imports hosts and ports into the respective databases from Nmap XML
