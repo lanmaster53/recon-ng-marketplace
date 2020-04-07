@@ -4,7 +4,7 @@ from lxml.html import fromstring
 from http.cookiejar import CookieJar
 import json
 import os
-from urllib.parse import urlparse, parse_qs
+from urllib.parse import urlparse, parse_qs, unquote_plus
 
 def _optionize(s):
     return 'ghdb_%s' % (s.replace(' ', '_').lower())
@@ -24,23 +24,25 @@ class YahooWebMixin(object):
         query = self._search_operators_google_to_yahoo(query)
         params = { 'p': query, 'fr2': 'sb-top', 'fr': 'yfp-t', 'fp': 1 }
         domain = [ word for word in query.split() if word.find('site:') != -1 ][0][5:]
+        headers = {'user-agent': self.user_agent}
         results = []
         self.verbose('Searching Yahoo for: %s' % (query))
         
         try:
-            resp = self.request('GET', url, params=params, cookiejar=self.cookiejar, redirect=False, agent=self.user_agent)
+            resp = self.request('GET', url, params=params, headers=headers, cookies=self.cookiejar, allow_redirects=False)
             if resp.status_code != 200:
                 self.error('Yahoo encountered an unknown error.')
                 return results
         except:
+            import ipdb;ipdb.set_trace()
             self.error('Yahoo encountered an unknown error.')
             return results
 
         tree = fromstring(resp.text)
         links = tree.xpath('//div[@id="web"]//ol/li//h3/a/@href')
         for link in links:
-            if urlparse.urlparse(link).netloc.find(domain) != -1:
-                results.append( urllib.unquote_plus( link ) )
+            if urlparse(link).netloc.find(domain) != -1:
+                results.append( unquote_plus( link ) )
         return results
 
     def _search_operators_google_to_yahoo(self, query):
@@ -92,8 +94,8 @@ class Module(BaseModule, YahooWebMixin):
                         continue
                     if self.options[_optionize(dork['category'])]:
                         # parse the query string to extract the dork syntax
-                        parsed = urlparse.urlparse(dork['querystring'])
-                        params = urlparse.parse_qs(parsed.query)
+                        parsed = urlparse(dork['querystring'])
+                        params = parse_qs(parsed.query)
                         # unparsable url
                         if 'q' not in params:
                             continue
@@ -102,7 +104,7 @@ class Module(BaseModule, YahooWebMixin):
 
     def _search(self, query):
         for result in self.search_yahoo_web(query):
-            host = urlparse.urlparse(result).netloc
+            host = urlparse(result).netloc
             data = {
                 'host': host,
                 'reference': query,
