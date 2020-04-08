@@ -7,8 +7,10 @@ class Module(BaseModule):
 
     meta = {
         'name': 'Hosts to Netblock Migrator',
-        'Author': 'Andrey Zhukov from USSC',
+        'author': 'Andrey Zhukov from USSC',
+        'version': '1.0',
         'description': 'Finding subnets through Whois relying on IP addresses from \'table\' table',
+        'dependencies': ['ipwhois'],
         'comments': (
             '',
         ),
