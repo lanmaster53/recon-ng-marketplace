@@ -1,26 +1,18 @@
-#!/usr/bin/env python3
-
-
 # module specific imports
 from recon.core.module import BaseModule
-from recon.mixins.threads import ThreadingMixin
-import os
-import sys
-import time
 import re
-import requests
+import time
 from bs4 import BeautifulSoup
-import pandas as pd
 
 
-class Module(BaseModule, ThreadingMixin):
+class Module(BaseModule):
 
     meta = {
         'name': 'WikiLeaker',
         'author': 'Joe Gray (@C_3PJoe)',
         'version': '1.0',
         'description': 'A WikiLeaks scraper inspired by the Datasploit module previously written in Python2.',
-        'dependencies': ['pandas', 're', 'requests', 'time', 'sys', 'bs4'],
+        'dependencies': ['bs4'],
         'query': 'SELECT DISTINCT domain FROM domains WHERE domain IS NOT NULL',
         #   'comments': ('This module, inspired by the module written in Python2 as part of Datasploit, searches Wikileaks for leaks containing the subject domain. If anything is found, this module will seek to parse out the URL, Sender Email, Date, Leak, and Subject of the email. This will upate the \'Contacts\' table with the results.'),
     }
@@ -38,7 +30,6 @@ class Module(BaseModule, ThreadingMixin):
             self.verbose(URL)
             REQ_VAR = self.request('GET', URL)
             time.sleep(1)
-            wiki_df = pd.DataFrame(columns=['Date', 'Sender', 'Subject', 'URL', 'Leak'])
             soup_var = BeautifulSoup(REQ_VAR.content, "lxml")
             divtag_var = soup_var.findAll('div', {'class': 'result'})
             for a in divtag_var:
@@ -53,13 +44,8 @@ class Module(BaseModule, ThreadingMixin):
                     sendr_var = sendr1_var
                 elif sendr2_var:
                     sendr_var = sendr2_var
-                wiki_df = wiki_df.append({'Date': date_var, 'Sender': sendr_var, 'Subject': subj_var, 'URL': url_var, 'Leak': leak_var}, ignore_index=True, sort=True)
-            for index, r in wiki_df.iterrows():
-                date_var = r['Date']
-                sendr_var = r['Sender']
-                subj_var = r['Subject']
-                url_var = r['URL']
-                leak_var = r['Leak']
+                sendr3_var = re.sub(r'\[\'', '', sendr_var)
+                sendr_var = re.sub(r'\'\]', '', sendr3_var)
                 self.alert(f'Leak: {leak_var}')
                 self.output(f'URL: {url_var}')
                 self.verbose(f'Date: {date_var}')
