@@ -7,7 +7,7 @@ class Module(BaseModule):
     meta = {
         "name": "Hunter.io Email Address Harvester",
         "author": "Super Choque (@aplneto)",
-        "version": "1.0",
+        "version": "0.1",
         "description": "Uses Hunter.io to find email addresses for given domains.",
         "dependencies": [],
         "files": [],
