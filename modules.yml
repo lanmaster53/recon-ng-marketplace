@@ -1067,17 +1067,12 @@
   version: '1.1'
 - author: Joe Gray (@C_3PJoe)
   dependencies:
-  - pandas
-  - re
-  - requests
-  - time
-  - sys
   - bs4
   description: A WikiLeaks scraper inspired by the Datasploit module previously written
     in Python2.
   files: []
-  last_updated: '2020-04-05'
+  last_updated: '2020-04-08'
   name: WikiLeaker
-  path: pwn/wikileaker
+  path: domains-contacts/wikileaker
   required_keys: []
   version: '1.0'
