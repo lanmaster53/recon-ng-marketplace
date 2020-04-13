@@ -875,6 +875,16 @@
   path: recon/ports-hosts/migrate_ports
   required_keys: []
   version: '1.0'
+- author: Ryan Hays
+  dependencies: []
+  description: Connects to a Host and pulls the Subject Alternative Names from the
+    IP Address and Port combination.
+  files: []
+  last_updated: '2019-06-04'
+  name: SSL Scanner SAN Lookup
+  path: recon/ports-hosts/ssl_scan
+  required_keys: []
+  version: '1.0'
 - author: Cam Barts (@cam-barts)
   dependencies: []
   description: Harvests Basic Contact Information from Bing based on LinkedIn profiles.
