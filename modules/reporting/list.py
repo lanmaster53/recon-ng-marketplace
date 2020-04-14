@@ -21,7 +21,7 @@ class Module(BaseModule):
     def module_run(self):
         filename = self.options['filename']
         with codecs.open(filename, 'wb', encoding='utf-8') as outfile:
-            # handle the source of information for the report
+            # Handle the source of information for the report.
             column = self.options['column']
             table = self.options['table']
             nulls = f' WHERE "{column}" IS NOT NULL' if not self.options['nulls'] else ''
