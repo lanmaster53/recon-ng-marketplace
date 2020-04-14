@@ -355,6 +355,15 @@
   path: recon/domains-contacts/whois_pocs
   required_keys: []
   version: '1.0'
+- author: Joe Gray (@C_3PJoe)
+  description: A WikiLeaks scraper inspired by the Datasploit module previously written
+    in Python2.
+  files: []
+  last_updated: '2020-04-08'
+  name: WikiLeaker
+  path: domains-contacts/wikileaker
+  required_keys: []
+  version: '1.0'
 - author: Tim Tomes (@lanmaster53)
   dependencies:
   - pyaes
@@ -1075,14 +1084,3 @@
   path: reporting/xml
   required_keys: []
   version: '1.1'
-- author: Joe Gray (@C_3PJoe)
-  dependencies:
-  - bs4
-  description: A WikiLeaks scraper inspired by the Datasploit module previously written
-    in Python2.
-  files: []
-  last_updated: '2020-04-08'
-  name: WikiLeaker
-  path: domains-contacts/wikileaker
-  required_keys: []
-  version: '1.0'

@@ -1,8 +1,9 @@
 # module specific imports
-from recon.core.module import BaseModule
 import re
 import time
-from bs4 import BeautifulSoup
+
+import lxml.html
+from recon.core.module import BaseModule
 
 
 class Module(BaseModule):
@@ -11,44 +12,49 @@ class Module(BaseModule):
         'name': 'WikiLeaker',
         'author': 'Joe Gray (@C_3PJoe)',
         'version': '1.0',
-        'description': 'A WikiLeaks scraper inspired by the Datasploit module previously written in Python2.',
-        'dependencies': ['bs4'],
+        'description': 'A WikiLeaks scraper inspired by the Datasploit module previously written in Python2. It '
+                       'searches Wikileaks for leaks containing the subject domain. If anything is found, this module will '
+                       'seek to parse out the URL, Sender Email, Date, Leak, and Subject of the email. This will update '
+                       'the \'Contacts\' table with the results.',
         'query': 'SELECT DISTINCT domain FROM domains WHERE domain IS NOT NULL',
-        #   'comments': ('This module, inspired by the module written in Python2 as part of Datasploit, searches Wikileaks for leaks containing the subject domain. If anything is found, this module will seek to parse out the URL, Sender Email, Date, Leak, and Subject of the email. This will upate the \'Contacts\' table with the results.'),
     }
 
     def module_run(self, domains):
-        URL_REGEX = re.compile(r"\<h4\>\<a\shref\=\"(?P<URL>https\:\/\/wikileaks\.org\S+)\"\>")
-        SUBJ_REGEX = re.compile(r"\<h4\>\<a\shref\=\"https\:\/\/wikileaks\.org\S+\"\>\s(?P<subj>\S.+)\<\/a")
-        SENDR1_REGEX = re.compile(r"email\:\s(?P<sender>\S.+\@\S.+\.\w{3}) ")
-        SENDR2_REGEX = re.compile(r"email\:\s(?P<sender>\S+[\.|\<b\>]\w+)\<\/b\>")
-        LEAK_REGEX = re.compile(r"leak\-label\"\>\n\<div\>\<b\>(?P<date>\S.+)\<\/b\>")
-        DATE_REGEX = re.compile(r"Created\<br\/>\n\<span\>(?P<date>\d{4}\-\d{2}\-\d{2})")
         for domain in domains:
-            DOMAIN = domain
-            URL = 'https://search.wikileaks.org/?query=&exact_phrase='+DOMAIN+'&include_external_sources=True&order_by=newest_document_date'
-            self.verbose(URL)
-            REQ_VAR = self.request('GET', URL)
-            time.sleep(1)
-            soup_var = BeautifulSoup(REQ_VAR.content, "lxml")
-            divtag_var = soup_var.findAll('div', {'class': 'result'})
-            for a in divtag_var:
-                url_var = URL_REGEX.findall(str(a))
-                date_var = DATE_REGEX.findall(str(a))
-                subj_var = SUBJ_REGEX.findall(str(a))
-                sendr1_var = SENDR1_REGEX.findall(str(a))
-                sendrx_var = SENDR2_REGEX.findall(str(a))
-                leak_var = LEAK_REGEX.findall(str(a))
-                sendr2_var = re.sub(r'\<b\>', '', str(sendrx_var))
-                if sendr1_var:
-                    sendr_var = sendr1_var
-                elif sendr2_var:
-                    sendr_var = sendr2_var
-                sendr3_var = re.sub(r'\[\'', '', sendr_var)
-                sendr_var = re.sub(r'\'\]', '', sendr3_var)
-                self.alert(f'Leak: {leak_var}')
-                self.output(f'URL: {url_var}')
-                self.verbose(f'Date: {date_var}')
-                self.verbose(f'Sender: {sendr_var}')
-                self.verbose(f'Subject: {subj_var}')
-                self.insert_contacts(email=sendr_var)
+            page_count = 1
+            while True:
+                URL = 'https://search.wikileaks.org/?query=&exact_phrase=' + domain + \
+                      '&include_external_sources=True&order_by=newest_document_date&page=' + str(page_count)
+                self.verbose(URL)
+                resp = self.request('GET', URL)
+                time.sleep(1)
+                if resp.status_code != 200:
+                    self.alert('An error occurred: ' + str(resp.status_code))
+                    break
+                else:
+                    root = lxml.html.fromstring(resp.text)
+                    search_data = root.xpath('//div[@class="result"]')
+
+                    if len(search_data) > 0:
+                        for i in search_data:
+                            link = i.xpath("concat(div/h4/a[contains(@href, '/emails/emailid/')]/@href, '')").strip()
+
+                            if link:
+                                subject = i.xpath("concat(div/h4/a, '')").strip()
+                                leak = i.xpath("concat(div/div[@class='leak-label'], '')").strip()
+                                created = i.xpath("concat(div/div[@class='dates']/div[@class='date' and contains(text(), 'Created')]/span, '')").strip()
+                                excerpt = i.xpath("concat(div[@class='info']/div[@class='excerpt'], '')").strip()
+
+                                emails = re.findall("email:\\xa0([a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+)", excerpt)
+
+                                for email in emails:
+                                    self.alert(f'Leak: {leak}')
+                                    self.output(f'URL: {link}')
+                                    self.verbose(f'Date: {created}')
+                                    self.verbose(f'Sender: {email.strip()}')
+                                    self.verbose(f'Subject: {subject}')
+                                    self.insert_contacts(email=email.strip(), notes=link)
+                    else:
+                        break
+
+                page_count += 1
