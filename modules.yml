@@ -356,6 +356,7 @@
   required_keys: []
   version: '1.0'
 - author: Joe Gray (@C_3PJoe)
+  dependencies: []
   description: A WikiLeaks scraper inspired by the Datasploit module previously written
     in Python2.
   files: []
