@@ -28,7 +28,6 @@ class Module(BaseModule):
             for cert in resp.json():
                 for host in cert.get('name_value').split():
                     if '@' in host:
-                        # NOTE: This statement is UNTESTED since the last change.
                         self.insert_contacts(email=host)
                         self.insert_hosts(host.split('@')[1])
                     else:
