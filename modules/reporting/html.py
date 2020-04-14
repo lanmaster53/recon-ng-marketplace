@@ -41,9 +41,9 @@ class Module(BaseModule):
         filename = self.options['filename']
         with codecs.open(filename, 'wb', encoding='utf-8') as outfile:
             table_content = ''
-            # html template
+            # html template.
             template = open(os.path.join(self.data_path, 'template_html.html')).read()
-            # custom summary results table
+            # Custom summary results table.
             table_show = '<a id="show-summary" href="javascript:showhide(\'summary\');"><p>[+] Summary</p></a>'
             table_hide = '<a id="hide-summary" href="javascript:showhide(\'summary\');"><p>[-] Summary</p><hr></a>'
             tables = self.get_tables()
@@ -56,11 +56,11 @@ class Module(BaseModule):
                 count = self.query(query)[0][0]
                 row_content += f'<tr><td>{table}</td><td class="centered">{count}</td></tr>\n'
             table_content += f'<div class="container">\n{table_show}\n{table_hide}\n<table id="summary">\n{row_headers}\n{row_content}</table>\n</div><br />\n'
-            # main content tables
+            # Main content tables.
             tables = ['domains', 'companies', 'netblocks', 'locations', 'hosts', 'contacts', 'credentials']
             for table in tables:
                 table_content += self.build_table(table)
-            # table of leaks associated with credentials
+            # Table of leaks associated with credentials.
             leaks = self.query('SELECT DISTINCT leak FROM credentials WHERE leak IS NOT NULL')
             if leaks:
                 if self.query('SELECT COUNT(*) FROM leaks')[0][0]:
@@ -79,8 +79,8 @@ class Module(BaseModule):
                     table_content += '</div>\n</div><br />'
                 else:
                     self.output('Associated leak data omitted. Please run the \'leaks_dump\' module to populate the database and try again.')
-            # all other tables
-            # build exclusions list by extending the list from above
+            # All other tables.
+            # Build exclusions list by extending the list from above.
             tables.extend(['leaks', 'pushpins', 'dashboard'])
             tables = [x for x in self.get_tables() if x not in tables]
             for table in tables:
