@@ -40,7 +40,7 @@ class Module(BaseModule):
         download = self.options['download']
         protocol = self.options['protocol']
         port = self.options['port']
-        # ignore unicode warnings when trying to un-gzip text type 200 repsonses
+        # Ignore unicode warnings when trying to un-gzip text type 200 repsonses.
         warnings.simplefilter("ignore")
         # (filename, string to search for to prevent false positive)
         filetypes = [
@@ -68,12 +68,12 @@ class Module(BaseModule):
                 except:
                     code = 'Error'
                 if code == 200:
-                    # uncompress if necessary
+                    # Uncompress if necessary.
                     text = ('.gz' in filename and self.uncompress(resp.text)) or resp.text
                     # check for file type since many custom 404s are returned as 200s
                     if verify.lower() in text.lower():
                         self.alert(f"{url} => {code}. '{filename}' found!")
-                        # urls that end with '/' are not necessary to download
+                        # URLs that end with '/' are not necessary to download.
                         if download and not filename.endswith("/"):
                             filepath = f"{self.workspace}/{protocol}_{host}_{filename}"
                             dl = open(filepath, 'w')
