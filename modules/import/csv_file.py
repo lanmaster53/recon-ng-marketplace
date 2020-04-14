@@ -24,11 +24,11 @@ class Module(BaseModule):
     def __init__(self, *args, **kwargs):
         result = BaseModule.__init__(self, *args, **kwargs)
         self.__option_prefix = 'CSV_'
-        # stores the values read from the CSV file
+        # Stores the values read from the CSV file.
         self.__values = []
-        # keeps track of which module options correspond to which CSV column index
+        # Keeps track of which module options correspond to which CSV column index.
         self.__csv_indices = {}
-        # account for the fact that module options are stored and preloaded from a config file
+        # Account for the fact that module options are stored and preloaded from a config file.
         self.__init_options()
         return result
 
@@ -42,8 +42,8 @@ class Module(BaseModule):
 
         has_header = self.options['has_header']
 
-        # stores the database column names to be imported
-        # initialize it to a list the size of a row
+        # Stores the database column names to be imported.
+        # Initialize it to a list the size of a row.
         all_column_names = [None] * len(self.__values[0])
         for option in self.options:
             if option.startswith(self.__option_prefix):
@@ -52,12 +52,12 @@ class Module(BaseModule):
 
         # e.g. all_column_names = [None, 'fname', 'lname', None, 'title']
 
-        # ensure that at least one column name is populated
+        # Ensure that at least one column name is populated.
         if not any(all_column_names):
             self.error('You must set at least one column name to import.')
             return
 
-        # build the query based on which column options have been set
+        # Build the query based on which column options have been set.
         table = self.options['table']
         used_column_names = []
         used_column_indices = []
@@ -70,7 +70,7 @@ class Module(BaseModule):
         # e.g. used_column_indices = [1, 2, 4]
 
         for row in self.__values[(1 if has_header else 0):]:
-            # creates a dictionary where the keys are the column names and the values are the column values from row
+            # Creates a dictionary where the keys are the column names and the values are the column values from row.
             data = dict(
                 zip(
                     used_column_names,
@@ -87,35 +87,35 @@ class Module(BaseModule):
         if not self.__validate_options():
             return
 
-        # repopulate the module's options
+        # Repopulate options.
         try:
             self.__values = self.__parse_file()
         except IOError:
             self.error(f"'{self.options['filename']}' could not be opened. The file may not exist.")
         except AssertionError:
-            self.error('The number of columns in each row is inconsistent. Try checking the input file, changing the column separator, or changing the quote character.')
+            self.error('The number of columns in each row is inconsistent. Try checking the input file, changing the column separator or changing the quote character.')
         else:
             self.__register_options()
 
-    def __validate_options(self):    # begins with an underscore so as not to conflict with the parent class's validate_options method
+    def __validate_options(self):    # Begins with an underscore so as not to conflict with the parent class's validate_options method.
         filename = self.options['filename']
         sep = self.options['column_separator']
         quote = self.options['quote_character']
 
         if not filename:
-            # there is currently no valid file so remove all the options file-specific options
+            # There is currently no valid file, so remove all the file-specific options.
             self.__values = []
             self.__register_options()
             return False
         if not sep or len(sep) != 1:
             self.error('COLUMN_SEPARATOR is required and must only contain one character.')
-            # there is currently no valid separator so remove all the options file-specific options
+            # There is currently no valid separator, so remove all the file-specific options.
             self.__values = []
             self.__register_options()
             return False
         if quote and len(quote) > 1:
             self.error('QUOTE_CHARACTER is optional but must not contain more than one character.')
-            # there is currently no valid quote so remove all the options file-specific options
+            # There is currently no valid quote, so remove all the file-specific options.
             self.__values = []
             self.__register_options()
             return False
@@ -131,43 +131,43 @@ class Module(BaseModule):
         values = []
 
         with open(filename, newline='') as infile:
-            # if sep is not a one character string, csv.reader will raise a TypeError
+            # If sep is not a one character string, csv.reader will raise a TypeError.
             if not quote:
                 csvreader = csv.reader(infile, delimiter=str(sep), quoting=csv.QUOTE_NONE)
             else:
                 csvreader = csv.reader(infile, delimiter=str(sep), quotechar=str(quote))
 
-            # get each line from the file and separate it into columns based on sep
+            # Get each line from the file and separate it into columns based on sep.
             for row in csvreader:
-                # append all lines as-is case-wise
+                # Append all lines as-is case-wise.
                 values.append([value.strip() for value in row])
-                # ensure the number of columns in each row is the same as the previous row
+                # Ensure the number of columns in each row is the same as the previous row.
                 if len(values) > 1:
                     assert len(values[-1]) == len(values[-2])
 
         return values
 
     def __register_options(self):
-        # remove any old csv-file options
+        # Remove any old CSV file options.
         for option in list(self.options.keys()):
             if option.startswith(self.__option_prefix):
                 del self.options[option]
 
-        # if there are no values, then there is nothing left to do
+        # If there are no values, then there is nothing left to do.
         if not self.__values or len(self.__values) == 0:
             return
 
-        # add the new options
+        # Add the new options.
         has_header = self.options['has_header']
 
         for i, header in enumerate(self.__values[0]):
             prefix = self.__option_prefix
             if has_header:
-                # TODO: use translate to map any bad characters to _
+                # TODO: use translate to map any bad characters to _.
                 option_name = prefix + header.replace(' ', '_').upper()
             else:
                 option_name = prefix + str(i)
 
-            # save the mapping of option name to column index
+            # Save the mapping of option name to column index.
             self.__csv_indices[option_name] = i
             self.register_option(option_name, None, False, 'database column name where this csv column will be imported')
