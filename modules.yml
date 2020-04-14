@@ -361,7 +361,7 @@
   files: []
   last_updated: '2020-04-08'
   name: WikiLeaker
-  path: domains-contacts/wikileaker
+  path: recon/domains-contacts/wikileaker
   required_keys: []
   version: '1.0'
 - author: Tim Tomes (@lanmaster53)
