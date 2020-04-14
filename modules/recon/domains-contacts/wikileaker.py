@@ -13,9 +13,9 @@ class Module(BaseModule):
         'author': 'Joe Gray (@C_3PJoe)',
         'version': '1.0',
         'description': 'A WikiLeaks scraper inspired by the Datasploit module previously written in Python2. It '
-                       'searches Wikileaks for leaks containing the subject domain. If anything is found, this module will '
-                       'seek to parse out the URL, Sender Email, Date, Leak, and Subject of the email. This will update '
-                       'the \'Contacts\' table with the results.',
+                       'searches Wikileaks for leaks containing the subject domain. If anything is found, this module '
+                       'will seek to parse out the URL, Sender Email, Date, Leak, and Subject of the email. This will '
+                       'update the \'Contacts\' table with the results.',
         'query': 'SELECT DISTINCT domain FROM domains WHERE domain IS NOT NULL',
     }
 
@@ -42,10 +42,12 @@ class Module(BaseModule):
                             if link:
                                 subject = i.xpath("concat(div/h4/a, '')").strip()
                                 leak = i.xpath("concat(div/div[@class='leak-label'], '')").strip()
-                                created = i.xpath("concat(div/div[@class='dates']/div[@class='date' and contains(text(), 'Created')]/span, '')").strip()
+                                created = i.xpath("concat(div/div[@class='dates']/div[@class='date' and "
+                                                  "contains(text(), 'Created')]/span, '')").strip()
                                 excerpt = i.xpath("concat(div[@class='info']/div[@class='excerpt'], '')").strip()
 
-                                emails = re.findall("email:\\xa0([a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+)", excerpt)
+                                emails = re.findall("email:\\xa0([a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+)",
+                                                    excerpt)
 
                                 for email in emails:
                                     self.alert(f'Leak: {leak}')
