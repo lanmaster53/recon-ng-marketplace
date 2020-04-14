@@ -20,7 +20,7 @@ class Module(BaseModule):
     def module_run(self):
         filename = self.options['filename']
         with codecs.open(filename, 'wb', encoding='utf-8') as outfile:
-            # build a list of table names
+            # Build a list of table names.
             tables = [x.strip() for x in self.options['tables'].split(',')]
             data_dict = {}
             cnt = 0
