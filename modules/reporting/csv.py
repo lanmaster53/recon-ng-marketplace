@@ -19,7 +19,7 @@ class Module(BaseModule):
     def module_run(self):
         badcharacters = ['@', '-', '=', '+']
         filename = self.options['filename']
-        # codecs module not used because the csv module converts to ASCII
+        # Codecs module not used because the CSV module converts to ASCII.
         with open(filename, 'w') as outfile:
             table = self.options['table']
             csvwriter = csv.writer(outfile, quoting=csv.QUOTE_ALL)
@@ -32,7 +32,7 @@ class Module(BaseModule):
                 row = [x if x else '' for x in row]
                 if any(row):
                     cnt += 1
-                    # prevent csv injection
+                    # Prevent CSV injection.
                     sanitized_row = []
                     for cell in row:
                         if cell and cell[0] in badcharacters:
