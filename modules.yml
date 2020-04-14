@@ -307,11 +307,11 @@
   dependencies: []
   description: Uses Hunter.io to find email addresses for given domains.
   files: []
-  last_updated: '2020-04-06'
+  last_updated: '2020-04-13'
   name: Hunter.io Email Address Harvester
   path: recon/domains-contacts/hunter_io
   required_keys: [hunter_io]
-  version: '0.1'
+  version: '1.1'
 - author: Tim Tomes (@lanmaster53)
   dependencies:
   - olefile
