@@ -67,20 +67,20 @@ class Module(BaseModule):
         sources = self.query('SELECT COUNT(source), source FROM pushpins GROUP BY source')
         media_content, map_content = self.build_content(sources)
         meta_content = (self.options['latitude'], self.options['longitude'], self.options['radius'])
-        # create the media report
+        # Create the media report.
         media_content = meta_content + media_content
         media_filename = self.options['media_filename']
         self.write_markup(os.path.join(self.data_path, 'template_media.html'), media_filename, media_content)
         self.output(f"Media data written to '{media_filename}'")
-        # order the map_content tuple
+        # Order the map_content tuple.
         map_content = meta_content + map_content + (key,)
         order = [6, 4, 0, 1, 2, 3, 5]
         map_content = tuple([map_content[i] for i in order])
-        # create the map report
+        # Create the map report.
         map_filename = self.options['map_filename']
         self.write_markup(os.path.join(self.data_path, 'template_map.html'), map_filename, map_content)
         self.output(f"Mapping data written to '{map_filename}'")
-        # open the reports in a browser
+        # Open the reports in a browser.
         w = webbrowser.get()
         w.open(media_filename)
         time.sleep(2)
