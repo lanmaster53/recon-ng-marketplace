@@ -9,13 +9,13 @@ class Module(BaseModule):
         'name': 'DNS Cache Snooper',
         'author': 'thrapt (thrapt@gmail.com)',
         'version': '1.0',
-        'description': 'Uses the DNS cache snooping technique to check for visited domains',
+        'description': 'Uses the DNS cache snooping technique to check for visited domains.',
         'comments': (
             'Nameserver must be in IP form.',
             'http://304geeks.blogspot.com/2013/01/dns-scraping-for-corporate-av-detection.html',
         ),
         'options': (
-            ('nameserver', None, True, 'IP address of authoritative nameserver'),
+            ('nameserver', None, True, 'IP address of authoritative nameserver.'),
             ('domains', os.path.join(BaseModule.data_path, 'av_domains.lst'), True, 'file containing the list of domains to snoop for'),
         ),
         'files': ['av_domains.lst'],
@@ -27,9 +27,9 @@ class Module(BaseModule):
             domains = [x.strip() for x in fp.read().split()]
         for domain in domains:
             response = None
-            # prepare our query
+            # Prepare our query.
             query = dns.message.make_query(domain, dns.rdatatype.A, dns.rdataclass.IN)
-            # unset the Recurse flag 
+            # Unset the Recurse flag.
             query.flags ^= dns.flags.RD
             response = dns.query.udp(query, nameserver)
             if len(response.answer) > 0:
