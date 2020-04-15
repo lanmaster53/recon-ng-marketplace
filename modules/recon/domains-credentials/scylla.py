@@ -6,7 +6,7 @@ class Module(BaseModule):
     meta = {
         'name': 'Scylla Bulk Credential Harvester',
         'author': 'Tim Tomes (@lanmaster53)',
-        'version': '1.1',
+        'version': '1.2',
         'description': 'Harvests credentials from the scylla.sh API using domains as input. Updates the '
                        '\'credentials\' and \'contacts\' tables with the results.',
         'options': (
@@ -24,7 +24,7 @@ class Module(BaseModule):
             _from = size*page
             while True:
                 payload = {'q': f"Email:\"@{domain}\"", 'size': size, 'from': _from}
-                resp = self.request('GET', base_url, params=payload, headers=headers)
+                resp = self.request('GET', base_url, params=payload, headers=headers, auth=('sammy', 'BasicPassword!'))
                 if resp.status_code != 200:
                     self.error('Invalid response.')
                     break
