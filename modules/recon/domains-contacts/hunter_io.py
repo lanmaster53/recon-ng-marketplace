@@ -7,7 +7,7 @@ class Module(BaseModule):
     meta = {
         "name": "Hunter.io Email Address Harvester",
         "author": "Super Choque (@aplneto)",
-        "version": "1.1",
+        "version": "1.2",
         "description": "Uses Hunter.io to find email addresses for given domains.",
         "dependencies": [],
         "files": [],
@@ -19,7 +19,7 @@ class Module(BaseModule):
         self.__key = self.keys['hunter_io']
 
         if self.__key is None:
-            self.alert("No api key detect, using trial mode instead")
+            self.alert("No API key detected, using trial mode instead")
             self.__uri = "https://api.hunter.io/trial/v2/domain-search"
         else:
             self.__uri = "https://api.hunter.io/v2/domain-search"
@@ -81,7 +81,6 @@ class Module(BaseModule):
                 "last_name": registry["last_name"],
                 "email": registry["value"],
                 "country": country,
-                "region": region,
-                "title": "Hunter.io Contact"
+                "region": region
             }
             self.insert_contacts(**contact)
