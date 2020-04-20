@@ -47,5 +47,4 @@ class Module(BaseModule):
                         middle_name=mname,
                         last_name=lname,
                         email=email,
-                        title='PGP key association',
                     )
