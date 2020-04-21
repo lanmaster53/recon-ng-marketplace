@@ -3,6 +3,7 @@ import os
 import re
 from ipwhois import IPWhois
 
+
 class Module(BaseModule):
 
     meta = {
@@ -20,28 +21,27 @@ class Module(BaseModule):
         emails = set()
         cidr_ranges = []
         for ip in ip_addresses:
-            if not ip in cidr_ranges:
+            if ip not in cidr_ranges:
                 try:
-                    lookup = IPWhois( ip ).lookup_whois()
+                    lookup = IPWhois(ip).lookup_whois()
                     for net in lookup['nets']:
-                        descr = net['name'] or '; '.join( str( net['description'] ).split('\n') )
-                        cidrs = map( lambda x:x.strip(), net['cidr'].split(',') )
+                        descr = net['name'] or '; '.join(str(net['description']).split('\n'))
+                        cidrs = map(lambda x: x.strip(), net['cidr'].split(','))
                         for cidr in cidrs:
-                            netblocks.add( (cidr,descr) )
-                            cidr_ranges.extend( self.cidr_to_list(cidr) )
-                            self.output( '%s %s (%s)' % (cidr,descr,ip) )
+                            netblocks.add((cidr, descr))
+                            cidr_ranges.extend(self.cidr_to_list(cidr))
+                            self.output('%s %s (%s)' % (cidr, descr, ip))
                         if net['address']:
-                            address = '; '.join( net['address'].split('\n') )
+                            address = '; '.join(net['address'].split('\n'))
                             addresses.add(address)
                             self.output(address)
                         if net['emails']:
                             for email in net['emails']:
                                 emails.add(email)
-                                self.output(email) 
+                                self.output(email)
                 except Exception as e:
-                    self.error( str(e) )
-
-        for netblock,descr in netblocks:
+                    self.error(str(e))
+        for netblock, descr in netblocks:
             self.insert_netblocks(netblock=netblock, notes=descr)
         for address in addresses:
             self.insert_locations(street_address=address)
