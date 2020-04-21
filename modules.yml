@@ -146,6 +146,18 @@
   path: recon/companies-multi/whois_miner
   required_keys: []
   version: '1.1'
+- author: Andrey Zhukov from USSC
+  dependencies:
+  - lxml
+  description: Uses the RIPE Whois to harvest companies, locations, netblocks, and
+    contacts associated with the given company search string. Updates the respective
+    tables with the results.
+  files: []
+  last_updated: '2020-04-22'
+  name: Whois Data Miner (ripe.net)
+  path: recon/companies-multi/whois_miner_ripe
+  required_keys: []
+  version: '1.0'
 - author: Cam Barts (@cam-barts)
   dependencies:
   - beautifulsoup4
