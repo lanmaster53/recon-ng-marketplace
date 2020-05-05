@@ -13,7 +13,7 @@ class Module(BaseModule):
             'Inspiration from theHarvester.py by Christan Martorella: cmarorella[at]edge-seecurity.com',
         ),
         'query': 'SELECT DISTINCT domain FROM domains WHERE domain IS NOT NULL',
-        'version': '1.3',
+        'version': '1.4',
     }
 
     def module_run(self, domains):
@@ -46,6 +46,5 @@ class Module(BaseModule):
                         first_name=fname,
                         middle_name=mname,
                         last_name=lname,
-                        email=email,
-                        title='PGP key association',
+                        email=email
                     )
