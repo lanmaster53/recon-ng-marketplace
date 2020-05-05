@@ -46,5 +46,5 @@ class Module(BaseModule):
                         first_name=fname,
                         middle_name=mname,
                         last_name=lname,
-                        email=email,
+                        email=email
                     )
