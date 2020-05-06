@@ -55,7 +55,7 @@
   name: List File Importer
   path: import/list
   required_keys: []
-  version: '1.0'
+  version: '1.1'
 - author: Ryan Hays (@_ryanhays)
   dependencies: []
   description: Imports hosts and ports into the respective databases from Masscan
