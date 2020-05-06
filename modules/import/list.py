@@ -5,7 +5,7 @@ class Module(BaseModule):
     meta = {
         'name': 'List File Importer',
         'author': 'Tim Tomes (@lanmaster53)',
-        'version': '1.0',
+        'version': '1.1',
         'description': 'Imports values from a list file into a database table and column.',
         'options': (
             ('filename', None, True, 'path and filename for list input'),
@@ -20,7 +20,7 @@ class Module(BaseModule):
             lines = fh.read().split()
         method = 'insert_'+self.options['table'].lower()
         if not hasattr(self, method):
-            self.error(f"No such table: {options['table']}")
+            self.error(f"No such table: {self.options['table']}")
             return
         func = getattr(self, method)
         for line in lines:
