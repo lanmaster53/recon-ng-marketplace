@@ -10,6 +10,9 @@ class Module(BaseModule, GithubMixin):
         'description': 'Uses the Github API to enumerate repositories and member profiles associated with a company search string. Updates the respective tables with the results.',
         'required_keys': ['github_api'],
         'query': 'SELECT DISTINCT company FROM companies WHERE company IS NOT NULL',
+        'options': (
+            ('ignoreforks', False, False, 'ignore forks'),
+        ),
     }
 
     def module_run(self, companies):
@@ -29,12 +32,15 @@ class Module(BaseModule, GithubMixin):
             # enumerate repositories
             repos = self.query_github_api(f"/orgs/{quote_plus(company)}/repos")
             for repo in repos:
-                data = {
-                    'name': repo['name'],
-                    'owner': repo['owner']['login'],
-                    'description': repo['description'],
-                    'url': repo['html_url'],
-                    'resource': 'Github',
-                    'category': 'repo',
-                }
-                self.insert_repositories(**data)
+                if self.options['ignoreforks'] and repo['fork']:
+                    continue
+                else:
+                    data = {
+                        'name': repo['name'],
+                        'owner': repo['owner']['login'],
+                        'description': repo['description'],
+                        'url': repo['html_url'],
+                        'resource': 'Github',
+                        'category': 'repo',
+                    }
+                    self.insert_repositories(**data)

@@ -10,6 +10,9 @@ class Module(BaseModule, GithubMixin):
         'description': 'Uses the Github API to enumerate repositories and gists owned by a Github user. Updates the \'repositories\' table with the results.',
         'required_keys': ['github_api'],
         'query': "SELECT DISTINCT username FROM profiles WHERE username IS NOT NULL AND resource LIKE 'Github'",
+        'options': (
+            ('ignoreforks', False, False, 'ignore forks'),
+        ),
     }
 
     def module_run(self, users):
@@ -18,15 +21,18 @@ class Module(BaseModule, GithubMixin):
             # enumerate repositories
             repos = self.query_github_api(f"/users/{quote_plus(user)}/repos")
             for repo in repos:
-                data = {
-                    'name': repo['name'],
-                    'owner': repo['owner']['login'],
-                    'description': repo['description'],
-                    'url': repo['html_url'],
-                    'resource': 'Github',
-                    'category': 'repo',
-                }
-                self.insert_repositories(**data)
+                if self.options['ignoreforks'] and repo['fork']:
+                    continue
+                else:
+                    data = {
+                        'name': repo['name'],
+                        'owner': repo['owner']['login'],
+                        'description': repo['description'],
+                        'url': repo['html_url'],
+                        'resource': 'Github',
+                        'category': 'repo',
+                    }
+                    self.insert_repositories(**data)
             # enumerate gists
             gists = self.query_github_api(f"/users/{quote_plus(user)}/gists")
             for gist in gists:
