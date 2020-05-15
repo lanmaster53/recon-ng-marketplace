@@ -153,43 +153,6 @@ class Module(BaseModule):
         else:
             self.output('CodePlex username not found.')
 
-    def gitorious(self, username):
-        self.verbose('Checking Gitorious...')
-        url = f"https://gitorious.org/~{username}"
-        resp = self.request('GET', url)
-        if re.search(rf'href="/~{username}" class="avatar"', resp.text):
-            self.alert(f"Gitorious username found - ({url})")
-            # extract data
-            gitoName = re.search(r'<strong>([^<]*)</strong>\s+</li>\s+<li class="email">', resp.text)
-            # Gitorious URL encodes the user's email to obscure it...lulz. No problem.
-            gitoEmailRaw = re.search(r"eval\(decodeURIComponent\('(.+)'", resp.text)
-            gitoEmail = re.search(r'mailto:([^\\]+)', unquote_plus(gitoEmailRaw.group(1))) if gitoEmailRaw else None
-            gitoJoin = re.search(r'Member for (.+)', resp.text)
-            gitoPersonalUrl = re.search(r'rel="me" href="(.+)">', resp.text)
-            gitoProjects = re.findall(r'<tr class="project">\s+<td>\s+<a href="/([^"]*)">([^<]*)</a>\s+</td>\s+</tr>', resp.text)
-            # establish non-match values
-            gitoName = gitoName.group(1) if gitoName else None
-            gitoEmail = gitoEmail.group(1) if gitoEmail else None
-            gitoJoin = gitoJoin.group(1) if gitoJoin else None
-            gitoPersonalUrl = gitoPersonalUrl.group(1) if gitoPersonalUrl else None
-            # build and display a table of the results
-            tdata = []
-            tdata.append(['Resource', 'Gitorious'])
-            tdata.append(['Name', gitoName])
-            tdata.append(['Profile URL', url])
-            tdata.append(['Membership', gitoJoin])
-            tdata.append(['Email', gitoEmail])
-            tdata.append(['Personal URL', gitoPersonalUrl])
-            for gitoProjUrl, gitoProjName in gitoProjects:
-                tdata.append(['Project', f"{gitoProjName} (https://gitorious.org/{gitoProjUrl})"])
-            self.table(tdata, title='Gitorious')
-            # add the pertinent information to the database
-            if not gitoName: gitoName = username
-            fname, mname, lname = parse_name(gitoName)
-            self.insert_contacts(first_name=fname, middle_name=mname, last_name=lname, title='Gitorious Contributor', email=gitoEmail)
-        else:
-            self.output('Gitorious username not found.')
-
     def module_run(self, usernames):
         for username in usernames:
             # Check each repository
@@ -197,4 +160,3 @@ class Module(BaseModule):
             self.bitbucket(username)
             self.sourceforge(username)
             self.codeplex(username)
-            self.gitorious(username)
