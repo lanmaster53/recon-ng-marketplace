@@ -128,12 +128,12 @@
   description: Uses the Github API to enumerate repositories and member profiles associated
     with a company search string. Updates the respective tables with the results.
   files: []
-  last_updated: '2019-06-24'
+  last_updated: '2020-05-15'
   name: Github Resource Miner
   path: recon/companies-multi/github_miner
   required_keys:
   - github_api
-  version: '1.0'
+  version: '1.1'
 - author: Austin Tipton (@hiEntropy404)
   dependencies: []
   description: Harvests host and port information from the Shodan API by using the
@@ -976,12 +976,12 @@
   description: Uses the Github API to enumerate repositories and gists owned by a
     Github user. Updates the 'repositories' table with the results.
   files: []
-  last_updated: '2019-06-24'
+  last_updated: '2020-05-15'
   name: Github Code Enumerator
   path: recon/profiles-repositories/github_repos
   required_keys:
   - github_api
-  version: '1.0'
+  version: '1.1'
 - author: Michael Henriksen (@michenriksen)
   dependencies: []
   description: Uses the Github API to gather user profiles from repository commits.
