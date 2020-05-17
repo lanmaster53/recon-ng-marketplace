@@ -22,7 +22,7 @@ class Module(BaseModule):
         # only migrate hosts that aren't ip addresses
         hosts = [x for x in hosts if not re.match(regex, x[0])]
         with open(os.path.join(self.data_path, 'suffixes.txt')) as f:
-            suffixes = [line.strip().lower() for line in f if len(line)>0 and line[0] is not '#']
+            suffixes = [line.strip().lower() for line in f if len(line)>0 and line[0] != '#']
         domains = self.hosts_to_domains(hosts, suffixes)
         for domain in domains:
             self.insert_domains(domain=domain)
