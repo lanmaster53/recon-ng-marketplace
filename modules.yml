@@ -128,12 +128,12 @@
   description: Uses the Github API to enumerate repositories and member profiles associated
     with a company search string. Updates the respective tables with the results.
   files: []
-  last_updated: '2019-06-24'
+  last_updated: '2020-05-15'
   name: Github Resource Miner
   path: recon/companies-multi/github_miner
   required_keys:
   - github_api
-  version: '1.0'
+  version: '1.1'
 - author: Austin Tipton (@hiEntropy404)
   dependencies: []
   description: Harvests host and port information from the Shodan API by using the
@@ -238,11 +238,11 @@
     stored in the 'contacts' table.
   files:
   - suffixes.txt
-  last_updated: '2019-06-24'
+  last_updated: '2020-05-17'
   name: Contacts to Domains Data Migrator
   path: recon/contacts-domains/migrate_contacts
   required_keys: []
-  version: '1.0'
+  version: '1.1'
 - author: Tim Tomes (@lanmaster53) and Cam Barts (@cam-barts)
   dependencies: []
   description: Harvests contact information and profiles from the fullcontact.com
@@ -456,11 +456,11 @@
     the results.
   files:
   - suffixes.txt
-  last_updated: '2019-06-24'
+  last_updated: '2020-05-17'
   name: DNS Public Suffix Brute Forcer
   path: recon/domains-domains/brute_suffix
   required_keys: []
-  version: '1.0'
+  version: '1.1'
 - author: Ryan Hays
   dependencies: []
   description: Uses the BinaryEdge API to discover subdomains.
@@ -548,11 +548,11 @@
   description: Uses the HackerTarget.com API to find host names. Updates the 'hosts'
     table with the results.
   files: []
-  last_updated: '2019-06-24'
+  last_updated: '2020-05-17'
   name: HackerTarget Lookup
   path: recon/domains-hosts/hackertarget
   required_keys: []
-  version: '1.0'
+  version: '1.1'
 - author: Jim Becher (@jimbecher, jbecher@korelogic.com)
   dependencies: []
   description: Retrieves the MX and SPF IPv4 records for a domain. Updates the 'hosts'
@@ -639,11 +639,11 @@
   description: Adds a new domain for all the hostnames stored in the 'hosts' table.
   files:
   - suffixes.txt
-  last_updated: '2019-06-24'
+  last_updated: '2020-05-17'
   name: Hosts to Domains Data Migrator
   path: recon/hosts-domains/migrate_hosts
   required_keys: []
-  version: '1.0'
+  version: '1.1'
 - author: Tim Tomes (@lanmaster53)
   dependencies: []
   description: Leverages the Bing API and "ip:" advanced search operator to enumerate
@@ -909,11 +909,11 @@
   dependencies: []
   description: Searches public code repositories for information about a given username.
   files: []
-  last_updated: '2019-06-24'
+  last_updated: '2020-05-15'
   name: Dev Diver Repository Activity Examiner
   path: recon/profiles-contacts/dev_diver
   required_keys: []
-  version: '1.0'
+  version: '1.1'
 - author: Tim Tomes (@lanmaster53)
   dependencies: []
   description: Uses the Github API to gather user info from harvested profiles. Updates
@@ -976,12 +976,12 @@
   description: Uses the Github API to enumerate repositories and gists owned by a
     Github user. Updates the 'repositories' table with the results.
   files: []
-  last_updated: '2019-06-24'
+  last_updated: '2020-05-15'
   name: Github Code Enumerator
   path: recon/profiles-repositories/github_repos
   required_keys:
   - github_api
-  version: '1.0'
+  version: '1.1'
 - author: Michael Henriksen (@michenriksen)
   dependencies: []
   description: Uses the Github API to gather user profiles from repository commits.
