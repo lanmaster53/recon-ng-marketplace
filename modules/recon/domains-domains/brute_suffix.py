@@ -25,7 +25,7 @@ class Module(BaseModule, ResolverMixin):
         max_attempts = 3
         resolver = self.get_resolver()
         with open(self.options['suffixes']) as fp:
-            words = [line.strip().lower() for line in fp if len(line)>0 and line[0] is not '#']
+            words = [line.strip().lower() for line in fp if len(line)>0 and line[0] != '#']
         for domain in domains:
             self.heading(domain, level=0)
             domain_root = domain.split('.')[0]
