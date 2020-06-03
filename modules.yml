@@ -666,7 +666,7 @@
   path: recon/hosts-hosts/ipinfodb
   required_keys:
   - ipinfodb_api
-  version: '1.0'
+  version: '1.1'
 - author: Siarhei Harbachou (Tech.Insiders), Gerrit Helm (G) and Tim Tomes (@lanmaster53)
   dependencies: []
   description: Leverages the ipstack.com API to geolocate a host by IP address. Updates
