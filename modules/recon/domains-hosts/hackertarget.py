@@ -4,7 +4,7 @@ class Module(BaseModule):
     meta = {
         'name': 'HackerTarget Lookup',
         'author': 'Michael Henriksen (@michenriksen)',
-        'version': '1.0',
+        'version': '1.1',
         'description': 'Uses the HackerTarget.com API to find host names. Updates the \'hosts\' table with the results.',
         'query': 'SELECT DISTINCT domain FROM domains WHERE domain IS NOT NULL',
     }
@@ -15,7 +15,7 @@ class Module(BaseModule):
             url = 'https://api.hackertarget.com/hostsearch/'
             payload = {'q': domain}
             resp = self.request('GET', url, params=payload)
-            if resp.status_code is not 200:
+            if resp.status_code != 200:
                 self.error(f"Got unexpected response code: {resp.status_code}")
                 continue
             if resp.text == '':
