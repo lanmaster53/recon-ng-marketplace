@@ -6,10 +6,13 @@ class Module(BaseModule, GithubMixin):
     meta = {
         'name': 'Github Code Enumerator',
         'author': 'Tim Tomes (@lanmaster53)',
-        'version': '1.0',
+        'version': '1.1',
         'description': 'Uses the Github API to enumerate repositories and gists owned by a Github user. Updates the \'repositories\' table with the results.',
         'required_keys': ['github_api'],
         'query': "SELECT DISTINCT username FROM profiles WHERE username IS NOT NULL AND resource LIKE 'Github'",
+        'options': (
+            ('ignoreforks', False, False, 'ignore forks'),
+        ),
     }
 
     def module_run(self, users):
@@ -18,6 +21,8 @@ class Module(BaseModule, GithubMixin):
             # enumerate repositories
             repos = self.query_github_api(f"/users/{quote_plus(user)}/repos")
             for repo in repos:
+                if self.options['ignoreforks'] and repo['fork']:
+                    continue
                 data = {
                     'name': repo['name'],
                     'owner': repo['owner']['login'],
