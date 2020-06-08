@@ -227,11 +227,11 @@
   description: Harvests credentials from the scylla.sh API using email addresses as
     input. Updates the 'credentials' and 'contacts' tables with the results.
   files: []
-  last_updated: '2020-06-05'
+  last_updated: '2019-10-15'
   name: Scylla Targetted Credential Harvester
   path: recon/contacts-credentials/scylla
   required_keys: []
-  version: '1.2'
+  version: '1.1'
 - author: Tim Tomes (@lanmaster53)
   dependencies: []
   description: Adds a new domain for all the hostnames associated with email addresses
