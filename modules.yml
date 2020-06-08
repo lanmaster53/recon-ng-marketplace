@@ -909,11 +909,11 @@
   dependencies: []
   description: Searches public code repositories for information about a given username.
   files: []
-  last_updated: '2019-06-24'
+  last_updated: '2020-05-15'
   name: Dev Diver Repository Activity Examiner
   path: recon/profiles-contacts/dev_diver
   required_keys: []
-  version: '1.0'
+  version: '1.1'
 - author: Tim Tomes (@lanmaster53)
   dependencies: []
   description: Uses the Github API to gather user info from harvested profiles. Updates
