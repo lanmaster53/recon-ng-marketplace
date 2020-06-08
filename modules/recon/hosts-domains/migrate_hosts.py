@@ -7,7 +7,7 @@ class Module(BaseModule):
     meta = {
         'name': 'Hosts to Domains Data Migrator',
         'author': 'Tim Tomes (@lanmaster53)',
-        'version': '1.0',
+        'version': '1.1',
         'description': 'Adds a new domain for all the hostnames stored in the \'hosts\' table.',
         'comments': (
             'This modules considers that everything after the first element could contain other hosts besides the current. Therefore, hosts > 2 domains deep will create domains > 2 elements in length.',
