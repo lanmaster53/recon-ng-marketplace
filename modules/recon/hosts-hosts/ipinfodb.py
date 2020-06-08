@@ -7,7 +7,7 @@ class Module(BaseModule):
     meta = {
         'name': 'IPInfoDB GeoIP',
         'author': 'Tim Tomes (@lanmaster53)',
-        'version': '1.0',
+        'version': '1.1',
         'description': 'Leverages the ipinfodb.com API to geolocate a host by IP address. Updates the \'hosts\' table '
                        'with the results.',
         'required_keys': ['ipinfodb_api'],
@@ -47,4 +47,4 @@ class Module(BaseModule):
             self.query('UPDATE hosts SET region=?, country=?, latitude=?, longitude=? WHERE ip_address=?',
                        (region, country, latitude, longitude, host))
             if self.options['limit']:
-                time.sleep(0.6)
+                time.sleep(0.7)
