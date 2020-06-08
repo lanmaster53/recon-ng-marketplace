@@ -661,7 +661,7 @@
   description: Leverages the ipinfodb.com API to geolocate a host by IP address. Updates
     the 'hosts' table with the results.
   files: []
-  last_updated: '2019-06-24'
+  last_updated: '2020-06-08'
   name: IPInfoDB GeoIP
   path: recon/hosts-hosts/ipinfodb
   required_keys:
