@@ -5,7 +5,7 @@ class Module(BaseModule):
     meta = {
         'name': 'BinaryEdge.io DNS lookup',
         'author': 'Ryan Hays',
-        'version': '1.0',
+        'version': '1.1',
         'description': 'Uses the BinaryEdge API to discover subdomains.',
         'required_keys': ['binaryedge_api'],
         'query': 'SELECT DISTINCT domain FROM domains WHERE domain IS NOT NULL',
