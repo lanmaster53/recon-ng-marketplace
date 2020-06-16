@@ -1172,7 +1172,7 @@
   files: []
   last_updated: '2019-08-22'
   name: Censys hosts by hostname
-  path: recon/hosts-ports/censys_hostname
+  path: recon/hosts-hosts/censys_hostname
   required_keys: [censysio_id, censysio_secret]
   version: 1.0
 - author: J Nazario
@@ -1182,7 +1182,7 @@
   files: []
   last_updated: '2019-08-22'
   name: Censys ports by IP
-  path: recon/hosts-ports/censys_ip
+  path: recon/hosts-hosts/censys_ip
   required_keys: [censysio_id, censysio_secret]
   version: 1.0
 - author: J Nazario
