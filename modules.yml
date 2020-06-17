@@ -310,7 +310,7 @@
   files: []
   last_updated: '2020-06-17'
   name: Whoxy Whois Lookup
-  path: dev/whoxy_whois
+  path: recon/domains-companies/whoxy_whois
   required_keys:
   - whoxy_api
   version: '1.0'
