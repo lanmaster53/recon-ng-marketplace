@@ -5,7 +5,7 @@ class Module(BaseModule):
 
     meta = {
         'name': 'Whoxy Whois Lookup',
-        'author': 'Ryan Hays',
+        'author': 'Ryan Hays (@_ryanhays)',
         'version': '1.0',
         'description': 'Uses the Whoxy API to query whois information for a domain and updates the companies and '
                        'contacts tables. ',
