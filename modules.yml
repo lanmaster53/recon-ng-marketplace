@@ -303,6 +303,17 @@
   path: recon/domains-companies/pen
   required_keys: []
   version: '1.1'
+- author: Ryan Hays
+  dependencies: []
+  description: 'Uses the Whoxy API to query whois information for a domain and updates
+    the companies and contacts tables. '
+  files: []
+  last_updated: '2020-06-17'
+  name: Whoxy Whois Lookup
+  path: dev/whoxy_whois
+  required_keys:
+  - whoxy_api
+  version: '1.0'
 - author: Super Choque (@aplneto)
   dependencies: []
   description: Uses Hunter.io to find email addresses for given domains.
