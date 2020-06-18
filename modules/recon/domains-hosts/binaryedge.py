@@ -19,7 +19,8 @@ class Module(BaseModule):
             domain_count = 0
             total_ans = 1
             while domain_count < total_ans:
-                resp = self.request('GET', f"https://api.binaryedge.io/v2/query/domains/dns/{domain}?page={page_num}", headers={'X-Key': key})
+                resp = self.request('GET', f"https://api.binaryedge.io/v2/query/domains/dns/{domain}?page={page_num}",
+                                    headers={'X-Key': key})
                 if resp.status_code == 200:
                     total_ans = resp.json().get('total')
 
