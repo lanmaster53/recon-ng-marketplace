@@ -123,6 +123,16 @@
   path: recon/companies-domains/viewdns_reverse_whois
   required_keys: []
   version: '1.0'
+- author: Ryan Hays (@_ryanhays)
+  dependencies: []
+  description: Uses the Whoxy API to query DNS records belonging to a company
+  files: []
+  last_updated: '2020-06-17'
+  name: Whoxy Company DNS Lookup
+  path: recon/companies-domains/whoxy_dns
+  required_keys:
+  - whoxy_api
+  version: '1.0'
 - author: Tim Tomes (@lanmaster53)
   dependencies: []
   description: Uses the Github API to enumerate repositories and member profiles associated
