@@ -149,6 +149,10 @@
   files: []
   last_updated: '2020-06-17'
   name: Whoxy Company DNS Lookup
+  path: recon/companies-domains/whoxy_dns
+  required_keys:
+  - whoxy_api
+  version: '1.0'
   path: recon/companies-domwains/whoxy_dns
   required_keys:
   - whoxy_api
@@ -366,7 +370,7 @@
 - author: Ryan Hays (@_ryanhays)
   dependencies: []
   description: 'Uses the Whoxy API to query whois information for a domain and updates
-  the companies and contacts tables. '
+    the companies and contacts tables. '
   files: []
   last_updated: '2020-06-17'
   name: Whoxy Whois Lookup
@@ -536,12 +540,12 @@
   dependencies: []
   description: Uses the BinaryEdge API to discover subdomains.
   files: []
-  last_updated: '2019-06-24'
+  last_updated: '2020-06-15'
   name: BinaryEdge.io DNS lookup
   path: recon/domains-hosts/binaryedge
   required_keys:
   - binaryedge_api
-  version: '1.0'
+  version: '1.1'
 - author: Marcus Watson (@BranMacMuffin)
   dependencies: []
   description: Leverages the Bing API and "domain:" advanced search operator to harvest
