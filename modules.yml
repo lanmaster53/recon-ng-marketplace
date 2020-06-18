@@ -133,7 +133,6 @@
   required_keys:
   - whoxy_api
   version: '1.0'
-
 - author: Tim Tomes (@lanmaster53)
   dependencies: []
   description: Uses the Github API to enumerate repositories and member profiles associated
