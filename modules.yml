@@ -372,7 +372,7 @@
   name: Whoxy Whois Lookup
   path: recon/domains-companies/whoxy_whois
   required_keys:
-    - whoxy_api
+  - whoxy_api
   version: '1.0'
 - author: Super Choque (@aplneto)
   dependencies: []
