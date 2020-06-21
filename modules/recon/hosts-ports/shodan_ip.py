@@ -1,14 +1,12 @@
 from recon.core.module import BaseModule
-from recon.mixins.search import ShodanAPIMixin
-import re
+from shodan import Shodan
 
 
-class Module(BaseModule, ShodanAPIMixin):
-
+class Module(BaseModule):
     meta = {
         'name': 'Shodan IP Enumerator',
         'author': 'Tim Tomes (@lanmaster53) and Matt Puckett (@t3lc0)',
-        'version': '1.1',
+        'version': '1.2',
         'description': 'Harvests port information from the Shodan API by using the \'ip\' search operator. Updates the '
                        '\'ports\' table with the results.',
         'required_keys': ['shodan_api'],
@@ -16,19 +14,20 @@ class Module(BaseModule, ShodanAPIMixin):
         'options': (
             ('limit', 1, True, 'limit number of api requests per input source (0 = unlimited)'),
         ),
+        'dependencies': ['shodan']
     }
 
     def module_run(self, ipaddrs):
         limit = self.options['limit']
+        api = Shodan(self.keys.get('shodan_api'))
         for ipaddr in ipaddrs:
             self.heading(ipaddr, level=0)
-            query = f"ip:{ipaddr}"
-            results = self.search_shodan_api(query, limit)
-            for host in results:
-                address = host['ip_str']
-                protocol = host['transport']
-                port = host['port']
-                if not host['hostnames']:
-                    host['hostnames'] = [None]
-                for hostname in host['hostnames']:
-                    self.insert_ports(ip_address=address, port=port, host=hostname, protocol=protocol)
+            ipinfo = api.host(ipaddr)
+
+            for port in ipinfo['data']:
+                try:
+                    for hostname in port['hostnames']:
+                        self.insert_ports(host=hostname, ip_address=ipaddr, port=port['port'],
+                                          protocol=port['transport'])
+                except KeyError:
+                    self.insert_ports(ip_address=ipaddr, port=port['port'], protocol=port['transport'])
