@@ -1,5 +1,5 @@
 from recon.core.module import BaseModule
-from shodan import Shodan
+import shodan
 
 
 class Module(BaseModule):
@@ -19,15 +19,18 @@ class Module(BaseModule):
 
     def module_run(self, ipaddrs):
         limit = self.options['limit']
-        api = Shodan(self.keys.get('shodan_api'))
+        api = shodan.Shodan(self.keys.get('shodan_api'))
         for ipaddr in ipaddrs:
             self.heading(ipaddr, level=0)
-            ipinfo = api.host(ipaddr)
+            try:
+                ipinfo = api.host(ipaddr)
 
-            for port in ipinfo['data']:
-                try:
-                    for hostname in port['hostnames']:
-                        self.insert_ports(host=hostname, ip_address=ipaddr, port=port['port'],
-                                          protocol=port['transport'])
-                except KeyError:
-                    self.insert_ports(ip_address=ipaddr, port=port['port'], protocol=port['transport'])
+                for port in ipinfo['data']:
+                    try:
+                        for hostname in port['hostnames']:
+                            self.insert_ports(host=hostname, ip_address=ipaddr, port=port['port'],
+                                              protocol=port['transport'])
+                    except KeyError:
+                        self.insert_ports(ip_address=ipaddr, port=port['port'], protocol=port['transport'])
+            except shodan.exception.APIError:
+                pass
