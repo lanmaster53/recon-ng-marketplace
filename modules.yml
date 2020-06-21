@@ -855,12 +855,12 @@
   description: Harvests port information from the Shodan API by using the 'ip' search
     operator. Updates the 'ports' table with the results.
   files: []
-  last_updated: '2019-06-24'
+  last_updated: '2020-06-21'
   name: Shodan IP Enumerator
   path: recon/hosts-ports/shodan_ip
   required_keys:
   - shodan_api
-  version: '1.0'
+  version: '1.1'
 - author: Quentin Kaiser (contact@quentinkaiser.be)
   dependencies: []
   description: Queries the Google Maps API to obtain coordinates for an address. Updates
