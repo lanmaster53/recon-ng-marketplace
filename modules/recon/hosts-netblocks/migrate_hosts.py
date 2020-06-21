@@ -21,7 +21,7 @@ class Module(BaseModule):
         emails = set()
         cidr_ranges = []
         geo = {}
-        ips = []
+        ips = set()
         for ip in ip_addresses:
             if ip not in cidr_ranges:
                 try:
@@ -34,7 +34,7 @@ class Module(BaseModule):
                             cidr_ranges.extend(self.cidr_to_list(cidr))
                             if net['city'] != None or net['country'] != None:
                                 geo[cidr] = (net['city'], net['country'])
-                            ips.append(ip)
+                            ips.add(ip)
                             self.output('%s %s (%s)' % (cidr, descr, ip))
                         if net['address']:
                             address = '; '.join(net['address'].split('\n'))
@@ -55,9 +55,13 @@ class Module(BaseModule):
         for cidr in geo:
             for ip in ips:
                 if ip in self.cidr_to_list(cidr):
-                    region, country = self.query('SELECT region, country FROM hosts WHERE ip_address=?', (ip, ))[0]
-                    if not region:
-                        region = geo[cidr][0]
-                    if not country:
-                        country = geo[cidr][1]
-                    self.query('UPDATE hosts SET region=?, country=? WHERE ip_address=?', (region, country, ip))
+                    host = self.query('SELECT region, country FROM hosts WHERE ip_address=?', (ip,))
+                    if host:
+                        region, country = host[0]
+                        if not region:
+                            region = geo[cidr][0]
+                        if not country:
+                            country = geo[cidr][1]
+                        self.query('UPDATE hosts SET region=?, country=? WHERE ip_address=?', (region, country, ip))
+                    else:
+                        self.insert_hosts(ip_address=ip, region=geo[cidr][0], country=geo[cidr][1])
