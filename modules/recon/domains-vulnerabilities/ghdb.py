@@ -38,9 +38,9 @@ class Module(BaseModule, GoogleWebMixin):
         'options': [
             ('dorks', None, False, 'file containing an alternate list of Google dorks'),
         ] + _build_options(ghdb),
-        'files': (
+        'files': [
             'ghdb.json',
-        ),
+        ],
     }
 
     def module_run(self, domains):
