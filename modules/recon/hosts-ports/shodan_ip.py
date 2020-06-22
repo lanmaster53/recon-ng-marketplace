@@ -3,6 +3,7 @@ import shodan
 
 
 class Module(BaseModule):
+
     meta = {
         'name': 'Shodan IP Enumerator',
         'author': 'Tim Tomes (@lanmaster53) and Matt Puckett (@t3lc0)',
@@ -24,7 +25,6 @@ class Module(BaseModule):
             self.heading(ipaddr, level=0)
             try:
                 ipinfo = api.host(ipaddr)
-
                 for port in ipinfo['data']:
                     try:
                         for hostname in port['hostnames']:
