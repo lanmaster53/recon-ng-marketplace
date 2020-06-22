@@ -852,7 +852,7 @@
   version: '1.0'
 - author: Tim Tomes (@lanmaster53) and Matt Puckett (@t3lc0)
   dependencies:
-    - shodan
+  - shodan
   description: Harvests port information from the Shodan API by using the 'ip' search
     operator. Updates the 'ports' table with the results.
   files: []
