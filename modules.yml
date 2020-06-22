@@ -861,7 +861,7 @@
   path: recon/hosts-ports/shodan_ip
   required_keys:
   - shodan_api
-  version: '1.2'
+  version: '1.1'
 - author: Quentin Kaiser (contact@quentinkaiser.be)
   dependencies: []
   description: Queries the Google Maps API to obtain coordinates for an address. Updates
