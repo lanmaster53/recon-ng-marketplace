@@ -99,7 +99,9 @@
   last_updated: '2019-08-22'
   name: Censys hosts by domain
   path: recon/companies-contacts/censys_email_address
-  required_keys: [censysio_id, censysio_secret]
+  required_keys:
+  - censysio_id
+  - censysio_secret
   version: 1.0
 - author: Jonathan M. Wilbur <jonathan@wilbur.space>
   dependencies: []
@@ -120,7 +122,9 @@
   last_updated: '2019-08-22'
   name: Censys subdomains by company
   path: recon/companies-domains/censys_subdomains
-  required_keys: [censysio_id, censysio_secret]
+  required_keys:
+  - censysio_id
+  - censysio_secret
   version: 1.0
 - author: Jonathan M. Wilbur <jonathan@wilbur.space>
   dependencies: []
@@ -161,7 +165,9 @@
   last_updated: '2019-08-22'
   name: Censys hosts by company
   path: recon/companies-hosts/censys_org
-  required_keys: [censysio_id, censysio_secret]
+  required_keys:
+  - censysio_id
+  - censysio_secret
   version: 1.0
 - author: J Nazario
   dependencies: []
@@ -171,7 +177,9 @@
   last_updated: '2019-08-22'
   name: Censys hosts by domain
   path: recon/companies-hosts/censys_tls_subjects
-  required_keys: [censysio_id, censysio_secret]
+  required_keys:
+  - censysio_id
+  - censysio_secret
   version: 1.0
 - author: Tim Tomes (@lanmaster53)
   dependencies: []
@@ -351,7 +359,9 @@
   last_updated: '2019-08-22'
   name: Censys companies by domain
   path: recon/domains-companies/censys_companies
-  required_keys: [censysio_id, censysio_secret]
+  required_keys:
+  - censysio_id
+  - censysio_secret
   version: 1.0
 - author: Jonathan M. Wilbur <jonathan@wilbur.space>
   dependencies: []
@@ -381,7 +391,8 @@
   last_updated: '2020-04-14'
   name: Hunter.io Email Address Harvester
   path: recon/domains-contacts/hunter_io
-  required_keys: [hunter_io]
+  required_keys:
+  - hunter_io
   version: '1.2'
 - author: Tim Tomes (@lanmaster53)
   dependencies:
@@ -429,7 +440,10 @@
 - author: Joe Gray (@C_3PJoe)
   dependencies: []
   description: A WikiLeaks scraper inspired by the Datasploit module previously written
-    in Python2.
+    in Python2. It searches Wikileaks for leaks containing the subject domain. If
+    anything is found, this module will seek to parse out the URL, Sender Email, Date,
+    Leak, and Subject of the email. This will update the 'Contacts' table with the
+    results.
   files: []
   last_updated: '2020-04-08'
   name: WikiLeaker
@@ -593,7 +607,9 @@
   last_updated: '2019-08-22'
   name: Censys hosts and subdomains by domain
   path: recon/domains-hosts/censys_domain
-  required_keys: [censysio_id, censysio_secret]
+  required_keys:
+  - censysio_id
+  - censysio_secret
   version: 1.0
 - author: Rich Warren (richard.warren@nccgroup.trust)
   dependencies: []
@@ -601,7 +617,7 @@
     hosts to the hosts table.
   files: []
   last_updated: '2019-09-16'
-  name: Certificiate Transparency Search
+  name: Certificate Transparency Search
   path: recon/domains-hosts/certificate_transparency
   required_keys: []
   version: '1.2'
@@ -745,7 +761,9 @@
   last_updated: '2019-08-22'
   name: Censys hosts by hostname
   path: recon/hosts-hosts/censys_hostname
-  required_keys: [censysio_id, censysio_secret]
+  required_keys:
+  - censysio_id
+  - censysio_secret
   version: 1.0
 - author: J Nazario
   dependencies: []
@@ -755,7 +773,9 @@
   last_updated: '2019-08-22'
   name: Censys ports by IP
   path: recon/hosts-hosts/censys_ip
-  required_keys: [censysio_id, censysio_secret]
+  required_keys:
+  - censysio_id
+  - censysio_secret
   version: 1.0
 - author: J Nazario
   dependencies: []
@@ -765,7 +785,9 @@
   last_updated: '2019-08-22'
   name: Censys hosts by search terms
   path: recon/hosts-hosts/censys_query
-  required_keys: [censysio_id, censysio_secret]
+  required_keys:
+  - censysio_id
+  - censysio_secret
   version: 1.0
 - author: Tim Tomes (@lanmaster53)
   dependencies: []
@@ -932,7 +954,9 @@
   last_updated: '2019-08-22'
   name: Censys organizations by netblock
   path: recon/netblocks-companies/censys_netblock_company
-  required_keys: [censysio_id, censysio_secret]
+  required_keys:
+  - censysio_id
+  - censysio_secret
   version: 1.0
 - author: Tim Tomes (@lanmaster53)
   dependencies: []
@@ -952,7 +976,9 @@
   last_updated: '2019-08-22'
   name: Censys hosts by netblock
   path: recon/netblocks-hosts/censys_netblock
-  required_keys: [censysio_id, censysio_secret]
+  required_keys:
+  - censysio_id
+  - censysio_secret
   version: 1.0
 - author: John Babio (@3vi1john)
   dependencies: []
@@ -1016,10 +1042,11 @@
   path: recon/ports-hosts/migrate_ports
   required_keys: []
   version: '1.0'
-- author: Ryan Hays
+- author: Ryan Hays (@_ryanhays)
   dependencies: []
-  description: Connects to a Host and pulls the Subject Alternative Names from the
-    IP Address and Port combination.
+  description: Queries the ports table to build a list of IP Address:Ports. It then
+    connects to each service updating the Ports table with the certificate common
+    name and then adds the Subject Alt Names to the hosts table.
   files: []
   last_updated: '2020-04-13'
   name: SSL Scanner SAN Lookup
