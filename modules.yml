@@ -380,7 +380,7 @@
   files: []
   last_updated: '2020-06-17'
   name: Whoxy Whois Lookup
-  path: recon/domains-companies/whoxy_whois
+  path: recon/domains-companies/whoxy_companies
   required_keys:
   - whoxy_api
   version: '1.0'
