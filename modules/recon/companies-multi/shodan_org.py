@@ -1,5 +1,5 @@
 from recon.core.module import BaseModule
-import shodan
+from recon.mixins.search import ShodanAPIMixin
 import time
 
 
