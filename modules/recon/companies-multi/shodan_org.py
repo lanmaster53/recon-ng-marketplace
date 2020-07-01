@@ -41,9 +41,7 @@ class Module(BaseModule):
                                 self.insert_hosts(host=hostname, ip_address=port['ip_str'])
                         except KeyError:
                             self.insert_ports(ip_address=ipaddr, port=port['port'], protocol=port['transport'])
-                        print(rec_count)
-                        print(total_results)
-                        print(page)
+
                     page += 1
                     time.sleep(limit)
 
