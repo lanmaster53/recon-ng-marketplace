@@ -1,14 +1,34 @@
 from recon.core.module import BaseModule
 import shodan
+import time
 from datetime import datetime
+
+
+def prep_host(host_data, hostname):
+    os = host_data['os']
+    hostname = hostname
+    host_port = f"{host_data['ip_str']}:{host_data['port']}"
+    source = 'Shodan'
+    screen_name = host_port
+    profile_name = host_port
+    profile_url = f"http://{host_port}"
+    media_url = f"https://www.shodan.io/host/{host_data['ip_str']}"
+    thumb_url = 'https://gravatar.com/avatar/ffc4048d63729d4932fd3cc45139174f?s=300'
+    message = (
+        f"Hostname: {hostname} | City: {host_data['location']['city']} | State: {host_data['location']['region_code']} "
+        f"| Country: {host_data['location']['country_name']} | OS: {os}")
+    latitude = host_data['location']['latitude']
+    longitude = host_data['location']['longitude']
+    time = datetime.strptime(host_data['timestamp'], '%Y-%m-%dT%H:%M:%S.%f')
+    return source, screen_name, profile_name, profile_url, media_url, thumb_url, message, latitude, longitude, time
 
 
 class Module(BaseModule):
 
     meta = {
         'name': 'Shodan Geolocation Search',
-        'author': 'Tim Tomes (@lanmaster53)',
-        'version': '1.0',
+        'author': 'Tim Tomes (@lanmaster53) & Ryan Hays (@_ryanhays)',
+        'version': '1.1',
         'description': 'Searches Shodan for media in the specified proximity to a location.',
         'required_keys': ['shodan_api'],
         'comments': (
@@ -40,36 +60,17 @@ class Module(BaseModule):
                 while rec_count <= total_results:
                     results = api.search(query, page=page)
                     total_results = results['total']
-                    for port in results['matches']:
+
+                    for host in results['matches']:
                         rec_count += 1
-                        try:
-                            for hostname in port['hostnames']:
-                                self.insert_ports(host=hostname, ip_address=port['ip_str'], port=port['port'],
-                                                  protocol=port['transport'])
-                                self.insert_hosts(host=hostname, ip_address=port['ip_str'])
-                        except KeyError:
-                            self.insert_ports(ip_address=ipaddr, port=port['port'], protocol=port['transport'])
+                        if len(host['hostnames']) > 0:
+                            for hostname in host['hostnames']:
+                                self.insert_pushpins(*prep_host(host, hostname))
+                        else:
+                            self.insert_pushpins(*prep_host(host, 'None'))
+
                     page += 1
                     time.sleep(limit)
 
             except shodan.exception.APIError:
                 pass
-
-
-
-            results = self.search_shodan_api(query, limit)
-            for host in results:
-                os = host['os'] if 'os' in host else ''
-                hostname = host['hostnames'][0] if len(host['hostnames']) > 0 else 'None'
-                protocol = f"{host['ip_str']}:{host['port']}"
-                source = 'Shodan'
-                screen_name = protocol
-                profile_name = protocol
-                profile_url = f"http://{protocol}"
-                media_url = f"https://www.shodan.io/host/{host['ip_str']}"
-                thumb_url = 'https://gravatar.com/avatar/ffc4048d63729d4932fd3cc45139174f?s=300'
-                message = (f"Hostname: {hostname} | City: {host['location']['city']}, {host['location']['country_name']} | OS: {os}")
-                latitude = host['location']['latitude']
-                longitude = host['location']['longitude']
-                time = datetime.strptime(host['timestamp'], '%Y-%m-%dT%H:%M:%S.%f')
-                self.insert_pushpins(source, screen_name, profile_name, profile_url, media_url, thumb_url, message, latitude, longitude, time)
