@@ -1,9 +1,9 @@
 from recon.core.module import BaseModule
-from recon.mixins.search import ShodanAPIMixin
+import shodan
 from datetime import datetime
 
 
-class Module(BaseModule, ShodanAPIMixin):
+class Module(BaseModule):
 
     meta = {
         'name': 'Shodan Geolocation Search',
@@ -12,21 +12,51 @@ class Module(BaseModule, ShodanAPIMixin):
         'description': 'Searches Shodan for media in the specified proximity to a location.',
         'required_keys': ['shodan_api'],
         'comments': (
-            'Shodan \'geo\' searches can take a long time to complete. If receiving timeout errors, increase the global TIMEOUT option.',
+            'Shodan \'geo\' searches can take a long time to complete. If receiving timeout errors, increase the global'
+            ' TIMEOUT option.',
         ),
-        'query': 'SELECT DISTINCT latitude || \',\' || longitude FROM locations WHERE latitude IS NOT NULL AND longitude IS NOT NULL',
+        'query': 'SELECT DISTINCT latitude || \',\' || longitude FROM locations WHERE latitude IS NOT NULL AND '
+                 'longitude IS NOT NULL',
         'options': (
             ('radius', 1, True, 'radius in kilometers'),
             ('limit', 1, True, 'limit number of api requests per input source (0 = unlimited)'),
         ),
+        'dependencies': ['shodan']
     }
 
     def module_run(self, points):
         limit = self.options['limit']
         rad = self.options['radius']
+        api = shodan.Shodan(self.keys.get('shodan_api'))
+
         for point in points:
             self.heading(point, level=0)
             query = f"geo:{point},{rad}"
+
+            try:
+                page = 1
+                rec_count = 0
+                total_results = 1
+                while rec_count <= total_results:
+                    results = api.search(query, page=page)
+                    total_results = results['total']
+                    for port in results['matches']:
+                        rec_count += 1
+                        try:
+                            for hostname in port['hostnames']:
+                                self.insert_ports(host=hostname, ip_address=port['ip_str'], port=port['port'],
+                                                  protocol=port['transport'])
+                                self.insert_hosts(host=hostname, ip_address=port['ip_str'])
+                        except KeyError:
+                            self.insert_ports(ip_address=ipaddr, port=port['port'], protocol=port['transport'])
+                    page += 1
+                    time.sleep(limit)
+
+            except shodan.exception.APIError:
+                pass
+
+
+
             results = self.search_shodan_api(query, limit)
             for host in results:
                 os = host['os'] if 'os' in host else ''
