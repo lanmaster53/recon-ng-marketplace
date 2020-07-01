@@ -6,7 +6,7 @@ import time
 class Module(BaseModule):
     meta = {
         'name': 'Shodan IP Enumerator',
-        'author': 'Austin Tipton (@hiEntropy404)',
+        'author': 'Austin Tipton (@hiEntropy404) & Ryan Hays (@_ryanhays)',
         'version': '1.1',
         'description': 'Harvests host and port information from the Shodan API by using the \'org\' search operator. '
                        'Updates the \'hosts\' and \'ports\' tables with the results.',
