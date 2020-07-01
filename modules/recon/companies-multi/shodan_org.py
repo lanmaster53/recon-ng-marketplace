@@ -1,33 +1,51 @@
 from recon.core.module import BaseModule
-from recon.mixins.search import ShodanAPIMixin
-import re
+import shodan
+import time
 
 
-class Module(BaseModule, ShodanAPIMixin):
-
+class Module(BaseModule):
     meta = {
         'name': 'Shodan IP Enumerator',
         'author': 'Austin Tipton (@hiEntropy404)',
-        'version': '1.0',
-        'description': 'Harvests host and port information from the Shodan API by using the \'org\' search operator. Updates the \'hosts\' and \'ports\' tables with the results.',
+        'version': '1.1',
+        'description': 'Harvests host and port information from the Shodan API by using the \'org\' search operator. '
+                       'Updates the \'hosts\' and \'ports\' tables with the results.',
         'required_keys': ['shodan_api'],
         'query': 'SELECT DISTINCT company FROM companies WHERE company IS NOT NULL',
         'options': (
             ('limit', 1, True, 'limit number of api requests per input source (0 = unlimited)'),
         ),
+        'dependencies': ['shodan']
     }
 
     def module_run(self, companies):
         limit = self.options['limit']
+        api = shodan.Shodan(self.keys.get('shodan_api'))
+
         for company in companies:
             self.heading(company, level=0)
             query = f"org:\"{company}\""
-            results = self.search_shodan_api(query, limit)
-            for host in results:
-                address = host['ip_str']
-                port = host['port']
-                if not host['hostnames']:
-                    host['hostnames'] = [None]
-                for hostname in host['hostnames']:
-                    self.insert_ports(ip_address=address, port=port, host=hostname)
-                    self.insert_hosts(host=hostname, ip_address= address)
+            try:
+                page = 1
+                rec_count = 0
+                total_results = 1
+                while rec_count <= total_results:
+                    results = api.search(query, page=page)
+                    total_results = results['total']
+                    for port in results['matches']:
+                        rec_count += 1
+                        try:
+                            for hostname in port['hostnames']:
+                                self.insert_ports(host=hostname, ip_address=port['ip_str'], port=port['port'],
+                                                  protocol=port['transport'])
+                                self.insert_hosts(host=hostname, ip_address=port['ip_str'])
+                        except KeyError:
+                            self.insert_ports(ip_address=ipaddr, port=port['port'], protocol=port['transport'])
+                        print(rec_count)
+                        print(total_results)
+                        print(page)
+                    page += 1
+                    time.sleep(limit)
+
+            except shodan.exception.APIError:
+                pass
