@@ -1,6 +1,6 @@
 from recon.core.module import BaseModule
-from recon.mixins.search import ShodanAPIMixin
 from datetime import datetime
+import shodan
 
 
 class Module(BaseModule, ShodanAPIMixin):

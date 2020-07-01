@@ -16,6 +16,7 @@ class Module(BaseModule):
         'options': (
             ('limit', 1, True, 'limit number of api requests per input source (0 = unlimited)'),
         ),
+        'dependencies': ['shodan']
     }
 
     def module_run(self, companies):
