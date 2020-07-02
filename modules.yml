@@ -997,7 +997,7 @@
   version: '1.0'
 - author: Mike Siegel and Tim Tomes (@lanmaster53) & Ryan Hays (@_ryanhays)
   dependencies:
-    - shodan
+  - shodan
   description: Harvests hosts from the Shodan API by using the 'net' search operator.
     Updates the 'hosts' table with the results.
   files: []
