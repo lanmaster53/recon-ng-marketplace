@@ -1,13 +1,14 @@
 from recon.core.module import BaseModule
 import shodan
+import time
 
 
 class Module(BaseModule):
 
     meta = {
         'name': 'Shodan IP Enumerator',
-        'author': 'Tim Tomes (@lanmaster53) and Matt Puckett (@t3lc0)',
-        'version': '1.1',
+        'author': 'Tim Tomes (@lanmaster53) and Matt Puckett (@t3lc0) & Ryan Hays (@_ryanhays)',
+        'version': '1.2',
         'description': 'Harvests port information from the Shodan API by using the \'ip\' search operator. Updates the '
                        '\'ports\' table with the results.',
         'required_keys': ['shodan_api'],
@@ -34,3 +35,5 @@ class Module(BaseModule):
                         self.insert_ports(ip_address=ipaddr, port=port['port'], protocol=port['transport'])
             except shodan.exception.APIError:
                 pass
+
+            time.sleep(limit)
