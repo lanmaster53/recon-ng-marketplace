@@ -991,17 +991,18 @@
   path: recon/netblocks-hosts/reverse_resolve
   required_keys: []
   version: '1.0'
-- author: Mike Siegel and Tim Tomes (@lanmaster53)
-  dependencies: []
+- author: Mike Siegel and Tim Tomes (@lanmaster53) & Ryan Hays (@_ryanhays)
+  dependencies:
+    - shodan
   description: Harvests hosts from the Shodan API by using the 'net' search operator.
     Updates the 'hosts' table with the results.
   files: []
-  last_updated: '2019-06-24'
+  last_updated: '2020-07-01'
   name: Shodan Network Enumerator
   path: recon/netblocks-hosts/shodan_net
   required_keys:
   - shodan_api
-  version: '1.0'
+  version: '1.1'
 - author: USSC (thanks @jevalenciap)
   dependencies: []
   description: Harvests domains from the Virustotal by using the report API. Updates
