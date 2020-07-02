@@ -57,7 +57,7 @@ class Module(BaseModule):
                 page = 1
                 rec_count = 0
                 total_results = 1
-                while rec_count <= total_results:
+                while rec_count < total_results:
                     results = api.search(query, page=page)
                     total_results = results['total']
 
