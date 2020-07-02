@@ -672,7 +672,7 @@
   version: '1.1'
 - author: Tim Tomes (@lanmaster53) & Ryan Hays (@_ryanhays)
   dependencies:
-    - shodan
+  - shodan
   description: Harvests hosts from the Shodan API by using the 'hostname' search operator.
     Updates the 'hosts' table with the results.
   files: []
