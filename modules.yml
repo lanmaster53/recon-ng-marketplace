@@ -670,17 +670,18 @@
   path: recon/domains-hosts/netcraft
   required_keys: []
   version: '1.1'
-- author: Tim Tomes (@lanmaster53)
-  dependencies: []
+- author: Tim Tomes (@lanmaster53) & Ryan Hays (@_ryanhays)
+  dependencies:
+    - shodan
   description: Harvests hosts from the Shodan API by using the 'hostname' search operator.
     Updates the 'hosts' table with the results.
   files: []
-  last_updated: '2019-06-24'
+  last_updated: '2020-07-01'
   name: Shodan Hostname Enumerator
   path: recon/domains-hosts/shodan_hostname
   required_keys:
   - shodan_api
-  version: '1.0'
+  version: '1.1'
 - author: Zach Grace (@ztgrace) zgrace@403labs.com and Bryan Onel (@BryanOnel86) onel@oneleet.com
   dependencies: []
   description: Uses the ssltools.com API to obtain the Subject Alternative Names for
