@@ -915,16 +915,18 @@
   required_keys:
   - flickr_api
   version: '1.0'
-- author: Tim Tomes (@lanmaster53)
+- author: Tim Tomes (@lanmaster53) & Ryan Hays (@_ryanhays)
+  dependencies:
+  - shodan
   dependencies: []
   description: Searches Shodan for media in the specified proximity to a location.
   files: []
-  last_updated: '2019-06-24'
+  last_updated: '2020-07-01'
   name: Shodan Geolocation Search
   path: recon/locations-pushpins/shodan
   required_keys:
   - shodan_api
-  version: '1.0'
+  version: '1.1'
 - author: Tim Tomes (@lanmaster53)
   dependencies: []
   description: Searches Twitter for media in the specified proximity to a location.
