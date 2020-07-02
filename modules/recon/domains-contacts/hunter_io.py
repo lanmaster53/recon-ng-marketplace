@@ -7,12 +7,15 @@ class Module(BaseModule):
     meta = {
         "name": "Hunter.io Email Address Harvester",
         "author": "Super Choque (@aplneto)",
-        "version": "1.2",
+        "version": "1.3",
         "description": "Uses Hunter.io to find email addresses for given domains.",
         "dependencies": [],
         "files": [],
         "required_keys": ['hunter_io'],
-        "query": "SELECT DISTINCT domain FROM domains WHERE domain IS NOT NULL"
+        "query": "SELECT DISTINCT domain FROM domains WHERE domain IS NOT NULL",
+        'options': (
+            ('count', 10, True, 'Limit the amount of results returned. (10 = Free Account)'),
+        )
     }
 
     def module_run(self, domains):
@@ -40,7 +43,7 @@ class Module(BaseModule):
             baseparams = {
                 "domain": domain,
                 "api_key": self.__key,
-                "limit": 100,
+                "limit": self.options['count'],
                 "offset": offset
             }
 
