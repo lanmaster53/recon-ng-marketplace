@@ -38,5 +38,5 @@ class Module(BaseModule):
                             self.insert_hosts(host=subdomain['name'], ip_address=subdomain['dns_records']['A'][0]['ip'])
                         else:
                             self.insert_hosts(host=subdomain['name'])
-                elif resp.json().get('status') == 400:
+                elif (resp.json().get('status') == 400) or (resp.json().get('status') == 403):
                     break
