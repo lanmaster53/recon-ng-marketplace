@@ -920,10 +920,9 @@
 - author: Tim Tomes (@lanmaster53) & Ryan Hays (@_ryanhays)
   dependencies:
   - shodan
-  dependencies: []
   description: Searches Shodan for media in the specified proximity to a location.
   files: []
-  last_updated: '2020-07-01'
+  last_updated: '2020-07-07'
   name: Shodan Geolocation Search
   path: recon/locations-pushpins/shodan
   required_keys:
