@@ -9,7 +9,7 @@ class Module(BaseModule):
     meta = {
         'name': 'Shodan Network Enumerator',
         'author': 'Mike Siegel and Tim Tomes (@lanmaster53) & Ryan Hays (@_ryanhays)',
-        'version': '1.1',
+        'version': '1.2',
         'description': 'Harvests hosts from the Shodan API by using the \'net\' search operator. Updates the \'hosts\' '
                        'table with the results.',
         'required_keys': ['shodan_api'],
@@ -28,27 +28,24 @@ class Module(BaseModule):
             self.heading(netblock, level=0)
             query = f"net:{netblock}"
 
-            try:
-                page = 1
-                rec_count = 0
-                total_results = 1
-                while rec_count <= total_results:
-                    results = api.search(query, page=page)
-                    total_results = results['total']
+            page = 1
+            rec_count = 0
+            total_results = 1
 
-                    for host in results['matches']:
-                        rec_count += 1
-                        try:
-                            for hostname in host['hostnames']:
-                                self.insert_ports(host=hostname, ip_address=host['ip_str'], port=host['port'],
-                                                  protocol=host['transport'])
-                                self.insert_hosts(host=hostname, ip_address=host['ip_str'])
-                        except KeyError:
-                            self.insert_ports(ip_address=ipaddr, port=host['port'], protocol=host['transport'])
-                            self.insert_host(ip_address=host['ip_str'])
+            while rec_count < total_results:
+                results = api.search(query, page=page)
+                total_results = results['total']
 
-                    page += 1
-                    time.sleep(limit)
+                for host in results['matches']:
+                    rec_count += 1
 
-            except shodan.exception.APIError:
-                pass
+                    if len(host['hostnames']) > 0:
+                        self.insert_ports(host=host['hostnames'][0], ip_address=host['ip_str'], port=host['port'],
+                                          protocol=host['transport'])
+                        self.insert_hosts(host=host['hostnames'][0], ip_address=host['ip_str'])
+                    else:
+                        self.insert_ports(ip_address=host['ip_str'], port=host['port'], protocol=host['transport'])
+                        self.insert_hosts(ip_address=host['ip_str'])
+
+                page += 1
+                time.sleep(limit)
