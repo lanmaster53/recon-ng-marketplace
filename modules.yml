@@ -1001,7 +1001,7 @@
   description: Harvests hosts from the Shodan API by using the 'net' search operator.
     Updates the 'hosts' table with the results.
   files: []
-  last_updated: '2020-07-01'
+  last_updated: '2020-07-21'
   name: Shodan Network Enumerator
   path: recon/netblocks-hosts/shodan_net
   required_keys:
