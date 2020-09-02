@@ -6,7 +6,7 @@ class Module(BaseModule):
     meta = {
         'name': 'YouTube Geolocation Search',
         'author': 'Tim Tomes (@lanmaster53)',
-        'version': '1.1',
+        'version': '1.2',
         'description': 'Searches the YouTube API for media in the specified proximity to a location.',
         'required_keys': ['google_api'],
         'query': 'SELECT DISTINCT latitude || \',\' || longitude FROM locations WHERE latitude IS NOT NULL AND longitude IS NOT NULL',
