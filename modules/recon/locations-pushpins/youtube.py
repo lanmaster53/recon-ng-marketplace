@@ -41,7 +41,7 @@ class Module(BaseModule):
                     thumb_url = video['snippet']['thumbnails']['high']['url']
                     message = video['snippet']['title']
                     latitude, longitude = self.get_video_geo(video['id']['videoId'])
-                    time = datetime.strptime(video['snippet']['publishedAt'], '%Y-%m-%dT%H:%M:%S.%fZ')
+                    time = datetime.strptime(video['snippet']['publishedAt'], '%Y-%m-%dT%H:%M:%S%fZ')
                     self.insert_pushpins(source, screen_name, profile_name, profile_url, media_url, thumb_url, message, latitude, longitude, time)
                 processed += len(resp.json()['items'])
                 self.verbose(f"{processed} videos processed.")
