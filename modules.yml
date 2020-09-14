@@ -945,7 +945,7 @@
   description: Searches the YouTube API for media in the specified proximity to a
     location.
   files: []
-  last_updated: '2019-10-15'
+  last_updated: '2020-09-02'
   name: YouTube Geolocation Search
   path: recon/locations-pushpins/youtube
   required_keys:
