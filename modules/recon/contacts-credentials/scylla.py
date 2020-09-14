@@ -1,6 +1,6 @@
-from recon.core.module import BaseModule
 import time
 
+from recon.core.module import BaseModule
 
 
 class Module(BaseModule):
