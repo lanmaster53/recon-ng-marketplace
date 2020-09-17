@@ -950,7 +950,7 @@
   path: recon/locations-pushpins/youtube
   required_keys:
   - google_api
-  version: '1.1'
+  version: '1.2'
 - author: J Nazario
   dependencies: []
   description: Harvests organizations from the Censys API by searching netblocks.
