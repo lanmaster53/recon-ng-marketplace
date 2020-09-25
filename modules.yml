@@ -1001,12 +1001,12 @@
   description: Harvests hosts from the Shodan API by using the 'net' search operator.
     Updates the 'hosts' table with the results.
   files: []
-  last_updated: '2020-07-01'
+  last_updated: '2020-07-21'
   name: Shodan Network Enumerator
   path: recon/netblocks-hosts/shodan_net
   required_keys:
   - shodan_api
-  version: '1.1'
+  version: '1.2'
 - author: USSC (thanks @jevalenciap)
   dependencies: []
   description: Harvests domains from the Virustotal by using the report API. Updates
