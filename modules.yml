@@ -156,7 +156,7 @@
   path: recon/companies-domains/whoxy_dns
   required_keys:
   - whoxy_api
-  version: '1.0'
+  version: '1.1'
 - author: J Nazario
   dependencies: []
   description: Harvests hosts from the Censys.IO API by using the 'autonomous_system.organization'
