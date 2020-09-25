@@ -531,11 +531,11 @@
   description: Harvests credentials from the scylla.sh API using domains as input.
     Updates the 'credentials' and 'contacts' tables with the results.
   files: []
-  last_updated: '2020-04-14'
+  last_updated: '2020-09-25'
   name: Scylla Bulk Credential Harvester
   path: recon/domains-credentials/scylla
   required_keys: []
-  version: '1.2'
+  version: '1.3'
 - author: Marcus Watson (@BranMacMuffin)
   dependencies: []
   description: Brute forces TLDs and SLDs using DNS. Updates the 'domains' table with
