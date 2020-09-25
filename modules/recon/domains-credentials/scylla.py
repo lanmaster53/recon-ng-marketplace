@@ -1,3 +1,5 @@
+import time
+
 from recon.core.module import BaseModule
 
 
@@ -20,9 +22,9 @@ class Module(BaseModule):
         headers = {'Accept': 'application/json'}
         size = self.options['size']
         start = 1
-        for email in emails:
+        for domain in domains:
             while True:
-                payload = {'q': f"Email:\"@{domain}\"", 'size': size, 'from': _from}
+                payload = {'q': f"Email:\"@{domain}\"", 'size': size, 'start': start}
                 resp = self.request('GET', base_url, params=payload, headers=headers, auth=('sammy', 'BasicPassword!'))
                 if resp.status_code != 200:
                     self.error('Invalid response.')
