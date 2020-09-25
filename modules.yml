@@ -622,15 +622,6 @@
   path: recon/domains-hosts/certificate_transparency
   required_keys: []
   version: '1.2'
-- author: Pedro Rodrigues (@Pedro_SEC_R)
-  dependencies: []
-  description: Queries the FindSubDomain page for sub-domain information in a domain.
-  files: []
-  last_updated: '2019-06-24'
-  name: FindSubDomains DNS search
-  path: recon/domains-hosts/findsubdomains
-  required_keys: []
-  version: '1.0'
 - author: Tim Tomes (@lanmaster53)
   dependencies: []
   description: Harvests hosts from Google.com by using the 'site' search operator.
@@ -683,6 +674,16 @@
   required_keys:
   - shodan_api
   version: '1.1'
+- author: Ryan Hays
+  dependencies: []
+  description: Uses the Spyse API to discover subdomains.
+  files: []
+  last_updated: '2020-07-07'
+  name: Spyse Subdomain lookup
+  path: dev/spyse_subdomains
+  required_keys:
+  - spyse_api
+  version: '1.0'
 - author: Zach Grace (@ztgrace) zgrace@403labs.com and Bryan Onel (@BryanOnel86) onel@oneleet.com
   dependencies: []
   description: Uses the ssltools.com API to obtain the Subject Alternative Names for
