@@ -5,7 +5,7 @@ from xml.etree import ElementTree
 class Module(BaseModule):
     meta = {
         'name': 'Nmap XML Output Importer',
-        'author': 'Ryan Hays',
+        'author': 'Ryan Hays (@_ryanhays)',
         'version': '1.1',
         'description': 'Imports hosts and ports into the respective databases from Nmap XML output.',
         'options': (
