@@ -680,7 +680,7 @@
   files: []
   last_updated: '2020-07-07'
   name: Spyse Subdomain lookup
-  path: dev/spyse_subdomains
+  path: recon/domains-hosts/spyse_subdomains
   required_keys:
   - spyse_api
   version: '1.0'
