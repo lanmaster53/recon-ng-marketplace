@@ -4,6 +4,7 @@ import dns.message
 import dns.query
 import re
 
+
 class Module(BaseModule):
 
     meta = {
@@ -30,7 +31,7 @@ class Module(BaseModule):
             response = None
             # prepare our query
             query = dns.message.make_query(domain, dns.rdatatype.A, dns.rdataclass.IN)
-            # unset the Recurse flag 
+            # unset the Recurse flag
             query.flags ^= dns.flags.RD
             response = dns.query.udp(query, nameserver)
             if len(response.answer) > 0:
