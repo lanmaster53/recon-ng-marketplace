@@ -1,6 +1,7 @@
 from recon.core.module import BaseModule
 import os
-import dns
+import dns.message
+import dns.query
 import re
 
 class Module(BaseModule):
