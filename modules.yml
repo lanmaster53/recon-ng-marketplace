@@ -3,11 +3,11 @@
   description: Uses the DNS cache snooping technique to check for visited domains
   files:
   - av_domains.lst
-  last_updated: '2019-06-24'
+  last_updated: '2020-10-13'
   name: DNS Cache Snooper
   path: discovery/info_disclosure/cache_snoop
   required_keys: []
-  version: '1.0'
+  version: '1.1'
 - author: Tim Tomes (@lanmaster53), thrapt (thrapt@gmail.com), Jay Turla (@shipcod3),
     and Mark Jeffery
   dependencies: []
