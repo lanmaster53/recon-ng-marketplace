@@ -10,7 +10,7 @@ class Module(BaseModule):
     meta = {
         'name': 'DNS Cache Snooper',
         'author': 'thrapt (thrapt@gmail.com)',
-        'version': '1.0',
+        'version': '1.1',
         'description': 'Uses the DNS cache snooping technique to check for visited domains',
         'comments': (
             'Nameserver must be in IP form.',
