@@ -1,14 +1,16 @@
 from recon.core.module import BaseModule
 import os
-import dns
+import dns.message
+import dns.query
 import re
+
 
 class Module(BaseModule):
 
     meta = {
         'name': 'DNS Cache Snooper',
         'author': 'thrapt (thrapt@gmail.com)',
-        'version': '1.0',
+        'version': '1.1',
         'description': 'Uses the DNS cache snooping technique to check for visited domains',
         'comments': (
             'Nameserver must be in IP form.',
@@ -29,7 +31,7 @@ class Module(BaseModule):
             response = None
             # prepare our query
             query = dns.message.make_query(domain, dns.rdatatype.A, dns.rdataclass.IN)
-            # unset the Recurse flag 
+            # unset the Recurse flag
             query.flags ^= dns.flags.RD
             response = dns.query.udp(query, nameserver)
             if len(response.answer) > 0:
