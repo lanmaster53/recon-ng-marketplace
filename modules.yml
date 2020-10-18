@@ -729,11 +729,11 @@
   description: Checks XSSed.com for XSS records associated with a domain and displays
     the first 20 results.
   files: []
-  last_updated: '2019-06-24'
+  last_updated: '2020-10-18'
   name: XSSed Domain Lookup
   path: recon/domains-vulnerabilities/xssed
   required_keys: []
-  version: '1.0'
+  version: '1.1'
 - author: Tim Tomes (@lanmaster53)
   dependencies: []
   description: Adds a new domain for all the hostnames stored in the 'hosts' table.
