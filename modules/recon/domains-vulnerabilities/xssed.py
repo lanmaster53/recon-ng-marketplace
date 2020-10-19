@@ -8,7 +8,7 @@ class Module(BaseModule):
     meta = {
         'name': 'XSSed Domain Lookup',
         'author': 'Micah Hoffman (@WebBreacher)',
-        'version': '1.0',
+        'version': '1.1',
         'description': 'Checks XSSed.com for XSS records associated with a domain and displays the first 20 results.',
         'query': 'SELECT DISTINCT domain FROM domains WHERE domain IS NOT NULL',
     }
@@ -26,6 +26,8 @@ class Module(BaseModule):
                 # Parse the response and get the details
                 details = re.findall(r'<th class="row3"[^>]*>[^:?]+[:?]+(.+?)<\/th>', resp_vuln.text)#.replace('&nbsp;', ' '))
                 details = [self.html_unescape(x).strip() for x in details]
+                if not re.match(rf"(^|.*\.){re.escape(domain)}$", details[5], re.IGNORECASE):
+                    continue
                 data = {}
                 data['host'] = details[5]
                 data['reference'] = url_vuln % vuln
