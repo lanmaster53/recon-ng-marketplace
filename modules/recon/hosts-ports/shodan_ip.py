@@ -28,12 +28,16 @@ class Module(BaseModule):
                 ipinfo = api.host(ipaddr)
                 for port in ipinfo['data']:
                     try:
+                        if len(port['hostnames']) == 0:
+                            self.insert_ports(ip_address=ipaddr, port=port['port'], protocol=port['transport'])
+                            continue
                         for hostname in port['hostnames']:
                             self.insert_ports(host=hostname, ip_address=ipaddr, port=port['port'],
                                               protocol=port['transport'])
                     except KeyError:
                         self.insert_ports(ip_address=ipaddr, port=port['port'], protocol=port['transport'])
-            except shodan.exception.APIError:
+            except shodan.exception.APIError as e:
+                print(f'Shodan API error: {e}')
                 pass
 
             time.sleep(limit)
