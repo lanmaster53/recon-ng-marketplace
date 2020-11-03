@@ -875,7 +875,8 @@
   required_keys:
   - binaryedge_api
   version: '1.0'
-- author: Tim Tomes (@lanmaster53) and Matt Puckett (@t3lc0) & Ryan Hays (@_ryanhays) & Brian Yip (@r0kit)
+- author: Tim Tomes (@lanmaster53) and Matt Puckett (@t3lc0) & Ryan Hays (@_ryanhays)
+    & Brian Yip (@r0kit)
   dependencies:
   - shodan
   description: Harvests port information from the Shodan API by using the 'ip' search
