@@ -8,7 +8,7 @@ class Module(BaseModule):
     meta = {
         'name': 'Scylla Targetted Credential Harvester',
         'author': 'Tim Tomes (@lanmaster53)',
-        'version': '1.3',
+        'version': '1.4',
         'description': 'Harvests credentials from the scylla.sh API using email addresses as input. Updates the '
                        '\'credentials\' and \'contacts\' tables with the results.',
         'options': (
@@ -21,10 +21,10 @@ class Module(BaseModule):
         base_url = 'https://scylla.sh/search'
         headers = {'Accept': 'application/json'}
         size = self.options['size']
-        start = 1
+        start = 0
         for email in emails:
             while True:
-                payload = {'q': f"Email:\"{email}\"", 'size': size, 'start': start}
+                payload = {'q': f"email:\"{email}\"", 'size': size, 'start': start}
                 resp = self.request('GET', base_url, params=payload, headers=headers, auth=('sammy', 'BasicPassword!'))
                 if resp.status_code != 200:
                     self.error('Invalid response.')
