@@ -678,12 +678,12 @@
   dependencies: []
   description: Uses the Spyse API to discover subdomains.
   files: []
-  last_updated: '2020-07-07'
+  last_updated: '2021-01-31'
   name: Spyse Subdomain lookup
   path: recon/domains-hosts/spyse_subdomains
   required_keys:
   - spyse_api
-  version: '1.0'
+  version: '1.1'
 - author: Zach Grace (@ztgrace) zgrace@403labs.com and Bryan Onel (@BryanOnel86) onel@oneleet.com
   dependencies: []
   description: Uses the ssltools.com API to obtain the Subject Alternative Names for

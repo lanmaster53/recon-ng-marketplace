@@ -6,7 +6,7 @@ class Module(BaseModule):
     meta = {
         'name': 'Spyse Subdomain lookup',
         'author': 'Ryan Hays',
-        'version': '1.0',
+        'version': '1.1',
         'description': 'Uses the Spyse API to discover subdomains.',
         'required_keys': ['spyse_api'],
         'options': (
@@ -29,7 +29,7 @@ class Module(BaseModule):
 
                 if resp.status_code == 200:
                     data = resp.json()
-                    total_ans =data['data']['max_view_count']
+                    total_ans = data['data']['max_view_count']
 
                     for subdomain in data['data']['items']:
                         offset += 1
@@ -38,5 +38,5 @@ class Module(BaseModule):
                             self.insert_hosts(host=subdomain['name'], ip_address=subdomain['dns_records']['A'][0]['ip'])
                         else:
                             self.insert_hosts(host=subdomain['name'])
-                elif:
+                else:
                     break
