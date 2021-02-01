@@ -7,7 +7,7 @@ class Module(BaseModule):
     meta = {
         'name': 'Viewdns Reverse Whois Domain Harvester',
         'author': 'Gaetan Ferry (@_mabote_) from @synacktiv',
-        'version': '1.0',
+        'version': '1.1',
         'description': 'Harvests domain names belonging to a company by using '
             + 'the viewdns.info free reverse whois tool.',
         'comments': (
@@ -17,9 +17,12 @@ class Module(BaseModule):
     }
 
     def module_run(self, companies):
-        url = 'http://viewdns.info/reversewhois/'
+        url = 'https://viewdns.info/reversewhois/'
         for company in companies:
             self.heading(company, level=0)
+            if len(company) < 6:
+                self.alert('Company name too short, skipping')
+                continue
             payload = {'q': company}
             resp = self.request('GET', url, params=payload)
             if resp.status_code != 200:
