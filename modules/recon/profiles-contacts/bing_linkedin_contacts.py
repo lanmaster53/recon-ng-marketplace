@@ -1,6 +1,7 @@
 from recon.core.module import BaseModule
 from recon.mixins.search import BingAPIMixin
 from recon.utils.parsers import parse_name
+import re
 
 
 class Module(BaseModule, BingAPIMixin):
@@ -35,7 +36,9 @@ class Module(BaseModule, BingAPIMixin):
             # Split the title on the pipe to get rid of "linkedIn" portion at the end
             name_and_title = link_title.split("|")[0]
             # Split whats left on the Dashes, which is usually name - title - company
-            name_title_company_list = name_and_title.split("-")
+            # some european LinkedIn sites use em-dash 
+            delimeter_expression = '- | ' + b'\xe2\x80\x93'.decode('utf-8')
+            name_title_company_list = re.split(delimeter_expression, name_and_title)
             # Parse out name
             fullname = name_title_company_list[0]
             fname, mname, lname = parse_name(fullname)
