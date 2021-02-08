@@ -13,12 +13,12 @@ class Module(BaseModule):
         'required_keys': ['ipinfodb_api'],
         'query': 'SELECT DISTINCT ip_address FROM hosts WHERE ip_address IS NOT NULL',
         'options': (
-            ('limit', True, True, 'toggle rate limiting'),
-            ('rate', 0.7, True, 'allows 1 request per the specified seconds'),
+            ('rate_limit', 0.8, False, 'allows 1 request per the specified seconds'),
         ),
         'comments': (
             'Free API access requires the use of rate limiting.',
-            'If you are getting temporarily denied, increase rate as needed.'
+            'If you are getting temporarily denied, increase rate as needed.',
+            'Unset rate_limit or set to 0 for no limit.'
         ),
     }
    
@@ -48,5 +48,5 @@ class Module(BaseModule):
             self.output(f"{host} - {latitude},{longitude} - {', '.join([x for x in [region, country] if x])}")
             self.query('UPDATE hosts SET region=?, country=?, latitude=?, longitude=? WHERE ip_address=?',
                        (region, country, latitude, longitude, host))
-            if self.options['limit']:
-                time.sleep(self.options['rate'])
+            if self.options['rate_limit']:
+                time.sleep(self.options['rate_limit'])
