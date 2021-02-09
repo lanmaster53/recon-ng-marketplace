@@ -37,8 +37,8 @@ class Module(BaseModule, BingAPIMixin):
             name_and_title = link_title.split("|")[0]
             # Split whats left on the Dashes, which is usually name - title - company
             # some european LinkedIn sites use em-dash
-            delimeter_expression = '- | ' + b'\xe2\x80\x93'.decode('utf-8')
-            name_title_company_list = re.split(delimeter_expression, name_and_title)
+            DELIMETER_EXPRESSION = '- | ' + b'\xe2\x80\x93'.decode('utf-8')
+            name_title_company_list = re.split(DELIMETER_EXPRESSION, name_and_title)
             # Parse out name
             fullname = name_title_company_list[0]
             fname, mname, lname = parse_name(fullname)
