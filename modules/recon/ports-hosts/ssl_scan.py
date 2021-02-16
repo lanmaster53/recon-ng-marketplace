@@ -1,8 +1,8 @@
 from recon.core.module import BaseModule
 import ssl
 from socket import setdefaulttimeout, timeout
-import M2Crypto
 import re
+import cryptography.x509
 
 
 class Module(BaseModule):
@@ -10,16 +10,17 @@ class Module(BaseModule):
     meta = {
         'name': 'SSL Scanner SAN Lookup',
         'author': 'Ryan Hays (@_ryanhays)',
-        'version': '1.0',
+        'version': '1.1',
         'description': 'Queries the ports table to build a list of IP Address:Ports. It then connects to each service '
                        'updating the Ports table with the certificate common name and then adds the Subject Alt Names '
                        'to the hosts table.',
         'query': 'SELECT DISTINCT ("ip_address" || ":" || "port") FROM ports WHERE ip_address IS NOT NULL',
+        'dependancies': ['cryptography']
     }
 
     def module_run(self, hosts):
-        cn_regex_pat = r'.*CN=(.+?)(,|$)'
-        dn_regex_pat = r'^(?!:\/\/)([a-zA-Z0-9-_]+\.)*[a-zA-Z0-9][a-zA-Z0-9-_]+\.[a-zA-Z]{2,11}?$'
+        # https://stackoverflow.com/a/2894918
+        dn_regex_pat = r'^[a-zA-Z\d-]{,63}(\.[a-zA-Z\d-]{,63})*$'
         for host in hosts:
             setdefaulttimeout(10)
             ip, port = host.split(':')
@@ -32,23 +33,18 @@ class Module(BaseModule):
                 self.alert(f"Timed out connecting to host {ip}:{port}")
                 continue
 
-            x509 = M2Crypto.X509.load_cert_string(cert)
-            regex = re.compile(cn_regex_pat)
-            commonname = regex.search(x509.get_subject().as_text()).group(1).lower()
+            x509_cert = cryptography.x509.load_pem_x509_certificate(cert.encode())
+            commonnames = x509_cert.subject.get_attributes_for_oid(cryptography.x509.NameOID.COMMON_NAME)
 
-            if re.match(dn_regex_pat, commonname):
-                self.output(f"Updating ports table for {ip} to include host {commonname}")
-                self.query('UPDATE ports SET ip_address=?, host=?, port=?, protocol=? WHERE ip_address=?',
-                           (ip, commonname, port, 'tcp', ip))
-            else:
-                self.alert(f"Not a valid Common Name: {commonname}")
+            for cn in commonnames:
+                if re.match(dn_regex_pat, cn.value):
+                    self.insert_ports(host=cn.value, ip_address=ip, port=port, protocol='tcp')
+                else:
+                    self.debug(f"Not a valid Common Name: {cn.value}")
 
-            try:
-                subaltname = x509.get_ext('subjectAltName').get_value().split(',')
-            except LookupError:
-                continue
+            san_ext = x509_cert.extensions.get_extension_for_oid(cryptography.x509.ExtensionOID.SUBJECT_ALTERNATIVE_NAME).value
+            subaltnames = san_ext.get_values_for_type(cryptography.x509.DNSName)
 
-            for san in subaltname:
-                san = san.split(':')[1].lower()
+            for san in subaltnames:
                 if re.match(dn_regex_pat, san):
                     self.insert_hosts(host=san)
