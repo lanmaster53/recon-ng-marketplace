@@ -162,7 +162,7 @@
 - author: Censys Team
   dependencies:
   - censys>=2.0.0
-  description: "Retrieves hosts for a company\u2019s ASN. Updates the 'hosts' and\
+  description: "Retrieves hosts for a company's ASN. Updates the 'hosts' and\
     \ the 'ports' tables with the results."
   files: []
   last_updated: '2021-05-11'
@@ -963,7 +963,7 @@
 - author: Censys Team
   dependencies:
   - censys>=2.0.0
-  description: "Retrieves organizations for a company\u2019s netblocks. Updates the\
+  description: "Retrieves organizations for a company's netblocks. Updates the\
     \ 'companies' table with the results."
   files: []
   last_updated: '2021-05-11'
