@@ -7,16 +7,18 @@ class Module(BaseModule):
     meta = {
         'name': 'IPInfoDB GeoIP',
         'author': 'Tim Tomes (@lanmaster53)',
-        'version': '1.1',
+        'version': '1.2',
         'description': 'Leverages the ipinfodb.com API to geolocate a host by IP address. Updates the \'hosts\' table '
                        'with the results.',
         'required_keys': ['ipinfodb_api'],
         'query': 'SELECT DISTINCT ip_address FROM hosts WHERE ip_address IS NOT NULL',
         'options': (
-            ('limit', True, True, 'toggle rate limiting'),
+            ('rate_limit', 0.8, False, 'allows 1 request per the specified seconds'),
         ),
         'comments': (
             'Free API access requires the use of rate limiting.',
+            'If you are getting temporarily denied, increase rate as needed.',
+            'Unset rate_limit or set to 0 for no limit.'
         ),
     }
    
@@ -46,5 +48,5 @@ class Module(BaseModule):
             self.output(f"{host} - {latitude},{longitude} - {', '.join([x for x in [region, country] if x])}")
             self.query('UPDATE hosts SET region=?, country=?, latitude=?, longitude=? WHERE ip_address=?',
                        (region, country, latitude, longitude, host))
-            if self.options['limit']:
-                time.sleep(0.7)
+            if self.options['rate_limit']:
+                time.sleep(self.options['rate_limit'])
