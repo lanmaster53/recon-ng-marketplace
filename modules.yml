@@ -678,7 +678,7 @@
   dependencies: []
   description: Uses the Spyse API to discover subdomains.
   files: []
-  last_updated: '2021-01-31'
+  last_updated: '2021-08-24'
   name: Spyse Subdomain lookup
   path: recon/domains-hosts/spyse_subdomains
   required_keys:
