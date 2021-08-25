@@ -1045,11 +1045,11 @@
     connects to each service updating the Ports table with the certificate common
     name and then adds the Subject Alt Names to the hosts table.
   files: []
-  last_updated: '2020-04-13'
+  last_updated: '2021-08-24'
   name: SSL Scanner SAN Lookup
   path: recon/ports-hosts/ssl_scan
   required_keys: []
-  version: '1.0'
+  version: '1.1'
 - author: Cam Barts (@cam-barts)
   dependencies: []
   description: Harvests Basic Contact Information from Bing based on LinkedIn profiles.
