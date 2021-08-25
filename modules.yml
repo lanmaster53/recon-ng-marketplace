@@ -797,7 +797,7 @@
   description: Leverages the ipinfodb.com API to geolocate a host by IP address. Updates
     the 'hosts' table with the results.
   files: []
-  last_updated: '2021-02-08'
+  last_updated: '2021-08-24'
   name: IPInfoDB GeoIP
   path: recon/hosts-hosts/ipinfodb
   required_keys:
