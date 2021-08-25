@@ -142,7 +142,7 @@
   description: Harvests domain names belonging to a company by using the viewdns.info
     free reverse whois tool.
   files: []
-  last_updated: '2021-01-31'
+  last_updated: '2021-08-24'
   name: Viewdns Reverse Whois Domain Harvester
   path: recon/companies-domains/viewdns_reverse_whois
   required_keys: []
