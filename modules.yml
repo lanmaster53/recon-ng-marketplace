@@ -1054,7 +1054,7 @@
     connects to each service updating the Ports table with the certificate common
     name and then adds the Subject Alt Names to the hosts table.
   files: []
-  last_updated: '2021-02-15'
+  last_updated: '2021-08-24'
   name: SSL Scanner SAN Lookup
   path: recon/ports-hosts/ssl_scan
   required_keys: []
