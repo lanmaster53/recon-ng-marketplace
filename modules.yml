@@ -287,16 +287,6 @@
   version: '1.1'
 - author: Tim Tomes (@lanmaster53)
   dependencies: []
-  description: Harvests credentials from the scylla.sh API using email addresses as
-    input. Updates the 'credentials' and 'contacts' tables with the results.
-  files: []
-  last_updated: '2020-09-14'
-  name: Scylla Targetted Credential Harvester
-  path: recon/contacts-credentials/scylla
-  required_keys: []
-  version: '1.3'
-- author: Tim Tomes (@lanmaster53)
-  dependencies: []
   description: Adds a new domain for all the hostnames associated with email addresses
     stored in the 'contacts' table.
   files:
@@ -531,16 +521,6 @@
   - pwnedlist_api
   - pwnedlist_secret
   version: '1.0'
-- author: Tim Tomes (@lanmaster53)
-  dependencies: []
-  description: Harvests credentials from the scylla.sh API using domains as input.
-    Updates the 'credentials' and 'contacts' tables with the results.
-  files: []
-  last_updated: '2020-09-25'
-  name: Scylla Bulk Credential Harvester
-  path: recon/domains-credentials/scylla
-  required_keys: []
-  version: '1.3'
 - author: Marcus Watson (@BranMacMuffin)
   dependencies: []
   description: Brute forces TLDs and SLDs using DNS. Updates the 'domains' table with
