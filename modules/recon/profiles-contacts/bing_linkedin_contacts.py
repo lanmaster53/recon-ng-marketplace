@@ -1,6 +1,7 @@
 from recon.core.module import BaseModule
 from recon.mixins.search import BingAPIMixin
 from recon.utils.parsers import parse_name
+import re
 
 
 class Module(BaseModule, BingAPIMixin):
@@ -8,7 +9,7 @@ class Module(BaseModule, BingAPIMixin):
     meta = {
         "name": "Bing LinkedIn Profile Contact Harvester",
         "author": "Cam Barts (@cam-barts)",
-        "version": "1.1",
+        "version": "1.2",
         "description": "Harvests Basic Contact Information from Bing based on LinkedIn profiles.",
         "required_keys": ["bing_api"],
         "comments": (
@@ -35,7 +36,10 @@ class Module(BaseModule, BingAPIMixin):
             # Split the title on the pipe to get rid of "linkedIn" portion at the end
             name_and_title = link_title.split("|")[0]
             # Split whats left on the Dashes, which is usually name - title - company
-            name_title_company_list = name_and_title.split("-")
+            # some european LinkedIn sites use em-dash
+            EM_DASH = b'\xe2\x80\x93'.decode('utf-8')
+            delimeter_expression = '- | ' + EM_DASH
+            name_title_company_list = re.split(delimeter_expression, name_and_title)
             # Parse out name
             fullname = name_title_company_list[0]
             fname, mname, lname = parse_name(fullname)

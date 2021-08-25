@@ -1054,12 +1054,12 @@
   dependencies: []
   description: Harvests Basic Contact Information from Bing based on LinkedIn profiles.
   files: []
-  last_updated: '2019-10-08'
+  last_updated: '2021-08-24'
   name: Bing LinkedIn Profile Contact Harvester
   path: recon/profiles-contacts/bing_linkedin_contacts
   required_keys:
   - bing_api
-  version: '1.1'
+  version: '1.2'
 - author: Micah Hoffman (@WebBreacher)
   dependencies: []
   description: Searches public code repositories for information about a given username.
