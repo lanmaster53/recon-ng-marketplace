@@ -599,7 +599,7 @@
   description: Leverages the BuiltWith API to identify hosts, technologies, and contacts
     associated with a domain.
   files: []
-  last_updated: '2019-06-24'
+  last_updated: '2021-08-24'
   name: BuiltWith Enumerator
   path: recon/domains-hosts/builtwith
   required_keys:
