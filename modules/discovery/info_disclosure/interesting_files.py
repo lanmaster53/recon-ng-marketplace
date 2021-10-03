@@ -20,6 +20,7 @@ class Module(BaseModule):
         'query': 'SELECT DISTINCT host FROM hosts WHERE host IS NOT NULL',
         'options': (
             ('download', True, True, 'download discovered files'),
+            ('files', None, False, 'override files to search'),
             ('protocol', 'http', True, 'request protocol'),
             ('port', 80, True, 'request port'),
         ),
@@ -58,6 +59,9 @@ class Module(BaseModule):
         ]
         count = 0
         for host in hosts:
+            if self.options['files']:
+                filetypes = [(fname, False) for fname in self.options['files'].split()]
+
             for (filename, verify) in filetypes:
                 url = f"{protocol}://{host}:{port}/{filename}"
                 try:
@@ -71,7 +75,7 @@ class Module(BaseModule):
                     # uncompress if necessary
                     text = ('.gz' in filename and self.uncompress(resp.text)) or resp.text
                     # check for file type since many custom 404s are returned as 200s
-                    if verify.lower() in text.lower():
+                    if verify and verify.lower() in text.lower():
                         self.alert(f"{url} => {code}. '{filename}' found!")
                         # urls that end with '/' are not necessary to download
                         if download and not filename.endswith("/"):
