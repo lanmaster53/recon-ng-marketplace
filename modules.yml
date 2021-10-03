@@ -1250,3 +1250,13 @@
   path: reporting/xml
   required_keys: []
   version: '1.1'
+- author: Qazeer
+  dependencies: []
+  description: Uses the HackerTarget.com reverse IP lookup API to find host names
+    associated with IP addresses. Updates the 'hosts' table with the results.
+  files: []
+  last_updated: '2021-10-03'
+  name: HackerTarget reverse IP lookup
+  path: recon/hosts-hosts/hackertarget_reverse
+  required_keys: []
+  version: '1.0'
