@@ -8,7 +8,7 @@ class Module(BaseModule):
     meta = {
         'name': 'Interesting File Finder',
         'author': 'Tim Tomes (@lanmaster53), thrapt (thrapt@gmail.com), Jay Turla (@shipcod3), and Mark Jeffery',
-        'version': '1.1',
+        'version': '1.2',
         'description': 'Checks hosts for interesting files in predictable locations.',
         'comments': (
             'Files: robots.txt, sitemap.xml, sitemap.xml.gz, crossdomain.xml, phpinfo.php, test.php, elmah.axd, server-status, jmx-console/, admin-console/, web-console/',
@@ -60,7 +60,8 @@ class Module(BaseModule):
         count = 0
         for host in hosts:
             if self.options['files']:
-                filetypes = [(fname, False) for fname in self.options['files'].split()]
+                filenames = self.options['files'].split()
+                filetypes = [(fname, False) for fname in filenames]
 
             for (filename, verify) in filetypes:
                 url = f"{protocol}://{host}:{port}/{filename}"
