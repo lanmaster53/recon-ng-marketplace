@@ -1,7 +1,10 @@
 from recon.core.module import BaseModule
-import warnings
+import csv
 import gzip
+import os
+import warnings
 from io import BytesIO
+
 
 class Module(BaseModule):
 
@@ -12,6 +15,7 @@ class Module(BaseModule):
         'description': 'Checks hosts for interesting files in predictable locations.',
         'comments': (
             'Files: robots.txt, sitemap.xml, sitemap.xml.gz, crossdomain.xml, phpinfo.php, test.php, elmah.axd, server-status, jmx-console/, admin-console/, web-console/',
+            f'CSV Default: {os.path.join(BaseModule.data_path, "interesting_files_verify.csv")}',
             'Google Dorks:',
             '\tinurl:robots.txt ext:txt',
             '\tinurl:elmah.axd ext:axd intitle:"Error log for"',
@@ -19,12 +23,19 @@ class Module(BaseModule):
         ),
         'query': 'SELECT DISTINCT host FROM hosts WHERE host IS NOT NULL',
         'options': (
+            ('csv_file', os.path.join(BaseModule.data_path, 'interesting_files_verify.csv'),
+             True, 'custom filename map'),
             ('download', True, True, 'download discovered files'),
-            ('files', None, False, 'override files to search'),
             ('protocol', 'http', True, 'request protocol'),
             ('port', 80, True, 'request port'),
         ),
+        'files': ['interesting_files_verify.csv'],
     }
+
+    def read_filenames_csv(self):
+        with open(os.path.expanduser(self.options['csv_file'])) as csvfile:
+            fname_csv = csv.reader(csvfile, delimiter=',', quotechar='"')
+            return [(fname, verify_str) for (fname, verify_str) in fname_csv]
 
     def uncompress(self, data_gz):
         inbuffer = BytesIO(data_gz.encode())
@@ -44,25 +55,11 @@ class Module(BaseModule):
         # ignore unicode warnings when trying to un-gzip text type 200 repsonses
         warnings.simplefilter("ignore")
         # (filename, string to search for to prevent false positive)
-        filetypes = [
-            ('robots.txt', 'user-agent:'),
-            ('sitemap.xml', '<?xml'),
-            ('sitemap.xml.gz', '<?xml'),
-            ('crossdomain.xml', '<?xml'),
-            ('phpinfo.php', 'phpinfo()'),
-            ('test.php', 'phpinfo()'),
-            ('elmah.axd', 'Error Log for'),
-            ('server-status', '>Apache Status<'),
-            ('jmx-console/', 'JBoss'),  # JBoss 5.1.0.GA
-            ('admin-console/', 'index.seam'),  # JBoss 5.1.0.GA
-            ('web-console/', 'Administration'),  # JBoss 5.1.0.GA
-        ]
+
+        filetypes = self.read_filenames_csv()
+
         count = 0
         for host in hosts:
-            if self.options['files']:
-                filenames = self.options['files'].split()
-                filetypes = [(fname, False) for fname in filenames]
-
             for (filename, verify) in filetypes:
                 url = f"{protocol}://{host}:{port}/{filename}"
                 try:
@@ -76,7 +73,7 @@ class Module(BaseModule):
                     # uncompress if necessary
                     text = ('.gz' in filename and self.uncompress(resp.text)) or resp.text
                     # check for file type since many custom 404s are returned as 200s
-                    if verify and verify.lower() in text.lower():
+                    if verify.lower() in text.lower():
                         self.alert(f"{url} => {code}. '{filename}' found!")
                         # urls that end with '/' are not necessary to download
                         if download and not filename.endswith("/"):
