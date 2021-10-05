@@ -35,6 +35,8 @@ class Module(BaseModule):
     def read_filenames_csv(self):
         with open(os.path.expanduser(self.options['csv_file'])) as csvfile:
             fname_csv = csv.reader(csvfile, delimiter=',', quotechar='"')
+            # verification string used to prevent false positives;
+            #   eg: if robots.txt redirects to login page & returns a 200
             return [(fname, verify_str) for (fname, verify_str) in fname_csv]
 
     def uncompress(self, data_gz):
@@ -54,11 +56,9 @@ class Module(BaseModule):
         port = self.options['port']
         # ignore unicode warnings when trying to un-gzip text type 200 repsonses
         warnings.simplefilter("ignore")
-        # (filename, string to search for to prevent false positive)
-
         filetypes = self.read_filenames_csv()
-
         count = 0
+
         for host in hosts:
             for (filename, verify) in filetypes:
                 url = f"{protocol}://{host}:{port}/{filename}"
