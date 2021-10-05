@@ -12,12 +12,13 @@
     and Mark Jeffery
   dependencies: []
   description: Checks hosts for interesting files in predictable locations.
-  files: []
-  last_updated: '2020-01-13'
+  files:
+  - interesting_files_verify.csv
+  last_updated: '2021-10-04'
   name: Interesting File Finder
   path: discovery/info_disclosure/interesting_files
   required_keys: []
-  version: '1.1'
+  version: '1.2'
 - author: Tim Tomes (@lanmaster53)
   dependencies: []
   description: Provides a shell interface for remote command injection flaws in web

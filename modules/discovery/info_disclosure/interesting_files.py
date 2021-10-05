@@ -1,17 +1,21 @@
 from recon.core.module import BaseModule
-import warnings
+import csv
 import gzip
+import os
+import warnings
 from io import BytesIO
+
 
 class Module(BaseModule):
 
     meta = {
         'name': 'Interesting File Finder',
         'author': 'Tim Tomes (@lanmaster53), thrapt (thrapt@gmail.com), Jay Turla (@shipcod3), and Mark Jeffery',
-        'version': '1.1',
+        'version': '1.2',
         'description': 'Checks hosts for interesting files in predictable locations.',
         'comments': (
             'Files: robots.txt, sitemap.xml, sitemap.xml.gz, crossdomain.xml, phpinfo.php, test.php, elmah.axd, server-status, jmx-console/, admin-console/, web-console/',
+            f'CSV Default: {os.path.join(BaseModule.data_path, "interesting_files_verify.csv")}',
             'Google Dorks:',
             '\tinurl:robots.txt ext:txt',
             '\tinurl:elmah.axd ext:axd intitle:"Error log for"',
@@ -19,11 +23,21 @@ class Module(BaseModule):
         ),
         'query': 'SELECT DISTINCT host FROM hosts WHERE host IS NOT NULL',
         'options': (
+            ('csv_file', os.path.join(BaseModule.data_path, 'interesting_files_verify.csv'),
+             True, 'custom filename map'),
             ('download', True, True, 'download discovered files'),
             ('protocol', 'http', True, 'request protocol'),
             ('port', 80, True, 'request port'),
         ),
+        'files': ['interesting_files_verify.csv'],
     }
+
+    def read_filenames_csv(self):
+        with open(os.path.expanduser(self.options['csv_file'])) as csvfile:
+            fname_csv = csv.reader(csvfile, delimiter=',', quotechar='"')
+            # verification string used to prevent false positives;
+            #   eg: if robots.txt redirects to login page & returns a 200
+            return [(fname, verify_str) for (fname, verify_str) in fname_csv]
 
     def uncompress(self, data_gz):
         inbuffer = BytesIO(data_gz.encode())
@@ -42,21 +56,9 @@ class Module(BaseModule):
         port = self.options['port']
         # ignore unicode warnings when trying to un-gzip text type 200 repsonses
         warnings.simplefilter("ignore")
-        # (filename, string to search for to prevent false positive)
-        filetypes = [
-            ('robots.txt', 'user-agent:'),
-            ('sitemap.xml', '<?xml'),
-            ('sitemap.xml.gz', '<?xml'),
-            ('crossdomain.xml', '<?xml'),
-            ('phpinfo.php', 'phpinfo()'),
-            ('test.php', 'phpinfo()'),
-            ('elmah.axd', 'Error Log for'),
-            ('server-status', '>Apache Status<'),
-            ('jmx-console/', 'JBoss'),  # JBoss 5.1.0.GA
-            ('admin-console/', 'index.seam'),  # JBoss 5.1.0.GA
-            ('web-console/', 'Administration'),  # JBoss 5.1.0.GA
-        ]
+        filetypes = self.read_filenames_csv()
         count = 0
+
         for host in hosts:
             for (filename, verify) in filetypes:
                 url = f"{protocol}://{host}:{port}/{filename}"

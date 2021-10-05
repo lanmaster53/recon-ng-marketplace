@@ -1,0 +1,11 @@
+robots.txt,user-agent:
+sitemap.xml,<?xml
+sitemap.xml.gz,<?xml
+crossdomain.xml,<?xml
+phpinfo.php,phpinfo()
+test.php,phpinfo()
+elmah.axd,Error Log for
+server-status,>Apache Status<
+jmx-console/,JBoss
+admin-console/,index.seam
+web-console/,Administration
