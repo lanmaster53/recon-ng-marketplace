@@ -6,12 +6,8 @@ class Module(BaseModule):
         'name': 'HackerTarget reverse IP lookup',
         'author': 'Qazeer',
         'version': '1.0',
-        'description': 'Uses the HackerTarget.com reverse IP lookup API to find host names associated with IP addresses. Updates the \'hosts\' table with the results.',
-        'comments': (
-            'As of October 04 2021, the API limit for the free tier is 20 requests per day.',
-            'If the limit is reached, the API returns "API count exceeded" which raise an error.',
-            'An API key can be specified with "hackertarget_api".',
-        ),
+        'description': 'Uses the HackerTarget.com reverse IP lookup API to find host names associated with IP addresses. Updates the \'hosts\' table with the results. As of October 04 2021, the API limit for the free tier is 20 requests per day.',
+        'required_keys': ['hackertarget_api'],
         'query': 'SELECT DISTINCT ip_address FROM hosts WHERE ip_address IS NOT NULL',
     }
 
