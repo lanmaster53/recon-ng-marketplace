@@ -10,6 +10,7 @@ class Module(BaseModule):
         'required_keys': ['hackertarget_api'],
         'comments': (
             'As of October 04 2021, the API limit for the free tier is 20 requests per day.',
+            'If the limit is reached, the API returns "API count exceeded" which raise an error.',
         ),
         'query': 'SELECT DISTINCT ip_address FROM hosts WHERE ip_address IS NOT NULL',
     }
