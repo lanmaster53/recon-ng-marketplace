@@ -8,7 +8,7 @@ class Module(BaseModule, ThreadingMixin):
         'name': 'OSINT HUMINT Profile Collector',
         'author': 'Micah Hoffman (@WebBreacher), Brendan Burke (@gbinv)',
         'version': '1.1',
-        'description': 'Updated to work with new wmn-data.json format. Takes each username from the profiles table and searches a variety of web sites for those users. The list of valid sites comes from the parent project at https://github.com/WebBreacher/WhatsMyName',
+        'description': 'Takes each username from the profiles table and searches a variety of web sites for those users. The list of valid sites comes from the parent project at https://github.com/WebBreacher/WhatsMyName',
         'comments': (
             'Note: The global timeout option may need to be increased to support slower sites.',
             'Warning: Using this module behind a filtering proxy may cause false negatives as some of these sites may be blocked.',
