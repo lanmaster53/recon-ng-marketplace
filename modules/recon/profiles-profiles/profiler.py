@@ -2,6 +2,7 @@ from recon.core.module import BaseModule
 from recon.mixins.threads import ThreadingMixin
 from urllib.parse import quote_plus
 
+
 class Module(BaseModule, ThreadingMixin):
 
     meta = {
@@ -21,16 +22,16 @@ class Module(BaseModule, ThreadingMixin):
         url = 'https://raw.githubusercontent.com/WebBreacher/WhatsMyName/main/wmn-data.json'
         self.verbose(f"Retrieving {url}...")
         resp = self.request('GET', url)
-        for user in usernames: 
+        for user in usernames:
             self.heading(f"Looking up data for: {user}")
             self.thread(resp.json()['sites'], user)
 
     def module_thread(self, site, user):
         d = dict(site)
-        if d['valid'] == True:
+        if d['valid']:
             self.verbose(f"Checking: {d['name']}")
             url = d['uri_check'].replace('{account}', quote_plus(user))
-            resp = self.request('GET', url, allow_redirects=False)  
+            resp = self.request('GET', url, allow_redirects=False)
             if resp.status_code == int(d['e_code']):
                 self.debug(f"Codes matched {resp.status_code} {d['e_code']}")
                 if d['e_string'] in resp.text or d['e_string'] in resp.headers:
