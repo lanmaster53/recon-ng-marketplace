@@ -19,17 +19,17 @@ class Module(BaseModule):
             domain_count = 0
             total_ans = 1
             while domain_count < total_ans:
-                resp = self.request('GET', f"https://api.binaryedge.io/v2/query/domains/dns/{domain}?page={page_num}",
-                                    headers={'X-Key': key})
+                resp = self.request('GET', f"https://api.binaryedge.io/v1/query/domains/subdomain/{domain}?page={page_num}", headers={'X-Token': key})
                 if resp.status_code == 200:
                     total_ans = resp.json().get('total')
 
                     for subdomain in resp.json().get('events'):
                         domain_count += 1
-                        if "A" in subdomain:
-                            self.insert_hosts(host=subdomain['domain'], ip_address=subdomain['A'][0])
-                        else:
-                            self.insert_hosts(host=subdomain['domain'])
+                        self.insert_hosts(host=subdomain)
+#                        if "A" in subdomain:
+#                            self.insert_hosts(host=subdomain['domain'], ip_address=subdomain['A'][0])
+#                        else:
+#                            self.insert_hosts(host=subdomain['domain'])
                     page_num += 1
                 elif resp.json().get('status') == 400:
                     break
