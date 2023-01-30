@@ -6,7 +6,7 @@ class Module(BaseModule):
     meta = {
         'name': 'BinaryEdge.io Ports lookup',
         'author': 'Ryan Hays',
-        'version': '1.0',
+        'version': '1.1',
         'description': 'Uses the BinaryEdge API to discover open services for IP Addresses.',
         'required_keys': ['binaryedge_api'],
         'query': 'SELECT DISTINCT ip_address FROM hosts WHERE ip_address IS NOT NULL',
