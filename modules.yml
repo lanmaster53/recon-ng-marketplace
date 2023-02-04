@@ -1092,17 +1092,17 @@
   required_keys:
   - namechk_api
   version: '1.0'
-- author: Micah Hoffman (@WebBreacher)
+- author: Micah Hoffman (@WebBreacher), Brendan Burke (@gbinv)
   dependencies: []
   description: Takes each username from the profiles table and searches a variety
     of web sites for those users. The list of valid sites comes from the parent project
     at https://github.com/WebBreacher/WhatsMyName
   files: []
-  last_updated: '2019-06-24'
+  last_updated: '2019-10-16'
   name: OSINT HUMINT Profile Collector
   path: recon/profiles-profiles/profiler
   required_keys: []
-  version: '1.0'
+  version: '1.1'
 - author: Robert Frost (@frosty_1313, frosty[at]unluckyfrosty.net)
   dependencies: []
   description: Leverages the Twitter API to enumerate users that mentioned the given
