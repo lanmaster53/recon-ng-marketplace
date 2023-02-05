@@ -7,7 +7,7 @@ class Module(BaseModule, ThreadingMixin):
     meta = {
         'name': 'OSINT HUMINT Profile Collector',
         'author': 'Micah Hoffman (@WebBreacher), Brendan Burke (@gbinv)',
-        'version': '1.1',
+        'version': '1.2',
         'description': 'Takes each username from the profiles table and searches a variety of web sites for those users. The list of valid sites comes from the parent project at https://github.com/WebBreacher/WhatsMyName',
         'comments': (
             'Note: The global timeout option may need to be increased to support slower sites.',
@@ -34,7 +34,12 @@ class Module(BaseModule, ThreadingMixin):
             if resp.status_code == int(d['e_code']):
                 self.debug(f"Codes matched {resp.status_code} {d['e_code']}")
                 if d['e_string'] in resp.text or d['e_string'] in resp.headers:
-                    self.insert_profiles(username=user, url=url, resource=d['name'], category=d['cat'])
+                    pretty_url = self._pretty_uri(site, user)
+                    self.insert_profiles(username=user, url=pretty_url, resource=d['name'], category=d['cat'])
                     self.query('DELETE FROM profiles WHERE username = ? and url IS NULL', (user,))
 
+    def _pretty_uri(self, site, user):
+        """Return pretty URI for displaying result (in case if API was used to check account)"""
+        pretty_uri_key = 'uri_pretty' if 'uri_pretty' in site else 'uri_check'
+        return site[pretty_uri_key].replace('{account}', user)
 

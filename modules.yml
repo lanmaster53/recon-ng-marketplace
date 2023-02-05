@@ -1098,11 +1098,11 @@
     of web sites for those users. The list of valid sites comes from the parent project
     at https://github.com/WebBreacher/WhatsMyName
   files: []
-  last_updated: '2019-10-16'
+  last_updated: '2023-02-05'
   name: OSINT HUMINT Profile Collector
   path: recon/profiles-profiles/profiler
   required_keys: []
-  version: '1.1'
+  version: '1.2'
 - author: Robert Frost (@frosty_1313, frosty[at]unluckyfrosty.net)
   dependencies: []
   description: Leverages the Twitter API to enumerate users that mentioned the given
