@@ -782,6 +782,18 @@
   - censysio_id
   - censysio_secret
   version: 2.0
+- author: Qazeer
+  dependencies: []
+  description: Uses the HackerTarget.com reverse IP lookup API to find host names
+    associated with IP addresses. Updates the 'hosts' table with the results. As of
+    October 04 2021, the API limit for the free tier is 20 requests per day.
+  files: []
+  last_updated: '2021-10-10'
+  name: HackerTarget reverse IP lookup
+  path: recon/hosts-hosts/hackertarget_reverse
+  required_keys:
+  - hackertarget_api
+  version: '1.0'
 - author: Tim Tomes (@lanmaster53)
   dependencies: []
   description: Leverages the ipinfodb.com API to geolocate a host by IP address. Updates
