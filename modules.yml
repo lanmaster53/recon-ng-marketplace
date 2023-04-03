@@ -122,13 +122,13 @@
   description: Retrieves subdomains for a company. Updates the 'domains' tables with
     the results.
   files: []
-  last_updated: '2021-05-10'
+  last_updated: '2023-04-03'
   name: Censys subdomains by company
   path: recon/companies-domains/censys_subdomains
   required_keys:
   - censysio_id
   - censysio_secret
-  version: 2.0
+  version: 2.1
 - author: Jonathan M. Wilbur <jonathan@wilbur.space>
   dependencies: []
   description: Given a company name, gathers a domain from the email address of the
@@ -163,10 +163,10 @@
 - author: Censys Team
   dependencies:
   - censys>=2.0.0
-  description: "Retrieves hosts for a company's ASN. Updates the 'hosts' and\
+  description: "Retrieves hosts for a company\u2019s ASN. Updates the 'hosts' and\
     \ the 'ports' tables with the results."
   files: []
-  last_updated: '2021-05-11'
+  last_updated: '2023-04-03'
   name: Censys services by company
   path: recon/companies-hosts/censys_org
   required_keys:
@@ -944,10 +944,10 @@
 - author: Censys Team
   dependencies:
   - censys>=2.0.0
-  description: "Retrieves organizations for a company's netblocks. Updates the\
+  description: "Retrieves organizations for a company\u2019s netblocks. Updates the\
     \ 'companies' table with the results."
   files: []
-  last_updated: '2021-05-11'
+  last_updated: '2023-04-03'
   name: Censys companies by netblock
   path: recon/netblocks-companies/censys_netblock_company
   required_keys:
