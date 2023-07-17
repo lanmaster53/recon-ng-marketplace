@@ -23,6 +23,7 @@ class Module(BaseModule, ThreadingMixin):
         'query': 'SELECT DISTINCT domain FROM domains WHERE domain IS NOT NULL',
         'options': (
             ('api_url', 'https://2.intelx.io/', 'True', 'Base URL. Is set by phonebook in it\'s config.js, but I have no indication it actually changes.'),
+            ('limit', 10000, 'True', 'Maximum number of results ro return.')
             ),
     }
 
@@ -56,29 +57,31 @@ class Module(BaseModule, ThreadingMixin):
         # threading can be used anywhere with the module through the usage of the "self.thread" api call
         # the "self.thread" api call requires a "module_thread" method which acts as the worker for each item in a queue
         api_key=self.keys.get('intelx')
+        limit=self.options.get('limit')
         api_url=self.options.get('API_URL')
 
         # "self.thread" takes at least one argument
         # the first argument must be an iterable that contains all of the items to fill the queue
         # all other arguments get blindly passed to the "module_thread" method where they can be accessed at the thread level
-        self.thread(domains, api_key, api_url)
+        self.thread(domains, api_key, api_url, limit)
 
 
     # optional method
     # the first received parameter is required to capture an item from the queue
     # all other parameters passed in to "self.thread" must be accounted for
-    def module_thread(self, domain, api_key, api_url):
+    def module_thread(self, domain, api_key, api_url, limit):
         # never catch KeyboardInterrupt exceptions in the "module_thread" method as threads don't see them
         # do something leveraging the api methods discussed below
         data = {'term': domain, 
+                'target': 2,
                 'timeout': 20,
-                'maxresults': 10000
+                'maxresults': limit
                 }
         res = self.request('POST', "{url}phonebook/search?k={key}".format(url=api_url, key=api_key), json=data)
         self.debug(res.json())
         query_id = res.json()['id']
 
-        r2 = self.request('GET', "{u}phonebook/search/result?k={k}&id={i}".format(u=api_url, k=api_key, i=query_id))
+        r2 = self.request('GET', "{u}phonebook/search/result?k={k}&id={i}&limit={l}".format(u=api_url, k=api_key, i=query_id, l=limit))
         self.debug(r2.json())
         for data in r2.json()['selectors']:
             if data['selectortype'] == 1:
