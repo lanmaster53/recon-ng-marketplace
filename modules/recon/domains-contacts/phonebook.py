@@ -3,7 +3,8 @@ from recon.core.module import BaseModule
 # mixins for desired functionality
 from recon.mixins.threads import ThreadingMixin
 # module specific imports
-import os
+import time
+
 
 class Module(BaseModule, ThreadingMixin):
 
@@ -22,9 +23,10 @@ class Module(BaseModule, ThreadingMixin):
         'comments': (),
         'query': 'SELECT DISTINCT domain FROM domains WHERE domain IS NOT NULL',
         'options': (
-            ('api_url', 'https://2.intelx.io/', 'True', 'Base URL. Is set by phonebook in it\'s config.js, but I have no indication it actually changes.'),
+            ('api_url', 'https://2.intelx.io/', 'True',
+             'Base URL. Is set by phonebook in it\'s config.js, but I have no indication it actually changes.'),
             ('limit', 10000, 'True', 'Maximum number of results ro return.')
-            ),
+        ),
     }
 
     # "name", "author", "version", and "description" are required entries
@@ -41,10 +43,10 @@ class Module(BaseModule, ThreadingMixin):
     # "comments" are completely optional
 
     # optional method
-    #def module_pre(self):
-        # override this method to execute code prior to calling the "module_run" method
-        # returned values are passed to the "module_run" method and must be captured in a parameter
-       # return value
+    # def module_pre(self):
+    # override this method to execute code prior to calling the "module_run" method
+    # returned values are passed to the "module_run" method and must be captured in a parameter
+    # return value
 
     # mandatory method
     # the second parameter is required to capture the result of the "SOURCE" option, which means that it is only required if "query" is defined within "meta"
@@ -56,37 +58,141 @@ class Module(BaseModule, ThreadingMixin):
         # use the "self.workspace" class property to access the workspace location
         # threading can be used anywhere with the module through the usage of the "self.thread" api call
         # the "self.thread" api call requires a "module_thread" method which acts as the worker for each item in a queue
-        api_key=self.keys.get('intelx')
-        limit=self.options.get('limit')
-        api_url=self.options.get('API_URL')
+        self.API_KEY = self.keys.get('intelx')
+        self.API_ROOT = self.options.get('API_URL')
+        if self.API_ROOT[-1] == '/':
+            self.API_ROOT = self.API_ROOT[:-1]
+        self.debug(self.API_ROOT)
+        limit = self.options.get('limit')
 
         # "self.thread" takes at least one argument
         # the first argument must be an iterable that contains all of the items to fill the queue
         # all other arguments get blindly passed to the "module_thread" method where they can be accessed at the thread level
-        self.thread(domains, api_key, api_url, limit)
-
+        self.thread(domains, limit)
 
     # optional method
     # the first received parameter is required to capture an item from the queue
     # all other parameters passed in to "self.thread" must be accounted for
-    def module_thread(self, domain, api_key, api_url, limit):
+
+    def module_thread(self, domain, limit):
         # never catch KeyboardInterrupt exceptions in the "module_thread" method as threads don't see them
         # do something leveraging the api methods discussed below
-        data = {'term': domain, 
-                'target': 2,
-                'timeout': 20,
-                'maxresults': limit
-                }
-        res = self.request('POST', "{url}phonebook/search?k={key}".format(url=api_url, key=api_key), json=data)
-        self.debug(res.json())
-        query_id = res.json()['id']
 
-        r2 = self.request('GET', "{u}phonebook/search/result?k={k}&id={i}&limit={l}".format(u=api_url, k=api_key, i=query_id, l=limit))
-        self.debug(r2.json())
-        for data in r2.json()['selectors']:
-            if data['selectortype'] == 1:
-                self.insert_contacts(email=data['selectorvalue'])
-                self.output(data['selectorvalue'])
-            else:
-                self.verbose("I don't know what to do with this")
-                self.verbose(data)
+        phonebook_res = self.phonebooksearch(domain, limit)
+        for i in phonebook_res:
+            for data in i['selectors']:
+                if data['selectortype'] == 1:
+                    self.insert_contacts(email=data['selectorvalue'])
+                else:
+                    self.verbose("I don't know what to do with this")
+                    self.verbose(data)
+
+    # Everything from here on is (based on) stolen code from the IntelX API SDK
+    # https://github.com/IntelligenceX/SDK/blob/master/Python/intelxapi.py
+
+    def phonebooksearch(self, term, maxresults=10000, buckets=[], timeout=5, datefrom="", dateto="", sort=4, media=0, terminate=[], target=2):
+        """
+        Conduct a phonebook search based on a search term.
+        Other arguments have default values set, however they can be overridden to complete an advanced search.
+        """
+        results = []
+        done = False
+        search_id = self.PHONEBOOK_SEARCH(
+            term, maxresults, buckets, timeout, datefrom, dateto, sort, media, terminate, target)
+        if (len(str(search_id)) <= 3):
+            self.error(
+                f"intelx.PHONEBOOK_SEARCH() Received {self.get_error(search_id)}")
+        while done == False:
+            # lets give the backend a chance to aggregate our data
+            time.sleep(1)
+            r = self.query_pb_results(search_id, maxresults)
+            results.append(r)
+            maxresults -= len(r['selectors'])
+            if (r['status'] == 1 or r['status'] == 2 or maxresults <= 0):
+                if (maxresults <= 0):
+                    self.INTEL_TERMINATE_SEARCH(search_id)
+                done = True
+        return results
+
+    def INTEL_TERMINATE_SEARCH(self, uuid):
+        """
+        Terminate a previously initialized search based on its UUID.
+        """
+        h = {'x-key': self.API_KEY}
+        r = self.request('GET', self.API_ROOT +
+                         f'/intelligent/search/terminate?id={uuid}', headers=h)
+        if (r.status_code == 200):
+            return True
+        else:
+            return r.status_code
+
+    def PHONEBOOK_SEARCH(self, term, maxresults=100, buckets=[], timeout=5, datefrom="", dateto="", sort=4, media=0, terminate=[], target=0):
+        """
+        Initialize a phonebook search and return the ID of the task/search for further processing
+        """
+        h = {'x-key': self.API_KEY}
+        p = {
+            "term": term,
+            "buckets": buckets,
+            "lookuplevel": 0,
+            "maxresults": maxresults,
+            "timeout": timeout,
+            "datefrom": datefrom,
+            "dateto": dateto,
+            "sort": sort,
+            "media": media,
+            "terminate": terminate,
+            "target": target
+        }
+        r = self.request('POST', self.API_ROOT +
+                         '/phonebook/search', headers=h, json=p)
+        if r.status_code == 200:
+            return r.json()['id']
+        else:
+            return r.status_code
+
+    def PHONEBOOK_SEARCH_RESULT(self, id, limit=1000, offset=-1):
+        """
+        Fetch results from a phonebook search based on ID.
+        offset:
+        - Do not use. If omitted (default), each call will get the next available results.
+        ___________________________________________
+        RETURN VALUES
+        status (results status):
+        - 0: Sucess with results.
+        - 1: No more results available.
+        - 2: Search ID not found.
+        - 3: No results yet, but keep trying.
+        """
+        h = {'x-key': self.API_KEY}
+        r = self.request('GET', self.API_ROOT +
+                         f'/phonebook/search/result?id={id}&limit={limit}&offset={offset}', headers=h)
+        if (r.status_code == 200):
+            return r.json()
+        else:
+            return r.status_code
+
+    def query_pb_results(self, id, limit):
+        """
+        Query the results fom a phonebook search.
+        Meant for usage within loops.
+        """
+        results = self.PHONEBOOK_SEARCH_RESULT(id, limit)
+        return results
+
+    def get_error(self, code):
+        """
+        Get error string by respective HTTP response code.
+        """
+        if code == 200:
+            return "200 | Success"
+        if code == 204:
+            return "204 | No Content"
+        if code == 400:
+            return "400 | Bad Request"
+        if code == 401:
+            return "401 | Unauthorized"
+        if code == 402:
+            return "402 | Payment required."
+        if code == 404:
+            return "404 | Not Found"
