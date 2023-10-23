@@ -866,17 +866,18 @@
   - binaryedge_api
   version: '1.0'
 - author: Tim Tomes (@lanmaster53) and Matt Puckett (@t3lc0) & Ryan Hays (@_ryanhays)
+    & Brian Yip (@r0kit)
   dependencies:
   - shodan
   description: Harvests port information from the Shodan API by using the 'ip' search
     operator. Updates the 'ports' table with the results.
   files: []
-  last_updated: '2020-07-01'
+  last_updated: '2020-10-30'
   name: Shodan IP Enumerator
   path: recon/hosts-ports/shodan_ip
   required_keys:
   - shodan_api
-  version: '1.2'
+  version: '1.3'
 - author: Quentin Kaiser (contact@quentinkaiser.be)
   dependencies: []
   description: Queries the Google Maps API to obtain coordinates for an address. Updates
