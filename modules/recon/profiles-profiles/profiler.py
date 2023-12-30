@@ -7,7 +7,7 @@ class Module(BaseModule, ThreadingMixin):
     meta = {
         'name': 'OSINT HUMINT Profile Collector',
         'author': 'Micah Hoffman (@WebBreacher), Brendan Burke (@gbinv)',
-        'version': '1.1',
+        'version': '1.2',
         'description': 'Takes each username from the profiles table and searches a variety of web sites for those users. The list of valid sites comes from the parent project at https://github.com/WebBreacher/WhatsMyName',
         'comments': (
             'Note: The global timeout option may need to be increased to support slower sites.',
