@@ -27,7 +27,7 @@ class Module(BaseModule, ThreadingMixin):
 
     def module_thread(self, site, user):
         d = dict(site)
-        if d['valid'] == True:
+        if d.get('valid', True) == True:
             self.verbose(f"Checking: {d['name']}")
             url = d['uri_check'].replace('{account}', quote_plus(user))
             resp = self.request('GET', url, allow_redirects=False)
