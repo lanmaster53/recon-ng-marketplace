@@ -6,62 +6,47 @@ from censys.common.exceptions import CensysException
 
 class Module(BaseModule):
     meta = {
-        "name": "Censys - Hosts by domain",
+        "name": "Censys - Domains by Company",
         "author": "Censys, Inc. <support@censys.io>",
         "version": 2.1,
         "description": (
-            "Retrieves hosts for a domain. This module queries queries domain"
-            " names and updates the 'hosts' and the 'ports' tables with the"
+            "Retrieves the TLS certificates for a domain. This module queries"
+            " the 'services.tls.certificates.leaf_data.subject.organization'"
+            " field and updates the 'hosts' and 'ports' tables with the"
             " results."
         ),
         "query": (
-            "SELECT DISTINCT domain FROM domains WHERE domain IS NOT NULL"
+            "SELECT DISTINCT company FROM companies WHERE company IS NOT NULL"
         ),
         "required_keys": ["censysio_id", "censysio_secret"],
-        "options": [
-            (
-                "virtual_hosts",
-                "ONLY",
-                False,
-                "Whether to include virtual hosts in the results",
-            ),
-            (
-                "per_page",
-                "100",
-                False,
-                "The number of results to return per page",
-            ),
-            (
-                "pages",
-                "1",
-                False,
-                "The number of pages to retrieve",
-            ),
-        ],
         "dependencies": ["censys>=2.1.2"],
     }
 
-    def module_run(self, domains):
+    def module_run(self, companies):
         api_id = self.get_key("censysio_id")
         api_secret = self.get_key("censysio_secret")
         c = CensysHosts(api_id, api_secret)
-        for domain in domains:
-            domain = domain.strip('"')
-            self.heading(domain, level=0)
+        for company in companies:
+            company = company.strip('"')
+            self.heading(company, level=0)
             try:
                 query = c.search(
-                    f"{domain}",
-                    per_page=int(self.options.get("PER_PAGE", "100")),
-                    pages=int(self.options.get("PAGES", "1")),
-                    virtual_hosts=self.options.get("VIRTUAL_HOSTS", "ONLY"),
+                    f'services.tls.certificates.leaf_data.subject.organization:"{company}"',
+                    virtual_hosts="INCLUDE",
                 )
             except CensysException:
                 self.print_exception()
                 continue
             for hit in query():
+                ip = hit["ip"]
+                name = hit.get("name")
+                if name:
+                    self.insert_domains(
+                        domain=name, notes="+".join((ip, name))
+                    )
                 common_kwargs = {
-                    "ip_address": hit["ip"],
-                    "host": hit.get("name"),
+                    "ip_address": ip,
+                    "host": name,
                 }
                 location = hit.get("location", {})
                 coords = location.get("coordinates", {})
