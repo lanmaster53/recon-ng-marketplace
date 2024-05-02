@@ -7,7 +7,7 @@ class Module(BaseModule):
     meta = {
         'name': 'Certificate Transparency Search',
         'author': 'Rich Warren (richard.warren@nccgroup.trust)',
-        'version': '1.2',
+        'version': '1.3',
         'description': 'Searches certificate transparency data from crt.sh, adding newly identified hosts to the hosts '
                        'table.',
         'comments': (
@@ -19,7 +19,11 @@ class Module(BaseModule):
     def module_run(self, domains):
         for domain in domains:
             self.heading(domain, level=0)
-            resp = self.request('GET', f"https://crt.sh/?q=%25.{domain}&output=json")
+            resp = self.request(
+                'GET',
+                f"https://crt.sh/?q=%25.{domain}&output=json",
+                headers={"Accept": "application/json"},
+            )
             
             if resp.status_code != 200:
                 self.output(f"Invalid response for '{domain}'")
