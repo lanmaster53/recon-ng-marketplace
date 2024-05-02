@@ -1039,7 +1039,7 @@
     of web sites for those users. The list of valid sites comes from the parent project
     at https://github.com/WebBreacher/WhatsMyName
   files: []
-  last_updated: '2023-02-05'
+  last_updated: '2023-12-30'
   name: OSINT HUMINT Profile Collector
   path: recon/profiles-profiles/profiler
   required_keys: []
