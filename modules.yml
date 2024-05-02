@@ -463,6 +463,17 @@
   path: recon/domains-contacts/wikileaker
   required_keys: []
   version: '1.0'
+- author: '@TheToddLuci0'
+  dependencies: []
+  description: Gather exposed hashes from DeHashed.com
+  files: []
+  last_updated: '2022-12-02'
+  name: DeHashed Domain Search
+  path: recon/domains-credentials/dehashed_domain
+  required_keys:
+  - dehashed_api
+  - dehashed_email
+  version: 0.0.1
 - author: Tim Tomes (@lanmaster53)
   dependencies:
   - pyaes
