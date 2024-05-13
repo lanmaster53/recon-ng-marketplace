@@ -796,6 +796,17 @@
   path: recon/hosts-locations/migrate_hosts
   required_keys: []
   version: '1.0'
+- author: Andrey Zhukov from USSC
+  dependencies:
+  - ipwhois
+  description: Finding subnets through Whois relying on IP addresses from 'hosts'
+    table. Updates 'netblocks', 'locations' and 'contacts' tables.
+  files: []
+  last_updated: '2020-04-22'
+  name: Hosts to Netblocks Migrator
+  path: recon/hosts-netblocks/migrate_hosts
+  required_keys: []
+  version: '1.0'
 - author: Ryan Hays
   dependencies: []
   description: Uses the BinaryEdge API to discover open services for IP Addresses.
