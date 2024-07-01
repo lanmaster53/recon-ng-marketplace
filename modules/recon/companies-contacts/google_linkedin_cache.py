@@ -58,7 +58,7 @@ class Module(BaseModule, GoogleAPIMixin):
     def get_contact_info(self, cache):
         (name, snippet, url, company) = cache
         fullname, fname, mname, lname = self.parse_fullname(name)
-        if fname is None or 'LinkedIn' in fullname or 'profiles' in name.lower() or re.search('^\d+$',fname): 
+        if fname is None or 'LinkedIn' in fullname or 'profiles' in name.lower() or re.search(r'^\d+$',fname): 
             # if 'name' has these, it's not a person.
             pass
         elif '\\u2013' in snippet:
@@ -96,11 +96,11 @@ class Module(BaseModule, GoogleAPIMixin):
         company = company[:5].lower()   # if no variant of company name in snippet, then no title.
         jobtitle = 'Undetermined'       # default if no title found
         chunks   = snippet.split('...') # if more than one '...' then no title or can't predict where it is
-        if ' at ' in snippet and not 'See who you know' in snippet and company in snippet.lower() and len(chunks) < 3:
+        if ' at ' in snippet and 'See who you know' not in snippet and company in snippet.lower() and len(chunks) < 3:
             if re.search('^View ', snippet):    # here we want the string after " ... " and before " at "
-                m = re.search('\.{3} (?P<title>.+?) at ', snippet)
+                m = re.search(r'\.{3} (?P<title>.+?) at ', snippet)
             else:                                   # here we want the string after "^$employeename. " and before " at "
-                m = re.search('^[^.]+. (?P<title>.+?) at ', snippet)
+                m = re.search(r'^[^.]+. (?P<title>.+?) at ', snippet)
             try:
                 jobtitle = m.group('title')
             except AttributeError:
