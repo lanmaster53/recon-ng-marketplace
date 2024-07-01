@@ -92,6 +92,23 @@
   required_keys:
   - bing_api
   version: '1.0'
+- author: Jan-Jaap Korpershoek (@JJK96), Joe Black (@MyChickenNinja), @fullmetalcache,
+    and Brian King
+  dependencies: []
+  description: Harvests profiles from LinkedIn by querying the Google API cache for
+    LinkedIn pages related to the given companies, and adds them to the 'profiles'
+    table. The module will then parse the resulting information to extract the user's
+    full name and job title (title parsing recently improved). The user's full name
+    and title are then added to the 'contacts' table. This module does not access
+    LinkedIn at any time.
+  files: []
+  last_updated: '2024-07-01'
+  name: Google Cache Linkedin Profile and Contact Harvester
+  path: recon/companies-contacts/google_linkedin_cache
+  required_keys:
+  - google_api
+  - google_cse
+  version: '1.0'
 - author: Censys, Inc. <support@censys.io>
   dependencies:
   - censys>=2.1.2
