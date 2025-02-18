@@ -550,6 +550,15 @@
   path: recon/domains-hosts/certificate_transparency
   required_keys: []
   version: '1.3'
+- author: Jan-Jaap Korpershoek (@JJK96)
+  dependencies: []
+  description: Searches AlienVault for subdomains
+  files: []
+  last_updated: '2025-02-18'
+  name: Alienvault
+  path: recon/domains-hosts/alienvault
+  required_keys: []
+  version: '1.0'  
 - author: Tim Tomes (@lanmaster53)
   dependencies: []
   description: Harvests hosts from Google.com by using the 'site' search operator.
