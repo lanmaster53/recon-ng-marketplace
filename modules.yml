@@ -484,6 +484,17 @@
   required_keys:
   - binaryedge_api
   version: '1.2'
+- author: Jan-Jaap Korpershoek (@jjk96)
+  dependencies: []
+  description: Uses the SecurityTrails API to find host names. Updates the 'hosts'
+    table with the results.
+  files: []
+  last_updated: '2025-09-02'
+  name: SecurityTrails
+  path: recon/domains-hosts/securitytrails
+  required_keys:
+  - securitytrails_api
+  version: '1.0'
 - author: Marcus Watson (@BranMacMuffin)
   dependencies: []
   description: Leverages the Bing API and "domain:" advanced search operator to harvest
