@@ -17,7 +17,7 @@ class Module(BaseModule):
             url = f"http://whois.arin.net/rest/pocs;domain={domain}"
             self.verbose(f"URL: {url}")
             resp = self.request('GET', url, headers=headers)
-            if 'Your search did not yield any results.' in resp.text:
+            if 'Sorry, there were no results.' in resp.text:
                 self.output('No contacts found.')
                 continue
             handles = [x['@handle'] for x in resp.json()['pocs']['pocRef']] if type(resp.json()['pocs']['pocRef']) == list else [resp.json()['pocs']['pocRef']['@handle']]
