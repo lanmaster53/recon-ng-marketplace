@@ -1,13 +1,17 @@
 from recon.core.module import BaseModule
 
+
 class Module(BaseModule):
 
     meta = {
         'name': 'Whois POC Harvester',
         'author': 'Tim Tomes (@lanmaster53)',
-        'version': '1.0',
-        'description': 'Uses the ARIN Whois RWS to harvest POC data from whois queries for the given domain. Updates the \'contacts\' table with the results.',
-        'query': 'SELECT DISTINCT domain FROM domains WHERE domain IS NOT NULL',
+        'version': '1.1',
+        'description': ('Uses the ARIN Whois RWS to harvest POC data'
+                        'from whois queries for the given domain. '
+                        'Updates the \'contacts\' table with the results.'),
+        'query': ('SELECT DISTINCT domain '
+                  'FROM domains WHERE domain IS NOT NULL'),
     }
 
     def module_run(self, domains):
@@ -26,7 +30,8 @@ class Module(BaseModule):
                 self.verbose(f"URL: {url}")
                 resp = self.request('GET', url, headers=headers)
                 poc = resp.json()['poc']
-                emails = poc['emails']['email'] if type(poc['emails']['email']) == list else [poc['emails']['email']]
+                emails = poc['emails']['email'] \
+                    if type(poc['emails']['email']) == list else [poc['emails']['email']]
                 for email in emails:
                     fname = poc['firstName']['$'] if 'firstName' in poc else None
                     lname = poc['lastName']['$']

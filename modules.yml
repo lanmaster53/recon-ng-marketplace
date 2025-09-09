@@ -445,11 +445,11 @@
   description: Uses the ARIN Whois RWS to harvest POC data from whois queries for
     the given domain. Updates the 'contacts' table with the results.
   files: []
-  last_updated: '2019-06-24'
+  last_updated: '2025-09-08'
   name: Whois POC Harvester
   path: recon/domains-contacts/whois_pocs
   required_keys: []
-  version: '1.0'
+  version: '1.1'
 - author: Joe Gray (@C_3PJoe)
   dependencies: []
   description: A WikiLeaks scraper inspired by the Datasploit module previously written
