@@ -75,13 +75,13 @@ class Module(BaseModule):
         self.verbose("{} people found for {}".format(results, domain))
 
     def process_data(self, data):
-        country = data['country']
-        region = data['state']
+        country = data.get('country', None)
+        region = data.get('state', None)
 
         for registry in data['emails']:
             contact = {
-                "first_name": registry["first_name"],
-                "last_name": registry["last_name"],
+                "first_name": registry.get("first_name", None),
+                "last_name": registry.get("last_name", None),
                 "email": registry["value"],
                 "country": country,
                 "region": region
