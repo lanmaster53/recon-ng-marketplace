@@ -1022,6 +1022,17 @@
   required_keys:
   - github_api
   version: '1.0'
+- author: Burak Bayir (@kriptoburak)
+  dependencies: []
+  description: Uses the Xquik API to enrich X/Twitter profiles with contact data.
+    Updates the 'contacts' table with the results.
+  files: []
+  last_updated: '2026-06-13'
+  name: Xquik Profile Contact Harvester
+  path: recon/profiles-contacts/xquik
+  required_keys:
+  - xquik_api
+  version: '1.0'
 - author: Tim Tomes (@lanmaster53), thrapt (thrapt@gmail.com) and Ryan Hays (@_ryanhays)
   dependencies: []
   description: Leverages NameChk.com API to validate the existance of usernames on
