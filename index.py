@@ -15,6 +15,10 @@ def _build_options(*args, **kwargs):
 
 ghdb = None
 patterns = {}
+# permute.py references this module-level constant from inside its meta block
+# (options default). The index never reads `options`, so any value works — it
+# just has to be a defined name so exec() of the meta dict doesn't NameError.
+DEFAULT_WORDS = []
 
 ##### END DUMMY OBJECTS #####
 
@@ -40,15 +44,18 @@ def parse_meta(filepath):
     end = '    }\n'
     with open(filepath) as fp:
         state = False
-        meta_src = ''
+        lines = []
         for line in fp:
             if line == begin:
                 state = True
             if state:
-                meta_src += line.strip()
+                lines.append(line.strip())
             if line == end and state == True:
                 break
-    return meta_src or 'meta = {}'
+    # Join with newlines (not bare concatenation) so a full-line `#` comment
+    # inside the meta block stays a comment instead of swallowing the rest of
+    # the dict on the same logical line.
+    return '\n'.join(lines) or 'meta = {}'
 
 def build_new_modules_for_yaml():
     module_paths = get_module_paths()
@@ -93,6 +100,14 @@ def merge_lists_of_modules(old, new, key='path'):
                 break
         if not updated:
             modules.append(item_old)
+    # Append modules that exist on disk but aren't in the old index yet —
+    # without this, newly added modules are silently never indexed.
+    old_keys = {item_old[key] for item_old in old}
+    for item_new in new:
+        if item_new[key] not in old_keys:
+            print(f"New module indexed: {item_new[key]}.")
+            item_new['last_updated'] = datetime.strftime(datetime.now(), '%Y-%m-%d')
+            modules.append(item_new)
     return modules
 
 def main():

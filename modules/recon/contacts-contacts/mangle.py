@@ -32,7 +32,7 @@ class Module(BaseModule):
             mname = contact[2]
             lname = contact[3]
             email = self.options['pattern']
-            sub_pattern = '[\s]'
+            sub_pattern = r'[\s]'
             substitute = self.options['substitute']
             items = {'<fn>': '', '<fi>': '', '<mn>': '', '<mi>': '', '<ln>': '', '<li>': ''}
             if fname:

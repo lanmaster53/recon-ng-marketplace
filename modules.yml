@@ -119,11 +119,11 @@
   version: '1.1'
 - author: Censys, Inc. <support@censys.io>
   dependencies:
-  - censys>=2.1.2
+  - censys>=2.2.0
   description: Retrieves subdomains for a company. This module queries the 'parsed.subject.organization'
     field and updates the 'domains' table with the results.
   files: []
-  last_updated: '2022-01-31'
+  last_updated: '2026-06-11'
   name: Censys - Subdomains by Company
   path: recon/companies-domains/censys_subdomains
   required_keys:
@@ -217,11 +217,11 @@
     and contacts associated with the given company search string. Updates the respective
     tables with the results.
   files: []
-  last_updated: '2019-10-15'
+  last_updated: '2025-09-12'
   name: Whois Data Miner
   path: recon/companies-multi/whois_miner
   required_keys: []
-  version: '1.1'
+  version: '1.2'
 - author: Cam Barts (@cam-barts)
   dependencies:
   - beautifulsoup4
@@ -410,12 +410,12 @@
 - author: Tim Tomes (@lanmaster53)
   dependencies:
   - olefile
-  - pypdf3
+  - pypdf
   - lxml
   description: Searches for files associated with the provided domain(s) and extracts
     any contact related metadata.
   files: []
-  last_updated: '2019-06-24'
+  last_updated: '2026-06-11'
   name: Meta Data Extractor
   path: recon/domains-contacts/metacrawler
   required_keys: []
@@ -445,11 +445,11 @@
   description: Uses the ARIN Whois RWS to harvest POC data from whois queries for
     the given domain. Updates the 'contacts' table with the results.
   files: []
-  last_updated: '2019-06-24'
+  last_updated: '2025-09-08'
   name: Whois POC Harvester
   path: recon/domains-contacts/whois_pocs
   required_keys: []
-  version: '1.0'
+  version: '1.1'
 - author: Joe Gray (@C_3PJoe)
   dependencies: []
   description: A WikiLeaks scraper inspired by the Datasploit module previously written
@@ -505,17 +505,18 @@
   path: recon/domains-hosts/bing_domain_web
   required_keys: []
   version: '1.1'
-- author: Tim Tomes (@lanmaster53)
+- author: Tim Tomes (@lanmaster53); provenance opt-in by Nicholas Curran
   dependencies: []
   description: Brute forces host names using DNS. Updates the 'hosts' table with the
-    results.
+    results. Records provenance chain on each insert (e.g. "alienvault.brute_hosts")
+    so it is traceable how each discovered host arrived.
   files:
   - hostnames.txt
-  last_updated: '2019-06-24'
+  last_updated: '2026-06-11'
   name: DNS Hostname Brute Forcer
   path: recon/domains-hosts/brute_hosts
   required_keys: []
-  version: '1.0'
+  version: '1.1'
 - author: Tim Tomes (@lanmaster53)
   dependencies: []
   description: Leverages the BuiltWith API to identify hosts, technologies, and contacts
@@ -540,16 +541,17 @@
   - censysio_id
   - censysio_secret
   version: 2.1
-- author: Rich Warren (richard.warren@nccgroup.trust)
+- author: Rich Warren (richard.warren@nccgroup.trust); revisions by Nicholas Curran
   dependencies: []
-  description: Searches certificate transparency data from crt.sh, adding newly identified
-    hosts to the hosts table.
+  description: Searches certificate transparency data via crt.sh, adding newly identified
+    hosts to the hosts table. SAN entries are filtered against the queried domain
+    so unrelated tenants from multi-tenant certificates are not ingested.
   files: []
-  last_updated: '2019-09-16'
-  name: Certificate Transparency Search
+  last_updated: '2026-06-11'
+  name: Certificate Transparency Search (crt.sh)
   path: recon/domains-hosts/certificate_transparency
   required_keys: []
-  version: '1.3'
+  version: '1.4'
 - author: Tim Tomes (@lanmaster53)
   dependencies: []
   description: Harvests hosts from Google.com by using the 'site' search operator.
@@ -1192,3 +1194,80 @@
   path: reporting/xml
   required_keys: []
   version: '1.1'
+- author: Nicholas Curran (@ncurran)
+  dependencies: []
+  description: Searches for Autonomous System Numbers associated with each company
+    and inserts all announced IP prefixes into the netblocks table. Uses the HackerTarget
+    ASN lookup API.
+  files: []
+  last_updated: '2026-06-11'
+  name: ASN Lookup
+  path: recon/companies-netblocks/asn_lookup
+  required_keys: []
+  version: '1.0'
+- author: Nicholas Curran (@ncurran)
+  dependencies: []
+  description: Queries the AlienVault OTX url_list endpoint for each domain and extracts
+    unique subdomains. No API key required. Paginates automatically until OTX signals
+    no more pages or the max_pages option is reached.
+  files: []
+  last_updated: '2026-06-11'
+  name: AlienVault OTX Subdomain Enumerator
+  path: recon/domains-hosts/alienvault
+  required_keys: []
+  version: '1.0'
+- author: Nicholas Curran
+  dependencies: []
+  description: Searches certificate transparency data via the SSLMate Certspotter
+    API, adding newly identified hosts to the hosts table. Paginates automatically
+    until all issuances are retrieved.
+  files: []
+  last_updated: '2026-06-11'
+  name: Certspotter Certificate Transparency
+  path: recon/domains-hosts/certspotter
+  required_keys: []
+  version: '1.1'
+- author: Nicholas Curran (@ncurran)
+  dependencies: []
+  description: "Passive subdomain enumeration via Shodan's free Certificate Transparency\
+    \ log mirror (ctl.shodan.io). Adds newly identified hosts to the hosts table.\
+    \ This is the most reliable free CT source \u2014 useful as a primary alongside\
+    \ crt.sh / certspotter / subdomain_center."
+  files: []
+  last_updated: '2026-06-11'
+  name: Shodan CT Logs (ctl.shodan.io)
+  path: recon/domains-hosts/shodan_ct
+  required_keys: []
+  version: '1.0'
+- author: Nicholas Curran (@ncurran)
+  dependencies: []
+  description: "Passive subdomain enumeration via the public subdomain.center API.\
+    \ Different failure mode than crt.sh / certspotter \u2014 useful as a redundant\
+    \ CT-adjacent source when stacking free providers."
+  files: []
+  last_updated: '2026-06-11'
+  name: Subdomain Center
+  path: recon/domains-hosts/subdomain_center
+  required_keys: []
+  version: '1.0'
+- author: Nicholas Curran (@ncurran)
+  dependencies: []
+  description: Queries the Wayback Machine CDX API for all archived URLs under each
+    domain and inserts discovered subdomains into the hosts table.
+  files: []
+  last_updated: '2026-06-11'
+  name: Wayback Machine Subdomain Enumerator
+  path: recon/domains-hosts/wayback
+  required_keys: []
+  version: '1.0'
+- author: Nicholas Curran (@ncurran)
+  dependencies: []
+  description: Generates common permutations of known hostnames (dev-, staging-, api-,
+    -2, etc.), resolves each via DNS, and inserts any that return an A record into
+    the hosts table. Equivalent to altdns/alterx.
+  files: []
+  last_updated: '2026-06-11'
+  name: Hostname Permutation
+  path: recon/hosts-hosts/permute
+  required_keys: []
+  version: '1.2'

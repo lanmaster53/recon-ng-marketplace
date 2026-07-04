@@ -1,6 +1,6 @@
 from recon.core.module import BaseModule
 
-from censys.search import CensysCertificates
+from censys.search import CensysCerts
 from censys.common.exceptions import CensysException
 
 
@@ -21,17 +21,18 @@ class Module(BaseModule):
             ("max_records", 100, True, "maximum number of records to retrieve")
         ],
         "required_keys": ["censysio_id", "censysio_secret"],
-        "dependencies": ["censys>=2.1.2"],
+        "dependencies": ["censys>=2.2.0"],
     }
 
     def module_run(self, companies):
         api_id = self.get_key("censysio_id")
         api_secret = self.get_key("censysio_secret")
-        c = CensysCertificates(api_id, api_secret)
+        c = CensysCerts(api_id=api_id, api_secret=api_secret)
         SEARCH_FIELDS = [
             "parsed.subject.organization",
             "parsed.subject.organizational_unit",
         ]
+        max_records = self.options.get("max_records", 100)
         for company in companies:
             company = company.strip('"')
             self.heading(company, level=0)
@@ -39,19 +40,23 @@ class Module(BaseModule):
                 query = " OR ".join(
                     ['{0}:"{1}"'.format(x, company) for x in SEARCH_FIELDS]
                 )
+                per_page = min(max_records, 100)
+                pages = max(1, -(-max_records // per_page))
                 res = c.search(
                     query,
-                    ["parsed.names"],
-                    max_records=self.options.get("max_records", 100),
+                    fields=["parsed.names"],
+                    per_page=per_page,
+                    pages=pages,
                 )
             except CensysException:
                 self.print_exception()
                 continue
             domains = set()
-            for result in res:
-                for name in result.get("parsed.names", []):
-                    if name.startswith("*."):
-                        name = name.replace("*.", "")
-                    domains.add(name)
+            for page in res:
+                for result in page:
+                    for name in result.get("parsed.names", []):
+                        if name.startswith("*."):
+                            name = name.replace("*.", "")
+                        domains.add(name)
             for domain in domains:
                 self.insert_domains(domain=domain)

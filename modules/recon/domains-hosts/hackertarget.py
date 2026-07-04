@@ -21,12 +21,18 @@ class Module(BaseModule):
             if resp.text == '':
                 self.output('No results found.')
                 continue
+            if 'API count exceeded' in resp.text:
+                self.error('Daily API quota exceeded. Retry tomorrow or set a HackerTarget API key.')
+                break
             if resp.text.startswith('error'):
                 self.error(resp.text)
                 continue
             for line in resp.text.split("\n"):
                 line = line.strip()
-                if line == '':
+                if not line:
                     continue
-                host, address = line.split(",")
+                parts = line.split(",", 1)
+                if len(parts) != 2:
+                    continue
+                host, address = parts
                 self.insert_hosts(host=host, ip_address=address)

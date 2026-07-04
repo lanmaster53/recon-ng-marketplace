@@ -1,7 +1,7 @@
 from recon.core.module import BaseModule
 from recon.mixins.search import GoogleWebMixin
-from PyPDF3 import PdfFileReader
-from PyPDF3.utils import PdfReadError
+from pypdf import PdfReader
+from pypdf.errors import PdfReadError
 from io import BytesIO
 import itertools
 import lxml.etree
@@ -37,16 +37,13 @@ def ooxml_parser(s):
 
 def pdf_parser(s):
     s = s.strip()
-    # required to suppress warning messages
-    with open(os.devnull, 'w') as fp:
-        pdf = PdfFileReader(BytesIO(s), strict=False, warndest=fp)
-    if pdf.isEncrypted:
+    pdf = PdfReader(BytesIO(s), strict=False)
+    if pdf.is_encrypted:
         try:
             pdf.decrypt('')
         except NotImplementedError:
             return {}
-    meta = pdf.getDocumentInfo() or {}
-    #print(str(meta))
+    meta = pdf.metadata or {}
     result = {}
     for key in meta.keys():
         result[key[1:]] = meta.get(key)
@@ -72,7 +69,7 @@ class Module(BaseModule, GoogleWebMixin):
         'options': (
             ('extract', False, True, 'extract metadata from discovered files'),
         ),
-        'dependencies': ['olefile', 'pypdf3', 'lxml'],
+        'dependencies': ['olefile', 'pypdf', 'lxml'],
     }
 
     def module_run(self, domains):

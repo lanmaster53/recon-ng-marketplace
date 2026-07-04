@@ -46,7 +46,7 @@ class Module(BaseModule):
                                                   "contains(text(), 'Created')]/span, '')").strip()
                                 excerpt = i.xpath("concat(div[@class='info']/div[@class='excerpt'], '')").strip()
 
-                                emails = re.findall("email:\\xa0([a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+)",
+                                emails = re.findall(r"email:\xa0([a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+)",
                                                     excerpt)
 
                                 for email in emails:
