@@ -80,7 +80,9 @@ def get_old_modules_from_yaml():
 
 def merge_lists_of_modules(old, new, key='path'):
     modules = []
+    indexed_keys = set()
     for item_old in old:
+        indexed_keys.add(item_old[key])
         updated = False
         for item_new in new:
             if item_old[key] == item_new[key]:
@@ -93,6 +95,15 @@ def merge_lists_of_modules(old, new, key='path'):
                 break
         if not updated:
             modules.append(item_old)
+    for item_new in new:
+        if item_new[key] in indexed_keys:
+            continue
+        item_new = {
+            **item_new,
+            'last_updated': datetime.strftime(datetime.now(), '%Y-%m-%d'),
+        }
+        modules.append(item_new)
+        indexed_keys.add(item_new[key])
     return modules
 
 def main():
