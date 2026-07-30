@@ -1024,10 +1024,10 @@
   version: '1.0'
 - author: Burak Bayir (@kriptoburak)
   dependencies: []
-  description: Uses the Xquik API to enrich X/Twitter profiles with contact data.
-    Updates the 'contacts' table with the results.
+  description: Queries Xquik for X profile data and adds names and locations to the
+    'contacts' table.
   files: []
-  last_updated: '2026-06-13'
+  last_updated: '2026-07-30'
   name: Xquik Profile Contact Harvester
   path: recon/profiles-contacts/xquik
   required_keys:
